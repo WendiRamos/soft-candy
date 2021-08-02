@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SoftCandy.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Celular)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Celular)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID_Cliente">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID_Cliente">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID_Cliente">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
