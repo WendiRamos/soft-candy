@@ -1,47 +1,53 @@
 ﻿@model IEnumerable<SoftCandy.Models.Cliente>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Clientes";
 }
-
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<p></p>
+<div> <a asp-controller="Cliente" asp-action="Create" class="btn btn-secondary">Novo Cliente</a></div>
+<p></p>
 <table class="table">
     <thead>
-        <tr>
+        <tr class="bg-primary">
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                <font color="black">@Html.DisplayNameFor(model => model.ID_Cliente)</font>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Celular)
+                <font color="black">@Html.DisplayNameFor(model => model.Nome)</font>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Endereco)
+                <font color="black">@Html.DisplayNameFor(model => model.Celular)</font>
+            </th>
+            <th>
+                <font color="black">@Html.DisplayNameFor(model => model.Endereco)</font>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (var item in Model)
+        {
+        <tr BGCOLOR="#F0FFFF">
             <td>
-                @Html.DisplayFor(modelItem => item.Nome)
+                <font color="black">@Html.DisplayFor(modelItem => item.ID_Cliente)</font>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Celular)
+                <font color="black">@Html.DisplayFor(modelItem => item.Nome)</font>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Endereco)
+                <font color="black"> @Html.DisplayFor(modelItem => item.Celular)</font>
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID_Cliente">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID_Cliente">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID_Cliente">Delete</a>
+                <font color="black">@Html.DisplayFor(modelItem => item.Endereco)</font>
+            </td>
+            <td>
+
+                <a asp-action="Edit" asp-route-id="@item.ID_Cliente"><font color="black">Editar</font></a> <font color="black">|</font>
+                <a asp-action="Details" asp-route-id="@item.ID_Cliente"><font color="black">Detalhes</font></a> <font color="black">|</font>
+                <a asp-action="Delete" asp-route-id="@item.ID_Cliente"><font color="black">Deletar</font></a>
+
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

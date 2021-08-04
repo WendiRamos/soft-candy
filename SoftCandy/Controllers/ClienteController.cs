@@ -1,5 +1,6 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -25,19 +26,19 @@ namespace SoftCandy.Controllers
             return View(await _context.Cliente.ToListAsync());
         }
 
-        // GET: Cliente/Details/5
+        // GET: Cliente/Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não foi fornecido!" });
             }
 
             var cliente = await _context.Cliente
                 .FirstOrDefaultAsync(m => m.ID_Cliente == id);
             if (cliente == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
             }
 
             return View(cliente);
@@ -50,8 +51,6 @@ namespace SoftCandy.Controllers
         }
 
         // POST: Cliente/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID_Cliente,Nome,Celular,Endereco")] Cliente cliente)
@@ -65,32 +64,30 @@ namespace SoftCandy.Controllers
             return View(cliente);
         }
 
-        // GET: Cliente/Edit/5
+        // GET: Cliente/Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não foi fornecido!" });
             }
 
             var cliente = await _context.Cliente.FindAsync(id);
             if (cliente == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
             }
             return View(cliente);
         }
 
-        // POST: Cliente/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Cliente/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID_Cliente,Nome,Celular,Endereco")] Cliente cliente)
         {
             if (id != cliente.ID_Cliente)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
             }
 
             if (ModelState.IsValid)
@@ -100,11 +97,11 @@ namespace SoftCandy.Controllers
                     _context.Update(cliente);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException e)
                 {
                     if (!ClienteExists(cliente.ID_Cliente))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(Error), new { message = e.Message });
                     }
                     else
                     {
@@ -116,19 +113,19 @@ namespace SoftCandy.Controllers
             return View(cliente);
         }
 
-        // GET: Cliente/Delete/5
+        // GET: Cliente/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não foi fornecido!" });
             }
 
             var cliente = await _context.Cliente
                 .FirstOrDefaultAsync(m => m.ID_Cliente == id);
             if (cliente == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
             }
 
             return View(cliente);
@@ -148,6 +145,16 @@ namespace SoftCandy.Controllers
         private bool ClienteExists(int id)
         {
             return _context.Cliente.Any(e => e.ID_Cliente == id);
+        }
+       
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+               Message = message,
+               RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }
