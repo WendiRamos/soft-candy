@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SoftCandy.Models.Produto>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<h2>Produtos</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-secondary">Criar Produto</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cod_Produto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome_Produto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco_Venda)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cod_Produto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome_Produto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco_Venda)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Cod_Produto">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Cod_Produto">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.Cod_Produto">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
