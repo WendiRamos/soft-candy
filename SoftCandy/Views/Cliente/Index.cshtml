@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Clientes";
 }
+<h2>Clientes</h2>
 <p></p>
 <div> <a asp-controller="Cliente" asp-action="Create" class="btn btn-secondary">Novo Cliente</a></div>
 <p></p>
@@ -10,7 +11,7 @@
     <thead>
         <tr class="bg-primary">
             <th>
-                <font color="black">@Html.DisplayNameFor(model => model.ID_Cliente)</font>
+                <font color="black">@Html.DisplayNameFor(model => model.Id_Cliente)</font>
             </th>
             <th>
                 <font color="black">@Html.DisplayNameFor(model => model.Nome)</font>
@@ -29,7 +30,7 @@
         {
         <tr BGCOLOR="#F0FFFF">
             <td>
-                <font color="black">@Html.DisplayFor(modelItem => item.ID_Cliente)</font>
+                <font color="black">@Html.DisplayFor(modelItem => item.Id_Cliente)</font>
             </td>
             <td>
                 <font color="black">@Html.DisplayFor(modelItem => item.Nome)</font>
@@ -42,9 +43,9 @@
             </td>
             <td>
 
-                <a asp-action="Edit" asp-route-id="@item.ID_Cliente"><font color="black">Editar</font></a> <font color="black">|</font>
-                <a asp-action="Details" asp-route-id="@item.ID_Cliente"><font color="black">Detalhes</font></a> <font color="black">|</font>
-                <a asp-action="Delete" asp-route-id="@item.ID_Cliente"><font color="black">Deletar</font></a>
+                <a asp-action="Edit" asp-route-id="@item.Id_Cliente"><font color="black">Editar</font></a> <font color="black">|</font>
+                <a asp-action="Details" asp-route-id="@item.Id_Cliente"><font color="black">Detalhes</font></a> <font color="black">|</font>
+                <a asp-action="Delete" asp-route-id="@item.Id_Cliente"><font color="black">Deletar</font></a>
 
             </td>
         </tr>

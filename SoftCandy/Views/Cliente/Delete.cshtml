@@ -11,10 +11,10 @@
     <h4>Cliente</h4>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ID_Cliente)
+            @Html.DisplayNameFor(model => model.Id_Cliente)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ID_Cliente)
+            @Html.DisplayFor(model => model.Id_Cliente)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
@@ -37,7 +37,7 @@
     </dl>
     <p></p>
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ID_Cliente" />
+        <input type="hidden" asp-for="Id_Cliente" />
         <input type="submit" value="Deletar" class="btn btn-danger" /> |
         <a asp-action="Index" class="btn btn-primary">Voltar</a>
     </form>

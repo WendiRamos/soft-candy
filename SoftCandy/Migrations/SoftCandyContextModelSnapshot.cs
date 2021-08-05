@@ -18,7 +18,7 @@ namespace SoftCandy.Migrations
 
             modelBuilder.Entity("SoftCandy.Models.Cliente", b =>
                 {
-                    b.Property<int>("ID_Cliente")
+                    b.Property<int>("Id_Cliente")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Celular");
@@ -27,9 +27,27 @@ namespace SoftCandy.Migrations
 
                     b.Property<string>("Nome");
 
-                    b.HasKey("ID_Cliente");
+                    b.HasKey("Id_Cliente");
 
                     b.ToTable("Cliente");
+                });
+
+            modelBuilder.Entity("SoftCandy.Models.Produto", b =>
+                {
+                    b.Property<int>("Cod_Produto")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descricao");
+
+                    b.Property<string>("Nome_Produto");
+
+                    b.Property<decimal>("Preco_Venda");
+
+                    b.Property<int>("Quantidade");
+
+                    b.HasKey("Cod_Produto");
+
+                    b.ToTable("Produto");
                 });
 #pragma warning restore 612, 618
         }

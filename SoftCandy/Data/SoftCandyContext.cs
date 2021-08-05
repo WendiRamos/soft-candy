@@ -15,5 +15,7 @@ namespace SoftCandy.Data
         }
 
         public DbSet<SoftCandy.Models.Cliente> Cliente { get; set; }
+
+        public DbSet<SoftCandy.Models.Produto> Produto { get; set; }
     }
 }

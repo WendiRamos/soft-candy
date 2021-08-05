@@ -20,7 +20,7 @@ namespace SoftCandy.Migrations
 
             modelBuilder.Entity("SoftCandy.Models.Cliente", b =>
                 {
-                    b.Property<int>("ID_Cliente")
+                    b.Property<int>("id_Cliente")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Celular");
@@ -29,7 +29,7 @@ namespace SoftCandy.Migrations
 
                     b.Property<string>("Nome");
 
-                    b.HasKey("ID_Cliente");
+                    b.HasKey("id_Cliente");
 
                     b.ToTable("Cliente");
                 });

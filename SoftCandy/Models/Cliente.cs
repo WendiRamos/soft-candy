@@ -9,7 +9,7 @@ namespace SoftCandy.Models
     public class Cliente
     {
         [Key]
-        public int ID_Cliente { get; set; }
+        public int Id_Cliente { get; set; }
         public string Nome { get; set; }
         public string Celular { get ; set; }
         public string Endereco { get; set; }
@@ -20,7 +20,7 @@ namespace SoftCandy.Models
 
         public Cliente(int id, string nome, string celular, string endereco)
         {
-            ID_Cliente = id;
+            Id_Cliente = id;
             Nome = nome;
             Celular = celular;
             Endereco = endereco;
