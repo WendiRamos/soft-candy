@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,81 +11,81 @@ using SoftCandy.Models;
 
 namespace SoftCandy.Controllers
 {
-    public class ClienteController : Controller
+    public class VendedorController : Controller
     {
         private readonly SoftCandyContext _context;
 
-        public ClienteController(SoftCandyContext context)
+        public VendedorController(SoftCandyContext context)
         {
             _context = context;
         }
 
-        // GET: Cliente
+        // GET: Vendedor
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cliente.ToListAsync());
+            return View(await _context.Vendedor.ToListAsync());
         }
 
-        // GET: Cliente/Details
+        // GET: Vendedor/Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não foi fornecido!" });
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
 
-            var cliente = await _context.Cliente
-                .FirstOrDefaultAsync(m => m.Id_Cliente == id);
-            if (cliente == null)
+            var vendedor = await _context.Vendedor
+                .FirstOrDefaultAsync(m => m.Id_Vendedor == id);
+            if (vendedor == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
             }
 
-            return View(cliente);
+            return View(vendedor);
         }
 
-        // GET: Cliente/Create
+        // GET: Vendedor/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Cliente/Create
+        // POST: Vendedor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id_Cliente,Nome,Celular,Endereco")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("Id_Vendedor,Nome_Vendedor,Celular_Vendedor,Endereco_Vendedor,Email_Vendedor,Senha_Vendedor")] Vendedor vendedor)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
+                _context.Add(vendedor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(vendedor);
         }
 
-        // GET: Cliente/Edit
+        // GET: Vendedor/Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não foi fornecido!" });
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
 
-            var cliente = await _context.Cliente.FindAsync(id);
-            if (cliente == null)
+            var vendedor = await _context.Vendedor.FindAsync(id);
+            if (vendedor == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
             }
-            return View(cliente);
+            return View(vendedor);
         }
 
-        // POST: Cliente/Edit
+        // POST: Vendedor/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id_Cliente,Nome,Celular,Endereco")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("Id_Vendedor,Nome_Vendedor,Celular_Vendedor,Endereco_Vendedor,Email_Vendedor,Senha_Vendedor")] Vendedor vendedor)
         {
-            if (id != cliente.Id_Cliente)
+            if (id != vendedor.Id_Vendedor)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
             }
@@ -94,12 +94,12 @@ namespace SoftCandy.Controllers
             {
                 try
                 {
-                    _context.Update(cliente);
+                    _context.Update(vendedor);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
-                    if (!ClienteExists(cliente.Id_Cliente))
+                    if (!VendedorExists(vendedor.Id_Vendedor))
                     {
                         return RedirectToAction(nameof(Error), new { message = e.Message });
                     }
@@ -110,51 +110,52 @@ namespace SoftCandy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(vendedor);
         }
 
-        // GET: Cliente/Delete
+        // GET: Vendedor/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não foi fornecido!" });
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
 
-            var cliente = await _context.Cliente
-                .FirstOrDefaultAsync(m => m.Id_Cliente == id);
-            if (cliente == null)
+            var vendedor = await _context.Vendedor
+                .FirstOrDefaultAsync(m => m.Id_Vendedor == id);
+            if (vendedor == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
             }
 
-            return View(cliente);
+            return View(vendedor);
         }
 
-        // POST: Cliente/Delete
+        // POST: Vendedor/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cliente = await _context.Cliente.FindAsync(id);
-            _context.Cliente.Remove(cliente);
+            var vendedor = await _context.Vendedor.FindAsync(id);
+            _context.Vendedor.Remove(vendedor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClienteExists(int id)
+        private bool VendedorExists(int id)
         {
-            return _context.Cliente.Any(e => e.Id_Cliente == id);
+            return _context.Vendedor.Any(e => e.Id_Vendedor == id);
         }
-       
         public IActionResult Error(string message)
         {
             var viewModel = new ErrorViewModel
             {
-               Message = message,
-               RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             };
             return View(viewModel);
+
+
         }
     }
 }

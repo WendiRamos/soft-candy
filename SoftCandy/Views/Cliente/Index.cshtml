@@ -9,18 +9,18 @@
 <p></p>
 <table class="table">
     <thead>
-        <tr class="bg-primary">
+        <tr >
             <th>
-                <font color="black">@Html.DisplayNameFor(model => model.Id_Cliente)</font>
+                @Html.DisplayNameFor(model => model.Id_Cliente)
             </th>
             <th>
-                <font color="black">@Html.DisplayNameFor(model => model.Nome)</font>
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                <font color="black">@Html.DisplayNameFor(model => model.Celular)</font>
+                @Html.DisplayNameFor(model => model.Celular)
             </th>
             <th>
-                <font color="black">@Html.DisplayNameFor(model => model.Endereco)</font>
+                @Html.DisplayNameFor(model => model.Endereco)
             </th>
             <th></th>
         </tr>
@@ -28,24 +28,24 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr BGCOLOR="#F0FFFF">
+        <tr>
             <td>
-                <font color="black">@Html.DisplayFor(modelItem => item.Id_Cliente)</font>
+                @Html.DisplayFor(modelItem => item.Id_Cliente)
             </td>
             <td>
-                <font color="black">@Html.DisplayFor(modelItem => item.Nome)</font>
+                @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                <font color="black"> @Html.DisplayFor(modelItem => item.Celular)</font>
+                @Html.DisplayFor(modelItem => item.Celular)
             </td>
             <td>
-                <font color="black">@Html.DisplayFor(modelItem => item.Endereco)</font>
+                >@Html.DisplayFor(modelItem => item.Endereco)
             </td>
             <td>
 
-                <a asp-action="Edit" asp-route-id="@item.Id_Cliente"><font color="black">Editar</font></a> <font color="black">|</font>
-                <a asp-action="Details" asp-route-id="@item.Id_Cliente"><font color="black">Detalhes</font></a> <font color="black">|</font>
-                <a asp-action="Delete" asp-route-id="@item.Id_Cliente"><font color="black">Deletar</font></a>
+                <a asp-action="Edit" asp-route-id="@item.Id_Cliente">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.Id_Cliente">Detalhes</a>|
+                <a asp-action="Delete" asp-route-id="@item.Id_Cliente">Deletar</a>
 
             </td>
         </tr>

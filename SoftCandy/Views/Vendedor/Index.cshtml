@@ -1,0 +1,59 @@
+﻿@model IEnumerable<SoftCandy.Models.Vendedor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome_Vendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Celular_Vendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco_Vendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email_Vendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Senha_Vendedor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome_Vendedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Celular_Vendedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco_Vendedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email_Vendedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Senha_Vendedor)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_Vendedor">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id_Vendedor">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id_Vendedor">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,51 @@
+﻿@model SoftCandy.Models.Vendedor
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Vendedor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome_Vendedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome_Vendedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Celular_Vendedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Celular_Vendedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Endereco_Vendedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Endereco_Vendedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email_Vendedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email_Vendedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Senha_Vendedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Senha_Vendedor)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id_Vendedor" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,36 @@
+﻿@model SoftCandy.Models.Pedido
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor_Total)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Valor_Total)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Desconto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Desconto)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Data_Pedido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Data_Pedido)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Num_Pedido">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

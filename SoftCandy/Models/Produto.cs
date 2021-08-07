@@ -14,6 +14,8 @@ namespace SoftCandy.Models
         public int Quantidade { get; set; }
         public decimal Preco_Venda { get; set; }
         public string Descricao { get; set; }
+        
+       
 
         public Produto(int cod_Produto, string nome_Produto, int quantidade, decimal preco_Venda, string descricao)
         {

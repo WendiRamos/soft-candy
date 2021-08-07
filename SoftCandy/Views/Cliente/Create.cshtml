@@ -30,14 +30,12 @@
             <p></p>
             <div class="form-group">
                 <input type="submit" value="Criar Cliente" class="btn btn-success" /> |
+                <a asp-action="Index" class="btn btn-primary">Voltar</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index" class="btn btn-primary">Voltar</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
