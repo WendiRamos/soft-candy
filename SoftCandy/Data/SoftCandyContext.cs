@@ -20,8 +20,6 @@ namespace SoftCandy.Data
 
         public DbSet<SoftCandy.Models.Pedido> Pedido { get; set; }
 
-        
-
         public DbSet<SoftCandy.Models.Vendedor> Vendedor { get; set; }
     }
 }

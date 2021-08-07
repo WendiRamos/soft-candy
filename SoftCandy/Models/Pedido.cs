@@ -14,16 +14,17 @@ namespace SoftCandy.Models
         public decimal Valor_Total { get; set; }
         public decimal Desconto { get; set; }
         public DateTime Data_Pedido { get; set; }
-        [ForeignKey("Id Cliente")]
-        public Cliente Id_Cliente { get; set; }
+       // [ForeignKey("Id Cliente")]
+        public Cliente Cliente { get; set; }
 
 
-        public Pedido(int num_Pedido, decimal valor_Total, decimal desconto, DateTime data_Pedido)
+        public Pedido(int num_Pedido, decimal valor_Total, decimal desconto, DateTime data_Pedido, Cliente cliente )
         {
             Num_Pedido = num_Pedido;
             Valor_Total = valor_Total;
             Desconto = desconto;
             Data_Pedido = data_Pedido;
+            Cliente = Cliente;
         }
         public Pedido()
         {
