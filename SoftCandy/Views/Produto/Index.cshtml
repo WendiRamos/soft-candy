@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Quantidade)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Preco_Venda)
+               R$ @Html.DisplayFor(modelItem => item.Preco_Venda)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Cod_Produto">Editar</a> |
