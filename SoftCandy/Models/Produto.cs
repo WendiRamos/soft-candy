@@ -9,10 +9,23 @@ namespace SoftCandy.Models
     public class Produto
     {
         [Key]
+        [Display(Name = "Código Produto")]
         public int Cod_Produto { get; set; }
+
+        [Required(ErrorMessage = "{0} obrigatório")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
+        [Display(Name = "Nome Produto")]
         public string Nome_Produto { get; set; }
+
+        [Required(ErrorMessage = "{0} obrigatório")]
         public int Quantidade { get; set; }
+
+        [Required(ErrorMessage = "{0} obrigatório")]
+        [Display(Name = "Preço Venda")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
         public decimal Preco_Venda { get; set; }
+
+        [StringLength(60, MinimumLength = 0, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         public string Descricao { get; set; }
         
        
