@@ -39,11 +39,11 @@
                 @Html.DisplayFor(modelItem => item.Celular)
             </td>
             <td>
-                >@Html.DisplayFor(modelItem => item.Endereco)
+                @Html.DisplayFor(modelItem => item.Endereco)
             </td>
             <td>
 
-                <a asp-action="Edit" asp-route-id="@item.Id_Cliente">Editar</a>
+                <a asp-action="Edit" asp-route-id="@item.Id_Cliente">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.Id_Cliente">Detalhes</a>|
                 <a asp-action="Delete" asp-route-id="@item.Id_Cliente">Deletar</a>
 
