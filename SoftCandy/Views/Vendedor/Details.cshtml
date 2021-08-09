@@ -1,10 +1,10 @@
 ﻿@model SoftCandy.Models.Vendedor
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h2>Details</h2>
+<h2>Detalhes do Vendedor</h2>
 
 <div>
     <h4>Vendedor</h4>
@@ -34,15 +34,10 @@
         <dd>
             @Html.DisplayFor(model => model.Email_Vendedor)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Senha_Vendedor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Senha_Vendedor)
-        </dd>
     </dl>
 </div>
+<p></p>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id_Vendedor">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id_Vendedor" class="btn btn-success">Editar</a> |
+    <a asp-action="Index" class="btn btn-primary"> Voltar</a>
 </div>

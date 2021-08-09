@@ -1,15 +1,15 @@
 ﻿@model SoftCandy.Models.Vendedor
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Deletar";
 }
 
-<h2>Delete</h2>
+<h2>Deletar vendedor</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem certeza que deseja excluir?</h3>
 <div>
     <h4>Vendedor</h4>
-    <hr />
+    <p></p>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Nome_Vendedor)
@@ -35,17 +35,12 @@
         <dd>
             @Html.DisplayFor(model => model.Email_Vendedor)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Senha_Vendedor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Senha_Vendedor)
-        </dd>
+
     </dl>
-    
+    <p></p>
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id_Vendedor" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Deletar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-primary">Voltar</a>
     </form>
 </div>
