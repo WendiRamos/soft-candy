@@ -12,29 +12,19 @@ namespace SoftCandy.Models
         [Display(Name = "Id Vendedor")]
         public int Id_Vendedor { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Nome")]
         public string Nome_Vendedor { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(11, MinimumLength = 8, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Celular")]
         public string Celular_Vendedor { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(254, MinimumLength = 10, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Endereço")]
         public string Endereco_Vendedor { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
-        [EmailAddress(ErrorMessage = "Digite um e-mail válido!")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-mail")]
         public string Email_Vendedor { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(20, MinimumLength = 8, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Senha")]
         public string Senha_Vendedor { get; set; }
 
@@ -51,5 +41,7 @@ namespace SoftCandy.Models
         public Vendedor()
         {
         }
+
     }
+  
 }

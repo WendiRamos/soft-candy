@@ -1,1 +1,8 @@
-﻿
+﻿.visivel {
+    color: black;
+    visibility: visible;
+}
+
+.invisivel {
+    visibility: hidden;
+}
