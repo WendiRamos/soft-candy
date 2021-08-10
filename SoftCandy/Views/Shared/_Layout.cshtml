@@ -9,39 +9,62 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">SoftCandy</a>
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">SoftCandy</a>
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Cliente" asp-action="Index">Clientes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Produto" asp-action="Index">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Pedido" asp-action="Index">Pedidos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Vendedor" asp-action="Index">Vendedores</a>
-                    </li>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">Clientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Produto" asp-action="Index">Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Pedido" asp-action="Index">Pedidos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Vendedor" asp-action="Index">Vendedores</a>
+                        </li>
 
-                </ul>
-               
+                    </ul>
+
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    }
+    else
+    {
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">SoftCandy</a>
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Vendedor" asp-action="Login">Entrar</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    }
 
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
         @RenderBody()
-       
+
     </div>
 
 

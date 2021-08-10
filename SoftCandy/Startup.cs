@@ -33,12 +33,19 @@ namespace SoftCandy
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddAuthentication("Identity.Login")
+                .AddCookie("Identity.Login", config => {
+                    config.Cookie.Name = "Identity.Login";
+                    config.LoginPath = "/Vendedor";
+                    config.AccessDeniedPath = "/Index";
+                    config.ExpireTimeSpan = TimeSpan.FromHours(1);
+                });
+            services.AddAuthorization();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddDbContext<SoftCandyContext>(options =>
-                   options.UseMySql(Configuration.GetConnectionString("SoftCandyContext"), builder =>
-                   builder.MigrationsAssembly("SoftCandy")));
+                               options.UseMySql(Configuration.GetConnectionString("SoftCandyContext"), builder =>
+                               builder.MigrationsAssembly("SoftCandy")));
 
         }
 
@@ -54,7 +61,7 @@ namespace SoftCandy
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

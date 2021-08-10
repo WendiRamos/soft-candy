@@ -2,22 +2,29 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 using SoftCandy.Data;
 using SoftCandy.Models;
 
 namespace SoftCandy.Controllers
 {
     public class VendedorController : Controller
+
     {
         private readonly SoftCandyContext _context;
+        private readonly IConfiguration Configuration;
 
-        public VendedorController(SoftCandyContext context)
+        public VendedorController(SoftCandyContext context, IConfiguration configuration)
         {
             _context = context;
+            Configuration = configuration;
         }
 
         // GET: Vendedor
@@ -140,6 +147,63 @@ namespace SoftCandy.Controllers
             _context.Vendedor.Remove(vendedor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Login()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return null;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(string Email_Vendedor, string Senha_Vendedor)
+        {
+            string strConexao = Configuration.GetConnectionString("SoftCandyContext");
+            MySqlConnection SoftCandyContext = new MySqlConnection(strConexao);
+            await SoftCandyContext.OpenAsync();
+            MySqlCommand mySqlCommand = SoftCandyContext.CreateCommand();
+            mySqlCommand.CommandText = $"SELECT * FROM vendedor WHERE EMAIL_VENDEDOR = '{Email_Vendedor}' AND SENHA_VENDEDOR='{Senha_Vendedor}'";
+
+            MySqlDataReader reader = mySqlCommand.ExecuteReader();
+
+            if (await reader.ReadAsync())
+            {
+                int Idlogin = reader.GetInt32(0);
+                string nome = reader.GetString(1);
+
+                List<Claim> direitosdeAcesso = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier,Idlogin.ToString()),
+                    new Claim(ClaimTypes.Name,nome)
+
+                };
+
+                var identity = new ClaimsIdentity(direitosdeAcesso, "Identity.Login");
+                var userPrincipal = new ClaimsPrincipal(new[] { identity });
+
+                await HttpContext.SignInAsync(userPrincipal,
+                    new AuthenticationProperties
+                    {
+                        IsPersistent = false,
+                        ExpiresUtc = DateTime.Now.AddHours(10)
+                    });
+
+                return RedirectToAction("Index", "Home");
+
+            }
+            return RedirectToAction(nameof(Error), new { message = "Usuário não encontrado! Verifique suas credenciais!" });
+
+
+        }
+        public async Task<IActionResult> Logout()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                await HttpContext.SignOutAsync();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         private bool VendedorExists(int id)

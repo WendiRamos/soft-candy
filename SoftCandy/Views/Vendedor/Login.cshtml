@@ -1,0 +1,31 @@
+﻿@model SoftCandy.Models.Vendedor
+@{
+    ViewData["Title"] = "Conecte-se";
+
+}
+<h1></h1>
+<center>
+    <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Entre com suas credenciais!</div>
+        <div class="card-body">
+            <h4 class="card-title">Conectar</h4>
+            <form asp-controller="Vendedor" asp-action="Login" method="post" autocomplete="off">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email_Vendedor" class="control-label">Email:</label>
+                    <input type="text" asp-for="Email_Vendedor" class="form-control" id="email" />
+                    <span class="invisivel" id="erroEmail">Insira um e-mail válido!</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Senha_Vendedor" class="control-label">Senha:</label>
+                    <input type="password" asp-for="Senha_Vendedor" class="form-control" id="senha" />
+                    <span class="invisivel" id="erroSenha">Insira uma senha válida!</span>
+                </div>
+                <p></p>
+                <div class="form-group">
+                    <input type="submit" onclick="return validarLogin()" value="Entrar" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+</center>
