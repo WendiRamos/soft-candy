@@ -70,18 +70,17 @@ function validarCelular() {
 }
 function validarVendedor() {
     var nomeValido = validarNome();
-    console.log(nomeValido)
     var celularValido = validarCelular();
-    console.log(celularValido)
     var enderecoValido = validarEndereco();
-    console.log(enderecoValido)
     var emailValido = validarEmail();
-    console.log(emailValido)
     var senhaValida = validarSenha();
-    console.log(senhaValida)
     var confirma = confirmarSenha();
-    console.log(confirma)
     
-
     return nomeValido && celularValido && enderecoValido && emailValido && senhaValida && confirma;
+}
+function validarLogin() {
+    var emailValido = validarEmail();
+    var senhaValida = validarSenha();
+
+    return emailValido && senhaValida;
 }
