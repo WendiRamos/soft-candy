@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -23,22 +22,24 @@ namespace SoftCandy.Controllers
         // GET: Pedido
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Pedido.ToListAsync());
+            var softCandyContext = _context.Pedido.Include(c => c.Cliente);
+            return View(await softCandyContext.ToListAsync());
         }
 
-        // GET: Pedido/Details
+        // GET: Pedido/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Número do pedido não foi fornecido!" });
+                return NotFound();
             }
 
             var pedido = await _context.Pedido
+                .Include(p => p.Cliente)
                 .FirstOrDefaultAsync(m => m.Num_Pedido == id);
             if (pedido == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Número do pedido não foi existe!" });
+                return NotFound();
             }
 
             return View(pedido);
@@ -47,11 +48,16 @@ namespace SoftCandy.Controllers
         // GET: Pedido/Create
         public IActionResult Create()
         {
+            ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Celular");
             return View();
         }
+
+        // POST: Pedido/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Num_Pedido,Valor_Total,Desconto,Data_Pedido")] Pedido pedido)
+        public async Task<IActionResult> Create([Bind("Num_Pedido,Valor_Total,Desconto,Data_Pedido,ID_CLIENTE")] Pedido pedido)
         {
             if (ModelState.IsValid)
             {
@@ -59,34 +65,37 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Celular", pedido.ID_CLIENTE);
             return View(pedido);
         }
 
-        // GET: Pedido/Edit
+        // GET: Pedido/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Número do pedido não foi fornecido!" });
+                return NotFound();
             }
 
-            var pedido = await _context.Pedido
-                .FirstOrDefaultAsync(m=>m.Num_Pedido==id);
+            var pedido = await _context.Pedido.FindAsync(id);
             if (pedido == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Número do pedido não existe!" });
+                return NotFound();
             }
+            ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Celular", pedido.ID_CLIENTE);
             return View(pedido);
         }
 
-        // POST: Pedido/Edit
-         [HttpPost]
+        // POST: Pedido/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Num_Pedido,Valor_Total,Desconto,Data_Pedido")] Pedido pedido)
+        public async Task<IActionResult> Edit(int id, [Bind("Num_Pedido,Valor_Total,Desconto,Data_Pedido,ID_CLIENTE")] Pedido pedido)
         {
             if (id != pedido.Num_Pedido)
             {
-                return RedirectToAction(nameof(Error), new { message = "Número do pedido não corresponde!" });
+                return NotFound();
             }
 
             if (ModelState.IsValid)
@@ -96,11 +105,11 @@ namespace SoftCandy.Controllers
                     _context.Update(pedido);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException e)
+                catch (DbUpdateConcurrencyException)
                 {
                     if (!PedidoExists(pedido.Num_Pedido))
                     {
-                        return RedirectToAction(nameof(Error), new { message = e.Message });
+                        return NotFound();
                     }
                     else
                     {
@@ -109,28 +118,30 @@ namespace SoftCandy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Celular", pedido.ID_CLIENTE);
             return View(pedido);
         }
 
-        // GET: Pedido/Delete
+        // GET: Pedido/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Número do pedido não foi fornecido!" });
+                return NotFound();
             }
 
             var pedido = await _context.Pedido
+                .Include(p => p.Cliente)
                 .FirstOrDefaultAsync(m => m.Num_Pedido == id);
             if (pedido == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Número do pedido não existe!" });
+                return NotFound();
             }
 
             return View(pedido);
         }
 
-        // POST: Pedido/Delete
+        // POST: Pedido/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -144,17 +155,6 @@ namespace SoftCandy.Controllers
         private bool PedidoExists(int id)
         {
             return _context.Pedido.Any(e => e.Num_Pedido == id);
-        }
-        public IActionResult Error(string message)
-        {
-            var viewModel = new ErrorViewModel
-            {
-                Message = message,
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-            };
-            return View(viewModel);
-
-
         }
     }
 }

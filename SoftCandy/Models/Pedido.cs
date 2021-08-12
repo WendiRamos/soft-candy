@@ -9,7 +9,7 @@ namespace SoftCandy.Models
 {
     public class Pedido
     {
-        [Key]
+        [Key()]
         [Display(Name = "Número Pedido")]
         public int Num_Pedido { get; set; }
 
@@ -29,18 +29,20 @@ namespace SoftCandy.Models
         public DateTime Data_Pedido { get; set; }
 
 
-        [ForeignKey("Id Cliente")]
-        [Display(Name = "Id Cliente")]
-        public Cliente Cliente { get; set; }
-        
-        public Pedido(int num_Pedido, decimal valor_Total, decimal desconto, DateTime data_Pedido, Cliente cliente )
+        [ForeignKey("Cliente")]
+        public int ID_CLIENTE { get; set; }
+        public virtual Cliente Cliente { get; set; }
+
+        public Pedido(int num_Pedido, decimal valor_Total, decimal desconto, DateTime data_Pedido, int iD_CLIENTE, Cliente cliente)
         {
             Num_Pedido = num_Pedido;
             Valor_Total = valor_Total;
             Desconto = desconto;
             Data_Pedido = data_Pedido;
-            Cliente = Cliente;
+            ID_CLIENTE = iD_CLIENTE;
+            Cliente = cliente;
         }
+
         public Pedido()
         {
         }

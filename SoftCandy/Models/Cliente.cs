@@ -8,7 +8,7 @@ namespace SoftCandy.Models
 {
     public class Cliente
     {
-        [Key]
+        [Key()]
         [Display(Name = "Id")]
         public int Id_Cliente { get; set; }
 
@@ -24,19 +24,23 @@ namespace SoftCandy.Models
         [StringLength(254, MinimumLength = 10, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Endereço")]
         public string Endereco { get; set; }
+
+        public ICollection<Pedido> Pedidos { get; set; }
+
+
         
         public Cliente()
         {
         }
 
-        public Cliente(int id, string nome, string celular, string endereco)
+        public Cliente(int id_Cliente, string nome, string celular, string endereco, ICollection<Pedido> pedidos)
         {
-            Id_Cliente = id;
+            Id_Cliente = id_Cliente;
             Nome = nome;
             Celular = celular;
             Endereco = endereco;
+            Pedidos = pedidos;
         }
-
     }
 
 }
