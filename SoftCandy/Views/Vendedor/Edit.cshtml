@@ -11,31 +11,41 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-dark"></div>
             <input type="hidden" asp-for="Id_Vendedor" />
             <div class="form-group">
-                <label asp-for="Nome_Vendedor" class="control-label"></label>
-                <input asp-for="Nome_Vendedor" class="form-control" />
-                <span asp-validation-for="Nome_Vendedor" class="text-danger"></span>
+                <label asp-for="Nome_Vendedor" class="control-label">Novo Nome</label>
+                <input asp-for="Nome_Vendedor" id="nome" class="form-control" />
+                <span class="invisivel" id="erroNome">Insira um nome válido!</span>
             </div>
             <div class="form-group">
-                <label asp-for="Celular_Vendedor" class="control-label"></label>
-                <input asp-for="Celular_Vendedor" class="form-control" />
-                <span asp-validation-for="Celular_Vendedor" class="text-danger"></span>
+                <label asp-for="Celular_Vendedor" class="control-label">Novo Celular</label>
+                <input asp-for="Celular_Vendedor" id="celular" class="form-control" />
+                <span class="invisivel" id="erroCelular">Insira um celular válido!</span>
             </div>
             <div class="form-group">
-                <label asp-for="Endereco_Vendedor" class="control-label"></label>
-                <input asp-for="Endereco_Vendedor" class="form-control" />
-                <span asp-validation-for="Endereco_Vendedor" class="text-danger"></span>
+                <label asp-for="Endereco_Vendedor" class="control-label">Novo Endereço</label>
+                <input asp-for="Endereco_Vendedor" id="endereco" class="form-control" />
+                <span class="invisivel" id="erroEndereco">Insira um endereço válido!</span>
             </div>
             <div class="form-group">
-                <label asp-for="Email_Vendedor" class="control-label"></label>
-                <input asp-for="Email_Vendedor" class="form-control" />
-                <span asp-validation-for="Email_Vendedor" class="text-danger"></span>
+                <label asp-for="Email_Vendedor" class="control-label">Novo E-mail</label>
+                <input asp-for="Email_Vendedor" id="email" class="form-control" />
+                <span class="invisivel" id="erroEmail">Insira um e-mail válido!</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Senha_Vendedor" class="control-label">Nova Senha</label>
+                <input autocomplete="off" type="password" asp-for="Senha_Vendedor" id="senha" class="form-control" />
+                <span class="invisivel" id="erroSenha">Insira uma senha válida!</span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Confirmar nova senha</label>
+                <input autocomplete="off" type="password" class="form-control" id="senhaConfirma" />
+                <span class="invisivel" id="erroSenhaConfirma"></span>
             </div>
             <p></p>
             <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <input type="submit" onclick="return validarEditarVendedor()" value="Salvar" class="btn btn-primary" />
                 <a asp-action="Index" class="btn btn-primary">Voltar</a>
             </div>
         </form>
