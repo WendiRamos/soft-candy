@@ -69,7 +69,7 @@ namespace SoftCandy.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não foi fornecido!" });
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
 
             var cliente = await _context.Cliente.FindAsync(id);
@@ -83,7 +83,7 @@ namespace SoftCandy.Controllers
         // POST: Cliente/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id_Cliente,Nome,Celular,Endereco")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("Id_Cliente,Nome,Celular,Endereco")] Cliente cliente)
         {
             if (id != cliente.Id_Cliente)
             {
