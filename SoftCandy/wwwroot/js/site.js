@@ -78,6 +78,16 @@ function validarVendedor() {
     
     return nomeValido && celularValido && enderecoValido && emailValido && senhaValida && confirma;
 }
+function validarEditarVendedor() {
+    var nomeValido = validarNome();
+    var celularValido = validarCelular();
+    var enderecoValido = validarEndereco();
+    var emailValido = validarEmail();
+    var senhaValida = validarSenha();
+    var confirma = confirmarSenha();
+
+    return nomeValido && celularValido && enderecoValido && emailValido && senhaValida && confirma;
+}
 function validarLogin() {
     var emailValido = validarEmail();
     var senhaValida = validarSenha();
