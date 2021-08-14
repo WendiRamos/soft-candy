@@ -23,16 +23,25 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Id</th>
             <th>Produto</th>
-            <th>Preço</th>
+            <th>Preco</th>
             <th>Quantidade</th>
             <th>Subtotal</th>
         </tr>
     </thead>
-    <tbody></tbody>
+    <tbody id="itens-pedido"></tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total:</td>
+            <td id="total-pedido">0</td>
+        </tr>
+    </tfoot>
 </table>
-
-<p id="itens-pedido"></p>
+<a asp-controller="Pedido" asp-action="Create" class="btn btn-success">Concluir Pedido</a>
 
 <br />
 
@@ -71,7 +80,7 @@
                     R$ @Html.DisplayFor(modelItem => item.Preco_Venda)
                 </td>
                 <td>
-                    <button btn="btn-sucess" onclick="Adicionar(@JsonConvert.SerializeObject(item))">Adicionar</button>
+                    <button btn="btn-sucess" onclick="adicionar(@JsonConvert.SerializeObject(item))">Adicionar</button>
                 </td>
 
 
