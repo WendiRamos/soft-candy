@@ -54,6 +54,21 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Vendedor" asp-action="Login">Entrar</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Vendedor" asp-action="Index">Vendedor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">Cliente</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Produto" asp-action="Index">Produto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Pedido" asp-action="Index">Pedido</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="RealizarPedido" asp-action="Index">Realizar Pedido</a>
+                        </li>
                     </ul>
 
                 </div>
@@ -73,13 +88,11 @@
             asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
             asp-fallback-test="window.jQuery"
             crossorigin="anonymous"
-            integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"></script>
-
+            integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>
