@@ -1,10 +1,12 @@
-﻿@model IEnumerable<SoftCandy.Models.Vendedor>
+﻿<!DOCTYPE html>
+@model IEnumerable<SoftCandy.Models.Vendedor>
 
 @{
-    ViewData["Title"] = "Vendedor";
+    ViewData["Title"] = "Pesquisar Vendedor";
 }
-<h2>Vendedores</h2>
-<p></p>
+
+<h2>Pesquisar Vendedor</h2>
+
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaVendedor">
     <div class="form-group">
         <div class="form-check-inline">
@@ -15,10 +17,7 @@
     </div>
     <p></p>
 </form>
-<p></p>
-<div> <a asp-controller="Vendedor" asp-action="Create" class="btn btn-secondary">Novo Vendedor</a></div>
-<p></p>
-<table class="table">
+<table class="table ">
     <thead>
         <tr>
             <th>
@@ -59,9 +58,9 @@
                 @Html.DisplayFor(modelItem => item.Email_Vendedor)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id_Vendedor">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id_Vendedor">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id_Vendedor">Deletar</a>
+                <a asp-controller="Vendedor" asp-action="Edit" asp-route-id="@item.Id_Vendedor">Editar</a> |
+                <a asp-controller="Vendedor" asp-action="Details" asp-route-id="@item.Id_Vendedor">Detalhes</a> |
+                <a asp-controller="Vendedor" asp-action="Delete" asp-route-id="@item.Id_Vendedor">Deletar</a>
             </td>
         </tr>
         }

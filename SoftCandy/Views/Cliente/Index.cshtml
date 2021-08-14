@@ -7,13 +7,12 @@
 <p></p>
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaCliente">
     <div class="form-group">
-        <div class="form-group">
-            <label for="Nome">Pesquisar:</label>
+        <div class="form-check-inline">
+            <label for="Nome"></label>
             <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
         </div>
+        <button type="submit" class=" btn btn-primary">Pesquisar</button>
     </div>
-    <button type="submit" class=" btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
-    <div> <a asp-controller="Cliente" asp-action="Create" class="btn btn-secondary">Novo Cliente</a></div>
     <p></p>
 </form>
 <p></p>

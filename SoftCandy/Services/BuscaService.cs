@@ -32,5 +32,32 @@ namespace SoftCandy.Services
             return await result
                   .ToListAsync();
         }
+
+        public async Task<List<Vendedor>> FindByVendedor(String Nome)
+        {
+            var result = from obj in _context.Vendedor select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.Nome_Vendedor.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
+        public async Task<List<Produto>> FindByProduto(String Nome)
+        {
+            var result = from obj in _context.Produto select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.Nome_Produto.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
     }
 }

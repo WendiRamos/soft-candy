@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<SoftCandy.Models.Produto>
 
 @{
-    ViewData["Title"] = "Produtos";
+    ViewData["Title"] = "Pesquisar Produto";
 }
 
-<h2>Produtos</h2>
-<p></p>
+<h2>Pesquisar Produto</h2>
+
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaProduto">
     <div class="form-group">
         <div class="form-check-inline">
@@ -16,10 +16,7 @@
     </div>
     <p></p>
 </form>
-<div>
-    <a asp-action="Create" class="btn btn-secondary">Novo Produto</a>
-</div>
-<table class="table">
+<table class="table ">
     <thead>
         <tr>
             <th>
@@ -27,6 +24,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nome_Produto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantidade)
@@ -48,15 +48,18 @@
                     @Html.DisplayFor(modelItem => item.Nome_Produto)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Quantidade)
                 </td>
                 <td>
-                    R$ @Html.DisplayFor(modelItem => item.Preco_Venda)
+                    @Html.DisplayFor(modelItem => item.Preco_Venda)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Cod_Produto">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Cod_Produto">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Cod_Produto">Deletar</a>
+                    <a asp-controller="Produto" asp-action="Edit" asp-route-id="@item.Cod_Produto">Editar</a> |
+                    <a asp-controller="Produto" asp-action="Details" asp-route-id="@item.Cod_Produto">Detalhes</a> |
+                    <a asp-controller="Produto" asp-action="Delete" asp-route-id="@item.Cod_Produto">Deletar</a>
                 </td>
             </tr>
         }

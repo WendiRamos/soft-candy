@@ -2,24 +2,24 @@
 @model IEnumerable<SoftCandy.Models.Cliente>
 
 @{
-    ViewData["Title"] = "Pesquisar CLiente";
+    ViewData["Title"] = "Pesquisar Cliente";
 }
 
 <h2>Pesquisar Cliente</h2>
 
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaCliente">
     <div class="form-group">
-        <div class="form-group">
-            <label for="Nome">Pesquisar:</label>
+        <div class="form-check-inline">
+            <label for="Nome"></label>
             <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
         </div>
-    </div>
     <button type="submit" class=" btn btn-primary">Pesquisar</button>
+    </div>
     <p></p>
 </form>
 <table class="table ">
     <thead>
-        <tr BGCOLOR="#00BFFF">
+        <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id_Cliente)
             </th>
@@ -32,12 +32,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.Endereco)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr BGCOLOR="#F5F5F5">
+            <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Id_Cliente)
                 </td>

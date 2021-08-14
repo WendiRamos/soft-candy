@@ -56,9 +56,24 @@ function adicionar(produto) {
     tmp.Quantidade = 1;
     tmp.Preco_Pago = produto.Preco_Venda;
     tmp.Cod_Produto = produto.Cod_Produto;
-    tmp.Num_Pedido = null;
+    tmp.Num_Pedido = 0;
 
     itens = [...itens, tmp];
 
     calcula();
+}
+
+function enviar() {
+    console.log(itens)
+    const send = JSON.stringify({"itensL": itens});
+    $.ajax({
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        type: 'POST',
+        url: '/Pedido/Create',
+        data: send,
+        success: function () {
+            alert("complete");
+        }
+    });
 }
