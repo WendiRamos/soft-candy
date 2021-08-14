@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace SoftCandy.Models
 {
@@ -17,21 +14,26 @@ namespace SoftCandy.Models
         [Required(ErrorMessage = "{0} obrigatório")]
         public int Quantidade { get; set; }
 
-        [Key, Column(Order = 0)]
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Id Cliente")]
-        public Cliente Cliente { get; set; }
+        [Display(Name = "Código Produto")]
+        [ForeignKey("Produto")]
+        public int Cod_Produto { get; set; }
+        public  virtual Produto Produto { get; set; }
 
-        [Key, Column(Order = 1)]
+        [Key()]
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Número Pedido")]
-        public Pedido Pedido { get; set; }
+        [ForeignKey("Cliente")]
+        public int Num_Pedido { get; set; }
+        public virtual  Pedido Pedido { get; set; }
 
-        public Item_Pedido(decimal preco_Pago, int quantidade, Cliente cliente, Pedido pedido)
+        public Item_Pedido(decimal preco_Pago, int quantidade, int cod_Produto, Produto produto, int num_Pedido, Pedido pedido)
         {
             Preco_Pago = preco_Pago;
             Quantidade = quantidade;
-            Cliente = cliente;
+            Cod_Produto = cod_Produto;
+            Produto = produto;
+            Num_Pedido = num_Pedido;
             Pedido = pedido;
         }
 

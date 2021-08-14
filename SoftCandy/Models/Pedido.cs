@@ -32,8 +32,9 @@ namespace SoftCandy.Models
         [ForeignKey("Cliente")]
         public int ID_CLIENTE { get; set; }
         public virtual Cliente Cliente { get; set; }
+        public ICollection<Item_Pedido> Itens_Pedidos { get; set; }
 
-        public Pedido(int num_Pedido, decimal valor_Total, decimal desconto, DateTime data_Pedido, int iD_CLIENTE, Cliente cliente)
+        public Pedido(int num_Pedido, decimal valor_Total, decimal desconto, DateTime data_Pedido, int iD_CLIENTE, Cliente cliente, ICollection<Item_Pedido> itens_Pedidos)
         {
             Num_Pedido = num_Pedido;
             Valor_Total = valor_Total;
@@ -41,6 +42,7 @@ namespace SoftCandy.Models
             Data_Pedido = data_Pedido;
             ID_CLIENTE = iD_CLIENTE;
             Cliente = cliente;
+            Itens_Pedidos = itens_Pedidos;
         }
 
         public Pedido()

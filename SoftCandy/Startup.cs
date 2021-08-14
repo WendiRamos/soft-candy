@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
+using SoftCandy.Services;
 
 namespace SoftCandy
 {
@@ -41,7 +42,7 @@ namespace SoftCandy
                     config.ExpireTimeSpan = TimeSpan.FromHours(1);
                 });
             services.AddAuthorization();
-
+            services.AddScoped<BuscaService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<SoftCandyContext>(options =>
                                options.UseMySql(Configuration.GetConnectionString("SoftCandyContext"), builder =>

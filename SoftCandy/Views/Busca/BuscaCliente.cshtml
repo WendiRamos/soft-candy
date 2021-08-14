@@ -1,10 +1,12 @@
-﻿@model IEnumerable<SoftCandy.Models.Cliente>
+﻿<!DOCTYPE html>
+@model IEnumerable<SoftCandy.Models.Cliente>
 
 @{
-    ViewData["Title"] = "Clientes";
+    ViewData["Title"] = "Pesquisar CLiente";
 }
-<h2>Clientes</h2>
-<p></p>
+
+<h2>Pesquisar Cliente</h2>
+
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaCliente">
     <div class="form-group">
         <div class="form-group">
@@ -12,14 +14,12 @@
             <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
         </div>
     </div>
-    <button type="submit" class=" btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
-    <div> <a asp-controller="Cliente" asp-action="Create" class="btn btn-secondary">Novo Cliente</a></div>
+    <button type="submit" class=" btn btn-primary">Pesquisar</button>
     <p></p>
 </form>
-<p></p>
-<table class="table">
+<table class="table ">
     <thead>
-        <tr>
+        <tr BGCOLOR="#00BFFF">
             <th>
                 @Html.DisplayNameFor(model => model.Id_Cliente)
             </th>
@@ -32,13 +32,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Endereco)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr BGCOLOR="#F5F5F5">
                 <td>
                     @Html.DisplayFor(modelItem => item.Id_Cliente)
                 </td>
@@ -52,11 +51,9 @@
                     @Html.DisplayFor(modelItem => item.Endereco)
                 </td>
                 <td>
-
-                    <a asp-action="Edit" asp-route-id="@item.Id_Cliente">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id_Cliente">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id_Cliente">Deletar</a>
-
+                    <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@item.Id_Cliente">Editar</a> |
+                    <a asp-controller="Cliente" asp-action="Details" asp-route-id="@item.Id_Cliente">Detalhes</a> |
+                    <a asp-controller="Cliente" asp-action="Delete" asp-route-id="@item.Id_Cliente">Deletar</a>
                 </td>
             </tr>
         }

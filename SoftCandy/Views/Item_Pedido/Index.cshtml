@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SoftCandy.Models.Pedido>
+﻿@model IEnumerable<SoftCandy.Models.Item_Pedido>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Valor_Total)
+                @Html.DisplayNameFor(model => model.Preco_Pago)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Desconto)
+                @Html.DisplayNameFor(model => model.Quantidade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Data_Pedido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cliente)
+                @Html.DisplayNameFor(model => model.Produto)
             </th>
             <th></th>
         </tr>
@@ -31,16 +28,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Valor_Total)
+                @Html.DisplayFor(modelItem => item.Preco_Pago)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Desconto)
+                @Html.DisplayFor(modelItem => item.Quantidade)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Data_Pedido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                @Html.DisplayFor(modelItem => item.Produto.Nome_Produto)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Num_Pedido">Edit</a> |

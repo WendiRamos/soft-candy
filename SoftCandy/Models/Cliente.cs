@@ -26,21 +26,18 @@ namespace SoftCandy.Models
         public string Endereco { get; set; }
 
         public ICollection<Pedido> Pedidos { get; set; }
-
-
         
         public Cliente()
         {
         }
 
-        public Cliente(int id_Cliente, string nome, string celular, string endereco, ICollection<Pedido> pedidos)
+        public Cliente(string nome, string celular, string endereco)
         {
-            Id_Cliente = id_Cliente;
+            
             Nome = nome;
             Celular = celular;
             Endereco = endereco;
-            Pedidos = pedidos;
+            Pedidos = null;
         }
     }
-
 }

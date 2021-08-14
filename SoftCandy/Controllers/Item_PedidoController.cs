@@ -10,26 +10,23 @@ using SoftCandy.Models;
 
 namespace SoftCandy.Controllers
 {
-    public class PedidoController : Controller
+    public class Item_PedidoController : Controller
     {
         private readonly SoftCandyContext _context;
 
-        public PedidoController(SoftCandyContext context)
+        public Item_PedidoController(SoftCandyContext context)
         {
             _context = context;
         }
 
-        // GET: Pedido
+        // GET: Item_Pedido
         public async Task<IActionResult> Index()
         {
-            var softCandyContext = _context.Pedido.Include(c => c.Cliente);
-
+            var softCandyContext = _context.Item_Pedido.Include(i => i.Produto);
             return View(await softCandyContext.ToListAsync());
-           
-           
         }
 
-        // GET: Pedido/Details
+        // GET: Item_Pedido/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,40 +34,42 @@ namespace SoftCandy.Controllers
                 return NotFound();
             }
 
-            var pedido = await _context.Pedido
-                .Include(p => p.Cliente)
+            var item_Pedido = await _context.Item_Pedido
+                .Include(i => i.Produto)
                 .FirstOrDefaultAsync(m => m.Num_Pedido == id);
-            if (pedido == null)
+            if (item_Pedido == null)
             {
                 return NotFound();
             }
 
-            return View(pedido);
+            return View(item_Pedido);
         }
 
-        // GET: Pedido/Create
+        // GET: Item_Pedido/Create
         public IActionResult Create()
         {
-            ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Nome");
+            ViewData["Cod_Produto"] = new SelectList(_context.Produto, "Cod_Produto", "Nome_Produto");
             return View();
         }
 
-        // POST: Pedido/Create
+        // POST: Item_Pedido/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Num_Pedido,Valor_Total,Desconto,Data_Pedido,ID_CLIENTE")] Pedido pedido)
+        public async Task<IActionResult> Create([Bind("Preco_Pago,Quantidade,Cod_Produto,Num_Pedido")] Item_Pedido item_Pedido)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(pedido);
+                _context.Add(item_Pedido);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Celular", pedido.ID_CLIENTE);
-            return View(pedido);
+            ViewData["Cod_Produto"] = new SelectList(_context.Produto, "Cod_Produto", "Nome_Produto", item_Pedido.Cod_Produto);
+            return View(item_Pedido);
         }
 
-        // GET: Pedido/Edit
+        // GET: Item_Pedido/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,21 +77,23 @@ namespace SoftCandy.Controllers
                 return NotFound();
             }
 
-            var pedido = await _context.Pedido.FindAsync(id);
-            if (pedido == null)
+            var item_Pedido = await _context.Item_Pedido.FindAsync(id);
+            if (item_Pedido == null)
             {
                 return NotFound();
             }
-            ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Celular", pedido.ID_CLIENTE);
-            return View(pedido);
+            ViewData["Cod_Produto"] = new SelectList(_context.Produto, "Cod_Produto", "Nome_Produto", item_Pedido.Cod_Produto);
+            return View(item_Pedido);
         }
 
-        // POST: Pedido/Edit
+        // POST: Item_Pedido/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Num_Pedido,Valor_Total,Desconto,Data_Pedido,ID_CLIENTE")] Pedido pedido)
+        public async Task<IActionResult> Edit(int id, [Bind("Preco_Pago,Quantidade,Cod_Produto,Num_Pedido")] Item_Pedido item_Pedido)
         {
-            if (id != pedido.Num_Pedido)
+            if (id != item_Pedido.Num_Pedido)
             {
                 return NotFound();
             }
@@ -101,12 +102,12 @@ namespace SoftCandy.Controllers
             {
                 try
                 {
-                    _context.Update(pedido);
+                    _context.Update(item_Pedido);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PedidoExists(pedido.Num_Pedido))
+                    if (!Item_PedidoExists(item_Pedido.Num_Pedido))
                     {
                         return NotFound();
                     }
@@ -117,11 +118,11 @@ namespace SoftCandy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Celular", pedido.ID_CLIENTE);
-            return View(pedido);
+            ViewData["Cod_Produto"] = new SelectList(_context.Produto, "Cod_Produto", "Nome_Produto", item_Pedido.Cod_Produto);
+            return View(item_Pedido);
         }
 
-        // GET: Pedido/Delete
+        // GET: Item_Pedido/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,31 +130,31 @@ namespace SoftCandy.Controllers
                 return NotFound();
             }
 
-            var pedido = await _context.Pedido
-                .Include(p => p.Cliente)
+            var item_Pedido = await _context.Item_Pedido
+                .Include(i => i.Produto)
                 .FirstOrDefaultAsync(m => m.Num_Pedido == id);
-            if (pedido == null)
+            if (item_Pedido == null)
             {
                 return NotFound();
             }
 
-            return View(pedido);
+            return View(item_Pedido);
         }
 
-        // POST: Pedido/Delete
+        // POST: Item_Pedido/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var pedido = await _context.Pedido.FindAsync(id);
-            _context.Pedido.Remove(pedido);
+            var item_Pedido = await _context.Item_Pedido.FindAsync(id);
+            _context.Item_Pedido.Remove(item_Pedido);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PedidoExists(int id)
+        private bool Item_PedidoExists(int id)
         {
-            return _context.Pedido.Any(e => e.Num_Pedido == id);
+            return _context.Item_Pedido.Any(e => e.Num_Pedido == id);
         }
     }
 }
