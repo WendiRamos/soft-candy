@@ -20,20 +20,32 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> BuscaCliente(string Nome)
         {
+            if (User.Identity.IsAuthenticated)
+            {
                 var result = await _buscaService.FindByCliente(Nome);
                 return View(result);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> BuscaVendedor(string Nome)
         {
-            var result = await _buscaService.FindByVendedor(Nome);
-            return View(result);
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByVendedor(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> BuscaProduto(string Nome)
         {
-            var result = await _buscaService.FindByProduto(Nome);
-            return View(result);
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByProduto(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
     }

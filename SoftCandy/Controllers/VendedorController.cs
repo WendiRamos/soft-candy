@@ -30,31 +30,43 @@ namespace SoftCandy.Controllers
         // GET: Vendedor
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vendedor.ToListAsync());
+            if (User.Identity.IsAuthenticated)
+            {
+                return View(await _context.Vendedor.ToListAsync());
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Vendedor/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
-            }
+                if (id == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
+                }
 
-            var vendedor = await _context.Vendedor
-                .FirstOrDefaultAsync(m => m.Id_Vendedor == id);
-            if (vendedor == null)
-            {
-                return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
-            }
+                var vendedor = await _context.Vendedor
+                    .FirstOrDefaultAsync(m => m.Id_Vendedor == id);
+                if (vendedor == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
 
-            return View(vendedor);
+                return View(vendedor);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Vendedor/Create
         public IActionResult Create()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Vendedor/Create
@@ -62,29 +74,37 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id_Vendedor,Nome_Vendedor,Celular_Vendedor,Endereco_Vendedor,Email_Vendedor,Senha_Vendedor")] Vendedor vendedor)
         {
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
             {
-                _context.Add(vendedor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(vendedor);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(vendedor);
             }
-            return View(vendedor);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Vendedor/Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
-            }
+                if (id == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
+                }
 
-            var vendedor = await _context.Vendedor.FindAsync(id);
-            if (vendedor == null)
-            {
-                return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                var vendedor = await _context.Vendedor.FindAsync(id);
+                if (vendedor == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+                return View(vendedor);
             }
-            return View(vendedor);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Vendedor/Edit
@@ -92,50 +112,58 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id_Vendedor,Nome_Vendedor,Celular_Vendedor,Endereco_Vendedor,Email_Vendedor,Senha_Vendedor")] Vendedor vendedor)
         {
-            if (id != vendedor.Id_Vendedor)
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
-            }
+                if (id != vendedor.Id_Vendedor)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(vendedor);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException e)
-                {
-                    if (!VendedorExists(vendedor.Id_Vendedor))
+                    try
                     {
-                        return RedirectToAction(nameof(Error), new { message = e.Message });
+                        _context.Update(vendedor);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException e)
                     {
-                        throw;
+                        if (!VendedorExists(vendedor.Id_Vendedor))
+                        {
+                            return RedirectToAction(nameof(Error), new { message = e.Message });
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(vendedor);
             }
-            return View(vendedor);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Vendedor/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
-            }
+                if (id == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
+                }
 
-            var vendedor = await _context.Vendedor
-                .FirstOrDefaultAsync(m => m.Id_Vendedor == id);
-            if (vendedor == null)
-            {
-                return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
-            }
+                var vendedor = await _context.Vendedor
+                    .FirstOrDefaultAsync(m => m.Id_Vendedor == id);
+                if (vendedor == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
 
-            return View(vendedor);
+                return View(vendedor);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Vendedor/Delete
@@ -143,10 +171,14 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var vendedor = await _context.Vendedor.FindAsync(id);
-            _context.Vendedor.Remove(vendedor);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (User.Identity.IsAuthenticated)
+            {
+                var vendedor = await _context.Vendedor.FindAsync(id);
+                _context.Vendedor.Remove(vendedor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Login()
         {
@@ -160,6 +192,7 @@ namespace SoftCandy.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string Email_Vendedor, string Senha_Vendedor)
         {
+
             string strConexao = Configuration.GetConnectionString("SoftCandyContext");
             MySqlConnection SoftCandyContext = new MySqlConnection(strConexao);
             await SoftCandyContext.OpenAsync();
@@ -196,6 +229,7 @@ namespace SoftCandy.Controllers
             return RedirectToAction(nameof(Error), new { message = "Usuário não encontrado! Verifique suas credenciais!" });
 
 
+
         }
         public async Task<IActionResult> Logout()
         {
@@ -212,13 +246,16 @@ namespace SoftCandy.Controllers
         }
         public IActionResult Error(string message)
         {
-            var viewModel = new ErrorViewModel
+            if (User.Identity.IsAuthenticated)
             {
-                Message = message,
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-            };
-            return View(viewModel);
-
+                var viewModel = new ErrorViewModel
+                {
+                    Message = message,
+                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+                };
+                return View(viewModel);
+            }
+            return RedirectToAction("Index", "Home");
 
         }
     }
