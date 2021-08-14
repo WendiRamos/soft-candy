@@ -17,18 +17,6 @@ namespace SoftCandy.Migrations
                 .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("SoftCandy.Models.Categoria", b =>
-                {
-                    b.Property<int>("CategoriaId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CategoriaNome");
-
-                    b.HasKey("CategoriaId");
-
-                    b.ToTable("Categoria");
-                });
-
             modelBuilder.Entity("SoftCandy.Models.Cliente", b =>
                 {
                     b.Property<int>("Id_Cliente")
@@ -49,6 +37,28 @@ namespace SoftCandy.Migrations
                     b.HasKey("Id_Cliente");
 
                     b.ToTable("Cliente");
+                });
+
+            modelBuilder.Entity("SoftCandy.Models.Item_Pedido", b =>
+                {
+                    b.Property<int>("Num_Pedido")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Cod_Produto");
+
+                    b.Property<int?>("PedidoNum_Pedido");
+
+                    b.Property<decimal>("Preco_Pago");
+
+                    b.Property<int>("Quantidade");
+
+                    b.HasKey("Num_Pedido");
+
+                    b.HasIndex("Cod_Produto");
+
+                    b.HasIndex("PedidoNum_Pedido");
+
+                    b.ToTable("Item_Pedido");
                 });
 
             modelBuilder.Entity("SoftCandy.Models.Pedido", b =>
@@ -110,6 +120,18 @@ namespace SoftCandy.Migrations
                     b.HasKey("Id_Vendedor");
 
                     b.ToTable("Vendedor");
+                });
+
+            modelBuilder.Entity("SoftCandy.Models.Item_Pedido", b =>
+                {
+                    b.HasOne("SoftCandy.Models.Produto", "Produto")
+                        .WithMany("Itens_Pedidos")
+                        .HasForeignKey("Cod_Produto")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SoftCandy.Models.Pedido", "Pedido")
+                        .WithMany("Itens_Pedidos")
+                        .HasForeignKey("PedidoNum_Pedido");
                 });
 
             modelBuilder.Entity("SoftCandy.Models.Pedido", b =>
