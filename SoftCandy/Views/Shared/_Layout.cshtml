@@ -24,17 +24,20 @@
                             <a class="nav-link" asp-controller="Cliente" asp-action="Index">Clientes</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" asp-controller="Vendedor" asp-action="Index">Vendedores</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" asp-controller="Produto" asp-action="Index">Produtos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Pedido" asp-action="Index">Pedidos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Vendedor" asp-action="Index">Vendedores</a>
+                            <a class="nav-link" asp-controller="RealizarPedido" asp-action="Index">Realizar Pedidos</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a asp-area="" asp-controller="Vendedor" asp-action="Logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+                        <li><a asp-area="" asp-controller="Vendedor" asp-action="Logout"><span class="glyphicon"></span> Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -52,22 +55,7 @@
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Vendedor" asp-action="Login">Entrar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Vendedor" asp-action="Index">Vendedor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">Cliente</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Produto" asp-action="Index">Produto</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Pedido" asp-action="Index">Pedido</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="RealizarPedido" asp-action="Index">Realizar Pedido</a>
+                            <a asp-controller="Vendedor" asp-action="Login" class="">Entrar</a>
                         </li>
                     </ul>
 

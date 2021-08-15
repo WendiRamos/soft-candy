@@ -1,0 +1,29 @@
+﻿@model SoftCandy.Models.Categoria
+
+@{
+    ViewData["Title"] = "Deletar Categoria";
+}
+
+<h2>Deletar Categoria</h2>
+
+<h3>
+    Tem certeza que deseja excluir?
+</h3>
+<div>
+    <h4>Categoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome_Categoria)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome_Categoria)
+        </dd>
+    </dl>
+    <p></p>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id_Categoria" />
+        <input type="submit" value="Deletar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-primary">Voltar</a>
+    </form>
+</div>

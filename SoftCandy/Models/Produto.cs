@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,6 +28,11 @@ namespace SoftCandy.Models
 
         [StringLength(60, MinimumLength = 0, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         public string Descricao { get; set; }
+
+        [ForeignKey("Categoria")]
+        public int Id_Categoria { get; set; }
+
+        public virtual Categoria Categoria { get; set; }
 
         public ICollection<Item_Pedido> Itens_Pedidos { get; set; }
 

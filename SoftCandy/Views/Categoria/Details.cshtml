@@ -1,0 +1,24 @@
+﻿@model SoftCandy.Models.Categoria
+
+@{
+    ViewData["Title"] = "Detalhes Categoria";
+}
+
+<h2>Detalhes Categoria</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome_Categoria)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome_Categoria)
+        </dd>
+    </dl>
+</div>
+<p></p>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id_Categoria" class="btn btn-info">Editar</a> |
+    <a asp-action="Index" class="btn btn-success">Voltar</a>
+</div>
