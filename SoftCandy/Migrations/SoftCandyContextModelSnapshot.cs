@@ -22,7 +22,9 @@ namespace SoftCandy.Migrations
                     b.Property<int>("Id_Categoria")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Nome_Categoria");
+                    b.Property<string>("Nome_Categoria")
+                        .IsRequired()
+                        .HasMaxLength(60);
 
                     b.HasKey("Id_Categoria");
 
@@ -107,7 +109,7 @@ namespace SoftCandy.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<decimal>("Preco_Venda");
+                    b.Property<double>("Preco_Venda");
 
                     b.Property<int>("Quantidade");
 

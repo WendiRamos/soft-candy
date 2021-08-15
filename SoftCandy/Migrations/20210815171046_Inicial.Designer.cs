@@ -9,8 +9,8 @@ using SoftCandy.Data;
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    [Migration("20210812181718_Chave estrangeira")]
-    partial class Chaveestrangeira
+    [Migration("20210815171046_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,6 +18,20 @@ namespace SoftCandy.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("SoftCandy.Models.Categoria", b =>
+                {
+                    b.Property<int>("Id_Categoria")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Nome_Categoria")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.HasKey("Id_Categoria");
+
+                    b.ToTable("Categoria");
+                });
 
             modelBuilder.Entity("SoftCandy.Models.Cliente", b =>
                 {
@@ -39,6 +53,28 @@ namespace SoftCandy.Migrations
                     b.HasKey("Id_Cliente");
 
                     b.ToTable("Cliente");
+                });
+
+            modelBuilder.Entity("SoftCandy.Models.Item_Pedido", b =>
+                {
+                    b.Property<int>("Num_Pedido")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Cod_Produto");
+
+                    b.Property<int?>("PedidoNum_Pedido");
+
+                    b.Property<decimal>("Preco_Pago");
+
+                    b.Property<int>("Quantidade");
+
+                    b.HasKey("Num_Pedido");
+
+                    b.HasIndex("Cod_Produto");
+
+                    b.HasIndex("PedidoNum_Pedido");
+
+                    b.ToTable("Item_Pedido");
                 });
 
             modelBuilder.Entity("SoftCandy.Models.Pedido", b =>
@@ -69,15 +105,19 @@ namespace SoftCandy.Migrations
                     b.Property<string>("Descricao")
                         .HasMaxLength(60);
 
+                    b.Property<int>("Id_Categoria");
+
                     b.Property<string>("Nome_Produto")
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<decimal>("Preco_Venda");
+                    b.Property<double>("Preco_Venda");
 
                     b.Property<int>("Quantidade");
 
                     b.HasKey("Cod_Produto");
+
+                    b.HasIndex("Id_Categoria");
 
                     b.ToTable("Produto");
                 });
@@ -102,11 +142,31 @@ namespace SoftCandy.Migrations
                     b.ToTable("Vendedor");
                 });
 
+            modelBuilder.Entity("SoftCandy.Models.Item_Pedido", b =>
+                {
+                    b.HasOne("SoftCandy.Models.Produto", "Produto")
+                        .WithMany("Itens_Pedidos")
+                        .HasForeignKey("Cod_Produto")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SoftCandy.Models.Pedido", "Pedido")
+                        .WithMany("Itens_Pedidos")
+                        .HasForeignKey("PedidoNum_Pedido");
+                });
+
             modelBuilder.Entity("SoftCandy.Models.Pedido", b =>
                 {
                     b.HasOne("SoftCandy.Models.Cliente", "Cliente")
                         .WithMany("Pedidos")
                         .HasForeignKey("ID_CLIENTE")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SoftCandy.Models.Produto", b =>
+                {
+                    b.HasOne("SoftCandy.Models.Categoria", "Categoria")
+                        .WithMany("Produtos")
+                        .HasForeignKey("Id_Categoria")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
