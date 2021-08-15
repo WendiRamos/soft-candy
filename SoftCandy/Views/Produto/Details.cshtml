@@ -1,14 +1,14 @@
 ﻿@model SoftCandy.Models.Produto
 
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = "Detalhes Produto";
 }
 
-<h2>Detalhes do Produto</h2>
+<h2>Detalhes Produto</h2>
 
 <div>
     <h4>Produto</h4>
-    <p></p>
+    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Nome_Produto)
@@ -34,10 +34,16 @@
         <dd>
             @Html.DisplayFor(model => model.Descricao)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Nome_Categoria)
+        </dd>
     </dl>
 </div>
 <p></p>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Cod_Produto" class="btn btn-info">Editar</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Cod_Produto" class="btn btn-success">Editar</a> |
     <a asp-action="Index" class="btn btn-primary">Voltar</a>
 </div>

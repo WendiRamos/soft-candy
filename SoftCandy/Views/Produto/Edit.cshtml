@@ -1,37 +1,42 @@
 ﻿@model SoftCandy.Models.Produto
 
 @{
-    ViewData["Title"] = "Editar";
+    ViewData["Title"] = "Editar Produto";
 }
 
 <h2>Editar Produto</h2>
 
 <h4>Produto</h4>
-<p></p>
+<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-dark"></div>
             <input type="hidden" asp-for="Cod_Produto" />
             <div class="form-group">
-                <label asp-for="Nome_Produto" class="control-label">Novo Nome</label>
+                <label asp-for="Nome_Produto" class="control-label"></label>
                 <input asp-for="Nome_Produto" class="form-control" />
                 <span asp-validation-for="Nome_Produto" class="text-dark"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Quantidade" class="control-label">Nova Quantidade</label>
+                <label asp-for="Quantidade" class="control-label"></label>
                 <input asp-for="Quantidade" class="form-control" />
                 <span asp-validation-for="Quantidade" class="text-dark"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Preco_Venda" class="control-label">Novo Preço</label>
+                <label asp-for="Preco_Venda" class="control-label"></label>
                 <input asp-for="Preco_Venda" class="form-control" />
                 <span asp-validation-for="Preco_Venda" class="text-dark"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descricao" class="control-label">Nova Descrição</label>
+                <label asp-for="Descricao" class="control-label"></label>
                 <input asp-for="Descricao" class="form-control" />
                 <span asp-validation-for="Descricao" class="text-dark"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Id_Categoria" class="control-label"></label>
+                <select asp-for="Id_Categoria" class="form-control" asp-items="ViewBag.CAT"></select>
+                <span asp-validation-for="Id_Categoria" class="text-dark"></span>
             </div>
             <p></p>
             <div class="form-group">
