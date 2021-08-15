@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +38,7 @@ namespace SoftCandy.Controllers
             {
                 if (id == null)
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                 }
 
                 var item_Pedido = await _context.Item_Pedido
@@ -45,7 +46,7 @@ namespace SoftCandy.Controllers
                     .FirstOrDefaultAsync(m => m.Num_Pedido == id);
                 if (item_Pedido == null)
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
 
                 return View(item_Pedido);
@@ -90,13 +91,13 @@ namespace SoftCandy.Controllers
             {
                 if (id == null)
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                 }
 
                 var item_Pedido = await _context.Item_Pedido.FindAsync(id);
                 if (item_Pedido == null)
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
                 ViewData["Cod_Produto"] = new SelectList(_context.Produto, "Cod_Produto", "Nome_Produto", item_Pedido.Cod_Produto);
                 return View(item_Pedido);
@@ -113,7 +114,7 @@ namespace SoftCandy.Controllers
             {
                 if (id != item_Pedido.Num_Pedido)
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                 }
 
                 if (ModelState.IsValid)
@@ -127,7 +128,7 @@ namespace SoftCandy.Controllers
                     {
                         if (!Item_PedidoExists(item_Pedido.Num_Pedido))
                         {
-                            return NotFound();
+                            return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                         }
                         else
                         {
@@ -149,7 +150,7 @@ namespace SoftCandy.Controllers
             {
                 if (id == null)
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                 }
 
                 var item_Pedido = await _context.Item_Pedido
@@ -157,7 +158,7 @@ namespace SoftCandy.Controllers
                     .FirstOrDefaultAsync(m => m.Num_Pedido == id);
                 if (item_Pedido == null)
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
 
                 return View(item_Pedido);
@@ -183,6 +184,20 @@ namespace SoftCandy.Controllers
         private bool Item_PedidoExists(int id)
         {
             return _context.Item_Pedido.Any(e => e.Num_Pedido == id);
+        }
+
+        public IActionResult Error(string message)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var viewModel = new ErrorViewModel
+                {
+                    Message = message,
+                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+                };
+                return View(viewModel);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }
