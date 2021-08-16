@@ -48,5 +48,15 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task<IActionResult> BuscaCategoria(string Nome)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByCategoria(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

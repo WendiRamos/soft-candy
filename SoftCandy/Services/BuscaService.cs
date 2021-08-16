@@ -59,5 +59,19 @@ namespace SoftCandy.Services
                   .ToListAsync();
         }
 
+        public async Task<List<Categoria>> FindByCategoria(String Nome)
+        {
+            var result = from obj in _context.Categoria select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.Nome_Categoria.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
+
     }
 }

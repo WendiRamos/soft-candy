@@ -3,12 +3,23 @@
 @{
     ViewData["Title"] = "Categorias";
 }
-
 <h2>Categorias</h2>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Nova Categoria</a>
-</p>
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaCategoria">
+    <div class="form-group">
+        <div class="form-check-inline">
+            <label for="Nome"></label>
+            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
+        </div>
+        <button type="submit" class=" btn btn-primary">Pesquisar</button>
+    </div>
+</form>
+<br />
+<div>
+    <a asp-action="Create" class="btn btn-success">Nova Categoria</a> |
+    <a asp-action="Relatorio" target="_blank" class="btn btn-info">Gerar Relatório</a>
+</div>
+<br />
 <table class="table">
     <thead>
         <tr>
