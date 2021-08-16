@@ -6,3 +6,25 @@
 .invisivel {
     visibility: hidden;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #004882;
+}
+
+option {
+    margin: 40px;
+    background: #D2347F;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+    option:hover {
+        background: #3EA2D6;
+    }
+
+option:hover {
+    background: #3EA2D6;
+    
+}
