@@ -35,9 +35,7 @@ namespace SoftCandy.Models
 
         public virtual Categoria Categoria { get; set; }
 
-        public ICollection<Item_Pedido> Itens_Pedidos { get; set; }
-
-      
+        public virtual ICollection<Item_Pedido> Itens_Pedidos { get; set; }
     }
 
 }

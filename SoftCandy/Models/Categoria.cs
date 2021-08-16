@@ -16,17 +16,7 @@ namespace SoftCandy.Models
         [Required(ErrorMessage = "{0} obrigatório")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         public string Nome_Categoria { get; set; }
-        public ICollection<Produto> Produtos { get; set; }
 
-        public Categoria(int id_Categoria, string nome_Categoria, ICollection<Produto> produtos)
-        {
-            Id_Categoria = id_Categoria;
-            Nome_Categoria = nome_Categoria;
-            Produtos = produtos;
-        }
-
-        public Categoria()
-        {
-        }
+        public virtual ICollection<Produto> Produtos { get; set; }
     }
 }

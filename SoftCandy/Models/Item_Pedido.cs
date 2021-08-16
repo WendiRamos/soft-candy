@@ -26,19 +26,5 @@ namespace SoftCandy.Models
         [ForeignKey("Cliente")]
         public int Num_Pedido { get; set; }
         public virtual  Pedido Pedido { get; set; }
-
-        public Item_Pedido(decimal preco_Pago, int quantidade, int cod_Produto, Produto produto, int num_Pedido, Pedido pedido)
-        {
-            Preco_Pago = preco_Pago;
-            Quantidade = quantidade;
-            Cod_Produto = cod_Produto;
-            Produto = produto;
-            Num_Pedido = num_Pedido;
-            Pedido = pedido;
-        }
-
-        public Item_Pedido()
-        {
-        }
     }
 }
