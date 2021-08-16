@@ -26,7 +26,31 @@ namespace SoftCandy.Models
 
         [ForeignKey("Cliente")]
         public int ID_CLIENTE { get; set; }
+
         public virtual Cliente Cliente { get; set; }
-        public ICollection<Item_Pedido> Itens_Pedidos { get; set; }
+
+        public virtual ICollection<Item_Pedido> Itens_Pedidos { get; set; }
+
+        public Pedido(decimal valor_Total, int iD_CLIENTE, ICollection<Item_Pedido> itens_Pedidos)
+        {
+            Valor_Total = valor_Total;
+            Data_Pedido = DateTime.Now;
+            ID_CLIENTE = iD_CLIENTE;
+            Itens_Pedidos = itens_Pedidos;
+        }
+
+        public Pedido(int num_Pedido, decimal valor_Total, DateTime data_Pedido, int iD_CLIENTE, Cliente cliente, ICollection<Item_Pedido> itens_Pedidos)
+        {
+            Num_Pedido = num_Pedido;
+            Valor_Total = valor_Total;
+            Data_Pedido = data_Pedido;
+            ID_CLIENTE = iD_CLIENTE;
+            Cliente = cliente;
+            Itens_Pedidos = itens_Pedidos;
+        }
+
+        public Pedido()
+        {
+        }
     }
 }

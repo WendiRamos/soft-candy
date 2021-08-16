@@ -83,7 +83,16 @@ namespace SoftCandy.Controllers
         // [ValidateAntiForgeryToken]
         public int Create(List<Item_Pedido> Itens)
         {
-            return Itens[0].Quantidade;
+            decimal total = 0;
+            foreach(Item_Pedido item in Itens)
+                total += item.Preco_Pago;
+
+            Pedido pedido = new Pedido(total, 1, Itens);
+
+            _context.Add(pedido);
+            _context.SaveChanges();
+
+            return 1;
         }
 
         // GET: Pedido/Edit

@@ -82,6 +82,8 @@ function adicionar(produto) {
 }
 
 function enviar() {
+    itens = itens.map((i) => ({ ...i, Preco_Pago: i.Preco_Pago.toString().replace(".", ",") }));
+
     $.ajax({
         url: "/Pedido/Create/",
         type: "POST",
