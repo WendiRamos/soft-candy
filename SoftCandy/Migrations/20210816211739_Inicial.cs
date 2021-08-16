@@ -83,7 +83,6 @@ namespace SoftCandy.Migrations
                     Num_Pedido = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Valor_Total = table.Column<decimal>(nullable: false),
-                    Desconto = table.Column<decimal>(nullable: false),
                     Data_Pedido = table.Column<DateTime>(nullable: false),
                     ID_CLIENTE = table.Column<int>(nullable: false)
                 },
@@ -102,16 +101,16 @@ namespace SoftCandy.Migrations
                 name: "Item_Pedido",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Preco_Pago = table.Column<decimal>(nullable: false),
                     Quantidade = table.Column<int>(nullable: false),
                     Cod_Produto = table.Column<int>(nullable: false),
                     Num_Pedido = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    PedidoNum_Pedido = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Item_Pedido", x => x.Num_Pedido);
+                    table.PrimaryKey("PK_Item_Pedido", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Item_Pedido_Produto_Cod_Produto",
                         column: x => x.Cod_Produto,
@@ -119,11 +118,11 @@ namespace SoftCandy.Migrations
                         principalColumn: "Cod_Produto",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Item_Pedido_Pedido_PedidoNum_Pedido",
-                        column: x => x.PedidoNum_Pedido,
+                        name: "FK_Item_Pedido_Pedido_Num_Pedido",
+                        column: x => x.Num_Pedido,
                         principalTable: "Pedido",
                         principalColumn: "Num_Pedido",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -132,9 +131,9 @@ namespace SoftCandy.Migrations
                 column: "Cod_Produto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Item_Pedido_PedidoNum_Pedido",
+                name: "IX_Item_Pedido_Num_Pedido",
                 table: "Item_Pedido",
-                column: "PedidoNum_Pedido");
+                column: "Num_Pedido");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pedido_ID_CLIENTE",

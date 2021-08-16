@@ -9,8 +9,8 @@ using SoftCandy.Data;
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    [Migration("20210816194608_Teste")]
-    partial class Teste
+    [Migration("20210816211739_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,22 +57,22 @@ namespace SoftCandy.Migrations
 
             modelBuilder.Entity("SoftCandy.Models.Item_Pedido", b =>
                 {
-                    b.Property<int>("Num_Pedido")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Cod_Produto");
 
-                    b.Property<int?>("PedidoNum_Pedido");
+                    b.Property<int>("Num_Pedido");
 
                     b.Property<decimal>("Preco_Pago");
 
                     b.Property<int>("Quantidade");
 
-                    b.HasKey("Num_Pedido");
+                    b.HasKey("Id");
 
                     b.HasIndex("Cod_Produto");
 
-                    b.HasIndex("PedidoNum_Pedido");
+                    b.HasIndex("Num_Pedido");
 
                     b.ToTable("Item_Pedido");
                 });
@@ -149,7 +149,8 @@ namespace SoftCandy.Migrations
 
                     b.HasOne("SoftCandy.Models.Pedido", "Pedido")
                         .WithMany("Itens_Pedidos")
-                        .HasForeignKey("PedidoNum_Pedido");
+                        .HasForeignKey("Num_Pedido")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SoftCandy.Models.Pedido", b =>
