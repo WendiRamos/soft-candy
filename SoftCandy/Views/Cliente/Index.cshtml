@@ -4,7 +4,6 @@
     ViewData["Title"] = "Clientes";
 }
 <h2>Clientes</h2>
-<p></p>
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaCliente">
     <div class="form-group">
         <div class="form-check-inline">
@@ -13,10 +12,13 @@
         </div>
         <button type="submit" class=" btn btn-primary">Pesquisar</button>
     </div>
-    <p></p>
-    <a asp-controller="Cliente" asp-action="Create" class="btn btn-secondary">Novo Cliente</a>
+    <br />
+    <div>
+        <a asp-controller="Cliente" asp-action="Create" class="btn btn-success">Novo Cliente</a> |
+        <a asp-action="Relatorio" target="_blank" class="btn btn-info">Gerar Relatório</a>
+    </div>
 </form>
-<p></p>
+<br />
 <table class="table">
     <thead>
         <tr>
