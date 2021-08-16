@@ -3,12 +3,21 @@
 @{
     ViewData["Title"] = "Produtos";
 }
-
 <h2>Produtos</h2>
-
-<p>
-    <a asp-action="Create">Novo Produto</a>
-</p>
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaProduto">
+    <div class="form-group">
+        <div class="form-check-inline">
+            <label for="Nome"></label>
+            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
+        </div>
+        <button type="submit" class=" btn btn-primary">Pesquisar</button>
+    </div>
+</form>
+<br />
+<div>
+    <a asp-action="Create" class="btn btn-success">Novo Produto</a> |
+    <a asp-action="Relatorio" target="_blank" class="btn btn-info">Gerar Relatório</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -31,29 +40,31 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome_Produto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Preco_Venda)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria.Nome_Categoria)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Cod_Produto">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Cod_Produto">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.Cod_Produto">Deletar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome_Produto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantidade)
+                </td>
+                <td class="dinheiro">
+                    R$ @Html.DisplayFor(modelItem => item.Preco_Venda)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria.Nome_Categoria)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Cod_Produto">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Cod_Produto">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Cod_Produto">Deletar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<script src="~/js/formatador.js"></script>
