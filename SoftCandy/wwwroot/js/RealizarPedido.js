@@ -82,16 +82,15 @@ function adicionar(produto) {
 }
 
 function enviar() {
-    console.log(itens)
-    const send = JSON.stringify({"itensL": itens});
     $.ajax({
-        contentType: 'application/json; charset=utf-8',
-        dataType: "json",
-        type: 'POST',
-        url: '/Pedido/Create',
-        data: send,
-        success: function () {
-            alert("complete");
+        url: "/Pedido/Create/",
+        type: "POST",
+        data: { "Itens": itens },
+        success: function (data) {
+            alert(data)
+        },
+        error: function () {
+            alert("erro");
         }
     });
 }
