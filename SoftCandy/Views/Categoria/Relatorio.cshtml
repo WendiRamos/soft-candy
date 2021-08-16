@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SoftCandy.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Relatório Categorias";
+    Layout = "_LayoutRelatorio";
+}
+
+<h2>Relatório Categorias</h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id_Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome_Categoria)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id_Categoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome_Categoria)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>window.print()</script>

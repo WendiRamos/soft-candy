@@ -31,6 +31,16 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task<IActionResult> Relatorio()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var softCandyContext = _context.Produto.Include(p => p.Categoria);
+                return View(await softCandyContext.ToListAsync());
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         // GET: Produto/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -1,15 +1,12 @@
 ﻿@model IEnumerable<SoftCandy.Models.Pedido>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pedidos";
+    Layout = "_LayoutRelatorio";
 }
 
-<h2>Index</h2>
+<h2>Pedidos</h2>
 
-<div>
-    <a asp-action="Create">Novo Pedido</a> |
-    <a asp-action="Relatorio" target="_blank" class="btn btn-info">Gerar Relatório</a>
-</div>
 <table class="table">
     <thead>
         <tr>
@@ -44,12 +41,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Cliente.Nome)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Num_Pedido">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Num_Pedido">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Num_Pedido">Delete</a>
-                </td>
             </tr>
         }
     </tbody>
 </table>
+<script>window.print()</script>

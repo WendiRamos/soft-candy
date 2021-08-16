@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SoftCandy.Models.Vendedor>
+
+@{
+    ViewData["Title"] = "Relatório Vendedores";
+    Layout = "_LayoutRelatorio";
+}
+<h2>Vendedores</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id_Vendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome_Vendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Celular_Vendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco_Vendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email_Vendedor)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id_Vendedor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome_Vendedor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Celular_Vendedor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Endereco_Vendedor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email_Vendedor)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>window.print()</script>

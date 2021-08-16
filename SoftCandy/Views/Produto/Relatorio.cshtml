@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SoftCandy.Models.Produto>
+
+@{
+    ViewData["Title"] = "Relatório Produtos";
+    Layout = "_LayoutRelatorio";
+}
+
+<h2>Relatório Produtos</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome_Produto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco_Venda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome_Produto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantidade)
+                </td>
+                <td>
+                    <script>dinheiro("@item.Preco_Venda")</script>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria.Nome_Categoria)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/js/formatador.js"></script>
+<script>window.print()</script>
