@@ -81,9 +81,9 @@ namespace SoftCandy.Controllers
         // POST: Pedido/Create
         [HttpPost]
         // [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(List<Item_Pedido> itensL)
+        public int Create(List<Item_Pedido> Itens)
         {
-            return View(itensL);
+            return Itens[0].Quantidade;
         }
 
         // GET: Pedido/Edit
@@ -110,7 +110,7 @@ namespace SoftCandy.Controllers
         // POST: Pedido/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Num_Pedido,Valor_Total,Desconto,Data_Pedido,ID_CLIENTE")] Pedido pedido)
+        public async Task<IActionResult> Edit(int id, [Bind("Num_Pedido,Valor_Total,Data_Pedido,ID_CLIENTE")] Pedido pedido)
         {
             if (User.Identity.IsAuthenticated)
             {
