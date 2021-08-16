@@ -22,26 +22,49 @@
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">Clientes</a>
+                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">
+                                <img src="~/images/clientes.png" />
+                                Clientes
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Vendedor" asp-action="Index">Vendedores</a>
+                            <a class="nav-link" asp-controller="Vendedor" asp-action="Index">
+                                <img src="~/images/vendedor.png" />
+                                Vendedores
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Produto" asp-action="Index">Produtos</a>
+                            <a class="nav-link" asp-controller="Produto" asp-action="Index">
+                                <img src="~/images/produtos.png" />
+                                Produtos
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Categoria" asp-action="Index">Categorias</a>
+                            <a class="nav-link" asp-controller="Categoria" asp-action="Index">
+                                <img src="~/images/categoria.png" />
+                                Categorias
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Pedido" asp-action="Index">Meus Pedidos</a>
+                            <a class="nav-link" asp-controller="Pedido" asp-action="Index">
+                                <img src="~/images/pedidos.png" />
+                                Meus Pedidos
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="RealizarPedido" asp-action="Index">Realizar Pedidos</a>
+                            <a class="nav-link" asp-controller="RealizarPedido" asp-action="Index">
+                                <img src="~/images/compras.png" />
+                                Realizar Pedidos
+                            </a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a asp-area="" asp-controller="Vendedor" asp-action="Logout"><span class="glyphicon glyphicon-camera"></span> Sair</a></li>
+                        <li>
+                            <a asp-area="" asp-controller="Vendedor" asp-action="Logout" class="nav-link">
+                                <img src="~/images/sair.png" />
+                                Sair
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -59,7 +82,10 @@
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a asp-controller="Vendedor" asp-action="Login" class="">Entrar</a>
+                            <a asp-controller="Vendedor" asp-action="Login" class="nav-link">
+                                <img src="~/images/entrar.png" />
+                                Entrar
+                            </a>
                         </li>
                     </ul>
 
@@ -71,7 +97,7 @@
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
-        <br/>
+        <br />
         @RenderBody()
 
     </div>
