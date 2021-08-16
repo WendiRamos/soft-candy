@@ -109,7 +109,7 @@ namespace SoftCandy.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<double>("Preco_Venda");
+                    b.Property<decimal>("Preco_Venda");
 
                     b.Property<int>("Quantidade");
 
