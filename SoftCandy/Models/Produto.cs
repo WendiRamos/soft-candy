@@ -10,12 +10,12 @@ namespace SoftCandy.Models
     public class Produto
     {
         [Key]
-        [Display(Name = "Código Produto")]
+        [Display(Name = "Código")]
         public int Cod_Produto { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
-        [Display(Name = "Nome Produto")]
+        [Display(Name = "Nome")]
         public string Nome_Produto { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
@@ -23,13 +23,14 @@ namespace SoftCandy.Models
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Preço Venda")]
-        public double Preco_Venda { get; set; }
+        public decimal Preco_Venda { get; set; }
 
+        [Display(Name = "Descrição")]
         [StringLength(60, MinimumLength = 0, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         public string Descricao { get; set; }
 
         [ForeignKey("Categoria")]
-        [Display(Name = "Id Categoria")]
+        [Display(Name = "Categoria")]
         public int Id_Categoria { get; set; }
 
         public virtual Categoria Categoria { get; set; }

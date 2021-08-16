@@ -9,7 +9,7 @@ namespace SoftCandy.Models
     public class Vendedor
     {
         [Key]
-        [Display(Name = "Id Vendedor")]
+        [Display(Name = "Id")]
         public int Id_Vendedor { get; set; }
 
         [Display(Name = "Nome")]
