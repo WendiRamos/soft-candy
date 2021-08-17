@@ -26,6 +26,7 @@ function adicionar(produto) {
     const preco = document.createTextNode(dinheiro(produto.Preco_Venda));
     const sub = document.createTextNode(dinheiro(produto.Preco_Venda));
     const qnt = document.createElement("input");
+    qnt.className = "entrada-transparente";
     qnt.type = "number";
     qnt.value = "1";
     qnt.min = "1";
