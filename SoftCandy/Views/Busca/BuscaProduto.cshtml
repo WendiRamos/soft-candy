@@ -12,7 +12,8 @@
             <label for="Nome"></label>
             <input type="text" class="form-control" name="Nome" placeholder="Nome do produto" value=@ViewData["Nome"] />
         </div>
-        <button type="submit" class=" btn btn-primary">Pesquisar</button>
+        <button type="submit" class=" btn btn-primary">Pesquisar</button> |
+        <a asp-controller="Produto" asp-action="Index" class="btn btn-info">Voltar</a>
     </div>
     <br />
 </form>
