@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SoftCandy.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Pesquisa Pedidos";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form class="form-inline">
+    <div class="form-check-inline">
+        <div class="container">
+            <div class="row align-middle">
+                <div class="col">
+                    <label for="minDate" class="control-label">Data inicial</label>
+                    <input type="date" name="minDate" class="form-control" />
+                </div>
+                <div class="col">
+                    <label for="maxDate" class="control-label">Data final</label>
+                    <input type="date" name="maxDate" class="form-control" />
+                </div>
+                <div class="col d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </div>
+                <p></p>
+                <div>
+                    <a asp-controller="Pedido" asp-action="Index" class="btn btn-info">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="panel panel-primary">
+
+    <div class="panel-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr class="success">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Num_Pedido)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Valor_Total)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Data_Pedido)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cliente)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Num_Pedido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor_Total)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Data_Pedido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

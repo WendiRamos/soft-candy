@@ -26,7 +26,7 @@ namespace SoftCandy.Models
 
         [ForeignKey("Cliente")]
         public int ID_CLIENTE { get; set; }
-
+        
         public virtual Cliente Cliente { get; set; }
 
         public virtual ICollection<Item_Pedido> Itens_Pedidos { get; set; }
