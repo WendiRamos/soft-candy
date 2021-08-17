@@ -25,9 +25,10 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Pedido.Include(c => c.Cliente);
+                var softCandyContext = _context.Pedido.OrderByDescending(p => p.Num_Pedido).Include(c => c.Cliente);
 
                 return View(await softCandyContext.ToListAsync());
+                
             }
             return RedirectToAction("Index", "Home");
 
@@ -82,18 +83,18 @@ namespace SoftCandy.Controllers
 
         // POST: Pedido/Create
         [HttpPost]
-        public int Create(List<Item_Pedido> Itens)
+        public int Create(List<Item_Pedido> Itens, int Id_Cliente)
         {
             decimal total = 0;
             foreach(Item_Pedido item in Itens)
-                total += item.Preco_Pago;
+                total += item.Preco_Pago * item.Quantidade;
 
-            Pedido pedido = new Pedido(total, 1, Itens);
+            Pedido pedido = new Pedido(total, Id_Cliente, Itens);
 
             _context.Add(pedido);
             _context.SaveChanges();
 
-            return 1;
+            return pedido.Num_Pedido;
         }
 
         // GET: Pedido/Edit
@@ -111,7 +112,7 @@ namespace SoftCandy.Controllers
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Celular", pedido.ID_CLIENTE);
+                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Nome");
                 return View(pedido);
             }
             return RedirectToAction("Index", "Home");
@@ -149,7 +150,7 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Celular", pedido.ID_CLIENTE);
+                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Nome");
                 return View(pedido);
             }
             return RedirectToAction("Index", "Home");

@@ -1,20 +1,20 @@
 ﻿@model SoftCandy.Models.Pedido
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes Pedido";
 }
 
-<h2>Details</h2>
+<h2>Detalhes Pedido</h2>
 
 <div>
-    <h4>Pedido</h4>
+   
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Valor_Total)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Valor_Total)
+          R$ @Html.DisplayFor(model => model.Valor_Total)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Data_Pedido)
@@ -31,6 +31,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Num_Pedido">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Num_Pedido" class="btn btn-info">Editar</a> |
+    <a asp-action="Index" class="btn btn-primary">Voltar</a>
 </div>

@@ -83,16 +83,17 @@ function adicionar(produto) {
 
 function enviar() {
     itens = itens.map((i) => ({ ...i, Preco_Pago: i.Preco_Pago.toString().replace(".", ",") }));
+    const id = $("select").val();
 
     $.ajax({
         url: "/Pedido/Create/",
         type: "POST",
-        data: { "Itens": itens },
-        success: function (data) {
-            alert(data)
+        data: { "Itens": itens, "Id_Cliente": id },
+        success: function (id) {
+            window.location.href = '/Pedido/Index';
         },
         error: function () {
-            alert("erro");
+            alert("Ocorreu um erro, por favor tente novamente!");
         }
     });
 }

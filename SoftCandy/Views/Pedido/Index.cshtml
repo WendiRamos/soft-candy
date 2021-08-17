@@ -59,7 +59,7 @@
                 @Html.DisplayFor(modelItem => item.Num_Pedido)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Valor_Total)
+                R$ @Html.DisplayFor(modelItem => item.Valor_Total)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Data_Pedido)
@@ -68,7 +68,6 @@
                 @Html.DisplayFor(modelItem => item.Cliente.Nome)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Num_Pedido">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.Num_Pedido">Detalhes</a> |
                 <a asp-action="Delete" asp-route-id="@item.Num_Pedido">Deletar</a>
             </td>
