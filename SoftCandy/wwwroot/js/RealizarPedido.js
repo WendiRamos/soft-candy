@@ -90,10 +90,18 @@ function enviar() {
         type: "POST",
         data: { "Itens": itens, "Id_Cliente": id },
         success: function (id) {
-            window.location.href = '/Pedido/Index';
+            Swal.fire({
+                title: "Sucesso!",
+                text: "Seu pedido foi realizado.",
+                icon: "success"
+            }).then(() => window.location.href = '/Pedido/Index');
         },
         error: function () {
-            alert("Ocorreu um erro, por favor tente novamente!");
+            Swal.fire({
+                title: "Ocorreu um erro!",
+                text: "Tente novamente.",
+                icon: "error"
+            })
         }
     });
 }
