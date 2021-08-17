@@ -1,0 +1,64 @@
+﻿CREATE DATABASE `softcandy`;
+
+USE `softcandy`;
+
+CREATE TABLE `categoria` (
+  `Id_Categoria` int NOT NULL AUTO_INCREMENT,
+  `Nome_Categoria` varchar(60) NOT NULL,
+  PRIMARY KEY (`Id_Categoria`)
+);
+
+CREATE TABLE `cliente` (
+  `Id_Cliente` int NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(60) NOT NULL,
+  `Celular` varchar(11) NOT NULL,
+  `Endereco` varchar(254) NOT NULL,
+  PRIMARY KEY (`Id_Cliente`)
+);
+
+CREATE TABLE `item_pedido` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `Preco_Pago` decimal(65,30) NOT NULL,
+  `Quantidade` int NOT NULL,
+  `Cod_Produto` int NOT NULL,
+  `Num_Pedido` int NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `IX_Item_Pedido_Cod_Produto` (`Cod_Produto`),
+  KEY `IX_Item_Pedido_Num_Pedido` (`Num_Pedido`),
+  CONSTRAINT `FK_Item_Pedido_Pedido_Num_Pedido` FOREIGN KEY (`Num_Pedido`) REFERENCES `pedido` (`Num_Pedido`) ON DELETE CASCADE,
+  CONSTRAINT `FK_Item_Pedido_Produto_Cod_Produto` FOREIGN KEY (`Cod_Produto`) REFERENCES `produto` (`Cod_Produto`) ON DELETE CASCADE
+);
+
+CREATE TABLE `pedido` (
+  `Num_Pedido` int NOT NULL AUTO_INCREMENT,
+  `Valor_Total` decimal(65,30) NOT NULL,
+  `Data_Pedido` datetime(6) NOT NULL,
+  `ID_CLIENTE` int NOT NULL,
+  PRIMARY KEY (`Num_Pedido`),
+  KEY `IX_Pedido_ID_CLIENTE` (`ID_CLIENTE`),
+  CONSTRAINT `FK_Pedido_Cliente_ID_CLIENTE` FOREIGN KEY (`ID_CLIENTE`) REFERENCES `cliente` (`Id_Cliente`) ON DELETE CASCADE
+);
+
+CREATE TABLE `produto` (
+  `Cod_Produto` int NOT NULL AUTO_INCREMENT,
+  `Nome_Produto` varchar(60) NOT NULL,
+  `Quantidade` int NOT NULL,
+  `Preco_Venda` decimal(65,30) NOT NULL,
+  `Descricao` varchar(60) DEFAULT NULL,
+  `Id_Categoria` int NOT NULL,
+  PRIMARY KEY (`Cod_Produto`),
+  KEY `IX_Produto_Id_Categoria` (`Id_Categoria`),
+  CONSTRAINT `FK_Produto_Categoria_Id_Categoria` FOREIGN KEY (`Id_Categoria`) REFERENCES `categoria` (`Id_Categoria`) ON DELETE CASCADE
+);
+
+CREATE TABLE `vendedor` (
+  `Id_Vendedor` int NOT NULL AUTO_INCREMENT,
+  `Nome_Vendedor` longtext,
+  `Celular_Vendedor` longtext,
+  `Endereco_Vendedor` longtext,
+  `Email_Vendedor` longtext,
+  `Senha_Vendedor` longtext,
+  PRIMARY KEY (`Id_Vendedor`)
+);
+
+// Conexão com o banco no arquivo appsettings.json
