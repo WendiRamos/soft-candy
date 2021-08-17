@@ -1,18 +1,44 @@
 ﻿@model IEnumerable<SoftCandy.Models.Pedido>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pedidos";
 }
 
-<h2>Index</h2>
+<h2>Pedidos</h2>
 
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaPedido">
+    <div class="form-check-inline">
+        <div class="container">
+            <div class="row align-middle">
+                <div class="col">
+                    <label for="minDate" class="control-label">Data inicial</label>
+                    <input type="date" name="minDate" class="form-control" />
+                </div>
+                <div class="col">
+                    <label for="maxDate" class="control-label">Data final</label>
+                    <input type="date" name="maxDate" class="form-control" />
+                </div>
+                <div class="col d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<br />
 <div>
-    <a asp-action="Create">Novo Pedido</a> |
+    <a asp-controller="Pedido" asp-action="Create" class="btn btn-success">Novo Pedido</a> |
     <a asp-action="Relatorio" target="_blank" class="btn btn-info">Gerar Relatório</a>
 </div>
+<br />
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Num_Pedido)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Valor_Total)
             </th>
@@ -28,22 +54,25 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Valor_Total)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Data_Pedido)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Num_Pedido">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Num_Pedido">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Num_Pedido">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Num_Pedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor_Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data_Pedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Num_Pedido">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Num_Pedido">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.Num_Pedido">Deletar</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

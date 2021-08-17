@@ -1,42 +1,92 @@
-﻿@model SoftCandy.Models.Pedido
+﻿@using Newtonsoft.Json;
+@model SoftCandy.Models.RealizarPedido
 
 @{
-    ViewData["Title"] = "Pedido";
+    ViewData["Title"] = "Realizar Pedido";
 }
 
-<h2>Create</h2>
+<h2>Realizar Pedido</h2>
 
-<h4>Pedido</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ID_CLIENTE" class="control-label">Nome Cliente</label>
-                <select asp-for="ID_CLIENTE" class ="form-control" asp-items="ViewBag.ID_CLIENTE"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Data_Pedido" class="control-label"> Data Pedido</label>
-                <input asp-for="Data_Pedido" class="form-control" />
-                <span asp-validation-for="Data_Pedido" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Valor_Total" class="control-label">Valor Total</label>
-                <input asp-for="Valor_Total" class="form-control" />
-                <span asp-validation-for="Valor_Total" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <label asp-for="Id_Cliente" class="control-label">Selecione o Cliente:</label>
+                <select asp-for="Id_Cliente" class="form-control" asp-items="ViewBag.ID_CLIENTE"></select>
             </div>
         </form>
+
     </div>
 </div>
+<br />
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Produto</th>
+            <th>Preco</th>
+            <th>Quantidade</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody id="itens-pedido"></tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total:</td>
+            <td id="total-pedido">0</td>
+        </tr>
+    </tfoot>
+</table>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<button id="enviar" disabled class="btn btn-success" onclick="enviar()">Enviar</button>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Nome
+            </th>
+            <th>
+                Estoque
+            </th>
+            <th>
+                Preço
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Produtos)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cod_Produto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome_Produto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantidade)
+                </td>
+                <td>
+                    R$ @Html.DisplayFor(modelItem => item.Preco_Venda)
+                </td>
+                <td>
+                    <button class="btn btn-secondary" onclick="adicionar(@JsonConvert.SerializeObject(item))">Adicionar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/js/RealizarPedido.js"></script>
+<script src="~/js/formatador.js"></script>
+
+

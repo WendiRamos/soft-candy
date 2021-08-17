@@ -72,15 +72,16 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                var model = new RealizarPedido();
+                model.Produtos = _context.Produto.ToList();
                 ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Nome");
-                return View();
+                return View(model);
             }
             return RedirectToAction("Index", "Home");
         }
 
         // POST: Pedido/Create
         [HttpPost]
-        // [ValidateAntiForgeryToken]
         public int Create(List<Item_Pedido> Itens)
         {
             decimal total = 0;
