@@ -50,7 +50,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var cliente = await _context.Cliente
-                    .FirstOrDefaultAsync(m => m.Id_Cliente == id);
+                    .FirstOrDefaultAsync(m => m.IdCliente == id);
                 if (cliente == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -74,7 +74,7 @@ namespace SoftCandy.Controllers
         // POST: Cliente/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id_Cliente,Nome,Celular,Endereco")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("id_Cliente,NomeCliente,CelularCliente,EnderecoCliente")] Cliente cliente)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -112,11 +112,11 @@ namespace SoftCandy.Controllers
         // POST: Cliente/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Cliente,Nome,Celular,Endereco")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("IdCliente,NomeCliente,CelularCliente,EnderecoCliente")] Cliente cliente)
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (id != cliente.Id_Cliente)
+                if (id != cliente.IdCliente)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
                 }
@@ -130,7 +130,7 @@ namespace SoftCandy.Controllers
                     }
                     catch (DbUpdateConcurrencyException e)
                     {
-                        if (!ClienteExists(cliente.Id_Cliente))
+                        if (!ClienteExists(cliente.IdCliente))
                         {
                             return RedirectToAction(nameof(Error), new { message = e.Message });
                         }
@@ -157,7 +157,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var cliente = await _context.Cliente
-                    .FirstOrDefaultAsync(m => m.Id_Cliente == id);
+                    .FirstOrDefaultAsync(m => m.IdCliente == id);
                 if (cliente == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -185,7 +185,7 @@ namespace SoftCandy.Controllers
 
         private bool ClienteExists(int id)
         {
-            return _context.Cliente.Any(e => e.Id_Cliente == id);
+            return _context.Cliente.Any(e => e.IdCliente == id);
         }
 
         public IActionResult Error(string message)

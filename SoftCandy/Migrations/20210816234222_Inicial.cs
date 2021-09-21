@@ -93,7 +93,7 @@ namespace SoftCandy.Migrations
                         name: "FK_Pedido_Cliente_ID_CLIENTE",
                         column: x => x.ID_CLIENTE,
                         principalTable: "Cliente",
-                        principalColumn: "Id_Cliente",
+                        principalColumn: "IdCliente",
                         onDelete: ReferentialAction.Cascade);
                 });
 

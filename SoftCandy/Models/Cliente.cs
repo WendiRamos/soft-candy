@@ -9,21 +9,23 @@ namespace SoftCandy.Models
     public class Cliente
     {
         [Key()]
-        [Display(Name = "Id")]
-        public int Id_Cliente { get; set; }
+        [Display(Name = "Id Cliente")]
+        public int IdCliente { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
-        public string Nome { get; set; }
+        [Display(Name = "Nome")]
+        public string NomeCliente { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [StringLength(11, MinimumLength = 8, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
-        public string Celular { get ; set; }
+        [Display(Name = "Celular")]
+        public string CelularCliente { get ; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [StringLength(254, MinimumLength = 10, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Endereço")]
-        public string Endereco { get; set; }
+        public string EnderecoCliente { get; set; }
 
         public ICollection<Pedido> Pedidos { get; set; }
         
@@ -34,9 +36,9 @@ namespace SoftCandy.Models
         public Cliente(string nome, string celular, string endereco)
         {
             
-            Nome = nome;
-            Celular = celular;
-            Endereco = endereco;
+            NomeCliente = nome;
+            CelularCliente = celular;
+            EnderecoCliente = endereco;
             Pedidos = null;
         }
     }

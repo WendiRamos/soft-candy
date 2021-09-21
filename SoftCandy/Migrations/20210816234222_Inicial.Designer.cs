@@ -35,22 +35,22 @@ namespace SoftCandy.Migrations
 
             modelBuilder.Entity("SoftCandy.Models.Cliente", b =>
                 {
-                    b.Property<int>("Id_Cliente")
+                    b.Property<int>("IdCliente")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Celular")
+                    b.Property<string>("CelularCliente")
                         .IsRequired()
                         .HasMaxLength(11);
 
-                    b.Property<string>("Endereco")
+                    b.Property<string>("EnderecoCliente")
                         .IsRequired()
                         .HasMaxLength(254);
 
-                    b.Property<string>("Nome")
+                    b.Property<string>("NomeCliente")
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.HasKey("Id_Cliente");
+                    b.HasKey("IdCliente");
 
                     b.ToTable("Cliente");
                 });

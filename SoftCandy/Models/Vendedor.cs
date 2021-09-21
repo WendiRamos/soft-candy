@@ -12,10 +12,10 @@ namespace SoftCandy.Models
         [Display(Name = "Id")]
         public int Id_Vendedor { get; set; }
 
-        [Display(Name = "Nome")]
+        [Display(Name = "NomeCliente")]
         public string Nome_Vendedor { get; set; }
 
-        [Display(Name = "Celular")]
+        [Display(Name = "CelularCliente")]
         public string Celular_Vendedor { get; set; }
 
         [Display(Name = "Endereço")]

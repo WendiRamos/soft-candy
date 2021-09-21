@@ -12,7 +12,7 @@ namespace SoftCandy.Models
         [Display(Name = "Id Categoria")]
         public int IdCategoria { get; set; }
 
-        [Display(Name = "Nome")]
+        [Display(Name = "NomeCliente")]
         [Required(ErrorMessage = "{0} obrigatório")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         public string NomeCategoria { get; set; }

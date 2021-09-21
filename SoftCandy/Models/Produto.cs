@@ -15,7 +15,7 @@ namespace SoftCandy.Models
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
-        [Display(Name = "Nome")]
+        [Display(Name = "NomeCliente")]
         public string Nome_Produto { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
