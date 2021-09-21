@@ -22,7 +22,7 @@ namespace SoftCandy.Models
         [Display(Name = "Data Pedido")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.DateTime)]
-        public DateTime Data_Pedido { get; set; }
+        public DateTime DataPedido { get; set; }
 
         [ForeignKey("Cliente")]
         public int IdCliente { get; set; }
@@ -34,16 +34,16 @@ namespace SoftCandy.Models
         public Pedido(decimal ValorTotalPedido, int IdCliente, ICollection<ItemPedido> ItensPedidos)
         {
             ValorTotalPedido = ValorTotalPedido;
-            Data_Pedido = DateTime.Now;
+            DataPedido = DateTime.Now;
             IdCliente = IdCliente;
             ItensPedidos = ItensPedidos;
         }
 
-        public Pedido(int IdPedido, decimal ValorTotalPedido, DateTime data_Pedido, int IdCliente, Cliente cliente, ICollection<ItemPedido> ItensPedidos)
+        public Pedido(int IdPedido, decimal ValorTotalPedido, DateTime DataPedido, int IdCliente, Cliente cliente, ICollection<ItemPedido> ItensPedidos)
         {
             IdPedido = IdPedido;
             ValorTotalPedido = ValorTotalPedido;
-            Data_Pedido = data_Pedido;
+            DataPedido = DataPedido;
             IdCliente = IdCliente;
             Cliente = cliente;
             ItensPedidos = ItensPedidos;

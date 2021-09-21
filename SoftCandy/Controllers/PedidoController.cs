@@ -121,7 +121,7 @@ namespace SoftCandy.Controllers
         // POST: Pedido/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPedido,ValorTotalPedido,Data_Pedido,IdCliente")] Pedido pedido)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPedido,ValorTotalPedido,DataPedido,IdCliente")] Pedido pedido)
         {
             if (User.Identity.IsAuthenticated)
             {

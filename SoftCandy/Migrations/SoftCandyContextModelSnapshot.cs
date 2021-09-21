@@ -53,14 +53,14 @@ namespace SoftCandy.Migrations
                     b.ToTable("Cliente");
                 });
 
-            modelBuilder.Entity("SoftCandy.Models.Item_Pedido", b =>
+            modelBuilder.Entity("SoftCandy.Models.ItemPedido", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("IdProduto");
-
                     b.Property<int>("IdPedido");
+
+                    b.Property<int>("IdProduto");
 
                     b.Property<decimal>("PrecoPago");
 
@@ -68,9 +68,9 @@ namespace SoftCandy.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdProduto");
-
                     b.HasIndex("IdPedido");
+
+                    b.HasIndex("IdProduto");
 
                     b.ToTable("Item_Pedido");
                 });
@@ -80,7 +80,7 @@ namespace SoftCandy.Migrations
                     b.Property<int>("IdPedido")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Data_Pedido");
+                    b.Property<DateTime>("DataPedido");
 
                     b.Property<int>("IdCliente");
 
@@ -138,16 +138,16 @@ namespace SoftCandy.Migrations
                     b.ToTable("Vendedor");
                 });
 
-            modelBuilder.Entity("SoftCandy.Models.Item_Pedido", b =>
+            modelBuilder.Entity("SoftCandy.Models.ItemPedido", b =>
                 {
-                    b.HasOne("SoftCandy.Models.Produto", "Produto")
-                        .WithMany("ItensPedidos")
-                        .HasForeignKey("IdProduto")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("SoftCandy.Models.Pedido", "Pedido")
                         .WithMany("ItensPedidos")
                         .HasForeignKey("IdPedido")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SoftCandy.Models.Produto", "Produto")
+                        .WithMany("ItensPedidos")
+                        .HasForeignKey("IdProduto")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

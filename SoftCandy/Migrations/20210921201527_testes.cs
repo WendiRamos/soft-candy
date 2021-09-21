@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SoftCandy.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class testes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace SoftCandy.Migrations
                 {
                     IdCategoria = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome_Categoria = table.Column<string>(maxLength: 60, nullable: false)
+                    NomeCategoria = table.Column<string>(maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,9 +27,9 @@ namespace SoftCandy.Migrations
                 {
                     IdCliente = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(maxLength: 60, nullable: false),
-                    Celular = table.Column<string>(maxLength: 11, nullable: false),
-                    Endereco = table.Column<string>(maxLength: 254, nullable: false)
+                    NomeCliente = table.Column<string>(maxLength: 60, nullable: false),
+                    CelularCliente = table.Column<string>(maxLength: 11, nullable: false),
+                    EnderecoCliente = table.Column<string>(maxLength: 254, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,7 +83,7 @@ namespace SoftCandy.Migrations
                     IdPedido = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ValorTotalPedido = table.Column<decimal>(nullable: false),
-                    Data_Pedido = table.Column<DateTime>(nullable: false),
+                    DataPedido = table.Column<DateTime>(nullable: false),
                     IdCliente = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -112,28 +112,28 @@ namespace SoftCandy.Migrations
                 {
                     table.PrimaryKey("PK_Item_Pedido", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Item_Pedido_Produto_IdProduto",
-                        column: x => x.IdProduto,
-                        principalTable: "Produto",
-                        principalColumn: "IdProduto",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Item_Pedido_Pedido_IdPedido",
                         column: x => x.IdPedido,
                         principalTable: "Pedido",
                         principalColumn: "IdPedido",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Item_Pedido_Produto_IdProduto",
+                        column: x => x.IdProduto,
+                        principalTable: "Produto",
+                        principalColumn: "IdProduto",
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Item_Pedido_IdProduto",
-                table: "Item_Pedido",
-                column: "IdProduto");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Item_Pedido_IdPedido",
                 table: "Item_Pedido",
                 column: "IdPedido");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Item_Pedido_IdProduto",
+                table: "Item_Pedido",
+                column: "IdProduto");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pedido_IdCliente",
@@ -155,16 +155,16 @@ namespace SoftCandy.Migrations
                 name: "Vendedor");
 
             migrationBuilder.DropTable(
-                name: "Produto");
-
-            migrationBuilder.DropTable(
                 name: "Pedido");
 
             migrationBuilder.DropTable(
-                name: "Categoria");
+                name: "Produto");
 
             migrationBuilder.DropTable(
                 name: "Cliente");
+
+            migrationBuilder.DropTable(
+                name: "Categoria");
         }
     }
 }

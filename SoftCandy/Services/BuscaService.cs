@@ -77,15 +77,15 @@ namespace SoftCandy.Services
             var result = from obj in _context.Pedido select obj;
             if (minDate.HasValue)
             {
-                result = result.Where(x => x.Data_Pedido >= minDate.Value);
+                result = result.Where(x => x.DataPedido >= minDate.Value);
             }
             if (maxDate.HasValue)
             {
-                result = result.Where(x => x.Data_Pedido <= maxDate.Value);
+                result = result.Where(x => x.DataPedido <= maxDate.Value);
             }
             return await result
                 .Include(x => x.Cliente)
-                .OrderByDescending(x => x.Data_Pedido)
+                .OrderByDescending(x => x.DataPedido)
                 .ToListAsync();
         }
     }
