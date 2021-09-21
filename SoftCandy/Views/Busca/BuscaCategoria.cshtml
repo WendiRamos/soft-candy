@@ -22,10 +22,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id_Categoria)
+                @Html.DisplayNameFor(model => model.IdCategoria)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nome_Categoria)
+                @Html.DisplayNameFor(model => model.NomeCategoria)
             </th>
             <th></th>
         </tr>
@@ -35,15 +35,15 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id_Categoria)
+                    @Html.DisplayFor(modelItem => item.IdCategoria)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nome_Categoria)
+                    @Html.DisplayFor(modelItem => item.NomeCategoria)
                 </td>
                 <td>
-                    <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@item.Id_Categoria">Editar</a> |
-                    <a asp-controller="Cliente" asp-action="Details" asp-route-id="@item.Id_Categoria">Detalhes</a> |
-                    <a asp-controller="Cliente" asp-action="Delete" asp-route-id="@item.Id_Categoria">Deletar</a>
+                    <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@item.IdCategoria">Editar</a> |
+                    <a asp-controller="Cliente" asp-action="Details" asp-route-id="@item.IdCategoria">Detalhes</a> |
+                    <a asp-controller="Cliente" asp-action="Delete" asp-route-id="@item.IdCategoria">Deletar</a>
                 </td>
             </tr>
         }

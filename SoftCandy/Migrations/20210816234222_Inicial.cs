@@ -72,7 +72,7 @@ namespace SoftCandy.Migrations
                         name: "FK_Produto_Categoria_Id_Categoria",
                         column: x => x.Id_Categoria,
                         principalTable: "Categoria",
-                        principalColumn: "Id_Categoria",
+                        principalColumn: "IdCategoria",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -143,7 +143,7 @@ namespace SoftCandy.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Produto_Id_Categoria",
                 table: "Produto",
-                column: "Id_Categoria");
+                column: "IdCategoria");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

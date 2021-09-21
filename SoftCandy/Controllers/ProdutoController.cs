@@ -70,7 +70,7 @@ namespace SoftCandy.Controllers
             if (User.Identity.IsAuthenticated)
             {
 
-                ViewData["CAT"] = new SelectList(_context.Categoria, "Id_Categoria", "Nome_Categoria");
+                ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
                 return View();
             }
             return RedirectToAction("Index", "Home");
@@ -79,7 +79,7 @@ namespace SoftCandy.Controllers
         // POST: Produto/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Cod_Produto,Nome_Produto,Quantidade,Preco_Venda,Descricao,Id_Categoria")] Produto produto)
+        public async Task<IActionResult> Create([Bind("Cod_Produto,Nome_Produto,Quantidade,Preco_Venda,Descricao,IdCategoria")] Produto produto)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -90,7 +90,7 @@ namespace SoftCandy.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                ViewData["CAT"] = new SelectList(_context.Categoria, "Id_Categoria", "Nome_Categoria");
+                ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
                 return View(produto);
             }
             return RedirectToAction("Index", "Home");
@@ -111,7 +111,7 @@ namespace SoftCandy.Controllers
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-                ViewData["CAT"] = new SelectList(_context.Categoria, "Id_Categoria", "Nome_Categoria");
+                ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
                 return View(produto);
 
             }
@@ -121,7 +121,7 @@ namespace SoftCandy.Controllers
         // POST: Produto/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Cod_Produto,Nome_Produto,Quantidade,Preco_Venda,Descricao,Id_Categoria")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("Cod_Produto,Nome_Produto,Quantidade,Preco_Venda,Descricao,IdCategoria")] Produto produto)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -151,7 +151,7 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-                ViewData["CAT"] = new SelectList(_context.Categoria, "Id_Categoria", "Nome_Categoria");
+                ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
                 return View(produto);
             }
             return RedirectToAction("Index", "Home");

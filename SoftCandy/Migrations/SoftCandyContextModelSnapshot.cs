@@ -19,14 +19,14 @@ namespace SoftCandy.Migrations
 
             modelBuilder.Entity("SoftCandy.Models.Categoria", b =>
                 {
-                    b.Property<int>("Id_Categoria")
+                    b.Property<int>("IdCategoria")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Nome_Categoria")
+                    b.Property<string>("NomeCategoria")
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.HasKey("Id_Categoria");
+                    b.HasKey("IdCategoria");
 
                     b.ToTable("Categoria");
                 });
@@ -101,7 +101,7 @@ namespace SoftCandy.Migrations
                     b.Property<string>("Descricao")
                         .HasMaxLength(60);
 
-                    b.Property<int>("Id_Categoria");
+                    b.Property<int>("IdCategoria");
 
                     b.Property<string>("Nome_Produto")
                         .IsRequired()
@@ -113,7 +113,7 @@ namespace SoftCandy.Migrations
 
                     b.HasKey("Cod_Produto");
 
-                    b.HasIndex("Id_Categoria");
+                    b.HasIndex("IdCategoria");
 
                     b.ToTable("Produto");
                 });
@@ -163,7 +163,7 @@ namespace SoftCandy.Migrations
                 {
                     b.HasOne("SoftCandy.Models.Categoria", "Categoria")
                         .WithMany("Produtos")
-                        .HasForeignKey("Id_Categoria")
+                        .HasForeignKey("IdCategoria")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

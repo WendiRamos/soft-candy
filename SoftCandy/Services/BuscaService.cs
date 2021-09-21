@@ -66,7 +66,7 @@ namespace SoftCandy.Services
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
                 string pesquisa = Encoding.UTF8.GetString(tmp);
-                result = result.Where(x => x.Nome_Categoria.Contains(pesquisa));
+                result = result.Where(x => x.NomeCategoria.Contains(pesquisa));
             }
             return await result
                   .ToListAsync();
