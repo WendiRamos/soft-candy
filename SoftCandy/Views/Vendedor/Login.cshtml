@@ -12,13 +12,13 @@
             <form asp-controller="Vendedor" asp-action="Login" method="post" autocomplete="off">
                 <div asp-validation-summary="ModelOnly" class="text-dark"></div>
                 <div class="form-group">
-                    <label asp-for="Email_Vendedor" class="control-label">Email:</label>
-                    <input type="text" asp-for="Email_Vendedor" class="form-control" id="email" />
+                    <label asp-for="EmailVendedor" class="control-label">Email:</label>
+                    <input type="text" asp-for="EmailVendedor" class="form-control" id="email" />
                     <span class="invisivel" id="erroEmail">Insira um e-mail válido!</span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Senha_Vendedor" class="control-label">Senha:</label>
-                    <input type="password" asp-for="Senha_Vendedor" class="form-control" id="senha" />
+                    <label asp-for="SenhaVendedor" class="control-label">Senha:</label>
+                    <input type="password" asp-for="SenhaVendedor" class="form-control" id="senha" />
                     <span class="invisivel" id="erroSenha">Insira uma senha válida!</span>
                 </div>
                 <br />

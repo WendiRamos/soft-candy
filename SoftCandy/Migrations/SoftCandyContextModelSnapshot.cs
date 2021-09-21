@@ -120,20 +120,20 @@ namespace SoftCandy.Migrations
 
             modelBuilder.Entity("SoftCandy.Models.Vendedor", b =>
                 {
-                    b.Property<int>("Id_Vendedor")
+                    b.Property<int>("IdVendedor")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Celular_Vendedor");
+                    b.Property<string>("CelularVendedor");
 
-                    b.Property<string>("Email_Vendedor");
+                    b.Property<string>("EmailVendedor");
 
-                    b.Property<string>("Endereco_Vendedor");
+                    b.Property<string>("EnderecoVendedor");
 
-                    b.Property<string>("Nome_Vendedor");
+                    b.Property<string>("NomeVendedor");
 
-                    b.Property<string>("Senha_Vendedor");
+                    b.Property<string>("SenhaVendedor");
 
-                    b.HasKey("Id_Vendedor");
+                    b.HasKey("IdVendedor");
 
                     b.ToTable("Vendedor");
                 });

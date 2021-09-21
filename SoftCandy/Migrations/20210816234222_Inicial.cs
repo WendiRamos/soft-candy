@@ -40,17 +40,17 @@ namespace SoftCandy.Migrations
                 name: "Vendedor",
                 columns: table => new
                 {
-                    Id_Vendedor = table.Column<int>(nullable: false)
+                    IdVendedor = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome_Vendedor = table.Column<string>(nullable: true),
-                    Celular_Vendedor = table.Column<string>(nullable: true),
-                    Endereco_Vendedor = table.Column<string>(nullable: true),
-                    Email_Vendedor = table.Column<string>(nullable: true),
-                    Senha_Vendedor = table.Column<string>(nullable: true)
+                    NomeVendedor = table.Column<string>(nullable: true),
+                    CelularVendedor = table.Column<string>(nullable: true),
+                    EnderecoVendedor = table.Column<string>(nullable: true),
+                    EmailVendedor = table.Column<string>(nullable: true),
+                    SenhaVendedor = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vendedor", x => x.Id_Vendedor);
+                    table.PrimaryKey("PK_Vendedor", x => x.IdVendedor);
                 });
 
             migrationBuilder.CreateTable(

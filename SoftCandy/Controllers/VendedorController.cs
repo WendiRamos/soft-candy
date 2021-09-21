@@ -57,7 +57,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var vendedor = await _context.Vendedor
-                    .FirstOrDefaultAsync(m => m.Id_Vendedor == id);
+                    .FirstOrDefaultAsync(m => m.IdVendedor == id);
                 if (vendedor == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -81,7 +81,7 @@ namespace SoftCandy.Controllers
         // POST: Vendedor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Vendedor,Nome_Vendedor,Celular_Vendedor,Endereco_Vendedor,Email_Vendedor,Senha_Vendedor")] Vendedor vendedor)
+        public async Task<IActionResult> Create([Bind("IdVendedor,NomeVendedor,CelularVendedor,EnderecoVendedor,EmailVendedor,SenhaVendedor")] Vendedor vendedor)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -119,11 +119,11 @@ namespace SoftCandy.Controllers
         // POST: Vendedor/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Vendedor,Nome_Vendedor,Celular_Vendedor,Endereco_Vendedor,Email_Vendedor,Senha_Vendedor")] Vendedor vendedor)
+        public async Task<IActionResult> Edit(int id, [Bind("IdVendedor,NomeVendedor,CelularVendedor,EnderecoVendedor,EmailVendedor,SenhaVendedor")] Vendedor vendedor)
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (id != vendedor.Id_Vendedor)
+                if (id != vendedor.IdVendedor)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
                 }
@@ -137,7 +137,7 @@ namespace SoftCandy.Controllers
                     }
                     catch (DbUpdateConcurrencyException e)
                     {
-                        if (!VendedorExists(vendedor.Id_Vendedor))
+                        if (!VendedorExists(vendedor.IdVendedor))
                         {
                             return RedirectToAction(nameof(Error), new { message = e.Message });
                         }
@@ -164,7 +164,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var vendedor = await _context.Vendedor
-                    .FirstOrDefaultAsync(m => m.Id_Vendedor == id);
+                    .FirstOrDefaultAsync(m => m.IdVendedor == id);
                 if (vendedor == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -199,14 +199,14 @@ namespace SoftCandy.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string Email_Vendedor, string Senha_Vendedor)
+        public async Task<IActionResult> Login(string EmailVendedor, string SenhaVendedor)
         {
 
             string strConexao = Configuration.GetConnectionString("SoftCandyContext");
             MySqlConnection SoftCandyContext = new MySqlConnection(strConexao);
             await SoftCandyContext.OpenAsync();
             MySqlCommand mySqlCommand = SoftCandyContext.CreateCommand();
-            mySqlCommand.CommandText = $"SELECT * FROM vendedor WHERE EMAIL_VENDEDOR = '{Email_Vendedor}' AND SENHA_VENDEDOR='{Senha_Vendedor}'";
+            mySqlCommand.CommandText = $"SELECT * FROM vendedor WHERE EmailVendedor = '{EmailVendedor}' AND SenhaVendedor='{SenhaVendedor}'";
 
             MySqlDataReader reader = mySqlCommand.ExecuteReader();
 
@@ -251,7 +251,7 @@ namespace SoftCandy.Controllers
 
         private bool VendedorExists(int id)
         {
-            return _context.Vendedor.Any(e => e.Id_Vendedor == id);
+            return _context.Vendedor.Any(e => e.IdVendedor == id);
         }
         public IActionResult Error(string message)
         {

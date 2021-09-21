@@ -10,32 +10,32 @@ namespace SoftCandy.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int Id_Vendedor { get; set; }
+        public int IdVendedor { get; set; }
 
-        [Display(Name = "NomeCliente")]
-        public string Nome_Vendedor { get; set; }
+        [Display(Name = "Nome")]
+        public string NomeVendedor { get; set; }
 
-        [Display(Name = "CelularCliente")]
-        public string Celular_Vendedor { get; set; }
+        [Display(Name = "Celular")]
+        public string CelularVendedor { get; set; }
 
         [Display(Name = "Endereço")]
-        public string Endereco_Vendedor { get; set; }
+        public string EnderecoVendedor { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-mail")]
-        public string Email_Vendedor { get; set; }
+        public string EmailVendedor { get; set; }
 
         [Display(Name = "Senha")]
-        public string Senha_Vendedor { get; set; }
+        public string SenhaVendedor { get; set; }
 
-        public Vendedor(int id_Vendedor, string nome_Vendedor, string celular_Vendedor, string endereco_Vendedor, string email_Vendedor, string senha_Vendedor)
+        public Vendedor(int idVendedor, string nomeVendedor, string celularVendedor, string enderecoVendedor, string emailVendedor, string senhaVendedor)
         {
-            Id_Vendedor = id_Vendedor;
-            Nome_Vendedor = nome_Vendedor;
-            Celular_Vendedor = celular_Vendedor;
-            Endereco_Vendedor = endereco_Vendedor;
-            Email_Vendedor = email_Vendedor;
-            Senha_Vendedor = senha_Vendedor;
+            idVendedor = IdVendedor;
+            nomeVendedor = NomeVendedor;
+            celularVendedor = CelularVendedor;
+            enderecoVendedor = EnderecoVendedor;
+            emailVendedor = EmailVendedor;
+            senhaVendedor = SenhaVendedor;
         }
 
         public Vendedor()

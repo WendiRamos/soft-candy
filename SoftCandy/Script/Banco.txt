@@ -52,13 +52,13 @@ CREATE TABLE `produto` (
 );
 
 CREATE TABLE `vendedor` (
-  `Id_Vendedor` int NOT NULL AUTO_INCREMENT,
-  `Nome_Vendedor` longtext,
-  `Celular_Vendedor` longtext,
-  `Endereco_Vendedor` longtext,
-  `Email_Vendedor` longtext,
-  `Senha_Vendedor` longtext,
-  PRIMARY KEY (`Id_Vendedor`)
+  `IdVendedor` int NOT NULL AUTO_INCREMENT,
+  `NomeVendedor` longtext,
+  `CelularVendedor` longtext,
+  `EnderecoVendedor` longtext,
+  `EmailVendedor` longtext,
+  `SenhaVendedor` longtext,
+  PRIMARY KEY (`IdVendedor`)
 );
 
 // Conexão com o banco no arquivo appsettings.json
