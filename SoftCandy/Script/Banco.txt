@@ -32,7 +32,7 @@ CREATE TABLE `item_pedido` (
 CREATE TABLE `pedido` (
   `IdPedido` int NOT NULL AUTO_INCREMENT,
   `ValorTotalPedido` decimal(65,30) NOT NULL,
-  `DataPedido` datetime(6) NOT NULL,
+  `Data_Pedido` datetime(6) NOT NULL,
   `IdCliente` int NOT NULL,
   PRIMARY KEY (`IdPedido`),
   KEY `IX_Pedido_IdCliente` (`IdCliente`),

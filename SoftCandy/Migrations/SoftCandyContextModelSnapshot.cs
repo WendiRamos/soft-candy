@@ -80,7 +80,7 @@ namespace SoftCandy.Migrations
                     b.Property<int>("IdPedido")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DataPedido");
+                    b.Property<DateTime>("Data_Pedido");
 
                     b.Property<int>("IdCliente");
 

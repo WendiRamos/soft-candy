@@ -83,7 +83,7 @@ namespace SoftCandy.Migrations
                     IdPedido = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ValorTotalPedido = table.Column<decimal>(nullable: false),
-                    DataPedido = table.Column<DateTime>(nullable: false),
+                    Data_Pedido = table.Column<DateTime>(nullable: false),
                     IdCliente = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
