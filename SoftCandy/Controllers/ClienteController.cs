@@ -74,7 +74,7 @@ namespace SoftCandy.Controllers
         // POST: Cliente/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id_Cliente,NomeCliente,CelularCliente,EnderecoCliente")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("IdCliente,NomeCliente,CelularCliente,EnderecoCliente")] Cliente cliente)
         {
             if (User.Identity.IsAuthenticated)
             {

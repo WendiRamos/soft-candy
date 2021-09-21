@@ -9,11 +9,11 @@ CREATE TABLE `categoria` (
 );
 
 CREATE TABLE `cliente` (
-  `Id_Cliente` int NOT NULL AUTO_INCREMENT,
+  `IdCliente` int NOT NULL AUTO_INCREMENT,
   `Nome` varchar(60) NOT NULL,
   `Celular` varchar(11) NOT NULL,
   `Endereco` varchar(254) NOT NULL,
-  PRIMARY KEY (`Id_Cliente`)
+  PRIMARY KEY (`IdCliente`)
 );
 
 CREATE TABLE `item_pedido` (
@@ -31,12 +31,12 @@ CREATE TABLE `item_pedido` (
 
 CREATE TABLE `pedido` (
   `IdPedido` int NOT NULL AUTO_INCREMENT,
-  `Valor_Total` decimal(65,30) NOT NULL,
-  `Data_Pedido` datetime(6) NOT NULL,
-  `ID_CLIENTE` int NOT NULL,
+  `ValorTotalPedido` decimal(65,30) NOT NULL,
+  `DataPedido` datetime(6) NOT NULL,
+  `IdCliente` int NOT NULL,
   PRIMARY KEY (`IdPedido`),
-  KEY `IX_Pedido_ID_CLIENTE` (`ID_CLIENTE`),
-  CONSTRAINT `FK_Pedido_Cliente_ID_CLIENTE` FOREIGN KEY (`ID_CLIENTE`) REFERENCES `cliente` (`Id_Cliente`) ON DELETE CASCADE
+  KEY `IX_Pedido_IdCliente` (`IdCliente`),
+  CONSTRAINT `FK_Pedido_Cliente_IdCliente` FOREIGN KEY (`IdCliente`) REFERENCES `cliente` (`IdCliente`) ON DELETE CASCADE
 );
 
 CREATE TABLE `produto` (

@@ -82,15 +82,15 @@ namespace SoftCandy.Migrations
                     b.Property<int>("IdPedido")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Data_Pedido");
+                    b.Property<DateTime>("DataPedido");
 
-                    b.Property<int>("ID_CLIENTE");
+                    b.Property<int>("IdCliente");
 
-                    b.Property<decimal>("Valor_Total");
+                    b.Property<decimal>("ValorTotalPedido");
 
                     b.HasKey("IdPedido");
 
-                    b.HasIndex("ID_CLIENTE");
+                    b.HasIndex("IdCliente");
 
                     b.ToTable("Pedido");
                 });
@@ -157,7 +157,7 @@ namespace SoftCandy.Migrations
                 {
                     b.HasOne("SoftCandy.Models.Cliente", "Cliente")
                         .WithMany("Pedidos")
-                        .HasForeignKey("ID_CLIENTE")
+                        .HasForeignKey("IdCliente")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

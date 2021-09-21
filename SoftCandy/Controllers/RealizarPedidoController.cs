@@ -25,7 +25,7 @@ namespace SoftCandy.Controllers
             {
                 var model = new RealizarPedido();
                 model.Produtos = _context.Produto.ToList();
-                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
+                ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
                 return View(model);
             }
             return RedirectToAction("Index", "Home");

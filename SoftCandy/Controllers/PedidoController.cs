@@ -75,7 +75,7 @@ namespace SoftCandy.Controllers
             {
                 var model = new RealizarPedido();
                 model.Produtos = _context.Produto.ToList();
-                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
+                ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
                 return View(model);
             }
             return RedirectToAction("Index", "Home");
@@ -83,13 +83,13 @@ namespace SoftCandy.Controllers
 
         // POST: Pedido/Create
         [HttpPost]
-        public int Create(List<ItemPedido> Itens, int Id_Cliente)
+        public int Create(List<ItemPedido> Itens, int IdCliente)
         {
             decimal total = 0;
             foreach(ItemPedido item in Itens)
                 total += item.PrecoPago * item.QuantidadePedido;
 
-            Pedido pedido = new Pedido(total, Id_Cliente, Itens);
+            Pedido pedido = new Pedido(total, IdCliente, Itens);
 
             _context.Add(pedido);
             _context.SaveChanges();
@@ -112,7 +112,7 @@ namespace SoftCandy.Controllers
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
+                ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
                 return View(pedido);
             }
             return RedirectToAction("Index", "Home");
@@ -121,7 +121,7 @@ namespace SoftCandy.Controllers
         // POST: Pedido/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPedido,Valor_Total,Data_Pedido,ID_CLIENTE")] Pedido pedido)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPedido,ValorTotalPedido,DataPedido,IdCliente")] Pedido pedido)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -150,7 +150,7 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
+                ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
                 return View(pedido);
             }
             return RedirectToAction("Index", "Home");

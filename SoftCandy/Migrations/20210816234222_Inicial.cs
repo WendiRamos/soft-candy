@@ -25,7 +25,7 @@ namespace SoftCandy.Migrations
                 name: "Cliente",
                 columns: table => new
                 {
-                    Id_Cliente = table.Column<int>(nullable: false)
+                    IdCliente = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(maxLength: 60, nullable: false),
                     Celular = table.Column<string>(maxLength: 11, nullable: false),
@@ -33,7 +33,7 @@ namespace SoftCandy.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cliente", x => x.Id_Cliente);
+                    table.PrimaryKey("PK_Cliente", x => x.IdCliente);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,16 +82,16 @@ namespace SoftCandy.Migrations
                 {
                     IdPedido = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Valor_Total = table.Column<decimal>(nullable: false),
-                    Data_Pedido = table.Column<DateTime>(nullable: false),
-                    ID_CLIENTE = table.Column<int>(nullable: false)
+                    ValorTotalPedido = table.Column<decimal>(nullable: false),
+                    DataPedido = table.Column<DateTime>(nullable: false),
+                    IdCliente = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedido", x => x.IdPedido);
                     table.ForeignKey(
-                        name: "FK_Pedido_Cliente_ID_CLIENTE",
-                        column: x => x.ID_CLIENTE,
+                        name: "FK_Pedido_Cliente_IdCliente",
+                        column: x => x.IdCliente,
                         principalTable: "Cliente",
                         principalColumn: "IdCliente",
                         onDelete: ReferentialAction.Cascade);
@@ -136,9 +136,9 @@ namespace SoftCandy.Migrations
                 column: "IdPedido");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pedido_ID_CLIENTE",
+                name: "IX_Pedido_IdCliente",
                 table: "Pedido",
-                column: "ID_CLIENTE");
+                column: "IdCliente");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Produto_Id_Categoria",

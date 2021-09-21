@@ -89,7 +89,7 @@ function enviar() {
     $.ajax({
         url: "/Pedido/Create/",
         type: "POST",
-        data: { "Itens": itens, "Id_Cliente": id },
+        data: { "Itens": itens, "IdCliente": id },
         success: function (id) {
             Swal.fire({
                 title: "Sucesso!",
