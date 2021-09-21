@@ -87,7 +87,7 @@ namespace SoftCandy.Controllers
         {
             decimal total = 0;
             foreach(Item_Pedido item in Itens)
-                total += item.Preco_Pago * item.Quantidade;
+                total += item.PrecoPago * item.Quantidade;
 
             Pedido pedido = new Pedido(total, Id_Cliente, Itens);
 

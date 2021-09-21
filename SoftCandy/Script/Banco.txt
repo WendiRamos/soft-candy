@@ -18,7 +18,7 @@ CREATE TABLE `cliente` (
 
 CREATE TABLE `item_pedido` (
   `Id` int NOT NULL AUTO_INCREMENT,
-  `Preco_Pago` decimal(65,30) NOT NULL,
+  `PrecoPago` decimal(65,30) NOT NULL,
   `Quantidade` int NOT NULL,
   `Cod_Produto` int NOT NULL,
   `Num_Pedido` int NOT NULL,

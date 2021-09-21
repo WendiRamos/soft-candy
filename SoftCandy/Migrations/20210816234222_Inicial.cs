@@ -103,7 +103,7 @@ namespace SoftCandy.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Preco_Pago = table.Column<decimal>(nullable: false),
+                    PrecoPago = table.Column<decimal>(nullable: false),
                     Quantidade = table.Column<int>(nullable: false),
                     Cod_Produto = table.Column<int>(nullable: false),
                     Num_Pedido = table.Column<int>(nullable: false)

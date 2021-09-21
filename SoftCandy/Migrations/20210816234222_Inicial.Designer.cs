@@ -64,7 +64,7 @@ namespace SoftCandy.Migrations
 
                     b.Property<int>("Num_Pedido");
 
-                    b.Property<decimal>("Preco_Pago");
+                    b.Property<decimal>("PrecoPago");
 
                     b.Property<int>("Quantidade");
 

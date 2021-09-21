@@ -29,9 +29,9 @@ namespace SoftCandy.Models
         
         public virtual Cliente Cliente { get; set; }
 
-        public virtual ICollection<Item_Pedido> Itens_Pedidos { get; set; }
+        public virtual ICollection<ItemPedido> Itens_Pedidos { get; set; }
 
-        public Pedido(decimal valor_Total, int iD_CLIENTE, ICollection<Item_Pedido> itens_Pedidos)
+        public Pedido(decimal valor_Total, int iD_CLIENTE, ICollection<ItemPedido> itens_Pedidos)
         {
             Valor_Total = valor_Total;
             Data_Pedido = DateTime.Now;
@@ -39,7 +39,7 @@ namespace SoftCandy.Models
             Itens_Pedidos = itens_Pedidos;
         }
 
-        public Pedido(int num_Pedido, decimal valor_Total, DateTime data_Pedido, int iD_CLIENTE, Cliente cliente, ICollection<Item_Pedido> itens_Pedidos)
+        public Pedido(int num_Pedido, decimal valor_Total, DateTime data_Pedido, int iD_CLIENTE, Cliente cliente, ICollection<ItemPedido> itens_Pedidos)
         {
             Num_Pedido = num_Pedido;
             Valor_Total = valor_Total;

@@ -22,7 +22,7 @@ namespace SoftCandy.Data
 
         public DbSet<SoftCandy.Models.Vendedor> Vendedor { get; set; }
 
-        public DbSet<SoftCandy.Models.Item_Pedido> Item_Pedido { get; set; }
+        public DbSet<SoftCandy.Models.ItemPedido> Item_Pedido { get; set; }
 
         public DbSet<SoftCandy.Models.Categoria> Categoria { get; set; }
     }

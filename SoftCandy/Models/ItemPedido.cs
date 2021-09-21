@@ -12,7 +12,7 @@ namespace SoftCandy.Models
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Preço Pago")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
-        public decimal Preco_Pago { get; set; }
+        public decimal PrecoPago { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         public int Quantidade { get; set; }

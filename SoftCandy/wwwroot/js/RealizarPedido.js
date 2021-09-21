@@ -10,7 +10,7 @@ function itensContem(produto) {
 /********************** CALCULA O VALOR TOTAL DO PEDIDO ***********************/
 
 function calcula() {
-    const total = itens.reduce((s, v) => s + v.Preco_Pago * v.Quantidade, 0.0);
+    const total = itens.reduce((s, v) => s + v.PrecoPago * v.Quantidade, 0.0);
     document.getElementById("total-pedido").textContent = dinheiro(total);
 }
 
@@ -71,7 +71,7 @@ function adicionar(produto) {
     // Cria um item de pedido e adiciona ao array de itens
     const tmp = {};
     tmp.Quantidade = 1;
-    tmp.Preco_Pago = produto.Preco_Venda;
+    tmp.PrecoPago = produto.Preco_Venda;
     tmp.Cod_Produto = produto.Cod_Produto;
     tmp.Num_Pedido = 0;
     itens = [...itens, tmp];
@@ -83,7 +83,7 @@ function adicionar(produto) {
 }
 
 function enviar() {
-    itens = itens.map((i) => ({ ...i, Preco_Pago: i.Preco_Pago.toString().replace(".", ",") }));
+    itens = itens.map((i) => ({ ...i, PrecoPago: i.PrecoPago.toString().replace(".", ",") }));
     const id = $("select").val();
 
     $.ajax({
