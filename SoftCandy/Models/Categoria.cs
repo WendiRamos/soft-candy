@@ -9,7 +9,7 @@ namespace SoftCandy.Models
     public class Categoria
     {
         [Key]
-        [Display(Name = "Id")]
+        [Display(Name = "Id oi")]
         public int Id_Categoria { get; set; }
 
         [Display(Name = "Nome")]
