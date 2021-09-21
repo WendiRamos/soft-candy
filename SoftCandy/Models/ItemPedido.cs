@@ -16,7 +16,7 @@ namespace SoftCandy.Models
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Quantidade")]
-        public int QuantidadePedido { get; set; }
+        public int QuantidadeProduto { get; set; }
 
         [ForeignKey("Produto")]
         [Required(ErrorMessage = "{0} obrigatório")]

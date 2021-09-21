@@ -29,24 +29,24 @@ namespace SoftCandy.Models
         
         public virtual Cliente Cliente { get; set; }
 
-        public virtual ICollection<ItemPedido> Itens_Pedidos { get; set; }
+        public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
 
-        public Pedido(decimal ValorTotalPedido, int IdCliente, ICollection<ItemPedido> itens_Pedidos)
+        public Pedido(decimal ValorTotalPedido, int IdCliente, ICollection<ItemPedido> ItensPedidos)
         {
             ValorTotalPedido = ValorTotalPedido;
             Data_Pedido = DateTime.Now;
             IdCliente = IdCliente;
-            Itens_Pedidos = itens_Pedidos;
+            ItensPedidos = ItensPedidos;
         }
 
-        public Pedido(int IdPedido, decimal ValorTotalPedido, DateTime data_Pedido, int IdCliente, Cliente cliente, ICollection<ItemPedido> itens_Pedidos)
+        public Pedido(int IdPedido, decimal ValorTotalPedido, DateTime data_Pedido, int IdCliente, Cliente cliente, ICollection<ItemPedido> ItensPedidos)
         {
             IdPedido = IdPedido;
             ValorTotalPedido = ValorTotalPedido;
             Data_Pedido = data_Pedido;
             IdCliente = IdCliente;
             Cliente = cliente;
-            Itens_Pedidos = itens_Pedidos;
+            ItensPedidos = ItensPedidos;
         }
 
         public Pedido()

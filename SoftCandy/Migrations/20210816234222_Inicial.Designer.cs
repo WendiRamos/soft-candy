@@ -66,7 +66,7 @@ namespace SoftCandy.Migrations
 
                     b.Property<decimal>("PrecoPago");
 
-                    b.Property<int>("QuantidadePedido");
+                    b.Property<int>("QuantidadeProduto");
 
                     b.HasKey("Id");
 
@@ -100,18 +100,18 @@ namespace SoftCandy.Migrations
                     b.Property<int>("IdProduto")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Descricao")
+                    b.Property<string>("DescricaoProduto")
                         .HasMaxLength(60);
 
                     b.Property<int>("IdCategoria");
 
-                    b.Property<string>("Nome_Produto")
+                    b.Property<string>("NomeProduto")
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<decimal>("Preco_Venda");
+                    b.Property<decimal>("PrecoVendaProduto");
 
-                    b.Property<int>("QuantidadePedido");
+                    b.Property<int>("QuantidadeProduto");
 
                     b.HasKey("IdProduto");
 
@@ -143,12 +143,12 @@ namespace SoftCandy.Migrations
             modelBuilder.Entity("SoftCandy.Models.Item_Pedido", b =>
                 {
                     b.HasOne("SoftCandy.Models.Produto", "Produto")
-                        .WithMany("Itens_Pedidos")
+                        .WithMany("ItensPedidos")
                         .HasForeignKey("IdProduto")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SoftCandy.Models.Pedido", "Pedido")
-                        .WithMany("Itens_Pedidos")
+                        .WithMany("ItensPedidos")
                         .HasForeignKey("IdPedido")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

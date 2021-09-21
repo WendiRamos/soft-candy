@@ -11,16 +11,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome_Produto)
+                @Html.DisplayNameFor(model => model.NomeProduto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuantidadePedido)
+                @Html.DisplayNameFor(model => model.QuantidadeProduto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Preco_Venda)
+                @Html.DisplayNameFor(model => model.PrecoVendaProduto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descricao)
+                @Html.DisplayNameFor(model => model.DescricaoProduto)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Categoria)
@@ -32,16 +32,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nome_Produto)
+                    @Html.DisplayFor(modelItem => item.NomeProduto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.QuantidadePedido)
+                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
                 </td>
                 <td>
-                    <script>dinheiro("@item.Preco_Venda")</script>
+                    <script>dinheiro("@item.PrecoVendaProduto")</script>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Descricao)
+                    @Html.DisplayFor(modelItem => item.DescricaoProduto)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Categoria.NomeCategoria)

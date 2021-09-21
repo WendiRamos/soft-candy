@@ -10,7 +10,7 @@ function itensContem(produto) {
 /********************** CALCULA O VALOR TOTAL DO PEDIDO ***********************/
 
 function calcula() {
-    const total = itens.reduce((s, v) => s + v.PrecoPago * v.QuantidadePedido, 0.0);
+    const total = itens.reduce((s, v) => s + v.PrecoPago * v.QuantidadeProduto, 0.0);
     document.getElementById("total-pedido").textContent = dinheiro(total);
 }
 
@@ -22,28 +22,28 @@ function adicionar(produto) {
 
     // Cria elementos HTML de texto
     const cod = document.createTextNode(produto.IdProduto);
-    const nome = document.createTextNode(produto.Nome_Produto);
-    const preco = document.createTextNode(dinheiro(produto.Preco_Venda));
-    const sub = document.createTextNode(dinheiro(produto.Preco_Venda));
+    const nome = document.createTextNode(produto.NomeProduto);
+    const preco = document.createTextNode(dinheiro(produto.PrecoVendaProduto));
+    const sub = document.createTextNode(dinheiro(produto.PrecoVendaProduto));
     const qnt = document.createElement("input");
     qnt.className = "entrada-transparente";
     qnt.type = "number";
     qnt.value = "1";
     qnt.min = "1";
-    qnt.max = produto.QuantidadePedido;
+    qnt.max = produto.QuantidadeProduto;
 
-    // Adiciona um evento para alterar os valores quando mudar a QuantidadePedido
+    // Adiciona um evento para alterar os valores quando mudar a QuantidadeProduto
     qnt.addEventListener("input", () => {
         // "Descobre" o id da linha do input alterado acessando o elemento avô
         const id = Number(
             qnt.parentNode.parentNode.querySelector(".codigo").textContent
         );
-        // Muda, no array de itens, o item com QuantidadePedido alterada
+        // Muda, no array de itens, o item com QuantidadeProduto alterada
         itens = itens.map((i) => {
-            return i.IdProduto === id ? { ...i, QuantidadePedido: Number(qnt.value) } : i;
+            return i.IdProduto === id ? { ...i, QuantidadeProduto: Number(qnt.value) } : i;
         });
         // Calcula e mostra novo subtotal
-        sub.textContent = dinheiro(produto.Preco_Venda * qnt.value);
+        sub.textContent = dinheiro(produto.PrecoVendaProduto * qnt.value);
         calcula();
     });
 
@@ -58,20 +58,20 @@ function adicionar(produto) {
     celulaCod.className = "codigo";
     const celulaNome = linha.insertCell();
     const celulaPreco = linha.insertCell();
-    const celulaQuantidadePedido = linha.insertCell();
+    const celulaQuantidadeProduto = linha.insertCell();
     const celulaSubtotal = linha.insertCell();
 
     // Adiciona os elementos de texto dentro de sua célula
     celulaCod.appendChild(cod);
     celulaNome.appendChild(nome);
     celulaPreco.appendChild(preco);
-    celulaQuantidadePedido.appendChild(qnt);
+    celulaQuantidadeProduto.appendChild(qnt);
     celulaSubtotal.appendChild(sub);
 
     // Cria um item de pedido e adiciona ao array de itens
     const tmp = {};
-    tmp.QuantidadePedido = 1;
-    tmp.PrecoPago = produto.Preco_Venda;
+    tmp.QuantidadeProduto = 1;
+    tmp.PrecoPago = produto.PrecoVendaProduto;
     tmp.IdProduto = produto.IdProduto;
     tmp.IdPedido = 0;
     itens = [...itens, tmp];

@@ -27,7 +27,7 @@
             <th>Id</th>
             <th>Produto</th>
             <th>Preço</th>
-            <th>QuantidadePedido</th>
+            <th>QuantidadeProduto</th>
             <th>Subtotal</th>
         </tr>
     </thead>
@@ -71,13 +71,13 @@
                     @Html.DisplayFor(modelItem => item.IdProduto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nome_Produto)
+                    @Html.DisplayFor(modelItem => item.NomeProduto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.QuantidadePedido)
+                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
                 </td>
                 <td>
-                    R$ @Html.DisplayFor(modelItem => item.Preco_Venda)
+                    R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
                 </td>
                 <td>
                     <button class="btn btn-secondary" onclick="adicionar(@JsonConvert.SerializeObject(item))">Adicionar</button>

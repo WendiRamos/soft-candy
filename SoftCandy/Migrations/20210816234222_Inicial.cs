@@ -12,13 +12,13 @@ namespace SoftCandy.Migrations
                 name: "Categoria",
                 columns: table => new
                 {
-                    Id_Categoria = table.Column<int>(nullable: false)
+                    IdCategoria = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nome_Categoria = table.Column<string>(maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categoria", x => x.Id_Categoria);
+                    table.PrimaryKey("PK_Categoria", x => x.IdCategoria);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,18 +59,18 @@ namespace SoftCandy.Migrations
                 {
                     IdProduto = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome_Produto = table.Column<string>(maxLength: 60, nullable: false),
-                    QuantidadePedido = table.Column<int>(nullable: false),
-                    Preco_Venda = table.Column<decimal>(nullable: false),
-                    Descricao = table.Column<string>(maxLength: 60, nullable: true),
-                    Id_Categoria = table.Column<int>(nullable: false)
+                    NomeProduto = table.Column<string>(maxLength: 60, nullable: false),
+                    QuantidadeProduto = table.Column<int>(nullable: false),
+                    PrecoVendaProduto = table.Column<decimal>(nullable: false),
+                    DescricaoProduto = table.Column<string>(maxLength: 60, nullable: true),
+                    IdCategoria = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Produto", x => x.IdProduto);
                     table.ForeignKey(
-                        name: "FK_Produto_Categoria_Id_Categoria",
-                        column: x => x.Id_Categoria,
+                        name: "FK_Produto_Categoria_IdCategoria",
+                        column: x => x.IdCategoria,
                         principalTable: "Categoria",
                         principalColumn: "IdCategoria",
                         onDelete: ReferentialAction.Cascade);
@@ -104,7 +104,7 @@ namespace SoftCandy.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     PrecoPago = table.Column<decimal>(nullable: false),
-                    QuantidadePedido = table.Column<int>(nullable: false),
+                    QuantidadeProduto = table.Column<int>(nullable: false),
                     IdProduto = table.Column<int>(nullable: false),
                     IdPedido = table.Column<int>(nullable: false)
                 },
@@ -141,7 +141,7 @@ namespace SoftCandy.Migrations
                 column: "IdCliente");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produto_Id_Categoria",
+                name: "IX_Produto_IdCategoria",
                 table: "Produto",
                 column: "IdCategoria");
         }

@@ -3,9 +3,9 @@
 USE `softcandy`;
 
 CREATE TABLE `categoria` (
-  `Id_Categoria` int NOT NULL AUTO_INCREMENT,
+  `IdCategoria` int NOT NULL AUTO_INCREMENT,
   `Nome_Categoria` varchar(60) NOT NULL,
-  PRIMARY KEY (`Id_Categoria`)
+  PRIMARY KEY (`IdCategoria`)
 );
 
 CREATE TABLE `cliente` (
@@ -19,7 +19,7 @@ CREATE TABLE `cliente` (
 CREATE TABLE `item_pedido` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `PrecoPago` decimal(65,30) NOT NULL,
-  `QuantidadePedido` int NOT NULL,
+  `QuantidadeProduto` int NOT NULL,
   `IdProduto` int NOT NULL,
   `IdPedido` int NOT NULL,
   PRIMARY KEY (`Id`),
@@ -41,14 +41,14 @@ CREATE TABLE `pedido` (
 
 CREATE TABLE `produto` (
   `IdProduto` int NOT NULL AUTO_INCREMENT,
-  `Nome_Produto` varchar(60) NOT NULL,
-  `QuantidadePedido` int NOT NULL,
-  `Preco_Venda` decimal(65,30) NOT NULL,
-  `Descricao` varchar(60) DEFAULT NULL,
-  `Id_Categoria` int NOT NULL,
+  `NomeProduto` varchar(60) NOT NULL,
+  `QuantidadeProduto` int NOT NULL,
+  `PrecoVendaProduto` decimal(65,30) NOT NULL,
+  `DescricaoProduto` varchar(60) DEFAULT NULL,
+  `IdCategoria` int NOT NULL,
   PRIMARY KEY (`IdProduto`),
-  KEY `IX_Produto_Id_Categoria` (`Id_Categoria`),
-  CONSTRAINT `FK_Produto_Categoria_Id_Categoria` FOREIGN KEY (`Id_Categoria`) REFERENCES `categoria` (`Id_Categoria`) ON DELETE CASCADE
+  KEY `IX_Produto_IdCategoria` (`IdCategoria`),
+  CONSTRAINT `FK_Produto_Categoria_IdCategoria` FOREIGN KEY (`IdCategoria`) REFERENCES `categoria` (`IdCategoria`) ON DELETE CASCADE
 );
 
 CREATE TABLE `vendedor` (
