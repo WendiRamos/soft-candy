@@ -9,7 +9,7 @@ namespace SoftCandy.Models
     public class Cliente
     {
         [Key()]
-        [Display(Name = "Id Cliente")]
+        [Display(Name = "Id")]
         public int IdCliente { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
