@@ -83,10 +83,10 @@ namespace SoftCandy.Controllers
 
         // POST: Pedido/Create
         [HttpPost]
-        public int Create(List<Item_Pedido> Itens, int Id_Cliente)
+        public int Create(List<ItemPedido> Itens, int Id_Cliente)
         {
             decimal total = 0;
-            foreach(Item_Pedido item in Itens)
+            foreach(ItemPedido item in Itens)
                 total += item.PrecoPago * item.Quantidade;
 
             Pedido pedido = new Pedido(total, Id_Cliente, Itens);

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SoftCandy.Models
 {
-    public class Item_Pedido
+    public class ItemPedido
     {
         [Key]
         public int Id { get; set; }
