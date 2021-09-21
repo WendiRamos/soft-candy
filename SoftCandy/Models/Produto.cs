@@ -11,7 +11,7 @@ namespace SoftCandy.Models
     {
         [Key]
         [Display(Name = "Código")]
-        public int Cod_Produto { get; set; }
+        public int IdProduto { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
@@ -19,7 +19,7 @@ namespace SoftCandy.Models
         public string Nome_Produto { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        public int Quantidade { get; set; }
+        public int QuantidadePedido { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Preço Venda")]

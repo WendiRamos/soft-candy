@@ -27,7 +27,7 @@
             <th>Id</th>
             <th>Produto</th>
             <th>Preço</th>
-            <th>Quantidade</th>
+            <th>QuantidadePedido</th>
             <th>Subtotal</th>
         </tr>
     </thead>
@@ -68,13 +68,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cod_Produto)
+                    @Html.DisplayFor(modelItem => item.IdProduto)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome_Produto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Quantidade)
+                    @Html.DisplayFor(modelItem => item.QuantidadePedido)
                 </td>
                 <td>
                     R$ @Html.DisplayFor(modelItem => item.Preco_Venda)

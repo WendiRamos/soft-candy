@@ -15,18 +15,18 @@ namespace SoftCandy.Models
         public decimal PrecoPago { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        public int Quantidade { get; set; }
+        public int QuantidadePedido { get; set; }
 
         [ForeignKey("Produto")]
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Código Produto")]
-        public int Cod_Produto { get; set; }
+        [Display(Name = "Id Produto")]
+        public int IdProduto { get; set; }
         public  virtual Produto Produto { get; set; }
 
         [ForeignKey("Pedido")]
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Número Pedido")]
-        public int Num_Pedido { get; set; }
+        [Display(Name = "Id Pedido")]
+        public int IdPedido { get; set; }
         public virtual  Pedido Pedido { get; set; }
     }
 }

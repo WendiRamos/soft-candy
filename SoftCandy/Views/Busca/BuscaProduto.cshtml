@@ -21,7 +21,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Cod_Produto)
+                @Html.DisplayNameFor(model => model.IdProduto)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nome_Produto)
@@ -30,7 +30,7 @@
                 @Html.DisplayNameFor(model => model.Descricao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quantidade)
+                @Html.DisplayNameFor(model => model.QuantidadePedido)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Preco_Venda)
@@ -43,7 +43,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cod_Produto)
+                    @Html.DisplayFor(modelItem => item.IdProduto)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome_Produto)
@@ -52,15 +52,15 @@
                     @Html.DisplayFor(modelItem => item.Descricao)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Quantidade)
+                    @Html.DisplayFor(modelItem => item.QuantidadePedido)
                 </td>
                 <td>
                    R$ @Html.DisplayFor(modelItem => item.Preco_Venda)
                 </td>
                 <td>
-                    <a asp-controller="Produto" asp-action="Edit" asp-route-id="@item.Cod_Produto">Editar</a> |
-                    <a asp-controller="Produto" asp-action="Details" asp-route-id="@item.Cod_Produto">Detalhes</a> |
-                    <a asp-controller="Produto" asp-action="Delete" asp-route-id="@item.Cod_Produto">Deletar</a>
+                    <a asp-controller="Produto" asp-action="Edit" asp-route-id="@item.IdProduto">Editar</a> |
+                    <a asp-controller="Produto" asp-action="Details" asp-route-id="@item.IdProduto">Detalhes</a> |
+                    <a asp-controller="Produto" asp-action="Delete" asp-route-id="@item.IdProduto">Deletar</a>
                 </td>
             </tr>
         }

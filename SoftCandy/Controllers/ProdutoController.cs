@@ -53,7 +53,7 @@ namespace SoftCandy.Controllers
 
                 var produto = await _context.Produto
                     .Include(p => p.Categoria)
-                    .FirstOrDefaultAsync(m => m.Cod_Produto == id);
+                    .FirstOrDefaultAsync(m => m.IdProduto == id);
                 if (produto == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -79,7 +79,7 @@ namespace SoftCandy.Controllers
         // POST: Produto/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Cod_Produto,Nome_Produto,Quantidade,Preco_Venda,Descricao,IdCategoria")] Produto produto)
+        public async Task<IActionResult> Create([Bind("IdProduto,Nome_Produto,QuantidadePedido,Preco_Venda,Descricao,IdCategoria")] Produto produto)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -121,12 +121,12 @@ namespace SoftCandy.Controllers
         // POST: Produto/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Cod_Produto,Nome_Produto,Quantidade,Preco_Venda,Descricao,IdCategoria")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("IdProduto,Nome_Produto,QuantidadePedido,Preco_Venda,Descricao,IdCategoria")] Produto produto)
         {
             if (User.Identity.IsAuthenticated)
             {
 
-                if (id != produto.Cod_Produto)
+                if (id != produto.IdProduto)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                 }
@@ -140,7 +140,7 @@ namespace SoftCandy.Controllers
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!ProdutoExists(produto.Cod_Produto))
+                        if (!ProdutoExists(produto.IdProduto))
                         {
                             return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                         }
@@ -169,7 +169,7 @@ namespace SoftCandy.Controllers
 
                 var produto = await _context.Produto
                     .Include(p => p.Categoria)
-                    .FirstOrDefaultAsync(m => m.Cod_Produto == id);
+                    .FirstOrDefaultAsync(m => m.IdProduto == id);
                 if (produto == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -199,7 +199,7 @@ namespace SoftCandy.Controllers
 
         private bool ProdutoExists(int id)
         {
-            return _context.Produto.Any(e => e.Cod_Produto == id);
+            return _context.Produto.Any(e => e.IdProduto == id);
         }
 
         public IActionResult Error(string message)

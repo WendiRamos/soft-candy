@@ -60,26 +60,26 @@ namespace SoftCandy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Cod_Produto");
+                    b.Property<int>("IdProduto");
 
-                    b.Property<int>("Num_Pedido");
+                    b.Property<int>("IdPedido");
 
                     b.Property<decimal>("PrecoPago");
 
-                    b.Property<int>("Quantidade");
+                    b.Property<int>("QuantidadePedido");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Cod_Produto");
+                    b.HasIndex("IdProduto");
 
-                    b.HasIndex("Num_Pedido");
+                    b.HasIndex("IdPedido");
 
                     b.ToTable("Item_Pedido");
                 });
 
             modelBuilder.Entity("SoftCandy.Models.Pedido", b =>
                 {
-                    b.Property<int>("Num_Pedido")
+                    b.Property<int>("IdPedido")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Data_Pedido");
@@ -88,7 +88,7 @@ namespace SoftCandy.Migrations
 
                     b.Property<decimal>("Valor_Total");
 
-                    b.HasKey("Num_Pedido");
+                    b.HasKey("IdPedido");
 
                     b.HasIndex("ID_CLIENTE");
 
@@ -97,7 +97,7 @@ namespace SoftCandy.Migrations
 
             modelBuilder.Entity("SoftCandy.Models.Produto", b =>
                 {
-                    b.Property<int>("Cod_Produto")
+                    b.Property<int>("IdProduto")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Descricao")
@@ -111,9 +111,9 @@ namespace SoftCandy.Migrations
 
                     b.Property<decimal>("Preco_Venda");
 
-                    b.Property<int>("Quantidade");
+                    b.Property<int>("QuantidadePedido");
 
-                    b.HasKey("Cod_Produto");
+                    b.HasKey("IdProduto");
 
                     b.HasIndex("IdCategoria");
 
@@ -144,12 +144,12 @@ namespace SoftCandy.Migrations
                 {
                     b.HasOne("SoftCandy.Models.Produto", "Produto")
                         .WithMany("Itens_Pedidos")
-                        .HasForeignKey("Cod_Produto")
+                        .HasForeignKey("IdProduto")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SoftCandy.Models.Pedido", "Pedido")
                         .WithMany("Itens_Pedidos")
-                        .HasForeignKey("Num_Pedido")
+                        .HasForeignKey("IdPedido")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

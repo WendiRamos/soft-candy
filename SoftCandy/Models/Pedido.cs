@@ -11,7 +11,7 @@ namespace SoftCandy.Models
     {
         [Key()]
         [Display(Name = "Número Pedido")]
-        public int Num_Pedido { get; set; }
+        public int IdPedido { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Valor Total")]
@@ -39,9 +39,9 @@ namespace SoftCandy.Models
             Itens_Pedidos = itens_Pedidos;
         }
 
-        public Pedido(int num_Pedido, decimal valor_Total, DateTime data_Pedido, int iD_CLIENTE, Cliente cliente, ICollection<ItemPedido> itens_Pedidos)
+        public Pedido(int IdPedido, decimal valor_Total, DateTime data_Pedido, int iD_CLIENTE, Cliente cliente, ICollection<ItemPedido> itens_Pedidos)
         {
-            Num_Pedido = num_Pedido;
+            IdPedido = IdPedido;
             Valor_Total = valor_Total;
             Data_Pedido = data_Pedido;
             ID_CLIENTE = iD_CLIENTE;

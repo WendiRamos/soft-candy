@@ -14,7 +14,7 @@
                 @Html.DisplayNameFor(model => model.Nome_Produto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quantidade)
+                @Html.DisplayNameFor(model => model.QuantidadePedido)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Preco_Venda)
@@ -35,7 +35,7 @@
                     @Html.DisplayFor(modelItem => item.Nome_Produto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Quantidade)
+                    @Html.DisplayFor(modelItem => item.QuantidadePedido)
                 </td>
                 <td>
                     <script>dinheiro("@item.Preco_Venda")</script>

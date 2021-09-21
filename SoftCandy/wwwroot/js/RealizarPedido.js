@@ -4,13 +4,13 @@ var itens = [];
 /****************** VERIFICA SE O PRODUTO JÁ FOI ADICIONADO *******************/
 
 function itensContem(produto) {
-    return itens.find((i) => i.Cod_Produto === produto.Cod_Produto);
+    return itens.find((i) => i.IdProduto === produto.IdProduto);
 }
 
 /********************** CALCULA O VALOR TOTAL DO PEDIDO ***********************/
 
 function calcula() {
-    const total = itens.reduce((s, v) => s + v.PrecoPago * v.Quantidade, 0.0);
+    const total = itens.reduce((s, v) => s + v.PrecoPago * v.QuantidadePedido, 0.0);
     document.getElementById("total-pedido").textContent = dinheiro(total);
 }
 
@@ -21,7 +21,7 @@ function adicionar(produto) {
     if (itensContem(produto)) return;
 
     // Cria elementos HTML de texto
-    const cod = document.createTextNode(produto.Cod_Produto);
+    const cod = document.createTextNode(produto.IdProduto);
     const nome = document.createTextNode(produto.Nome_Produto);
     const preco = document.createTextNode(dinheiro(produto.Preco_Venda));
     const sub = document.createTextNode(dinheiro(produto.Preco_Venda));
@@ -30,17 +30,17 @@ function adicionar(produto) {
     qnt.type = "number";
     qnt.value = "1";
     qnt.min = "1";
-    qnt.max = produto.Quantidade;
+    qnt.max = produto.QuantidadePedido;
 
-    // Adiciona um evento para alterar os valores quando mudar a quantidade
+    // Adiciona um evento para alterar os valores quando mudar a QuantidadePedido
     qnt.addEventListener("input", () => {
         // "Descobre" o id da linha do input alterado acessando o elemento avô
         const id = Number(
             qnt.parentNode.parentNode.querySelector(".codigo").textContent
         );
-        // Muda, no array de itens, o item com quantidade alterada
+        // Muda, no array de itens, o item com QuantidadePedido alterada
         itens = itens.map((i) => {
-            return i.Cod_Produto === id ? { ...i, Quantidade: Number(qnt.value) } : i;
+            return i.IdProduto === id ? { ...i, QuantidadePedido: Number(qnt.value) } : i;
         });
         // Calcula e mostra novo subtotal
         sub.textContent = dinheiro(produto.Preco_Venda * qnt.value);
@@ -58,22 +58,22 @@ function adicionar(produto) {
     celulaCod.className = "codigo";
     const celulaNome = linha.insertCell();
     const celulaPreco = linha.insertCell();
-    const celulaQuantidade = linha.insertCell();
+    const celulaQuantidadePedido = linha.insertCell();
     const celulaSubtotal = linha.insertCell();
 
     // Adiciona os elementos de texto dentro de sua célula
     celulaCod.appendChild(cod);
     celulaNome.appendChild(nome);
     celulaPreco.appendChild(preco);
-    celulaQuantidade.appendChild(qnt);
+    celulaQuantidadePedido.appendChild(qnt);
     celulaSubtotal.appendChild(sub);
 
     // Cria um item de pedido e adiciona ao array de itens
     const tmp = {};
-    tmp.Quantidade = 1;
+    tmp.QuantidadePedido = 1;
     tmp.PrecoPago = produto.Preco_Venda;
-    tmp.Cod_Produto = produto.Cod_Produto;
-    tmp.Num_Pedido = 0;
+    tmp.IdProduto = produto.IdProduto;
+    tmp.IdPedido = 0;
     itens = [...itens, tmp];
 
     calcula();
