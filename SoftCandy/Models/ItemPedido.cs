@@ -15,6 +15,7 @@ namespace SoftCandy.Models
         public decimal PrecoPago { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
+        [Display(Name = "Quantidade")]
         public int QuantidadePedido { get; set; }
 
         [ForeignKey("Produto")]
