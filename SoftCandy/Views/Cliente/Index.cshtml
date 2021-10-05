@@ -23,16 +23,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id_Cliente)
+                @Html.DisplayNameFor(model => model.IdCliente)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.DisplayNameFor(model => model.NomeCliente)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Celular)
+                @Html.DisplayNameFor(model => model.CelularCliente)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Endereco)
+                @Html.DisplayNameFor(model => model.EnderecoCliente)
             </th>
             <th></th>
         </tr>
@@ -42,22 +42,22 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id_Cliente)
+                    @Html.DisplayFor(modelItem => item.IdCliente)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
+                    @Html.DisplayFor(modelItem => item.NomeCliente)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Celular)
+                    @Html.DisplayFor(modelItem => item.CelularCliente)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Endereco)
+                    @Html.DisplayFor(modelItem => item.EnderecoCliente)
                 </td>
                 <td>
 
-                    <a asp-action="Edit" asp-route-id="@item.Id_Cliente">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id_Cliente">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id_Cliente">Deletar</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdCliente">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdCliente">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdCliente">Deletar</a>
 
                 </td>
             </tr>

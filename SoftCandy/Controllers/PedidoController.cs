@@ -25,7 +25,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Pedido.OrderByDescending(p => p.Num_Pedido).Include(c => c.Cliente);
+                var softCandyContext = _context.Pedido.OrderByDescending(p => p.IdPedido).Include(c => c.Cliente);
 
                 return View(await softCandyContext.ToListAsync());
                 
@@ -57,7 +57,7 @@ namespace SoftCandy.Controllers
 
                 var pedido = await _context.Pedido
                     .Include(p => p.Cliente)
-                    .FirstOrDefaultAsync(m => m.Num_Pedido == id);
+                    .FirstOrDefaultAsync(m => m.IdPedido == id);
                 if (pedido == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -75,7 +75,7 @@ namespace SoftCandy.Controllers
             {
                 var model = new RealizarPedido();
                 model.Produtos = _context.Produto.ToList();
-                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Nome");
+                ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
                 return View(model);
             }
             return RedirectToAction("Index", "Home");
@@ -83,18 +83,18 @@ namespace SoftCandy.Controllers
 
         // POST: Pedido/Create
         [HttpPost]
-        public int Create(List<Item_Pedido> Itens, int Id_Cliente)
+        public int Create(List<ItemPedido> Itens, int IdCliente)
         {
             decimal total = 0;
-            foreach(Item_Pedido item in Itens)
-                total += item.Preco_Pago * item.Quantidade;
+            foreach(ItemPedido item in Itens)
+                total += item.PrecoPago * item.QuantidadeProduto;
 
-            Pedido pedido = new Pedido(total, Id_Cliente, Itens);
+            Pedido pedido = new Pedido(total, IdCliente, Itens);
 
             _context.Add(pedido);
             _context.SaveChanges();
 
-            return pedido.Num_Pedido;
+            return pedido.IdPedido;
         }
 
         // GET: Pedido/Edit
@@ -112,7 +112,7 @@ namespace SoftCandy.Controllers
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Nome");
+                ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
                 return View(pedido);
             }
             return RedirectToAction("Index", "Home");
@@ -121,11 +121,11 @@ namespace SoftCandy.Controllers
         // POST: Pedido/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Num_Pedido,Valor_Total,Data_Pedido,ID_CLIENTE")] Pedido pedido)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPedido,ValorTotalPedido,DataPedido,IdCliente")] Pedido pedido)
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (id != pedido.Num_Pedido)
+                if (id != pedido.IdPedido)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                 }
@@ -139,7 +139,7 @@ namespace SoftCandy.Controllers
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!PedidoExists(pedido.Num_Pedido))
+                        if (!PedidoExists(pedido.IdPedido))
                         {
                             return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                         }
@@ -150,7 +150,7 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-                ViewData["ID_CLIENTE"] = new SelectList(_context.Cliente, "Id_Cliente", "Nome");
+                ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
                 return View(pedido);
             }
             return RedirectToAction("Index", "Home");
@@ -168,7 +168,7 @@ namespace SoftCandy.Controllers
 
                 var pedido = await _context.Pedido
                     .Include(p => p.Cliente)
-                    .FirstOrDefaultAsync(m => m.Num_Pedido == id);
+                    .FirstOrDefaultAsync(m => m.IdPedido == id);
                 if (pedido == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -196,7 +196,7 @@ namespace SoftCandy.Controllers
 
         private bool PedidoExists(int id)
         {
-            return _context.Pedido.Any(e => e.Num_Pedido == id);
+            return _context.Pedido.Any(e => e.IdPedido == id);
         }
         public IActionResult Error(string message)
         {

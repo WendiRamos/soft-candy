@@ -9,7 +9,7 @@
     <div class="form-group">
         <div class="form-check-inline">
             <label for="Nome"></label>
-            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
+            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
         </div>
         <button type="submit" class=" btn btn-primary">Pesquisar</button>
     </div>
@@ -24,10 +24,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id_Categoria)
+                @Html.DisplayNameFor(model => model.IdCategoria)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nome_Categoria)
+                @Html.DisplayNameFor(model => model.NomeCategoria)
             </th>
             <th></th>
         </tr>
@@ -36,15 +36,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id_Categoria)
+                @Html.DisplayFor(modelItem => item.IdCategoria)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Nome_Categoria)
+                @Html.DisplayFor(modelItem => item.NomeCategoria)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id_Categoria">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id_Categoria">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id_Categoria">Deletar</a>
+                <a asp-action="Edit" asp-route-id="@item.IdCategoria">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.IdCategoria">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdCategoria">Deletar</a>
             </td>
         </tr>
 }

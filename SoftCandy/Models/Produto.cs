@@ -10,32 +10,33 @@ namespace SoftCandy.Models
     public class Produto
     {
         [Key]
-        [Display(Name = "Código")]
-        public int Cod_Produto { get; set; }
+        [Display(Name = "Id")]
+        public int IdProduto { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Nome")]
-        public string Nome_Produto { get; set; }
+        public string NomeProduto { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        public int Quantidade { get; set; }
+        [Display(Name = "Quantidade")]
+        public int QuantidadeProduto { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Preço Venda")]
-        public decimal Preco_Venda { get; set; }
+        public decimal PrecoVendaProduto { get; set; }
 
         [Display(Name = "Descrição")]
         [StringLength(60, MinimumLength = 0, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
-        public string Descricao { get; set; }
+        public string DescricaoProduto { get; set; }
 
         [ForeignKey("Categoria")]
         [Display(Name = "Categoria")]
-        public int Id_Categoria { get; set; }
+        public int IdCategoria { get; set; }
 
         public virtual Categoria Categoria { get; set; }
 
-        public virtual ICollection<Item_Pedido> Itens_Pedidos { get; set; }
+        public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
     }
 
 }

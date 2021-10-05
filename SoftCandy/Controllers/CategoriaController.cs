@@ -49,7 +49,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var categoria = await _context.Categoria
-                    .FirstOrDefaultAsync(m => m.Id_Categoria == id);
+                    .FirstOrDefaultAsync(m => m.IdCategoria == id);
                 if (categoria == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -73,7 +73,7 @@ namespace SoftCandy.Controllers
         // POST: Categoria/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Categoria,Nome_Categoria")] Categoria categoria)
+        public async Task<IActionResult> Create([Bind("IdCategoria,NomeCategoria")] Categoria categoria)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -111,11 +111,11 @@ namespace SoftCandy.Controllers
         // POST: Categoria/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Categoria,Nome_Categoria")] Categoria categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("IdCategoria,NomeCategoria")] Categoria categoria)
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (id != categoria.Id_Categoria)
+                if (id != categoria.IdCategoria)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                 }
@@ -129,7 +129,7 @@ namespace SoftCandy.Controllers
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!CategoriaExists(categoria.Id_Categoria))
+                        if (!CategoriaExists(categoria.IdCategoria))
                         {
                             return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                         }
@@ -156,7 +156,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var categoria = await _context.Categoria
-                    .FirstOrDefaultAsync(m => m.Id_Categoria == id);
+                    .FirstOrDefaultAsync(m => m.IdCategoria == id);
                 if (categoria == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -184,7 +184,7 @@ namespace SoftCandy.Controllers
 
         private bool CategoriaExists(int id)
         {
-            return _context.Categoria.Any(e => e.Id_Categoria == id);
+            return _context.Categoria.Any(e => e.IdCategoria == id);
 
         }
         public IActionResult Error(string message)

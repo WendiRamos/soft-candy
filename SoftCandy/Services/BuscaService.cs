@@ -27,7 +27,7 @@ namespace SoftCandy.Services
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
                 string pesquisa = System.Text.Encoding.UTF8.GetString(tmp);
-                result = result.Where(x => x.Nome.Contains(pesquisa));
+                result = result.Where(x => x.NomeCliente.Contains(pesquisa));
             }
             return await result
                   .ToListAsync();
@@ -40,7 +40,7 @@ namespace SoftCandy.Services
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
                 string pesquisa = Encoding.UTF8.GetString(tmp);
-                result = result.Where(x => x.Nome_Vendedor.Contains(pesquisa));
+                result = result.Where(x => x.NomeVendedor.Contains(pesquisa));
             }
             return await result
                   .ToListAsync();
@@ -53,7 +53,7 @@ namespace SoftCandy.Services
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
                 string pesquisa = Encoding.UTF8.GetString(tmp);
-                result = result.Where(x => x.Nome_Produto.Contains(pesquisa));
+                result = result.Where(x => x.NomeProduto.Contains(pesquisa));
             }
             return await result
                   .ToListAsync();
@@ -66,7 +66,7 @@ namespace SoftCandy.Services
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
                 string pesquisa = Encoding.UTF8.GetString(tmp);
-                result = result.Where(x => x.Nome_Categoria.Contains(pesquisa));
+                result = result.Where(x => x.NomeCategoria.Contains(pesquisa));
             }
             return await result
                   .ToListAsync();
@@ -77,15 +77,15 @@ namespace SoftCandy.Services
             var result = from obj in _context.Pedido select obj;
             if (minDate.HasValue)
             {
-                result = result.Where(x => x.Data_Pedido >= minDate.Value);
+                result = result.Where(x => x.DataPedido >= minDate.Value);
             }
             if (maxDate.HasValue)
             {
-                result = result.Where(x => x.Data_Pedido <= maxDate.Value);
+                result = result.Where(x => x.DataPedido <= maxDate.Value);
             }
             return await result
                 .Include(x => x.Cliente)
-                .OrderByDescending(x => x.Data_Pedido)
+                .OrderByDescending(x => x.DataPedido)
                 .ToListAsync();
         }
     }

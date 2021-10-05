@@ -11,27 +11,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Valor_Total)
+            @Html.DisplayNameFor(model => model.ValorTotalPedido)
         </dt>
         <dd>
-          R$  @Html.DisplayFor(model => model.Valor_Total)
+          R$  @Html.DisplayFor(model => model.ValorTotalPedido)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Data_Pedido)
+            @Html.DisplayNameFor(model => model.DataPedido)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Data_Pedido)
+            @Html.DisplayFor(model => model.DataPedido)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Cliente)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Cliente.Nome)
+            @Html.DisplayFor(model => model.Cliente.NomeCliente)
         </dd>
     </dl>
     <br />
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Num_Pedido" />
+        <input type="hidden" asp-for="IdPedido" />
         <input type="submit" value="Deletar" class="btn btn-danger" /> |
         <a asp-action="Index" class="btn btn-primary">Voltar</a>
     </form>

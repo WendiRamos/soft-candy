@@ -11,33 +11,33 @@
     <h4>Cliente</h4>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Id_Cliente)
+            @Html.DisplayNameFor(model => model.IdCliente)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Id_Cliente)
+            @Html.DisplayFor(model => model.IdCliente)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayNameFor(model => model.NomeCliente)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Nome)
+            @Html.DisplayFor(model => model.NomeCliente)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Celular)
+            @Html.DisplayNameFor(model => model.CelularCliente)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Celular)
+            @Html.DisplayFor(model => model.CelularCliente)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Endereco)
+            @Html.DisplayNameFor(model => model.EnderecoCliente)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Endereco)
+            @Html.DisplayFor(model => model.EnderecoCliente)
         </dd>
     </dl>
     <br />
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id_Cliente" />
+        <input type="hidden" asp-for="IdCliente" />
         <input type="submit" value="Deletar" class="btn btn-danger" /> |
         <a asp-action="Index" class="btn btn-primary">Voltar</a>
     </form>

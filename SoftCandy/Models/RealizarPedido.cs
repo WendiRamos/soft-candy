@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,9 +8,15 @@ namespace SoftCandy.Models
 {
     public class RealizarPedido
     {
-        public int Id_Cliente { get; set; }
+        [Display(Name = "Id")]
+        public int IdCliente { get; set; }
+
+        [Display(Name = "Cliente")]
         public virtual Cliente Clientes { get; set; }
+
+        [Display(Name = "Produto")]
         public IEnumerable<Produto> Produtos { get; set; }
+
         public IEnumerable<Cliente> clientes { get; set; }
 
         public RealizarPedido()

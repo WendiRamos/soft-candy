@@ -8,7 +8,7 @@
     <div class="form-group">
         <div class="form-check-inline">
             <label for="Nome"></label>
-            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
+            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
         </div>
         <button type="submit" class=" btn btn-primary">Pesquisar</button>
     </div>
@@ -22,16 +22,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome_Produto)
+                @Html.DisplayNameFor(model => model.NomeProduto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quantidade)
+                @Html.DisplayNameFor(model => model.QuantidadeProduto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Preco_Venda)
+                @Html.DisplayNameFor(model => model.PrecoVendaProduto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descricao)
+                @Html.DisplayNameFor(model => model.DescricaoProduto)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Categoria)
@@ -44,24 +44,24 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nome_Produto)
+                    @Html.DisplayFor(modelItem => item.NomeProduto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Quantidade)
+                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
                 </td>
                 <td class="dinheiro">
-                    R$ @Html.DisplayFor(modelItem => item.Preco_Venda)
+                    R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Descricao)
+                    @Html.DisplayFor(modelItem => item.DescricaoProduto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Categoria.Nome_Categoria)
+                    @Html.DisplayFor(modelItem => item.Categoria.NomeCategoria)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Cod_Produto">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Cod_Produto">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Cod_Produto">Deletar</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdProduto">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdProduto">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdProduto">Deletar</a>
                 </td>
             </tr>
         }

@@ -10,7 +10,7 @@
     <div class="form-group">
         <div class="form-check-inline">
             <label for="Nome"></label>
-            <input type="text" class="form-control" name="Nome" placeholder="Nome do produto" value=@ViewData["Nome"] />
+            <input type="text" class="form-control" name="Nome" placeholder="Nome do produto" value=@ViewData["NomeCliente"] />
         </div>
         <button type="submit" class=" btn btn-primary">Pesquisar</button> |
         <a asp-controller="Produto" asp-action="Index" class="btn btn-info">Voltar</a>
@@ -21,19 +21,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Cod_Produto)
+                @Html.DisplayNameFor(model => model.IdProduto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nome_Produto)
+                @Html.DisplayNameFor(model => model.NomeProduto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descricao)
+                @Html.DisplayNameFor(model => model.DescricaoProduto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quantidade)
+                @Html.DisplayNameFor(model => model.QuantidadeProduto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Preco_Venda)
+                @Html.DisplayNameFor(model => model.PrecoVendaProduto)
             </th>
             <th></th>
         </tr>
@@ -43,24 +43,24 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cod_Produto)
+                    @Html.DisplayFor(modelItem => item.IdProduto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nome_Produto)
+                    @Html.DisplayFor(modelItem => item.NomeProduto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Descricao)
+                    @Html.DisplayFor(modelItem => item.DescricaoProduto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Quantidade)
+                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
                 </td>
                 <td>
-                   R$ @Html.DisplayFor(modelItem => item.Preco_Venda)
+                   R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
                 </td>
                 <td>
-                    <a asp-controller="Produto" asp-action="Edit" asp-route-id="@item.Cod_Produto">Editar</a> |
-                    <a asp-controller="Produto" asp-action="Details" asp-route-id="@item.Cod_Produto">Detalhes</a> |
-                    <a asp-controller="Produto" asp-action="Delete" asp-route-id="@item.Cod_Produto">Deletar</a>
+                    <a asp-controller="Produto" asp-action="Edit" asp-route-id="@item.IdProduto">Editar</a> |
+                    <a asp-controller="Produto" asp-action="Details" asp-route-id="@item.IdProduto">Detalhes</a> |
+                    <a asp-controller="Produto" asp-action="Delete" asp-route-id="@item.IdProduto">Deletar</a>
                 </td>
             </tr>
         }

@@ -10,12 +10,12 @@ namespace SoftCandy.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int Id_Categoria { get; set; }
+        public int IdCategoria { get; set; }
 
         [Display(Name = "Nome")]
         [Required(ErrorMessage = "{0} obrigatório")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
-        public string Nome_Categoria { get; set; }
+        public string NomeCategoria { get; set; }
 
         public virtual ICollection<Produto> Produtos { get; set; }
     }
