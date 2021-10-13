@@ -18,6 +18,8 @@ namespace SoftCandy.Models
         [Display(Name = "Quantidade")]
         public int QuantidadeProduto { get; set; }
 
+        public bool AtivoItemPedido { get; set; }
+
         [ForeignKey("Produto")]
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Id Produto")]

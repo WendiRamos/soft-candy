@@ -24,6 +24,8 @@ namespace SoftCandy.Models
         [DataType(DataType.DateTime)]
         public DateTime DataPedido { get; set; }
 
+        public bool AtivoPedido { get; set; }
+
         [ForeignKey("Cliente")]
         public int IdCliente { get; set; }
         

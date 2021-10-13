@@ -27,6 +27,8 @@ namespace SoftCandy.Models
         [Display(Name = "Endereço")]
         public string EnderecoCliente { get; set; }
 
+        public bool AtivoCliente { get; set; }
+
         public ICollection<Pedido> Pedidos { get; set; }
         
         public Cliente()
