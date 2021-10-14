@@ -25,7 +25,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Produto.Include(p => p.Categoria);
+                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria);
                 return View(await softCandyContext.ToListAsync());
             }
             return RedirectToAction("Index", "Home");
@@ -86,6 +86,7 @@ namespace SoftCandy.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    produto.AtivoProduto = true;
                     _context.Add(produto);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -188,9 +189,9 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-
                 var produto = await _context.Produto.FindAsync(id);
-                _context.Produto.Remove(produto);
+                produto.AtivoProduto = false;
+                _context.Produto.Update(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
