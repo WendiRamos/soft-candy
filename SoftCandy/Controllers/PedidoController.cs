@@ -25,7 +25,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Pedido.OrderByDescending(p => p.IdPedido).Include(c => c.Cliente);
+                var softCandyContext = _context.Pedido.Where(c => c.AtivoPedido).OrderByDescending(p => p.IdPedido).Include(c => c.Cliente);
 
                 return View(await softCandyContext.ToListAsync());
                 
@@ -91,6 +91,7 @@ namespace SoftCandy.Controllers
 
             Pedido pedido = new Pedido(total, IdCliente, Itens);
 
+            pedido.AtivoPedido = true;
             _context.Add(pedido);
             _context.SaveChanges();
 
@@ -187,7 +188,8 @@ namespace SoftCandy.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var pedido = await _context.Pedido.FindAsync(id);
-                _context.Pedido.Remove(pedido);
+                pedido.AtivoPedido = false;
+                _context.Pedido.Update(pedido);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
