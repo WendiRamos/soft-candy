@@ -28,6 +28,8 @@ namespace SoftCandy.Models
         [Display(Name = "Senha")]
         public string SenhaVendedor { get; set; }
 
+        public bool AtivoVendedor { get; set; }
+
         public Vendedor(int idVendedor, string nomeVendedor, string celularVendedor, string enderecoVendedor, string emailVendedor, string senhaVendedor)
         {
             idVendedor = IdVendedor;

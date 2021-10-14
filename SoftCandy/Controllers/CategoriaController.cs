@@ -24,8 +24,8 @@ namespace SoftCandy.Controllers
         public async Task<IActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
-            {
-                return View(await _context.Categoria.ToListAsync());
+            {   
+                return View(await _context.Categoria.Where(c => c.AtivoCategoria).ToListAsync());
             }
             return RedirectToAction("Index", "Home");
         }
@@ -79,6 +79,7 @@ namespace SoftCandy.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    categoria.AtivoCategoria = true;
                     _context.Add(categoria);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -175,7 +176,8 @@ namespace SoftCandy.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var categoria = await _context.Categoria.FindAsync(id);
-                _context.Categoria.Remove(categoria);
+                categoria.AtivoCategoria = false;
+                _context.Categoria.Update(categoria);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

@@ -25,7 +25,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View(await _context.Cliente.ToListAsync());
+                return View(await _context.Cliente.Where(c => c.AtivoCliente).ToListAsync());
             }
             return RedirectToAction("Index", "Home");
         }
@@ -80,6 +80,7 @@ namespace SoftCandy.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    cliente.AtivoCliente = true;
                     _context.Add(cliente);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -176,7 +177,8 @@ namespace SoftCandy.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var cliente = await _context.Cliente.FindAsync(id);
-                _context.Cliente.Remove(cliente);
+                cliente.AtivoCliente = false;
+                _context.Cliente.Update(cliente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

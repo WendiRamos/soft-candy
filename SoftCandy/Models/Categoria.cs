@@ -17,6 +17,8 @@ namespace SoftCandy.Models
         [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         public string NomeCategoria { get; set; }
 
+        public bool AtivoCategoria { get; set; }
+
         public virtual ICollection<Produto> Produtos { get; set; }
     }
 }

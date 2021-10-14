@@ -30,6 +30,8 @@ namespace SoftCandy.Models
         [StringLength(60, MinimumLength = 0, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         public string DescricaoProduto { get; set; }
 
+        public bool AtivoProduto { get; set; }
+
         [ForeignKey("Categoria")]
         [Display(Name = "Categoria")]
         public int IdCategoria { get; set; }
