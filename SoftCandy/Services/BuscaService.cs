@@ -22,7 +22,7 @@ namespace SoftCandy.Services
         }
         public async Task<List<Cliente>> FindByCliente(String Nome)
         {
-            var result = from obj in _context.Cliente select obj;
+            var result = from obj in _context.Cliente.Where(c => c.AtivoCliente) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
@@ -35,7 +35,7 @@ namespace SoftCandy.Services
 
         public async Task<List<Vendedor>> FindByVendedor(String Nome)
         {
-            var result = from obj in _context.Vendedor select obj;
+            var result = from obj in _context.Vendedor.Where(c => c.AtivoVendedor) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
@@ -48,7 +48,7 @@ namespace SoftCandy.Services
 
         public async Task<List<Produto>> FindByProduto(String Nome)
         {
-            var result = from obj in _context.Produto select obj;
+            var result = from obj in _context.Produto.Where(c => c.AtivoProduto) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
@@ -61,7 +61,7 @@ namespace SoftCandy.Services
 
         public async Task<List<Categoria>> FindByCategoria(String Nome)
         {
-            var result = from obj in _context.Categoria select obj;
+            var result = from obj in _context.Categoria.Where(c => c.AtivoCategoria) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
@@ -74,7 +74,7 @@ namespace SoftCandy.Services
 
         public async Task<List<Pedido>> FindByPedido(DateTime? minDate, DateTime? maxDate)
         {
-            var result = from obj in _context.Pedido select obj;
+            var result = from obj in _context.Pedido.Where(c => c.AtivoPedido) select obj;
             if (minDate.HasValue)
             {
                 result = result.Where(x => x.DataPedido >= minDate.Value);
