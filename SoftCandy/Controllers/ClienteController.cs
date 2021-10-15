@@ -34,7 +34,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View(await _context.Cliente.ToListAsync());
+                return View(await _context.Cliente.Where(c => c.AtivoCliente).ToListAsync());
             }
             return RedirectToAction("Index", "Home");
         }
