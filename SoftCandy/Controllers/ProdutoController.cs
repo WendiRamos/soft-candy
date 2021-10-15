@@ -35,7 +35,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Produto.Include(p => p.Categoria);
+                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria);
                 return View(await softCandyContext.ToListAsync());
             }
             return RedirectToAction("Index", "Home");

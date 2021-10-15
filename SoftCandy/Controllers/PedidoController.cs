@@ -38,7 +38,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Pedido.Include(c => c.Cliente);
+                var softCandyContext = _context.Pedido.Where(c => c.AtivoPedido).Include(c => c.Cliente);
 
                 return View(await softCandyContext.ToListAsync());
             }
