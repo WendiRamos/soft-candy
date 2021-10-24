@@ -3,27 +3,26 @@
 @{
     ViewData["Title"] = "Categorias";
 }
+
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaCategoria">
-    <div class="d-flex justify-content-between">
-        <div class="d-flex">
-            <a asp-action="Create" class="btn btn-success mr-1">Nova Categoria</a>
-            <a asp-action="CategoriasApagadas" class="btn btn-info">Categorias Apagadas</a>
-        </div>
-        <div class="d-flex">
+    <div class="form-group ">
+        <div class="form-check-inline">
             <label for="Nome"></label>
-            <input type="text" class="form-control mr-1" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
-            <button type="submit" class=" btn btn-primary">Pesquisar</button>
+            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
         </div>
+        <button type="submit" class=" btn btn-primary mr-1">Pesquisar</button>
+        <a asp-action="Index" class="btn btn-info">Voltar</a>
     </div>
 </form>
 <br />
+<br />
 <center>
     <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Categorias</h4></div>
+        <div class="card-header"><h4>Categorias Apagadas</h4></div>
         <div class="card-body">
             <table class="table">
                 <thead>
-                    <tr class="text-center">
+                    <tr class=" text-center">
                         <th>
                             @Html.DisplayNameFor(model => model.IdCategoria)
                         </th>
@@ -44,9 +43,7 @@
                                 @Html.DisplayFor(modelItem => item.NomeCategoria)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.IdCategoria">Editar</a> |
-                                <a asp-action="Details" asp-route-id="@item.IdCategoria">Detalhes</a> |
-                                <a asp-action="Delete" asp-route-id="@item.IdCategoria">Deletar</a>
+                                <a asp-action="Restore" asp-route-id="@item.IdCategoria">Restaurar</a>
                             </td>
                         </tr>
                     }

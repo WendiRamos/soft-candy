@@ -3,23 +3,29 @@
 @{
     ViewData["Title"] = "Criar Categoria";
 }
-
-<h2>Criar Categoria</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-dark"></div>
-            <div class="form-group">
-                <label asp-for="NomeCategoria" class="control-label"></label>
-                <input asp-for="NomeCategoria" class="form-control" />
-                <span asp-validation-for="NomeCategoria" class="text-dark"></span>
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 50rem;">
+        <div class="card-header"><h4>Criar Categoria</h4></div>
+        <div class="card-body">
+            <div class="row-center">
+                <div class="col-md-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-dark"></div>
+                        <div class="form-group">
+                            <label asp-for="NomeCategoria" class="control-label"></label>
+                            <input asp-for="NomeCategoria" id="NomeCategoria" class="form-control" />
+                            <span class="invisivel" id="erroNomeCategoria">Insira um nome válido!</span>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <input type="submit" onclick="return validarCategoria()" value="Salvar" class="btn btn-success mr-1" />
+                            <a asp-action="Index" class="btn btn-primary">Voltar</a>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-success" /> |
-                <a asp-action="Index" class="btn btn-primary">Voltar</a>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</center>
+<script src="~/js/Categoria.js"></script>

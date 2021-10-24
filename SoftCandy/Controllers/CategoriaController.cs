@@ -30,6 +30,16 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // GET: Categoria
+        public async Task<IActionResult> CategoriasApagadas()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View(await _context.Categoria.Where(c => c.AtivoCategoria == false).ToListAsync());
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         public async Task<IActionResult> Relatorio()
         {
             if (User.Identity.IsAuthenticated)
@@ -177,6 +187,44 @@ namespace SoftCandy.Controllers
             {
                 var categoria = await _context.Categoria.FindAsync(id);
                 categoria.AtivoCategoria = false;
+                _context.Categoria.Update(categoria);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        // GET: Categoria/Restore
+        public async Task<IActionResult> Restore(int? id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (id == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
+                }
+
+                var categoria = await _context.Categoria
+                    .FirstOrDefaultAsync(m => m.IdCategoria == id);
+                if (categoria == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+
+                return View(categoria);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        // POST: Categoria/Restore
+        [HttpPost, ActionName("Restore")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteRestore(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var categoria = await _context.Categoria.FindAsync(id);
+                categoria.AtivoCategoria = true;
                 _context.Categoria.Update(categoria);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
