@@ -3,50 +3,55 @@
 @{
     ViewData["Title"] = "Categorias";
 }
-<h2>Categorias</h2>
-
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaCategoria">
-    <div class="form-group">
-        <div class="form-check-inline">
-            <label for="Nome"></label>
-            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <a asp-action="Create" class="btn btn-success mr-1">Nova Categoria</a>
+            <a asp-action="CategoriasApagadas" class="btn btn-info">Categorias Apagadas</a>
         </div>
-        <button type="submit" class=" btn btn-primary">Pesquisar</button>
+        <div class="d-flex">
+            <label for="Nome"></label>
+            <input type="text" class="form-control mr-1" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
+            <button type="submit" class=" btn btn-primary">Pesquisar</button>
+        </div>
     </div>
 </form>
 <br />
-<div>
-    <a asp-action="Create" class="btn btn-success">Nova Categoria</a> |
-    <a asp-action="Relatorio" target="_blank" class="btn btn-info">Gerar Relatório</a>
-</div>
-<br />
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdCategoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeCategoria)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdCategoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeCategoria)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdCategoria">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCategoria">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCategoria">Deletar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<center>
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Categorias</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdCategoria)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NomeCategoria)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdCategoria)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NomeCategoria)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.IdCategoria">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.IdCategoria">Detalhes</a> |
+                                <a asp-action="Delete" asp-route-id="@item.IdCategoria">Deletar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</center>
