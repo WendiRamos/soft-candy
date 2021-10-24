@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SoftCandy.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaCategoria">
+    <div class="form-group ">
+        <div class="form-check-inline">
+            <label for="Nome"></label>
+            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
+        </div>
+        <button type="submit" class=" btn btn-primary mr-1">Pesquisar</button>
+        <a asp-action="Index" class="btn btn-info">Voltar</a>
+    </div>
+</form>
+<br />
+<br />
+<center>
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Categorias Apagadas</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr class=" text-center">
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdCategoria)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NomeCategoria)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdCategoria)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NomeCategoria)
+                            </td>
+                            <td>
+                                <a asp-action="Restore" asp-route-id="@item.IdCategoria">Restaurar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</center>
