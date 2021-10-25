@@ -30,6 +30,15 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task<IActionResult> ClientesApagadas()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View(await _context.Cliente.Where(c => c.AtivoCliente == false).ToListAsync());
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         public async Task<IActionResult> Relatorio()
         {
             if (User.Identity.IsAuthenticated)
@@ -74,7 +83,7 @@ namespace SoftCandy.Controllers
         // POST: Cliente/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCliente,NomeCliente,CelularCliente,EnderecoCliente")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("IdCliente,NomeCliente,CelularCliente,EmailCliente,LogradouroCliente,NumeroCliente,BairroCliente,CidadeCliente,EstadoCliente")] Cliente cliente)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -178,6 +187,44 @@ namespace SoftCandy.Controllers
             {
                 var cliente = await _context.Cliente.FindAsync(id);
                 cliente.AtivoCliente = false;
+                _context.Cliente.Update(cliente);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        // GET: Cliente/Restore
+        public async Task<IActionResult> Restore(int? id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (id == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
+                }
+
+                var cliente = await _context.Cliente
+                    .FirstOrDefaultAsync(m => m.IdCliente == id);
+                if (cliente == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+
+                return View(cliente);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        // POST: Cliente/Restore
+        [HttpPost, ActionName("Restore")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteRestore(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var cliente = await _context.Cliente.FindAsync(id);
+                cliente.AtivoCliente = true;
                 _context.Cliente.Update(cliente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
