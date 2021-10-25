@@ -14,26 +14,52 @@
             <input type="hidden" asp-for="IdCliente" />
             <div class="form-group">
                 <div class="form-group">
-                    <label asp-for="NomeCliente" class="control-label">Novo Nome</label>
-                    <input asp-for="NomeCliente" class="form-control" />
-                    <span asp-validation-for="NomeCliente" class="text-dark"></span>
+                    <label asp-for="NomeCliente" class="control-label"></label>
+                    <input asp-for="NomeCliente" id="nomeCliente" class="form-control" />
+                    <span class="invisivel" id="erroNomeCliente">Insira um novo nome válido!</span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="CelularCliente" class="control-label">Novo Celular</label>
-                    <input asp-for="CelularCliente" class="form-control" />
-                    <span asp-validation-for="CelularCliente" class="text-dark"></span>
+                    <label asp-for="CelularCliente" class="control-label"></label>
+                    <input asp-for="CelularCliente" id="celularCliente" class="form-control" />
+                    <span class="invisivel" id="erroCelularCliente">Insira um novo celular válido!</span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="EnderecoCliente" class="control-label">Novo Endereço</label>
-                    <input asp-for="EnderecoCliente" class="form-control" />
-                    <span asp-validation-for="EnderecoCliente" class="text-dark"></span>
+                    <label asp-for="EmailCliente" class="control-label"></label>
+                    <input asp-for="EmailCliente" id="emailCliente" class="form-control" />
+                    <span class="invisivel" id="erroEmailCliente">Insira um novo e-mail válido!</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LogradouroCliente" class="control-label"></label>
+                    <input asp-for="LogradouroCliente" id="logradouroCliente" class="form-control" />
+                    <span class="invisivel" id="erroLogradouroCliente">Insira um novo logradouro válido!</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NumeroCliente" class="control-label"></label>
+                    <input asp-for="NumeroCliente" id="numeroCliente" class="form-control" />
+                    <span class="invisivel" id="erroNumeroCliente">Insira um novo número válido!</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BairroCliente" class="control-label"></label>
+                    <input asp-for="BairroCliente" id="bairroCliente" class="form-control" />
+                    <span class="invisivel" id="erroBairroCliente">Insira um novo bairro válido!</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CidadeCliente" class="control-label"></label>
+                    <input asp-for="CidadeCliente" id="cidadeCliente" class="form-control" />
+                    <span class="invisivel" id="erroCidadeCliente">Insira uma nova cidade válida!</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EstadoCliente" class="control-label"></label>
+                    <input asp-for="EstadoCliente" id="estadoCliente" class="form-control" />
+                    <span class="invisivel" id="erroEstadoCliente">Insira um novo estado válido!</span>
                 </div>
                 <br />
                 <div class="form-group">
-                    <input type="submit" value="Salvar" class="btn btn-success" /> |
+                    <input type="submit" onclick="return validarCliente()" value="Salvar" class="btn btn-success" /> |
                     <a asp-action="Index" class="btn btn-primary">Voltar</a>
                 </div>
             </div>
         </form>
     </div>
 </div>
+<script src="~/js/Cliente.js"></script>
