@@ -12,21 +12,30 @@ namespace SoftCandy.Models
         [Display(Name = "Id")]
         public int IdCliente { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Nome")]
         public string NomeCliente { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(11, MinimumLength = 8, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Celular")]
         public string CelularCliente { get ; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(254, MinimumLength = 10, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
-        [Display(Name = "Endereço")]
-        public string EnderecoCliente { get; set; }
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "E-mail")]
+        public string EmailCliente { get; set; }
 
+        [Display(Name = "Logradouro")]
+        public string LogradouroCliente { get; set; }
+
+        [Display(Name = "Número")]
+        public string NumeroCliente { get; set; }
+
+        [Display(Name = "Bairro")]
+        public string BairroCliente { get; set; }
+
+        [Display(Name = "Cidade")]
+        public string CidadeCliente { get; set; }
+
+        [Display(Name = "Estado")]
+        public string EstadoCliente { get; set; }
         public bool AtivoCliente { get; set; }
 
         public ICollection<Pedido> Pedidos { get; set; }
@@ -35,13 +44,19 @@ namespace SoftCandy.Models
         {
         }
 
-        public Cliente(string nome, string celular, string endereco)
+        public Cliente(int idCliente, string nomeCliente, string celularCliente, string emailCliente, string logradouroCliente, string numeroCliente, string bairroCliente, string cidadeCliente, string estadoCliente, bool ativoCliente, ICollection<Pedido> pedidos)
         {
-            
-            NomeCliente = nome;
-            CelularCliente = celular;
-            EnderecoCliente = endereco;
-            Pedidos = null;
+            IdCliente = idCliente;
+            NomeCliente = nomeCliente;
+            CelularCliente = celularCliente;
+            EmailCliente = emailCliente;
+            LogradouroCliente = logradouroCliente;
+            NumeroCliente = numeroCliente;
+            BairroCliente = bairroCliente;
+            CidadeCliente = cidadeCliente;
+            EstadoCliente = estadoCliente;
+            AtivoCliente = ativoCliente;
+            Pedidos = pedidos;
         }
     }
 }

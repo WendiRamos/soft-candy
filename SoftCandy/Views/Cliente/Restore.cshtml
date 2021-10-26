@@ -1,12 +1,12 @@
 ﻿@model SoftCandy.Models.Cliente
 
 @{
-    ViewData["Title"] = "Deletar";
+    ViewData["Title"] = "Restaurar";
 }
 
-<h2>Deletar cliente</h2>
+<h2>Restaurar cliente</h2>
 
-<h3>Tem certeza que deseja excluir?</h3>
+<h3>Tem certeza que deseja restaurar?</h3>
 <div>
     <h4>Cliente</h4>
     <dl class="dl-horizontal">
@@ -66,9 +66,9 @@
         </dd>
     </dl>
     <br />
-    <form asp-action="Delete">
+    <form asp-action="Restore">
         <input type="hidden" asp-for="IdCliente" />
-        <input type="submit" value="Deletar" class="btn btn-danger" /> |
+        <input type="submit" value="Restaurar" class="btn btn-danger" /> |
         <a asp-action="Index" class="btn btn-primary">Voltar</a>
     </form>
 </div>

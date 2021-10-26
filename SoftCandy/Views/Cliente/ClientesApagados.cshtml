@@ -1,11 +1,24 @@
 ﻿@model IEnumerable<SoftCandy.Models.Cliente>
 
 @{
-    ViewData["Title"] = "Clientes";
-    Layout = "_LayoutRelatorio";
+    ViewData["Title"] = "Clientes Apagados";
 }
-<h2>Clientes</h2>
-
+<h2>Clientes Apagados</h2>
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaCliente">
+    <div class="form-group">
+        <div class="form-check-inline">
+            <label for="Nome"></label>
+            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
+        </div>
+        <button type="submit" class=" btn btn-primary">Pesquisar</button>
+    </div>
+    <br />
+    <div>
+        <a asp-controller="Cliente" asp-action="Create" class="btn btn-success">Novo Cliente</a> |
+        <a asp-action="Relatorio" target="_blank" class="btn btn-info">Gerar Relatório</a>
+    </div>
+</form>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -36,6 +49,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.EstadoCliente)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -69,8 +83,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EstadoCliente)
             </td>
+            <td>
+                <a asp-action="Restore" asp-route-id="@item.IdCliente">Restaurar</a> 
+            </td>
         </tr>
         }
     </tbody>
 </table>
-<script>window.print()</script>
