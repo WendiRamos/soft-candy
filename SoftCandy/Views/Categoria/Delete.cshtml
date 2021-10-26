@@ -10,21 +10,28 @@
         <div class="card-body">
             <h5>Tem certeza que deseja excluir?</h5>
             <div>
-                <hr />
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.IdCategoria)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.IdCategoria)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.NomeCategoria)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.NomeCategoria)
-                    </dd>
-                </dl>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdCategoria)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NomeCategoria)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => model.IdCategoria)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.NomeCategoria)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <br />
                 <form asp-action="Delete">
                     <input type="hidden" asp-for="IdCategoria" />
