@@ -1,0 +1,74 @@
+﻿@model SoftCandy.Models.Cliente
+
+@{
+    ViewData["Title"] = "Restaurar";
+}
+
+<h2>Restaurar cliente</h2>
+
+<h3>Tem certeza que deseja restaurar?</h3>
+<div>
+    <h4>Cliente</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdCliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdCliente)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeCliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomeCliente)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CelularCliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CelularCliente)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailCliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmailCliente)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LogradouroCliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LogradouroCliente)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroCliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumeroCliente)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BairroCliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BairroCliente)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CidadeCliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CidadeCliente)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoCliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EstadoCliente)
+        </dd>
+    </dl>
+    <br />
+    <form asp-action="Restore">
+        <input type="hidden" asp-for="IdCliente" />
+        <input type="submit" value="Restaurar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-primary">Voltar</a>
+    </form>
+</div>

@@ -30,7 +30,13 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+<<<<<<< Updated upstream
         public async Task<IActionResult> ClientesApagadas()
+=======
+<<<<<<< Updated upstream
+=======
+        public async Task<IActionResult> ClientesApagados()
+>>>>>>> Stashed changes
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -39,6 +45,10 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         public async Task<IActionResult> Relatorio()
         {
             if (User.Identity.IsAuthenticated)
