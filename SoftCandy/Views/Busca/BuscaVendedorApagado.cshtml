@@ -1,13 +1,14 @@
-﻿@model IEnumerable<SoftCandy.Models.Produto>
+﻿<!DOCTYPE html>
+@model IEnumerable<SoftCandy.Models.Vendedor>
 
 @{
-    ViewData["Title"] = "Pesquisar Produto";
+    ViewData["Title"] = "Pesquisar Vendedor";
 }
 <center>
-    <form class="form-inline" asp-controller="Busca" asp-action="BuscaProduto">
+    <form class="form-inline" asp-controller="Busca" asp-action="BuscaVendedorApagado">
         <div class="d-flex justify-content-between">
             <div class="d-flex">
-                <a asp-controller="Produto" asp-action="Index" class="btn btn-info mr-1">Voltar</a>
+                <a asp-controller="Vendedor" asp-action="Index" class="btn btn-info mr-1">Voltar</a>
             </div>
             <div class="d-flex">
                 <label for="Nome"></label>
@@ -18,25 +19,25 @@
     </form>
     <br />
     <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Produtos</h4></div>
+        <div class="card-header"><h4>Vendedores Apagados</h4></div>
         <div class="card-body">
             <table class="table ">
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.IdProduto)
+                            @Html.DisplayNameFor(model => model.IdVendedor)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.NomeProduto)
+                            @Html.DisplayNameFor(model => model.NomeVendedor)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.DescricaoProduto)
+                            @Html.DisplayNameFor(model => model.CelularVendedor)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.QuantidadeProduto)
+                            @Html.DisplayNameFor(model => model.EnderecoVendedor)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.PrecoVendaProduto)
+                            @Html.DisplayNameFor(model => model.EmailVendedor)
                         </th>
                         <th></th>
                     </tr>
@@ -46,24 +47,24 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.IdProduto)
+                                @Html.DisplayFor(modelItem => item.IdVendedor)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.NomeProduto)
+                                @Html.DisplayFor(modelItem => item.NomeVendedor)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DescricaoProduto)
+                                @Html.DisplayFor(modelItem => item.CelularVendedor)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.QuantidadeProduto)
+                                @Html.DisplayFor(modelItem => item.EnderecoVendedor)
                             </td>
                             <td>
-                                R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
+                                @Html.DisplayFor(modelItem => item.EmailVendedor)
                             </td>
                             <td>
-                                <a asp-controller="Produto" asp-action="Edit" asp-route-id="@item.IdProduto">Editar</a> |
-                                <a asp-controller="Produto" asp-action="Details" asp-route-id="@item.IdProduto">Detalhes</a> |
-                                <a asp-controller="Produto" asp-action="Delete" asp-route-id="@item.IdProduto">Deletar</a>
+                                <a asp-controller="Vendedor" asp-action="Edit" asp-route-id="@item.IdVendedor">Editar</a> |
+                                <a asp-controller="Vendedor" asp-action="Details" asp-route-id="@item.IdVendedor">Detalhes</a> |
+                                <a asp-controller="Vendedor" asp-action="Delete" asp-route-id="@item.IdVendedor">Deletar</a>
                             </td>
                         </tr>
                     }

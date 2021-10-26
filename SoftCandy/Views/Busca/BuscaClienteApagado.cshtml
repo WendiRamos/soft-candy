@@ -5,7 +5,7 @@
     ViewData["Title"] = "Pesquisar Cliente";
 }
 <center>
-    <form class="form-inline" asp-controller="Busca" asp-action="BuscaCliente">
+    <form class="form-inline" asp-controller="Busca" asp-action="BuscaClienteApagado">
         <div class="d-flex justify-content-between">
             <div class="d-flex">
                 <a asp-controller="Cliente" asp-action="Index" class="btn btn-info mr-1">Voltar</a>
@@ -18,54 +18,8 @@
         </div>
     </form>
     <br />
-<<<<<<< Updated upstream
-</form>
-<table class="table ">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CelularCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EnderecoCliente)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdCliente)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NomeCliente)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CelularCliente)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EnderecoCliente)
-                </td>
-                <td>
-                    <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@item.IdCliente">Editar</a> |
-                    <a asp-controller="Cliente" asp-action="Details" asp-route-id="@item.IdCliente">Detalhes</a> |
-                    <a asp-controller="Cliente" asp-action="Delete" asp-route-id="@item.IdCliente">Deletar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-=======
     <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Clientes</h4></div>
+        <div class="card-header"><h4>Clientes Apagados</h4></div>
         <div class="card-body">
             <table class="table">
                 <thead>
@@ -113,4 +67,3 @@
         </div>
     </div>
 </center>
->>>>>>> Stashed changes
