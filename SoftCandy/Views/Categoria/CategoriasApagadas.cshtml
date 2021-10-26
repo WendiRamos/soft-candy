@@ -4,11 +4,11 @@
     ViewData["Title"] = "Categorias";
 }
 
-<form class="form-inline" asp-controller="Busca" asp-action="BuscaCategoria">
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaCategoriaApagada">
     <div class="form-group ">
         <div class="form-check-inline">
             <label for="Nome"></label>
-            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
+            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
         </div>
         <button type="submit" class=" btn btn-primary mr-1">Pesquisar</button>
         <a asp-action="Index" class="btn btn-info">Voltar</a>
