@@ -27,12 +27,31 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        public async Task<IActionResult> BuscaClienteApagado(string Nome)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByClienteApagado(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
+        }
 
         public async Task<IActionResult> BuscaVendedor(string Nome)
         {
             if (User.Identity.IsAuthenticated)
             {
                 var result = await _buscaService.FindByVendedor(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> BuscaVendedorApagado(string Nome)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByVendedorApagado(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -48,6 +67,16 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task<IActionResult> BuscaProdutoApagado(string Nome)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByProdutoApagado(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         public async Task<IActionResult> BuscaCategoria(string Nome)
         {
             if (User.Identity.IsAuthenticated)
@@ -57,7 +86,16 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-       
+
+        public async Task<IActionResult> BuscaCategoriaApagada(string Nome)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByCategoriaApagada(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
+        }
         public async Task<IActionResult> BuscaPedido(DateTime? minDate, DateTime? maxDate)
         {
             if (!minDate.HasValue)

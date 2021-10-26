@@ -2,10 +2,10 @@
 @model IEnumerable<SoftCandy.Models.Categoria>
 
 @{
-    ViewData["Title"] = "Pesquisar Categoria";
+    ViewData["Title"] = "Pesquisar Categoria Apagada";
 }
 <center>
-    <form class="form-inline" asp-controller="Busca" asp-action="BuscaCategoria">
+    <form class="form-inline" asp-controller="Busca" asp-action="BuscaCategoriaApagada">
         <div class="d-flex justify-content-between">
             <div class="d-flex">
                 <a asp-controller="Categoria" asp-action="Index" class="btn btn-info mr-1">Voltar</a>
@@ -19,7 +19,7 @@
     </form>
     <br />
     <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Categorias</h4></div>
+        <div class="card-header"><h4>Categorias Apagadas</h4></div>
         <div class="card-body">
             <table class="table">
                 <thead>

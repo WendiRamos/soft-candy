@@ -33,9 +33,35 @@ namespace SoftCandy.Services
                   .ToListAsync();
         }
 
+        public async Task<List<Cliente>> FindByClienteApagado(String Nome)
+        {
+            var result = from obj in _context.Cliente.Where(c => c.AtivoCliente == false) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = System.Text.Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.NomeCliente.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
         public async Task<List<Vendedor>> FindByVendedor(String Nome)
         {
             var result = from obj in _context.Vendedor.Where(c => c.AtivoVendedor) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.NomeVendedor.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
+        public async Task<List<Vendedor>> FindByVendedorApagado(String Nome)
+        {
+            var result = from obj in _context.Vendedor.Where(c => c.AtivoVendedor == false) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
@@ -59,9 +85,35 @@ namespace SoftCandy.Services
                   .ToListAsync();
         }
 
+        public async Task<List<Produto>> FindByProdutoApagado(String Nome)
+        {
+            var result = from obj in _context.Produto.Where(c => c.AtivoProduto == false) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.NomeProduto.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
         public async Task<List<Categoria>> FindByCategoria(String Nome)
         {
             var result = from obj in _context.Categoria.Where(c => c.AtivoCategoria) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.NomeCategoria.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
+        public async Task<List<Categoria>> FindByCategoriaApagada(String Nome)
+        {
+            var result = from obj in _context.Categoria.Where(c => c.AtivoCategoria == false) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
