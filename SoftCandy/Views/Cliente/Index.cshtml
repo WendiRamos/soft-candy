@@ -6,94 +6,17 @@
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaCliente">
     <div class="d-flex justify-content-between">
         <div class="d-flex">
-            <a asp-action="Create" class="btn btn-success mr-1">Nova Cliente</a>
-            <a asp-action="ClientesApagado" class="btn btn-info">Clientes Apagados</a>
+            <a asp-action="Create" class="btn btn-success mr-1">Novo Cliente</a>
+            <a asp-action="ClienteApagado" class="btn btn-info">Clientes Apagados</a>
         </div>
         <div class="d-flex">
             <label for="Nome"></label>
-            <input type="text" class="form-control mr-1" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
+            <input type="text" class="form-control mr-1" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
             <button type="submit" class=" btn btn-primary">Pesquisar</button>
         </div>
     </div>
 </form>
 <br />
-<<<<<<< Updated upstream
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CelularCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LogradouroCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BairroCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CidadeCliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoCliente)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CelularCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LogradouroCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BairroCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CidadeCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoCliente)
-            </td>
-            <td>
-
-                <a asp-action="Edit" asp-route-id="@item.IdCliente">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCliente">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCliente">Deletar</a>
-
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
-=======
 <center>
     <div class="card border-primary mb-3">
         <div class="card-header"><h4>Clientes</h4></div>
@@ -144,4 +67,3 @@
         </div>
     </div>
 </center>
->>>>>>> Stashed changes
