@@ -5,32 +5,20 @@
 }
 <br />
 <center>
-    <div class="card border-primary mb-3" style="max-width: 50rem;">
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
         <div class="card-header"><h4>Deletar Categoria</h4></div>
         <div class="card-body">
             <h5>Tem certeza que deseja excluir?</h5>
             <div>
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.IdCategoria)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NomeCategoria)
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(model => model.IdCategoria)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(model => model.NomeCategoria)
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.IdCategoria): </td>
+                        <td>@Html.DisplayFor(model => model.IdCategoria)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.NomeCategoria): </td>
+                        <td>@Html.DisplayFor(model => model.NomeCategoria)</td>
+                    </tr>
                 </table>
                 <br />
                 <form asp-action="Delete">
