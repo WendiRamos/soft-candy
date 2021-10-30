@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Categoria\CategoriasApagadas.cshtml" />
+    <Content Remove="Views\Cliente\ClientesApagados.cshtml" />
     <Content Remove="wwwroot\favicon.ico" />
   </ItemGroup>
 
