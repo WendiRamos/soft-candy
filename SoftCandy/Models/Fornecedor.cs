@@ -15,7 +15,7 @@ namespace SoftCandy.Models
         public string Cnpj { get; set; }
 
         [Display(Name = "Empresa Social")]
-        public string EmpresaSocial { get; set; }
+        public string RazaoSocial { get; set; }
 
         [Display(Name = "Nome Fantasia")]
         public string NomeFantasia { get; set; }
@@ -54,7 +54,7 @@ namespace SoftCandy.Models
         {
             IdFornecedor = idFornecedor;
             Cnpj = cnpj;
-            EmpresaSocial = empresaSocial;
+            RazaoSocial = empresaSocial;
             NomeFantasia = nomeFantasia;
             CelularFornecedor = celularFornecedor;
             EmailFornecedor = emailFornecedor;
