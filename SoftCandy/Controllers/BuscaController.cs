@@ -96,6 +96,26 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> BuscaFornecedor(string Nome)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByFornecedor(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> BuscaFornecedorApagado(string Nome)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByFornecedorApagado(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
+        }
         public async Task<IActionResult> BuscaPedido(DateTime? minDate, DateTime? maxDate)
         {
             if (!minDate.HasValue)
