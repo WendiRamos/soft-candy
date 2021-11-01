@@ -124,6 +124,32 @@ namespace SoftCandy.Services
                   .ToListAsync();
         }
 
+        public async Task<List<Fornecedor>> FindByFornecedor(String Nome)
+        {
+            var result = from obj in _context.Fornecedor.Where(c => c.AtivoFornecedor) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.RazaoSocial.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
+        public async Task<List<Fornecedor>> FindByFornecedorApagado(String Nome)
+        {
+            var result = from obj in _context.Fornecedor.Where(c => c.AtivoFornecedor == false) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.RazaoSocial.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
         public async Task<List<Pedido>> FindByPedido(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.Pedido.Where(c => c.AtivoPedido) select obj;
