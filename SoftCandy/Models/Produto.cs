@@ -38,6 +38,12 @@ namespace SoftCandy.Models
 
         public virtual Categoria Categoria { get; set; }
 
+        [ForeignKey("Fornecedor")]
+        [Display(Name = "Fornecedor")]
+        public int IdFornecedor { get; set; }
+
+        public virtual Fornecedor Fornecedor { get; set; }
+
         public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
     }
 
