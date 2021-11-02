@@ -1,95 +1,70 @@
 ﻿@model IEnumerable<SoftCandy.Models.Fornecedor>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Fornecedores";
 }
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaFornecedor">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <a asp-action="Create" class="btn btn-success mr-1">Novo Fornecedor</a>
+            <a asp-controller="Busca" asp-action="BuscaFornecedorApagado" class="btn btn-info">Fornecedores Apagados</a>
+        </div>
+        <div class="d-flex">
+            <label for="Nome"></label>
+            <input type="text" class="form-control mr-1" name="Nome" placeholder="Razão Social" value=@ViewData["Nome"] />
+            <button type="submit" class=" btn btn-primary">Pesquisar</button>
+        </div>
+    </div>
+</form>
+<br />
+<center>
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Fornecedores</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdFornecedor)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cnpj)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RazaoSocial)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NomeFantasia)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdFornecedor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cnpj)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RazaoSocial)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NomeFantasia)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.IdFornecedor">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.IdFornecedor">Detalhes</a> |
+                                <a asp-action="Delete" asp-route-id="@item.IdFornecedor">Deletar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</center>
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Cnpj)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RazaoSocial)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeFantasia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CelularFornecedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailFornecedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LogradouroFornecedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroFornecedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BairroFornecedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CidadeFornecedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoFornecedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AtivoFornecedor)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cnpj)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RazaoSocial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeFantasia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CelularFornecedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailFornecedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LogradouroFornecedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroFornecedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BairroFornecedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CidadeFornecedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoFornecedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AtivoFornecedor)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdFornecedor">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdFornecedor">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdFornecedor">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
