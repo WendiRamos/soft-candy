@@ -1,0 +1,88 @@
+﻿@model IEnumerable<SoftCandy.Models.Fornecedor>
+
+@{
+    ViewData["Title"] = "Fornecedores";
+    Layout = "_LayoutRelatorio";
+}
+<h2>Fornecedores</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdFornecedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cnpj)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RazaoSocial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeFantasia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CelularFornecedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailFornecedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LogradouroFornecedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroFornecedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BairroFornecedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CidadeFornecedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoFornecedor)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdFornecedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cnpj)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RazaoSocial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeFantasia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CelularFornecedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailFornecedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LogradouroFornecedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroFornecedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BairroFornecedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CidadeFornecedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoFornecedor)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script>window.print()</script>
