@@ -9,12 +9,13 @@ namespace SoftCandy.Models
     public class Fornecedor
     {
         [Key()]
+        [Display(Name = "Id")]
         public int IdFornecedor { get; set; }
 
         [Display(Name = "CNPJ")]
         public string Cnpj { get; set; }
 
-        [Display(Name = "Empresa Social")]
+        [Display(Name = "Razão Social")]
         public string RazaoSocial { get; set; }
 
         [Display(Name = "Nome Fantasia")]
@@ -50,11 +51,10 @@ namespace SoftCandy.Models
         {
         }
 
-        public Fornecedor(int idFornecedor, string cnpj, string empresaSocial, string nomeFantasia, string celularFornecedor, string emailFornecedor, string logradouroFornecedor, string numeroFornecedor, string bairroFornecedor, string cidadeFornecedor, string estadoFornecedor, bool ativoFornecedor, ICollection<Produto> produtos)
+        public Fornecedor(string cnpj, string razaoSocial, string nomeFantasia, string celularFornecedor, string emailFornecedor, string logradouroFornecedor, string numeroFornecedor, string bairroFornecedor, string cidadeFornecedor, string estadoFornecedor)
         {
-            IdFornecedor = idFornecedor;
             Cnpj = cnpj;
-            RazaoSocial = empresaSocial;
+            RazaoSocial = razaoSocial;
             NomeFantasia = nomeFantasia;
             CelularFornecedor = celularFornecedor;
             EmailFornecedor = emailFornecedor;
@@ -63,8 +63,6 @@ namespace SoftCandy.Models
             BairroFornecedor = bairroFornecedor;
             CidadeFornecedor = cidadeFornecedor;
             EstadoFornecedor = estadoFornecedor;
-            AtivoFornecedor = ativoFornecedor;
-            Produtos = produtos;
         }
     }
 
