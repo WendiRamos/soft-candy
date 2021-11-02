@@ -1,0 +1,84 @@
+﻿@model SoftCandy.Models.Fornecedor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Fornecedor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cnpj)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cnpj)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RazaoSocial)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RazaoSocial)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeFantasia)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomeFantasia)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CelularFornecedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CelularFornecedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailFornecedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmailFornecedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LogradouroFornecedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LogradouroFornecedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroFornecedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumeroFornecedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BairroFornecedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BairroFornecedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CidadeFornecedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CidadeFornecedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoFornecedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EstadoFornecedor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AtivoFornecedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AtivoFornecedor)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdFornecedor">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

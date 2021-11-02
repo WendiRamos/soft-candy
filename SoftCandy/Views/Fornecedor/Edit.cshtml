@@ -1,0 +1,86 @@
+﻿@model SoftCandy.Models.Fornecedor
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Fornecedor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdFornecedor" />
+            <div class="form-group">
+                <label asp-for="Cnpj" class="control-label"></label>
+                <input asp-for="Cnpj" class="form-control" />
+                <span asp-validation-for="Cnpj" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RazaoSocial" class="control-label"></label>
+                <input asp-for="RazaoSocial" class="form-control" />
+                <span asp-validation-for="RazaoSocial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NomeFantasia" class="control-label"></label>
+                <input asp-for="NomeFantasia" class="form-control" />
+                <span asp-validation-for="NomeFantasia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CelularFornecedor" class="control-label"></label>
+                <input asp-for="CelularFornecedor" class="form-control" />
+                <span asp-validation-for="CelularFornecedor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailFornecedor" class="control-label"></label>
+                <input asp-for="EmailFornecedor" class="form-control" />
+                <span asp-validation-for="EmailFornecedor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LogradouroFornecedor" class="control-label"></label>
+                <input asp-for="LogradouroFornecedor" class="form-control" />
+                <span asp-validation-for="LogradouroFornecedor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroFornecedor" class="control-label"></label>
+                <input asp-for="NumeroFornecedor" class="form-control" />
+                <span asp-validation-for="NumeroFornecedor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BairroFornecedor" class="control-label"></label>
+                <input asp-for="BairroFornecedor" class="form-control" />
+                <span asp-validation-for="BairroFornecedor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CidadeFornecedor" class="control-label"></label>
+                <input asp-for="CidadeFornecedor" class="form-control" />
+                <span asp-validation-for="CidadeFornecedor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstadoFornecedor" class="control-label"></label>
+                <input asp-for="EstadoFornecedor" class="form-control" />
+                <span asp-validation-for="EstadoFornecedor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="AtivoFornecedor" /> @Html.DisplayNameFor(model => model.AtivoFornecedor)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
