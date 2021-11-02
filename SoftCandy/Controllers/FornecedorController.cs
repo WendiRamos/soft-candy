@@ -82,7 +82,7 @@ namespace SoftCandy.Controllers
         // POST: Fornecedor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdFornecedor,Cnpj,RazaoSocial,NomeFantasia,CelularFornecedor,EmailFornecedor,LogradouroFornecedor,NumeroFornecedor,BairroFornecedor,CidadeFornecedor,EstadoFornecedor")] Fornecedor fornecedor)
+        public async Task<IActionResult> Create([Bind("Cnpj,RazaoSocial,NomeFantasia,CelularFornecedor,EmailFornecedor,LogradouroFornecedor,NumeroFornecedor,BairroFornecedor,CidadeFornecedor,EstadoFornecedor")] Fornecedor fornecedor)
         {
             if (User.Identity.IsAuthenticated)
             {

@@ -1,86 +1,85 @@
 ﻿@model SoftCandy.Models.Fornecedor
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
-
-<h2>Edit</h2>
-
-<h4>Fornecedor</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdFornecedor" />
-            <div class="form-group">
-                <label asp-for="Cnpj" class="control-label"></label>
-                <input asp-for="Cnpj" class="form-control" />
-                <span asp-validation-for="Cnpj" class="text-danger"></span>
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Editar Fornecedor</h4></div>
+        <div class="card-body">
+            <div class="row-center">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="IdFornecedor" />
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="Cnpj" class="control-label">CNPJ:</label>
+                            <input asp-for="Cnpj" id="cnpj" class="form-control" />
+                            <span class="invisivel" id="erroCnpj">Insira um CNPJ válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="RazaoSocial" class="control-label">Razão Social:</label>
+                            <input asp-for="RazaoSocial" id="razaoSocial" class="form-control" />
+                            <span class="invisivel" id="erroRazaoSocial">Insira uma razão social válida!</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="NomeFantasia" class="control-label">Nome Fantasia:</label>
+                            <input asp-for="NomeFantasia" id="nomeFantasia" class="form-control" />
+                            <span class="invisivel" id="erroNomeFantasia">Insira um nome fantasia válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="CelularFornecedor" class="control-label">Celular:</label>
+                            <input asp-for="CelularFornecedor" id="celularFornecedor" class="form-control" />
+                            <span class="invisivel" id="erroCelularFornecedor">Insira um celular válido!</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="EmailFornecedor" class="control-label">E-mail:</label>
+                            <input asp-for="EmailFornecedor" id="emailFornecedor" class="form-control" />
+                            <span class="invisivel" id="erroEmailFornecedor">Insira um e-mail válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="LogradouroFornecedor" class="control-label">Logradouro:</label>
+                            <input asp-for="LogradouroFornecedor" id="logradouroFornecedor" class="form-control" />
+                            <span class="invisivel" id="erroLogradouroFornecedor">Insira um logradouro válido!</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="NumeroFornecedor" class="control-label">Número:</label>
+                            <input asp-for="NumeroFornecedor" id="numeroFornecedor" class="form-control" />
+                            <span class="invisivel" id="erroNumeroFornecedor">Insira um número válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="BairroFornecedor" class="control-label">Bairro:</label>
+                            <input asp-for="BairroFornecedor" id="bairroFornecedor" class="form-control" />
+                            <span class="invisivel" id="erroBairroFornecedor">Insira um bairro válido!</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="CidadeFornecedor" class="control-label">Cidade:</label>
+                            <input asp-for="CidadeFornecedor" id="cidadeFornecedor" class="form-control" />
+                            <span class="invisivel" id="erroCidadeFornecedor">Insira uma cidade válida!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="EstadoFornecedor" class="control-label">Estado:</label>
+                            <input asp-for="EstadoFornecedor" id="estadoFornecedor" class="form-control" />
+                            <span class="invisivel" id="erroEstadoFornecedor">Insira um estado válido!</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" onclick="return validarFornecedor()" value="Salvar" class="btn btn-success mr-1" />
+                        <a asp-action="Index" class="btn btn-primary">Voltar</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="RazaoSocial" class="control-label"></label>
-                <input asp-for="RazaoSocial" class="form-control" />
-                <span asp-validation-for="RazaoSocial" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NomeFantasia" class="control-label"></label>
-                <input asp-for="NomeFantasia" class="form-control" />
-                <span asp-validation-for="NomeFantasia" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CelularFornecedor" class="control-label"></label>
-                <input asp-for="CelularFornecedor" class="form-control" />
-                <span asp-validation-for="CelularFornecedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmailFornecedor" class="control-label"></label>
-                <input asp-for="EmailFornecedor" class="form-control" />
-                <span asp-validation-for="EmailFornecedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LogradouroFornecedor" class="control-label"></label>
-                <input asp-for="LogradouroFornecedor" class="form-control" />
-                <span asp-validation-for="LogradouroFornecedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumeroFornecedor" class="control-label"></label>
-                <input asp-for="NumeroFornecedor" class="form-control" />
-                <span asp-validation-for="NumeroFornecedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BairroFornecedor" class="control-label"></label>
-                <input asp-for="BairroFornecedor" class="form-control" />
-                <span asp-validation-for="BairroFornecedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CidadeFornecedor" class="control-label"></label>
-                <input asp-for="CidadeFornecedor" class="form-control" />
-                <span asp-validation-for="CidadeFornecedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstadoFornecedor" class="control-label"></label>
-                <input asp-for="EstadoFornecedor" class="form-control" />
-                <span asp-validation-for="EstadoFornecedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="AtivoFornecedor" /> @Html.DisplayNameFor(model => model.AtivoFornecedor)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+</center>
+<script src="~/js/Fornecedor.js"></script>
