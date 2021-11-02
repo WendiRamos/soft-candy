@@ -1,0 +1,68 @@
+﻿@model SoftCandy.Models.Fornecedor
+
+@{
+    ViewData["Title"] = "Restaurar";
+}
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Restaurar Fornecedor</h4></div>
+        <div class="card-body">
+            <h5>Tem certeza que deseja restaurar?</h5>
+            <div>
+                <table class="table">
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.IdFornecedor): </td>
+                        <td>@Html.DisplayFor(model => model.IdFornecedor)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.Cnpj): </td>
+                        <td>@Html.DisplayFor(model => model.Cnpj)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.RazaoSocial): </td>
+                        <td>@Html.DisplayFor(model => model.RazaoSocial)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.NomeFantasia): </td>
+                        <td>@Html.DisplayFor(model => model.NomeFantasia)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.CelularFornecedor): </td>
+                        <td>@Html.DisplayFor(model => model.CelularFornecedor)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.EmailFornecedor): </td>
+                        <td>@Html.DisplayFor(model => model.EmailFornecedor)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.LogradouroFornecedor):</td>
+                        <td>@Html.DisplayFor(model => model.LogradouroFornecedor)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.NumeroFornecedor): </td>
+                        <td>@Html.DisplayFor(model => model.NumeroFornecedor)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.BairroFornecedor): </td>
+                        <td>@Html.DisplayFor(model => model.BairroFornecedor)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.CidadeFornecedor): </td>
+                        <td>@Html.DisplayFor(model => model.CidadeFornecedor)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.EstadoFornecedor): </td>
+                        <td>@Html.DisplayFor(model => model.EstadoFornecedor)</td>
+                    </tr>
+                </table>
+                <br />
+                <form asp-action="Restore">
+                    <input type="hidden" asp-for="IdFornecedor" />
+                    <input type="submit" value="Restaurar" class="btn btn-danger mr-1" />
+                    <a asp-action="Index" class="btn btn-primary">Voltar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</center>
