@@ -25,5 +25,7 @@ namespace SoftCandy.Data
         public DbSet<SoftCandy.Models.ItemPedido> Item_Pedido { get; set; }
 
         public DbSet<SoftCandy.Models.Categoria> Categoria { get; set; }
+
+        public DbSet<SoftCandy.Models.Fornecedor> Fornecedor { get; set; }
     }
 }
