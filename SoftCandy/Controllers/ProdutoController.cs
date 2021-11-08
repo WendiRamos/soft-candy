@@ -25,7 +25,17 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria);
+                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria).Include(p => p.Fornecedor);
+                return View(await softCandyContext.ToListAsync());
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> ProdutossApagados()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto == false).Include(p => p.Categoria).Include(p => p.Fornecedor);
                 return View(await softCandyContext.ToListAsync());
             }
             return RedirectToAction("Index", "Home");
@@ -35,7 +45,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria);
+                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria).Include(p=> p.Fornecedor);
                 return View(await softCandyContext.ToListAsync());
             }
             return RedirectToAction("Index", "Home");
@@ -53,6 +63,7 @@ namespace SoftCandy.Controllers
 
                 var produto = await _context.Produto
                     .Include(p => p.Categoria)
+                    .Include(p=> p.Fornecedor)
                     .FirstOrDefaultAsync(m => m.IdProduto == id);
                 if (produto == null)
                 {
@@ -69,8 +80,8 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-
                 ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
+                ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazãoSocial");//duvida aqui
                 return View();
             }
             return RedirectToAction("Index", "Home");
@@ -79,11 +90,10 @@ namespace SoftCandy.Controllers
         // POST: Produto/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdProduto,NomeProduto,QuantidadeProduto,PrecoVendaProduto,DescricaoProduto,IdCategoria")] Produto produto)
+        public async Task<IActionResult> Create([Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,Categoria,Fornecedor")] Produto produto)
         {
             if (User.Identity.IsAuthenticated)
             {
-
                 if (ModelState.IsValid)
                 {
                     produto.AtivoProduto = true;
@@ -92,6 +102,7 @@ namespace SoftCandy.Controllers
                     return RedirectToAction(nameof(Index));
                 }
                 ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
+                ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View(produto);
             }
             return RedirectToAction("Index", "Home");
@@ -113,6 +124,7 @@ namespace SoftCandy.Controllers
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
                 ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
+                ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View(produto);
 
             }
@@ -122,7 +134,7 @@ namespace SoftCandy.Controllers
         // POST: Produto/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdProduto,NomeProduto,QuantidadeProduto,PrecoVendaProduto,DescricaoProduto,IdCategoria")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,Categoria,Fornecedor")] Produto produto)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -153,6 +165,7 @@ namespace SoftCandy.Controllers
                     return RedirectToAction(nameof(Index));
                 }
                 ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
+                ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View(produto);
             }
             return RedirectToAction("Index", "Home");
@@ -170,6 +183,7 @@ namespace SoftCandy.Controllers
 
                 var produto = await _context.Produto
                     .Include(p => p.Categoria)
+                    .Include(p => p.Fornecedor)
                     .FirstOrDefaultAsync(m => m.IdProduto == id);
                 if (produto == null)
                 {
@@ -191,6 +205,44 @@ namespace SoftCandy.Controllers
             {
                 var produto = await _context.Produto.FindAsync(id);
                 produto.AtivoProduto = false;
+                _context.Produto.Update(produto);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        // GET: Produto/Restore
+        public async Task<IActionResult> Restore(int? id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (id == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
+                }
+
+                var produto = await _context.Produto
+                    .FirstOrDefaultAsync(m => m.IdProduto == id);
+                if (produto == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+
+                return View(produto);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        // POST: Produto/Restore
+        [HttpPost, ActionName("Restore")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteRestore(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var produto = await _context.Produto.FindAsync(id);
+                produto.AtivoProduto = true;
                 _context.Produto.Update(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
