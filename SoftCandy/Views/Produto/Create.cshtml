@@ -1,46 +1,64 @@
 ﻿@model SoftCandy.Models.Produto
 
 @{
-    ViewData["Title"] = "Criar Produto";
+    ViewData["Title"] = "Criar";
 }
-
-<h2>Criar Produto</h2>
-
-<h4>Produto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-dark"></div>
-            <div class="form-group">
-                <label asp-for="NomeProduto" class="control-label"></label>
-                <input asp-for="NomeProduto" class="form-control" />
-                <span asp-validation-for="NomeProduto" class="text-dark"></span>
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Criar Produto</h4></div>
+        <div class="card-body">
+            <div class="row-center">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="NomeProduto" class="control-label">Nome:</label>
+                            <input asp-for="NomeProduto" id="nomeProduto" class="form-control" />
+                            <span class="invisivel" id="erroNomeProduto">Insira um nome válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="PrecoVendaProduto" class="control-label">Preço:</label>
+                            <input asp-for="PrecoVendaProduto" id="precoVenda" class="form-control" />
+                            <span class="invisivel" id="erroPrecoVenda">Insira um preço válido!</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="QuantidadeProduto" class="control-label">Quantidade:</label>
+                            <input asp-for="QuantidadeProduto" id="quantidadeProduto" class="form-control" />
+                            <span class="invisivel" id="erroQuantidadeProduto">Insira uma quantidade válida!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="QuantidadeMinimaProduto" class="control-label">Celular:</label>
+                            <input asp-for="QuantidadeMinimaProduto" id="quantidadeMinimaProduto" class="form-control" />
+                            <span class="invisivel" id="erroQuantidadeMinimaProduto">Insira uma quantidade válida!</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="IdCategoria" class="control-label">Categoria:</label>
+                            <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.CAT"></select>
+                        </div>
+                        <div class="col">
+                            <label asp-for="IdFornecedor" class="control-label">Fornecedor:</label>
+                            <select asp-for="IdFornecedor" class="form-control" asp-items="ViewBag.FOR"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="DescricaoProduto" class="control-label">Descrição:</label>
+                            <input asp-for="DescricaoProduto" class="form-control" placeholder="Descrição opcional" />
+                            <span class="invisivel" id="erroNumeroFornecedor">Insira um número válido!</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" onclick="return validarProduto()" value="Salvar" class="btn btn-success mr-1" />
+                        <a asp-action="Index" class="btn btn-primary">Voltar</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="QuantidadeProduto" class="control-label"></label>
-                <input asp-for="QuantidadeProduto" class="form-control" />
-                <span asp-validation-for="QuantidadeProduto" class="text-dark"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrecoVendaProduto" class="control-label"></label>
-                <input asp-for="PrecoVendaProduto" class="form-control" />
-                <span asp-validation-for="PrecoVendaProduto" class="text-dark"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DescricaoProduto" class="control-label"></label>
-                <input asp-for="DescricaoProduto" class="form-control" />
-                <span asp-validation-for="DescricaoProduto" class="text-dark"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdCategoria" class="control-label">Insira uma categoria</label>
-                <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.CAT"></select>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-success" /> |
-                <a asp-action="Index" class="btn btn-primary">Voltar</a>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</center>
+<script src="~/js/Produto.js"></script>
