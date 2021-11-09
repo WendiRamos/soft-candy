@@ -81,7 +81,7 @@ namespace SoftCandy.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
-                ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazãoSocial");//duvida aqui
+                ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View();
             }
             return RedirectToAction("Index", "Home");
