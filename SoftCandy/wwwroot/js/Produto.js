@@ -45,3 +45,11 @@ function validarQuantidadeMinimaProduto() {
     document.getElementById("erroQuantidadeMinimaProduto").className = "invisivel";
     return true;
 }
+
+function validarProduto() {
+    var nomeValido = validarNomeProduto();
+    var precoValido = validarPrecoVendaProduto();
+    var quantidadeValida = validarQuantidadeProduto();
+    var quantidadeMinimaValida = validarQuantidadeMinimaProduto();
+    return nomeValido;
+}
