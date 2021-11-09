@@ -51,5 +51,5 @@ function validarProduto() {
     var precoValido = validarPrecoVendaProduto();
     var quantidadeValida = validarQuantidadeProduto();
     var quantidadeMinimaValida = validarQuantidadeMinimaProduto();
-    return nomeValido;
+    return nomeValido && precoValido && quantidadeValida && quantidadeMinimaValida;
 }
