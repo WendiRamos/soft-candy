@@ -90,7 +90,7 @@ namespace SoftCandy.Controllers
         // POST: Produto/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,Categoria,Fornecedor")] Produto produto)
+        public async Task<IActionResult> Create([Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,IdCategoria,IdFornecedor")] Produto produto)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -134,7 +134,7 @@ namespace SoftCandy.Controllers
         // POST: Produto/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,Categoria,Fornecedor")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,IdCategoria,IdFornecedor")] Produto produto)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -221,8 +221,9 @@ namespace SoftCandy.Controllers
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                 }
-
                 var produto = await _context.Produto
+                    .Include(p => p.Categoria)
+                    .Include(p => p.Fornecedor)
                     .FirstOrDefaultAsync(m => m.IdProduto == id);
                 if (produto == null)
                 {
