@@ -13,21 +13,19 @@ namespace SoftCandy.Models
         [Display(Name = "Id")]
         public int IdProduto { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Nome")]
         public string NomeProduto { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Quantidade")]
-        public int QuantidadeProduto { get; set; }
-
-        [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Preço Venda")]
         public decimal PrecoVendaProduto { get; set; }
 
+        [Display(Name = "Quantidade")]
+        public int QuantidadeProduto { get; set; }
+
+        [Display(Name = "Quantidade Mínima")]
+        public int QuantidadeMinimaProduto { get; set; }
+
         [Display(Name = "Descrição")]
-        [StringLength(60, MinimumLength = 0, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         public string DescricaoProduto { get; set; }
 
         public bool AtivoProduto { get; set; }
@@ -45,6 +43,23 @@ namespace SoftCandy.Models
         public virtual Fornecedor Fornecedor { get; set; }
 
         public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
+
+        public Produto()
+        {
+        }
+
+        public Produto(string nomeProduto, decimal precoVendaProduto, int quantidadeProduto, int quantidadeMinimaProduto, string descricaoProduto, bool ativoProduto, int idCategoria, Categoria categoria, int idFornecedor, Fornecedor fornecedor)
+        {
+            NomeProduto = nomeProduto;
+            PrecoVendaProduto = precoVendaProduto;
+            QuantidadeProduto = quantidadeProduto;
+            QuantidadeMinimaProduto = quantidadeMinimaProduto;
+            DescricaoProduto = descricaoProduto;
+            AtivoProduto = ativoProduto;
+            IdCategoria = idCategoria;
+            IdFornecedor = idFornecedor;
+
+        }
     }
 
 }

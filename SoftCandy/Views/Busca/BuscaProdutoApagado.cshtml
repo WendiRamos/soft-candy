@@ -30,9 +30,6 @@
                             @Html.DisplayNameFor(model => model.NomeProduto)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.DescricaoProduto)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.QuantidadeProduto)
                         </th>
                         <th>
@@ -52,18 +49,13 @@
                                 @Html.DisplayFor(modelItem => item.NomeProduto)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DescricaoProduto)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.QuantidadeProduto)
                             </td>
                             <td>
                                 R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
                             </td>
                             <td>
-                                <a asp-controller="Produto" asp-action="Edit" asp-route-id="@item.IdProduto">Editar</a> |
-                                <a asp-controller="Produto" asp-action="Details" asp-route-id="@item.IdProduto">Detalhes</a> |
-                                <a asp-controller="Produto" asp-action="Delete" asp-route-id="@item.IdProduto">Deletar</a>
+                                <a asp-controller="Produto" asp-action="Restore" asp-route-id="@item.IdProduto">Restaurar</a>
                             </td>
                         </tr>
                     }

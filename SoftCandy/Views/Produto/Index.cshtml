@@ -3,68 +3,67 @@
 @{
     ViewData["Title"] = "Produtos";
 }
-<h2>Produtos</h2>
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaProduto">
-    <div class="form-group">
-        <div class="form-check-inline">
-            <label for="Nome"></label>
-            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <a asp-action="Create" class="btn btn-success mr-1">Novo Produto</a>
+            <a asp-controller="Busca" asp-action="BuscaProdutoApagado" class="btn btn-info">Produtos Apagados</a>
         </div>
-        <button type="submit" class=" btn btn-primary">Pesquisar</button>
+        <div class="d-flex">
+            <label for="Nome"></label>
+            <input type="text" class="form-control mr-1" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
+            <button type="submit" class=" btn btn-primary">Pesquisar</button>
+        </div>
     </div>
 </form>
 <br />
-<div>
-    <a asp-action="Create" class="btn btn-success">Novo Produto</a> |
-    <a asp-action="Relatorio" target="_blank" class="btn btn-info">Gerar Relatório</a>
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeProduto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QuantidadeProduto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecoVendaProduto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescricaoProduto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NomeProduto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
-                </td>
-                <td class="dinheiro">
-                    R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DescricaoProduto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Categoria.NomeCategoria)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdProduto">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.IdProduto">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdProduto">Deletar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<script src="~/js/formatador.js"></script>
+<center>
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Produtos</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdProduto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NomeProduto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PrecoVendaProduto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.QuantidadeProduto)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdProduto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NomeProduto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.QuantidadeProduto)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.IdProduto">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.IdProduto">Detalhes</a> |
+                                <a asp-action="Delete" asp-route-id="@item.IdProduto">Deletar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</center>
