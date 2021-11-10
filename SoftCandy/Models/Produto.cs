@@ -57,9 +57,8 @@ namespace SoftCandy.Models
             DescricaoProduto = descricaoProduto;
             AtivoProduto = ativoProduto;
             IdCategoria = idCategoria;
-            Categoria = categoria;
             IdFornecedor = idFornecedor;
-            Fornecedor = fornecedor;
+
         }
     }
 
