@@ -31,15 +31,6 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> ProdutossApagados()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto == false).Include(p => p.Categoria).Include(p => p.Fornecedor);
-                return View(await softCandyContext.ToListAsync());
-            }
-            return RedirectToAction("Index", "Home");
-        }
 
         public async Task<IActionResult> Relatorio()
         {

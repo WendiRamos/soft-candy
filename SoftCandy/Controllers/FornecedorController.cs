@@ -29,14 +29,6 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-        public async Task<IActionResult> FornecedoresApagadas()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View(await _context.Fornecedor.Where(c => c.AtivoFornecedor == false).ToListAsync());
-            }
-            return RedirectToAction("Index", "Home");
-        }
 
         public async Task<IActionResult> Relatorio()
         {

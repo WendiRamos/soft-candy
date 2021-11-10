@@ -30,16 +30,6 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: Categoria
-        public async Task<IActionResult> CategoriasApagadas()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View(await _context.Categoria.Where(c => c.AtivoCategoria == false).ToListAsync());
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
         public async Task<IActionResult> Relatorio()
         {
             if (User.Identity.IsAuthenticated)

@@ -29,15 +29,7 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-        public async Task<IActionResult> ClientesApagadas()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View(await _context.Cliente.Where(c => c.AtivoCliente == false).ToListAsync());
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
+        
         public async Task<IActionResult> Relatorio()
         {
             if (User.Identity.IsAuthenticated)
