@@ -9,7 +9,7 @@ namespace SoftCandy.Data
 {
     public class SoftCandyContext : DbContext
     {
-        public SoftCandyContext (DbContextOptions<SoftCandyContext> options)
+        public SoftCandyContext(DbContextOptions<SoftCandyContext> options)
             : base(options)
         {
         }
@@ -29,5 +29,7 @@ namespace SoftCandy.Data
         public DbSet<SoftCandy.Models.Fornecedor> Fornecedor { get; set; }
 
         public DbSet<SoftCandy.Models.Estoquista> Estoquista { get; set; }
+
+        public DbSet<SoftCandy.Models.Administrador> Administrador { get; set; }
     }
 }
