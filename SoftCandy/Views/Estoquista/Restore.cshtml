@@ -1,0 +1,60 @@
+﻿@model SoftCandy.Models.Estoquista
+
+@{
+    ViewData["Title"] = "Restaurar";
+}
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Restaurar Estoquista</h4></div>
+        <div class="card-body">
+            <h5>Tem certeza que deseja restaurar?</h5>
+            <div>
+                <table class="table">
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.IdEstoquista): </td>
+                        <td>@Html.DisplayFor(model => model.IdEstoquista)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.NomeEstoquista): </td>
+                        <td>@Html.DisplayFor(model => model.NomeEstoquista)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.CelularEstoquista): </td>
+                        <td>@Html.DisplayFor(model => model.CelularEstoquista)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.EmailEstoquista): </td>
+                        <td>@Html.DisplayFor(model => model.EmailEstoquista)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.LogradouroEstoquista):</td>
+                        <td>@Html.DisplayFor(model => model.LogradouroEstoquista)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.NumeroEstoquista): </td>
+                        <td>@Html.DisplayFor(model => model.NumeroEstoquista)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.BairroEstoquista): </td>
+                        <td>@Html.DisplayFor(model => model.BairroEstoquista)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.CidadeEstoquista): </td>
+                        <td>@Html.DisplayFor(model => model.CidadeEstoquista)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.EstadoEstoquista): </td>
+                        <td>@Html.DisplayFor(model => model.EstadoEstoquista)</td>
+                    </tr>
+                </table>
+                <br />
+                <form asp-action="Restore">
+                    <input type="hidden" asp-for="IdEstoquista" />
+                    <input type="submit" value="Restaurar" class="btn btn-danger mr-1" />
+                    <a asp-action="Index" class="btn btn-primary">Voltar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</center>
