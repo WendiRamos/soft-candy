@@ -77,6 +77,26 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+         public async Task<IActionResult> BuscaAdministrador(string Nome)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByAdministrador(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> BuscaAdministradorApagado(string Nome)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await _buscaService.FindByAdministradorApagado(Nome);
+                return View(result);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         public async Task<IActionResult> BuscaProduto(string Nome)
         {
             if (User.Identity.IsAuthenticated)
