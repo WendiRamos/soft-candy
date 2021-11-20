@@ -17,6 +17,36 @@ namespace SoftCandy.Migrations
                 .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("SoftCandy.Models.Administrador", b =>
+                {
+                    b.Property<int>("IdAdministrador")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("AtivoAdministrador");
+
+                    b.Property<string>("BairroAdministrador");
+
+                    b.Property<string>("CelularAdministrador");
+
+                    b.Property<string>("CidadeAdministrador");
+
+                    b.Property<string>("EmailAdministrador");
+
+                    b.Property<string>("EstadoAdministrador");
+
+                    b.Property<string>("LogradouroAdministrador");
+
+                    b.Property<string>("NomeAdministrador");
+
+                    b.Property<string>("NumeroAdministrador");
+
+                    b.Property<string>("SenhaAdministrador");
+
+                    b.HasKey("IdAdministrador");
+
+                    b.ToTable("Administrador");
+                });
+
             modelBuilder.Entity("SoftCandy.Models.Categoria", b =>
                 {
                     b.Property<int>("IdCategoria")
