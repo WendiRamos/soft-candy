@@ -1,0 +1,88 @@
+﻿@model SoftCandy.Models.Estoquista
+
+@{
+    ViewData["Title"] = "Criar";
+}
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Criar Estoquista</h4></div>
+        <div class="card-body">
+            <div class="row-center">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-dark"></div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="NomeEstoquista" class="control-label">Nome:</label>
+                            <input asp-for="NomeEstoquista" id="nomeEstoquista" class="form-control" />
+                            <span class="invisivel" id="erroNomeEstoquista">Insira um nome válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="CelularEstoquista" class="control-label">Celular:</label>
+                            <input asp-for="CelularEstoquista" id="celularEstoquista" class="form-control" />
+                            <span class="invisivel" id="erroCelularEstoquista">Insira um celular válido!</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="LogradouroEstoquista" class="control-label">Logradouro:</label>
+                            <input asp-for="LogradouroEstoquista" id="logradouroEstoquista" class="form-control" />
+                            <span class="invisivel" id="erroLogradouroEstoquista">Insira um logradouro válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="NumeroEstoquista" class="control-label">Número:</label>
+                            <input asp-for="NumeroEstoquista" id="numeroEstoquista" class="form-control" />
+                            <span class="invisivel" id="erroNumeroEstoquista">Insira um número válido!</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="BairroEstoquista" class="control-label">Bairro:</label>
+                            <input asp-for="BairroEstoquista" id="bairroEstoquista" class="form-control" />
+                            <span class="invisivel" id="erroBairroEstoquista">Insira um bairro válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="CidadeEstoquista" class="control-label">Cidade:</label>
+                            <input asp-for="CidadeEstoquista" id="cidadeEstoquista" class="form-control" />
+                            <span class="invisivel" id="erroCidadeEstoquista">Insira uma cidade válida!</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="EstadoEstoquista" class="control-label">Estado:</label>
+                            <input asp-for="EstadoEstoquista" id="estadoEstoquista" class="form-control" />
+                            <span class="invisivel" id="erroEstadoEstoquista">Insira um estado válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="EmailEstoquista" class="control-label">E-mail:</label>
+                            <input asp-for="EmailEstoquista" id="emailEstoquista" class="form-control" />
+                            <span class="invisivel" id="erroEmailEstoquista">Insira um e-mail válido!</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="SenhaEstoquista" class="control-label">Senha:</label>
+                            <input autocomplete="off" type="password" asp-for="SenhaEstoquista" id="senhaEstoquista" class="form-control" />
+                            <span class="invisivel" id="erroSenhaEstoquista">Insira uma senha válida!</span>
+                        </div>
+                        <div class="col">
+                            <label class="control-label">Confirmar senha:</label>
+                            <input autocomplete="off" type="password" class="form-control" id="senhaConfirmaEstoquista" />
+                            <span class="invisivel" id="erroSenhaConfirmaEstoquista"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" onclick="return validarEstoquista()" value="Salvar" class="btn btn-success mr-1" />
+                        <a asp-action="Index" class="btn btn-primary">Voltar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</center>
+<script src="~/js/Estoquista.js"></script>

@@ -72,6 +72,32 @@ namespace SoftCandy.Services
                   .ToListAsync();
         }
 
+        public async Task<List<Estoquista>> FindByEstoquista(String Nome)
+        {
+            var result = from obj in _context.Estoquista.Where(c => c.AtivoEstoquista) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.NomeEstoquista.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
+        public async Task<List<Estoquista>> FindByEstoquistaApagado(String Nome)
+        {
+            var result = from obj in _context.Estoquista.Where(c => c.AtivoEstoquista == false) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.NomeEstoquista.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
         public async Task<List<Produto>> FindByProduto(String Nome)
         {
             var result = from obj in _context.Produto.Where(c => c.AtivoProduto) select obj;

@@ -27,5 +27,7 @@ namespace SoftCandy.Data
         public DbSet<SoftCandy.Models.Categoria> Categoria { get; set; }
 
         public DbSet<SoftCandy.Models.Fornecedor> Fornecedor { get; set; }
+
+        public DbSet<SoftCandy.Models.Estoquista> Estoquista { get; set; }
     }
 }
