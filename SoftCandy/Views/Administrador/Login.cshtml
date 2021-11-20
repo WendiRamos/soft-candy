@@ -1,0 +1,32 @@
+﻿@model SoftCandy.Models.Administrador
+@{
+    ViewData["Title"] = "Conecte-se";
+
+}
+
+<center>
+    <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Entre com suas credenciais!</div>
+        <div class="card-body">
+            <h4 class="card-title">Conectar</h4>
+            <form asp-controller="Administrador" asp-action="Login" method="post" autocomplete="off">
+                <div asp-validation-summary="ModelOnly" class="text-dark"></div>
+                <div class="form-group">
+                    <label asp-for="EmailAdministrador" class="control-label">Email:</label>
+                    <input type="text" asp-for="EmailAdministrador" class="form-control" id="emailAdministrador" />
+                    <span class="invisivel" id="erroEmailAdministrador">Insira um e-mail válido!</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SenhaAdministrador" class="control-label">Senha:</label>
+                    <input type="password" asp-for="SenhaAdministrador" class="form-control" id="senhaAdministrador" />
+                    <span class="invisivel" id="erroSenhaAdministrador">Insira uma senha válida!</span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" onclick="return validarLoginAdministrador()" value="Entrar" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+</center>
+<script src="~/js/Administrador.js"></script>
