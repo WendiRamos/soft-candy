@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+@model IEnumerable<SoftCandy.Models.Administrador>
+
+@{
+    ViewData["Title"] = "Pesquisar Administrador";
+}
+<center>
+    <form class="form-inline" asp-controller="Busca" asp-action="BuscaAdministrador">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <a asp-controller="Administrador" asp-action="Index" class="btn btn-info mr-1">Voltar</a>
+            </div>
+            <div class="d-flex">
+                <label for="Nome"></label>
+                <input type="text" class="form-control mr-1" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
+                <button type="submit" class=" btn btn-primary">Pesquisar</button>
+            </div>
+        </div>
+    </form>
+    <br />
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Administradores</h4></div>
+        <div class="card-body">
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdAdministrador)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NomeAdministrador)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CelularAdministrador)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmailAdministrador)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdAdministrador)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NomeAdministrador)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CelularAdministrador)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmailAdministrador)
+                            </td>
+                            <td>
+                                <a asp-controller="Estoquista" asp-action="Edit" asp-route-id="@item.IdAdministrador">Editar</a> |
+                                <a asp-controller="Estoquista" asp-action="Details" asp-route-id="@item.IdAdministrador">Detalhes</a> |
+                                <a asp-controller="Estoquista" asp-action="Delete" asp-route-id="@item.IdAdministrador">Deletar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</center>

@@ -98,6 +98,32 @@ namespace SoftCandy.Services
                   .ToListAsync();
         }
 
+         public async Task<List<Administrador>> FindByAdministrador(String Nome)
+        {
+            var result = from obj in _context.Administrador.Where(c => c.AtivoAdministrador) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.NomeAdministrador.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
+        public async Task<List<Administrador>> FindByAdministradorApagado(String Nome)
+        {
+            var result = from obj in _context.Administrador.Where(c => c.AtivoAdministrador == false) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.NomeAdministrador.Contains(pesquisa));
+            }
+            return await result
+                  .ToListAsync();
+        }
+
         public async Task<List<Produto>> FindByProduto(String Nome)
         {
             var result = from obj in _context.Produto.Where(c => c.AtivoProduto) select obj;
