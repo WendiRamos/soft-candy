@@ -14,5 +14,10 @@ namespace SoftCandy.Controllers
         {
             return View();
         }
+
+        public IActionResult User()
+        {
+            return View();
+        }
     }
 }

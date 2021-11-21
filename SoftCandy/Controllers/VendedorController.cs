@@ -286,7 +286,7 @@ namespace SoftCandy.Controllers
             {
                 await HttpContext.SignOutAsync();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         private bool VendedorExists(int id)
