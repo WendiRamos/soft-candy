@@ -232,13 +232,21 @@ namespace SoftCandy.Migrations
 
                     b.Property<bool>("AtivoVendedor");
 
+                    b.Property<string>("BairroVendedor");
+
                     b.Property<string>("CelularVendedor");
+
+                    b.Property<string>("CidadeVendedor");
 
                     b.Property<string>("EmailVendedor");
 
-                    b.Property<string>("EnderecoVendedor");
+                    b.Property<string>("EstadoVendedor");
+
+                    b.Property<string>("LogradouroVendedor");
 
                     b.Property<string>("NomeVendedor");
+
+                    b.Property<string>("NumeroVendedor");
 
                     b.Property<string>("SenhaVendedor");
 
