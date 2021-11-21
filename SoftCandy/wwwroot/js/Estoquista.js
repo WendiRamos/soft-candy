@@ -125,7 +125,7 @@ function validarEstoquista() {
     var cidadeValida = validarCidadeEstoquista();
     var estadoValido = validarEstadoEstoquista();
     var emailValido = validarEmailEstoquista();
-    var senhaValida = validarSenha();
+    var senhaValida = validarSenhaEstoquista();
     var confirmaSenha = confirmarSenhaEstoquista();
 
     return nomeValido && celularValido && logradouroValido && numeroValido && bairroValido && cidadeValida && estadoValido && emailValido && senhaValida && confirmaSenha;

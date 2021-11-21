@@ -18,8 +18,20 @@ namespace SoftCandy.Models
         [Display(Name = "Celular")]
         public string CelularVendedor { get; set; }
 
-        [Display(Name = "Endereço")]
-        public string EnderecoVendedor { get; set; }
+        [Display(Name = "Logradouro")]
+        public string LogradouroVendedor { get; set; }
+
+        [Display(Name = "Número")]
+        public string NumeroVendedor { get; set; }
+
+        [Display(Name = "Bairro")]
+        public string BairroVendedor { get; set; }
+
+        [Display(Name = "Cidade")]
+        public string CidadeVendedor { get; set; }
+
+        [Display(Name = "Estado")]
+        public string EstadoVendedor { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-mail")]
@@ -30,14 +42,18 @@ namespace SoftCandy.Models
 
         public bool AtivoVendedor { get; set; }
 
-        public Vendedor(int idVendedor, string nomeVendedor, string celularVendedor, string enderecoVendedor, string emailVendedor, string senhaVendedor)
+        public Vendedor(string nomeVendedor, string celularVendedor, string logradouroVendedor, string numeroVendedor, string bairroVendedor, string cidadeVendedor, string estadoVendedor, string emailVendedor, string senhaVendedor, bool ativoVendedor)
         {
-            idVendedor = IdVendedor;
-            nomeVendedor = NomeVendedor;
-            celularVendedor = CelularVendedor;
-            enderecoVendedor = EnderecoVendedor;
-            emailVendedor = EmailVendedor;
-            senhaVendedor = SenhaVendedor;
+            NomeVendedor = nomeVendedor;
+            CelularVendedor = celularVendedor;
+            LogradouroVendedor = logradouroVendedor;
+            NumeroVendedor = numeroVendedor;
+            BairroVendedor = bairroVendedor;
+            CidadeVendedor = cidadeVendedor;
+            EstadoVendedor = estadoVendedor;
+            EmailVendedor = emailVendedor;
+            SenhaVendedor = senhaVendedor;
+            AtivoVendedor = ativoVendedor;
         }
 
         public Vendedor()

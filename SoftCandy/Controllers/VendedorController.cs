@@ -191,6 +191,44 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        // GET: Estoquista/Restore
+        public async Task<IActionResult> Restore(int? id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (id == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
+                }
+
+                var vendedor = await _context.Vendedor
+                    .FirstOrDefaultAsync(m => m.IdVendedor == id);
+                if (vendedor == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+
+                return View(vendedor);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        // POST: Vendedor/Restore
+        [HttpPost, ActionName("Restore")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteRestore(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var vendedor = await _context.Vendedor.FindAsync(id);
+                vendedor.AtivoVendedor = true;
+                _context.Vendedor.Update(vendedor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "Home");
+        }
         public IActionResult Login()
         {
             if (User.Identity.IsAuthenticated)

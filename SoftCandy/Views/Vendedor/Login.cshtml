@@ -13,19 +13,20 @@
                 <div asp-validation-summary="ModelOnly" class="text-dark"></div>
                 <div class="form-group">
                     <label asp-for="EmailVendedor" class="control-label">Email:</label>
-                    <input type="text" asp-for="EmailVendedor" class="form-control" id="email" />
-                    <span class="invisivel" id="erroEmail">Insira um e-mail válido!</span>
+                    <input type="text" asp-for="EmailVendedor" class="form-control" id="emailVendedor" />
+                    <span class="invisivel" id="erroEmailVendedor">Insira um e-mail válido!</span>
                 </div>
                 <div class="form-group">
                     <label asp-for="SenhaVendedor" class="control-label">Senha:</label>
-                    <input type="password" asp-for="SenhaVendedor" class="form-control" id="senha" />
-                    <span class="invisivel" id="erroSenha">Insira uma senha válida!</span>
+                    <input type="password" asp-for="SenhaVendedor" class="form-control" id="senhaVendedor" />
+                    <span class="invisivel" id="erroSenhaVendedor">Insira uma senha válida!</span>
                 </div>
                 <br />
                 <div class="form-group">
-                    <input type="submit" onclick="return validarLogin()" value="Entrar" class="btn btn-success" />
+                    <input type="submit" onclick="return validarLoginVendedor()" value="Entrar" class="btn btn-success" />
                 </div>
             </form>
         </div>
     </div>
 </center>
+<script src="~/js/Vendedor.js"></script>

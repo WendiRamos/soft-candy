@@ -1,72 +1,69 @@
 ﻿@model IEnumerable<SoftCandy.Models.Vendedor>
 
 @{
-    ViewData["Title"] = "Vendedor";
+    ViewData["Title"] = "Vendedores";
 }
-<h2>Vendedores</h2>
-
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaVendedor">
-    <div class="form-group">
-        <div class="form-check-inline">
-            <label for="Nome"></label>
-            <input type="text" class="form-control" name="Nome" placeholder="Insira um nome" value=@ViewData["NomeCliente"] />
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <a asp-action="Create" class="btn btn-success mr-1">Novo Vendedor</a>
+            <a asp-controller="Busca" asp-action="BuscaVendedorApagado" class="btn btn-info">Vendedores Apagados</a>
         </div>
-        <button type="submit" class=" btn btn-primary">Pesquisar</button>
+        <div class="d-flex">
+            <label for="Nome"></label>
+            <input type="text" class="form-control mr-1" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
+            <button type="submit" class=" btn btn-primary">Pesquisar</button>
+        </div>
     </div>
-    <br />
 </form>
-
-<div>
-    <a asp-action="Create" class="btn btn-success">Novo Vendedor</a> |
-    <a asp-action="Relatorio" target="_blank" class="btn btn-info">Gerar Relatório</a>
-</div>
 <br />
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdVendedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeVendedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CelularVendedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EnderecoVendedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailVendedor)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdVendedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeVendedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CelularVendedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnderecoVendedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailVendedor)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdVendedor">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdVendedor">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdVendedor">Deletar</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+<center>
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Vendedores</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdVendedor)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NomeVendedor)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CelularVendedor)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmailVendedor)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdVendedor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NomeVendedor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CelularVendedor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmailVendedor)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.IdVendedor">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.IdVendedor">Detalhes</a> |
+                                <a asp-action="Delete" asp-route-id="@item.IdVendedor">Deletar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</center>

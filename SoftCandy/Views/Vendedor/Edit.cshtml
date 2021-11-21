@@ -3,51 +3,88 @@
 @{
     ViewData["Title"] = "Editar";
 }
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Editar Vendedor</h4></div>
+        <div class="card-body">
+            <div class="row-center">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-dark"></div>
+                    <input type="hidden" asp-for="IdVendedor" />
 
-<h2>Editar vendedor</h2>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="NomeVendedor" class="control-label">Nome:</label>
+                            <input asp-for="NomeVendedor" id="nomeVendedor" class="form-control" />
+                            <span class="invisivel" id="erroNomeVendedor">Insira um nome válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="CelularVendedor" class="control-label">Celular:</label>
+                            <input asp-for="CelularVendedor" id="celularVendedor" class="form-control" />
+                            <span class="invisivel" id="erroCelularVendedor">Insira um celular válido!</span>
+                        </div>
+                    </div>
 
-<h4>Vendedor</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-dark"></div>
-            <input type="hidden" asp-for="IdVendedor" />
-            <div class="form-group">
-                <label asp-for="NomeVendedor" class="control-label">Novo Nome</label>
-                <input asp-for="NomeVendedor" id="nome" class="form-control" />
-                <span class="invisivel" id="erroNome">Insira um nome válido!</span>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="LogradouroVendedor" class="control-label">Logradouro:</label>
+                            <input asp-for="LogradouroVendedor" id="logradouroVendedor" class="form-control" />
+                            <span class="invisivel" id="erroLogradouroVendedor">Insira um logradouro válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="NumeroVendedor" class="control-label">Número:</label>
+                            <input asp-for="NumeroVendedor" id="numeroVendedor" class="form-control" />
+                            <span class="invisivel" id="erroNumeroVendedor">Insira um número válido!</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="BairroVendedor" class="control-label">Bairro:</label>
+                            <input asp-for="BairroVendedor" id="bairroVendedor" class="form-control" />
+                            <span class="invisivel" id="erroBairroVendedor">Insira um bairro válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="CidadeVendedor" class="control-label">Cidade:</label>
+                            <input asp-for="CidadeVendedor" id="cidadeVendedor" class="form-control" />
+                            <span class="invisivel" id="erroCidadeVendedor">Insira uma cidade válida!</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="EstadoVendedor" class="control-label">Estado:</label>
+                            <input asp-for="EstadoVendedor" id="estadoVendedor" class="form-control" />
+                            <span class="invisivel" id="erroEstadoVendedor">Insira um estado válido!</span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="EmailVendedor" class="control-label">E-mail:</label>
+                            <input asp-for="EmailVendedor" id="emailVendedor" class="form-control" />
+                            <span class="invisivel" id="erroEmailVendedor">Insira um e-mail válido!</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="SenhaVendedor" class="control-label">Senha:</label>
+                            <input autocomplete="off" type="password" asp-for="SenhaVendedor" id="senhaVendedor" class="form-control" />
+                            <span class="invisivel" id="erroSenhaVendedor">Insira uma senha válida!</span>
+                        </div>
+                        <div class="col">
+                            <label class="control-label">Confirmar senha:</label>
+                            <input autocomplete="off" type="password" class="form-control" id="senhaConfirmaVendedor" />
+                            <span class="invisivel" id="erroSenhaConfirmaVendedor"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" onclick="return validarVendedor()" value="Salvar" class="btn btn-success mr-1" />
+                        <a asp-action="Index" class="btn btn-primary">Voltar</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="CelularVendedor" class="control-label">Novo Celular</label>
-                <input asp-for="CelularVendedor" id="celular" class="form-control" />
-                <span class="invisivel" id="erroCelular">Insira um celular válido!</span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EnderecoVendedor" class="control-label">Novo Endereço</label>
-                <input asp-for="EnderecoVendedor" id="endereco" class="form-control" />
-                <span class="invisivel" id="erroEndereco">Insira um endereço válido!</span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmailVendedor" class="control-label">Novo E-mail</label>
-                <input asp-for="EmailVendedor" id="email" class="form-control" />
-                <span class="invisivel" id="erroEmail">Insira um e-mail válido!</span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SenhaVendedor" class="control-label">Nova Senha</label>
-                <input autocomplete="off" type="password" asp-for="SenhaVendedor" id="senha" class="form-control" />
-                <span class="invisivel" id="erroSenha">Insira uma senha válida!</span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Confirmar nova senha</label>
-                <input autocomplete="off" type="password" class="form-control" id="senhaConfirma" />
-                <span class="invisivel" id="erroSenhaConfirma"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" onclick="return validarEditarVendedor()" value="Salvar" class="btn btn-success" />
-                <a asp-action="Index" class="btn btn-primary">Voltar</a>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</center>
+<script src="~/js/Vendedor.js"></script>
