@@ -90,12 +90,12 @@ function enviar() {
         url: "/Pedido/Create/",
         type: "POST",
         data: { "Itens": itens, "IdCliente": id },
-        success: function (id) {
+        success: function (pedido) {
             Swal.fire({
                 title: "Sucesso!",
                 text: "Seu pedido foi realizado.",
                 icon: "success"
-            }).then(() => window.location.href = '/Pedido/Index');
+            }).then(() => window.location.href = '/Pedido/Details' + pedido.IdPedido);
         },
         error: function () {
             Swal.fire({
