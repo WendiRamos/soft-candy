@@ -60,6 +60,16 @@ namespace SoftCandy.Models
             IdFornecedor = idFornecedor;
 
         }
+
+        public bool ProblemaAoSubtrair(int quantidadeParaSubtrair)
+        {
+            if (quantidadeParaSubtrair > QuantidadeProduto)
+            {
+                return true;
+            }
+            QuantidadeProduto -= quantidadeParaSubtrair;
+            return false;
+        }
     }
 
 }

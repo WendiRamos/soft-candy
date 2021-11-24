@@ -83,19 +83,40 @@ namespace SoftCandy.Controllers
 
         // POST: Pedido/Create
         [HttpPost]
-        public int Create(List<ItemPedido> Itens, int IdCliente)
+        public async Task<IActionResult> Create(List<ItemPedido> Itens, int IdCliente)
         {
             decimal total = 0;
-            foreach(ItemPedido item in Itens)
-                total += item.PrecoPago * item.QuantidadeProduto;
 
-            Pedido pedido = new Pedido(total, IdCliente, Itens);
+            foreach (ItemPedido item in Itens)
+            {
+                 var produto = await _context.Produto.FirstOrDefaultAsync(p => p.IdProduto == item.IdProduto);
 
-            pedido.AtivoPedido = true;
+                try
+                {
+                    if (produto.ProblemaAoSubtrair(item.QuantidadeProduto))
+                    {
+                        throw new Exception();
+                    }
+
+                    _context.Update(produto);
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Um ou mais produtos apresenta: Id incorreto ou Quantidade insuficiente" });
+                }
+
+                total += produto.PrecoVendaProduto * item.QuantidadeProduto;
+            }
+
+            Pedido pedido = new Pedido(total, IdCliente, Itens)
+            {
+                AtivoPedido = true
+            };
             _context.Add(pedido);
             _context.SaveChanges();
 
-            return pedido.IdPedido;
+            return Ok(pedido);
         }
 
         // GET: Pedido/Edit
