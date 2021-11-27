@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+@using SoftCandy.Enums;
+@using SoftCandy.Utils;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -18,60 +21,98 @@
                 <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">
-                                <img src="~/images/clientes.png" />
-                                Clientes
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Vendedor" asp-action="Index">
-                                <img src="~/images/vendedor.png" />
-                                Vendedores
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Categoria" asp-action="Index">
-                                <img src="~/images/categoria.png" />
-                                Categorias
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Fornecedor" asp-action="Index">
-                                <img src="~/images/fornecedor.png" />
-                                Fornecedores
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Produto" asp-action="Index">
-                                <img src="~/images/produtos.png" />
-                                Produtos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Pedido" asp-action="Create">
-                                <img src="~/images/pedidos.png" />
-                                Realizar Pedidos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Pedido" asp-action="Index">
-                                <img src="~/images/compras.png" />
-                                Meus Pedidos
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a asp-area="" asp-controller="Vendedor" asp-action="Logout" class="nav-link">
-                                <img src="~/images/sair.png" />
-                                Sair
-                            </a>
-                        </li>
-                    </ul>
+
+                    @if (LogadoComo.Vendedor(User))
+                    {
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Cliente" asp-action="Index">
+                                    <img src="~/images/clientes.png" />
+                                    Clientes
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Pedido" asp-action="Create">
+                                    <img src="~/images/pedidos.png" />
+                                    Realizar Pedidos
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Pedido" asp-action="Index">
+                                    <img src="~/images/compras.png" />
+                                    Meus Pedidos
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a asp-area="" asp-controller="Vendedor" asp-action="Logout" class="nav-link">
+                                    <img src="~/images/sair.png" />
+                                    Sair
+                                </a>
+                            </li>
+
+                        </ul>
+                    }
+                    else if (LogadoComo.Estoquista(User))
+                    {
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Categoria" asp-action="Index">
+                                    <img src="~/images/categoria.png" />
+                                    Categorias
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Fornecedor" asp-action="Index">
+                                    <img src="~/images/fornecedor.png" />
+                                    Fornecedores
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Produto" asp-action="Index">
+                                    <img src="~/images/produtos.png" />
+                                    Produtos
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a asp-area="" asp-controller="Estoquista" asp-action="Logout" class="nav-link">
+                                    <img src="~/images/sair.png" />
+                                    Sair
+                                </a>
+                            </li>
+
+                        </ul>
+                    }
+                    else if (LogadoComo.Administrador(User))
+                    {
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Vendedor" asp-action="Index">
+                                    <img src="~/images/vendedor.png" />
+                                    Categorias
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Estoquista" asp-action="Index">
+                                    <img src="~/images/fornecedor-32.png" />
+                                    Fornecedores
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a asp-area="" asp-controller="Administrador" asp-action="Logout" class="nav-link">
+                                    <img src="~/images/sair.png" />
+                                    Sair
+                                </a>
+                            </li>
+
+                        </ul>
+                    }
                 </div>
             </div>
         </nav>
