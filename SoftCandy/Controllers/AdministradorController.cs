@@ -11,7 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using SoftCandy.Data;
+using SoftCandy.Enums;
 using SoftCandy.Models;
+using SoftCandy.Utils;
 
 namespace SoftCandy.Controllers
 {
@@ -29,17 +31,17 @@ namespace SoftCandy.Controllers
         // GET: Administrador
         public async Task<IActionResult> Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 return View(await _context.Administrador.ToListAsync());
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Administrador/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -55,17 +57,17 @@ namespace SoftCandy.Controllers
 
                 return View(administrador);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Administrador/Create
         public IActionResult Create()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 return View();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Administrador/Create
@@ -73,7 +75,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdAdministrador,NomeAdministrador,CelularAdministrador,LogradouroAdministrador,NumeroAdministrador,BairroAdministrador,CidadeAdministrador,EstadoAdministrador,EmailAdministrador,SenhaAdministrador")] Administrador administrador)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -84,13 +86,13 @@ namespace SoftCandy.Controllers
                 }
                 return View(administrador);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Administrador/Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -104,7 +106,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(administrador);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Administrador/Edit
@@ -112,7 +114,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdAdministrador,NomeAdministrador,CelularAdministrador,LogradouroAdministrador,NumeroAdministrador,BairroAdministrador,CidadeAdministrador,EstadoEstoquista,EmailEstoquista,SenhaEstoquista,AtivoAdministrador")] Administrador administrador)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 if (id != administrador.IdAdministrador)
                 {
@@ -139,7 +141,7 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("User", "Home");
             }
             return View(administrador);
         }
@@ -147,7 +149,7 @@ namespace SoftCandy.Controllers
         // GET: Administrador/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -163,7 +165,7 @@ namespace SoftCandy.Controllers
 
                 return View(administrador);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Administrador/Delete
@@ -171,7 +173,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 var administrador = await _context.Administrador.FindAsync(id);
                 administrador.AtivoAdministrador = false;
@@ -179,13 +181,13 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Administrador/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -201,7 +203,7 @@ namespace SoftCandy.Controllers
 
                 return View(administrador);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Administrador/Restore
@@ -209,7 +211,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 var administrador = await _context.Administrador.FindAsync(id);
                 administrador.AtivoAdministrador = true;
@@ -217,12 +219,12 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
         //GET: Administrador/Login
         public IActionResult Login()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Administrador(User))
             {
                 return null;
             }
@@ -243,14 +245,15 @@ namespace SoftCandy.Controllers
 
             if (await reader.ReadAsync())
             {
-                int Idlogin = reader.GetInt32(0);
-                string nome = reader.GetString(1);
+                int Id = reader.GetInt32(0);
+                string Nome = reader.GetString(1);
+                string Tipo = Atores.ADMINISTRADOR.ToString();
 
                 List<Claim> direitosdeAcesso = new List<Claim>
                 {
-                    new Claim(ClaimTypes.NameIdentifier,Idlogin.ToString()),
-                    new Claim(ClaimTypes.Name,nome)
-
+                    new Claim(ClaimTypes.NameIdentifier,Id.ToString()),
+                    new Claim(ClaimTypes.Name,Nome),
+                    new Claim(ClaimTypes.Actor, Tipo)
                 };
 
                 var identity = new ClaimsIdentity(direitosdeAcesso, "Identity.Login");
@@ -264,12 +267,17 @@ namespace SoftCandy.Controllers
                     });
 
                 return RedirectToAction("Index", "Home");
-
             }
             return RedirectToAction(nameof(Error), new { message = "Usuário não encontrado! Verifique suas credenciais!" });
+        }
 
-
-
+        public async Task<IActionResult> Logout()
+        {
+            if (LogadoComo.Administrador(User))
+            {
+                await HttpContext.SignOutAsync();
+            }
+            return RedirectToAction("User", "Home");
         }
 
         private bool AdministradorExists(int id)
@@ -279,16 +287,12 @@ namespace SoftCandy.Controllers
 
         public IActionResult Error(string message)
         {
-            if (User.Identity.IsAuthenticated)
+            var viewModel = new ErrorViewModel
             {
-                var viewModel = new ErrorViewModel
-                {
-                    Message = message,
-                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-                };
-                return View(viewModel);
-            }
-            return RedirectToAction("Index", "Home");
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }
