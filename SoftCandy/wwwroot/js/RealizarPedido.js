@@ -82,6 +82,8 @@ function adicionar(produto) {
     $("#enviar").prop("disabled", false)
 }
 
+
+
 function enviar() {
     itens = itens.map((i) => ({ ...i, PrecoPago: i.PrecoPago.toString().replace(".", ",") }));
     const id = $("select").val();
@@ -90,19 +92,23 @@ function enviar() {
         url: "/Pedido/Create/",
         type: "POST",
         data: { "Itens": itens, "IdCliente": id },
-        success: function (pedido) {
-            Swal.fire({
-                title: "Sucesso!",
-                text: "Seu pedido foi realizado.",
-                icon: "success"
-            }).then(() => window.location.href = '/Pedido/Details' + pedido.IdPedido);
+        success: function (idPedido) {
+            if (idPedido != -1) {
+                Swal.fire({
+                    title: "Sucesso!",
+                    text: "Seu pedido foi realizado.",
+                    icon: "success"
+                }).then(() =>
+                    window.location.href = '/Pedido/Details/' + idPedido);
+
+            }
+            else {
+                Swal.fire({
+                    title: "Ocorreu um erro!",
+                    text: "Tente novamente.",
+                    icon: "error"
+                })
+            }
         },
-        error: function () {
-            Swal.fire({
-                title: "Ocorreu um erro!",
-                text: "Tente novamente.",
-                icon: "error"
-            })
-        }
     });
 }
