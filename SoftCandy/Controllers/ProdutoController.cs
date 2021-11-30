@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
 using SoftCandy.Models;
+using SoftCandy.Utils;
 
 namespace SoftCandy.Controllers
 {
@@ -23,6 +24,17 @@ namespace SoftCandy.Controllers
         // GET: Produto
         public async Task<IActionResult> Index()
         {
+            if (LogadoComo.Estoquista(User))
+            {
+                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria).Include(p => p.Fornecedor);
+                return View(await softCandyContext.ToListAsync());
+            }
+            return RedirectToAction("User", "Home");
+        }
+
+
+        public async Task<IActionResult> Relatorio()
+        {
             if (User.Identity.IsAuthenticated)
             {
                 var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria).Include(p => p.Fornecedor);
@@ -31,21 +43,10 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-        public async Task<IActionResult> Relatorio()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria).Include(p=> p.Fornecedor);
-                return View(await softCandyContext.ToListAsync());
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
         // GET: Produto/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -54,7 +55,7 @@ namespace SoftCandy.Controllers
 
                 var produto = await _context.Produto
                     .Include(p => p.Categoria)
-                    .Include(p=> p.Fornecedor)
+                    .Include(p => p.Fornecedor)
                     .FirstOrDefaultAsync(m => m.IdProduto == id);
                 if (produto == null)
                 {
@@ -63,19 +64,19 @@ namespace SoftCandy.Controllers
 
                 return View(produto);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Produto/Create
         public IActionResult Create()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
                 ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Produto/Create
@@ -83,7 +84,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,IdCategoria,IdFornecedor")] Produto produto)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -96,13 +97,13 @@ namespace SoftCandy.Controllers
                 ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View(produto);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Produto/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -119,7 +120,7 @@ namespace SoftCandy.Controllers
                 return View(produto);
 
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Produto/Edit
@@ -127,7 +128,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,IdCategoria,IdFornecedor")] Produto produto)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
 
                 if (id != produto.IdProduto)
@@ -139,6 +140,7 @@ namespace SoftCandy.Controllers
                 {
                     try
                     {
+                        produto.AtivoProduto = true;
                         _context.Update(produto);
                         await _context.SaveChangesAsync();
                     }
@@ -159,13 +161,13 @@ namespace SoftCandy.Controllers
                 ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View(produto);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Produto/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -184,7 +186,7 @@ namespace SoftCandy.Controllers
                 return View(produto);
 
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Produto/Delete/5
@@ -192,7 +194,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 var produto = await _context.Produto.FindAsync(id);
                 produto.AtivoProduto = false;
@@ -200,13 +202,13 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Produto/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -223,7 +225,7 @@ namespace SoftCandy.Controllers
 
                 return View(produto);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Produto/Restore
@@ -231,7 +233,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 var produto = await _context.Produto.FindAsync(id);
                 produto.AtivoProduto = true;
@@ -239,7 +241,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         private bool ProdutoExists(int id)
@@ -249,17 +251,12 @@ namespace SoftCandy.Controllers
 
         public IActionResult Error(string message)
         {
-            if (User.Identity.IsAuthenticated)
+            var viewModel = new ErrorViewModel
             {
-                var viewModel = new ErrorViewModel
-                {
-                    Message = message,
-                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-                };
-                return View(viewModel);
-            }
-            return RedirectToAction("Index", "Home");
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
-
     }
 }

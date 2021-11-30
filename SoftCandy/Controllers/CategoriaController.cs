@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
 using SoftCandy.Models;
+using SoftCandy.Utils;
 
 namespace SoftCandy.Controllers
 {
@@ -23,11 +24,11 @@ namespace SoftCandy.Controllers
         // GET: Categoria
         public async Task<IActionResult> Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {   
                 return View(await _context.Categoria.Where(c => c.AtivoCategoria).ToListAsync());
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         public async Task<IActionResult> Relatorio()
@@ -41,7 +42,7 @@ namespace SoftCandy.Controllers
         // GET: Categoria/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -57,17 +58,17 @@ namespace SoftCandy.Controllers
 
                 return View(categoria);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Categoria/Create
         public IActionResult Create()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 return View();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Categoria/Create
@@ -75,7 +76,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCategoria,NomeCategoria")] Categoria categoria)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -86,13 +87,13 @@ namespace SoftCandy.Controllers
                 }
                 return View(categoria);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Categoria/Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -106,7 +107,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(categoria);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Categoria/Edit
@@ -114,7 +115,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdCategoria,NomeCategoria")] Categoria categoria)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id != categoria.IdCategoria)
                 {
@@ -125,6 +126,7 @@ namespace SoftCandy.Controllers
                 {
                     try
                     {
+                        categoria.AtivoCategoria = true;
                         _context.Update(categoria);
                         await _context.SaveChangesAsync();
                     }
@@ -143,13 +145,13 @@ namespace SoftCandy.Controllers
                 }
                 return View(categoria);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Categoria/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -165,7 +167,7 @@ namespace SoftCandy.Controllers
 
                 return View(categoria);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Categoria/Delete
@@ -173,7 +175,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 var categoria = await _context.Categoria.FindAsync(id);
                 categoria.AtivoCategoria = false;
@@ -181,13 +183,13 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Categoria/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -203,7 +205,7 @@ namespace SoftCandy.Controllers
 
                 return View(categoria);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Categoria/Restore
@@ -211,7 +213,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 var categoria = await _context.Categoria.FindAsync(id);
                 categoria.AtivoCategoria = true;
@@ -219,7 +221,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         private bool CategoriaExists(int id)
@@ -229,16 +231,12 @@ namespace SoftCandy.Controllers
         }
         public IActionResult Error(string message)
         {
-            if (User.Identity.IsAuthenticated)
-            {
                 var viewModel = new ErrorViewModel
                 {
                     Message = message,
                     RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
                 };
                 return View(viewModel);
-            }
-            return RedirectToAction("Index", "Home");
         }
     }
 }
