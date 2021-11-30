@@ -273,7 +273,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Estoquista(User))
             {
                 await HttpContext.SignOutAsync();
             }

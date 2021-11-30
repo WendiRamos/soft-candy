@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
 using SoftCandy.Models;
+using SoftCandy.Utils;
 
 namespace SoftCandy.Controllers
 {
@@ -23,11 +24,11 @@ namespace SoftCandy.Controllers
         // GET: Fornecedor
         public async Task<IActionResult> Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 return View(await _context.Fornecedor.Where(c => c.AtivoFornecedor).ToListAsync());
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         public async Task<IActionResult> Relatorio()
@@ -42,7 +43,7 @@ namespace SoftCandy.Controllers
         // GET: Fornecedor/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -58,17 +59,17 @@ namespace SoftCandy.Controllers
 
                 return View(fornecedor);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Fornecedore/Create
         public IActionResult Create()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 return View();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Fornecedor/Create
@@ -76,7 +77,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Cnpj,RazaoSocial,NomeFantasia,CelularFornecedor,EmailFornecedor,LogradouroFornecedor,NumeroFornecedor,BairroFornecedor,CidadeFornecedor,EstadoFornecedor")] Fornecedor fornecedor)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -87,13 +88,13 @@ namespace SoftCandy.Controllers
                 }
                 return View(fornecedor);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Fornecedor/Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -107,7 +108,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(fornecedor);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Fornecedor/Edit
@@ -115,7 +116,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdFornecedor,Cnpj,RazaoSocial,NomeFantasia,CelularFornecedor,EmailFornecedor,LogradouroFornecedor,NumeroFornecedor,BairroFornecedor,CidadeFornecedor,EstadoFornecedor")] Fornecedor fornecedor)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id != fornecedor.IdFornecedor)
                 {
@@ -126,6 +127,7 @@ namespace SoftCandy.Controllers
                 {
                     try
                     {
+                        fornecedor.AtivoFornecedor = true;
                         _context.Update(fornecedor);
                         await _context.SaveChangesAsync();
                     }
@@ -144,13 +146,13 @@ namespace SoftCandy.Controllers
                 }
                 return View(fornecedor);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Fornecedor/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -166,7 +168,7 @@ namespace SoftCandy.Controllers
 
                 return View(fornecedor);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST:Fornecedor/Delete
@@ -174,7 +176,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 var fornecedor = await _context.Fornecedor.FindAsync(id);
                 fornecedor.AtivoFornecedor = false;
@@ -182,13 +184,13 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Fornecedor/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 if (id == null)
                 {
@@ -204,7 +206,7 @@ namespace SoftCandy.Controllers
 
                 return View(fornecedor);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Fornecedor/Restore
@@ -212,7 +214,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Estoquista(User))
             {
                 var fornecedor = await _context.Fornecedor.FindAsync(id);
                 fornecedor.AtivoFornecedor = true;
@@ -220,7 +222,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         private bool FornecedorExists(int id)
@@ -230,16 +232,13 @@ namespace SoftCandy.Controllers
 
         public IActionResult Error(string message)
         {
-            if (User.Identity.IsAuthenticated)
+            var viewModel = new ErrorViewModel
             {
-                var viewModel = new ErrorViewModel
-                {
-                    Message = message,
-                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-                };
-                return View(viewModel);
-            }
-            return RedirectToAction("Index", "Home");
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
+
 }
