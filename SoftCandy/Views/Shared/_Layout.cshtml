@@ -84,22 +84,27 @@
                                     Sair
                                 </a>
                             </li>
-
                         </ul>
                     }
                     else if (LogadoComo.Administrador(User))
                     {
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
+                                <a class="nav-link" asp-controller="Administrador" asp-action="Index">
+                                    <img src="~/images/vendedor.png" />
+                                    Administradores
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" asp-controller="Vendedor" asp-action="Index">
                                     <img src="~/images/vendedor.png" />
-                                    Categorias
+                                    Vendedores
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Estoquista" asp-action="Index">
                                     <img src="~/images/fornecedor-32.png" />
-                                    Fornecedores
+                                    Estoquistas
                                 </a>
                             </li>
                         </ul>
@@ -110,7 +115,6 @@
                                     Sair
                                 </a>
                             </li>
-
                         </ul>
                     }
                 </div>
