@@ -8,7 +8,7 @@
     <Content Remove="Views\Categoria\CategoriasApagadas.cshtml" />
     <Content Remove="Views\Cliente\ClientesApagados.cshtml" />
     <Content Remove="wwwroot\favicon.ico" />
-    <Content Remove="wwwroot\images\estoquista.png" />
+    <Content Remove="wwwroot\images\fornecedor-32.png" />
   </ItemGroup>
 
   <ItemGroup>
