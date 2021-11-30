@@ -70,6 +70,11 @@ namespace SoftCandy.Models
             QuantidadeProduto -= quantidadeParaSubtrair;
             return false;
         }
+
+        public void devolver(int quantidadeParaDevolver)
+        {
+            QuantidadeProduto += quantidadeParaDevolver;
+        }
     }
 
 }

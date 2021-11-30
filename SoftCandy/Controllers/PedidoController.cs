@@ -208,7 +208,27 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var pedido = await _context.Pedido.FindAsync(id);
+
+                Pedido pedido = await _context.Pedido.Include(p => p.ItensPedidos).FirstOrDefaultAsync(p => p.IdPedido == id);
+
+                Produto produto;
+
+                foreach (ItemPedido item in pedido.ItensPedidos)
+                {
+                    produto = await _context.Produto.FirstOrDefaultAsync(p => p.IdProduto == item.IdProduto);
+
+                    try
+                    {
+                        produto.devolver(item.QuantidadeProduto);
+                        _context.Update(produto);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (Exception)
+                    {
+                        return RedirectToAction(nameof(Error), new { message = "Ocorre um erro :(" });
+                    }
+                }
+
                 pedido.AtivoPedido = false;
                 _context.Pedido.Update(pedido);
                 await _context.SaveChangesAsync();
