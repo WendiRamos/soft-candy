@@ -9,6 +9,8 @@
     <Content Remove="Views\Cliente\ClientesApagados.cshtml" />
     <Content Remove="wwwroot\favicon.ico" />
     <Content Remove="wwwroot\images\fornecedor-32.png" />
+    <Content Remove="wwwroot\js\site.js" />
+    <Content Remove="wwwroot\js\site.min.js" />
   </ItemGroup>
 
   <ItemGroup>
