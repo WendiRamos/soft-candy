@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoftCandy.Data;
 
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    partial class SoftCandyContextModelSnapshot : ModelSnapshot
+    [Migration("20211201211007_Atualizacoes")]
+    partial class Atualizacoes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,7 +282,7 @@ namespace SoftCandy.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SoftCandy.Models.Vendedor", "Vendedor")
-                        .WithMany("Pedidos")
+                        .WithMany()
                         .HasForeignKey("IdVendedor")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
