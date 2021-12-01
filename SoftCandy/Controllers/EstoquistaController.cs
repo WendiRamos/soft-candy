@@ -31,9 +31,9 @@ namespace SoftCandy.Controllers
         // GET: Estoquista
         public async Task<IActionResult> Index()
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
-                return View(await _context.Estoquista.ToListAsync());
+                return View(await _context.Estoquista.Where(c => c.AtivoEstoquista).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }
@@ -41,7 +41,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -63,7 +63,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Create
         public IActionResult Create()
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
                 return View();
             }
@@ -75,7 +75,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdEstoquista,NomeEstoquista,CelularEstoquista,LogradouroEstoquista,NumeroEstoquista,BairroEstoquista,CidadeEstoquista,EstadoEstoquista,EmailEstoquista,SenhaEstoquista")] Estoquista estoquista)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -92,7 +92,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -114,7 +114,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdEstoquista,NomeEstoquista,CelularEstoquista,LogradouroEstoquista,NumeroEstoquista,BairroEstoquista,CidadeEstoquista,EstadoEstoquista,EmailEstoquista,SenhaEstoquista,AtivoEstoquista")] Estoquista estoquista)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (id != estoquista.IdEstoquista)
                 {
@@ -125,6 +125,7 @@ namespace SoftCandy.Controllers
                 {
                     try
                     {
+                        estoquista.AtivoEstoquista = true;
                         _context.Update(estoquista);
                         await _context.SaveChangesAsync();
                     }
@@ -149,7 +150,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -173,7 +174,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
                 var estoquista = await _context.Estoquista.FindAsync(id);
                 estoquista.AtivoEstoquista = false;
@@ -187,7 +188,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -211,7 +212,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
                 var estoquista = await _context.Estoquista.FindAsync(id);
                 estoquista.AtivoEstoquista = true;
@@ -224,7 +225,7 @@ namespace SoftCandy.Controllers
         //GET: Estoquista/Login
         public IActionResult Login()
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Administrador(User))
             {
                 return null;
             }
