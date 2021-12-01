@@ -20,16 +20,6 @@ function validarCelularVendedor() {
     document.getElementById("erroCelularVendedor").className = "invisivel";
     return true;
 }
-function validarEmailVendedor() {
-    var email = document.getElementById("emailVendedor").value;
-    email = email.trim();
-    if (email === "" || email.length < 12 || email.length > 50) {
-        document.getElementById("erroEmailVendedor").className = "visivel";
-        return false;
-    }
-    document.getElementById("erroEmailVendedor").className = "invisivel";
-    return true;
-}
 
 function validarLogradouroVendedor() {
     var celular = document.getElementById("logradouroVendedor").value;
@@ -83,6 +73,17 @@ function validarEstadoVendedor() {
         return false;
     }
     document.getElementById("erroEstadoVendedor").className = "invisivel";
+    return true;
+}
+
+function validarEmailVendedor() {
+    var email = document.getElementById("emailVendedor").value;
+    email = email.trim();
+    if (email === "" || email.length < 12 || email.length > 50) {
+        document.getElementById("erroEmailVendedor").className = "visivel";
+        return false;
+    }
+    document.getElementById("erroEmailVendedor").className = "invisivel";
     return true;
 }
 
