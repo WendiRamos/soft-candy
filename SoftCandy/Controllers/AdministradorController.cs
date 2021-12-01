@@ -33,7 +33,7 @@ namespace SoftCandy.Controllers
         {
             if (LogadoComo.Administrador(User))
             {
-                return View(await _context.Administrador.ToListAsync());
+                return View(await _context.Administrador.Where(c => c.AtivoAdministrador).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }
@@ -73,7 +73,7 @@ namespace SoftCandy.Controllers
         // POST: Administrador/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdAdministrador,NomeAdministrador,CelularAdministrador,LogradouroAdministrador,NumeroAdministrador,BairroAdministrador,CidadeAdministrador,EstadoAdministrador,EmailAdministrador,SenhaAdministrador")] Administrador administrador)
+        public async Task<IActionResult> Create([Bind("NomeAdministrador,CelularAdministrador,LogradouroAdministrador,NumeroAdministrador,BairroAdministrador,CidadeAdministrador,EstadoAdministrador,EmailAdministrador,SenhaAdministrador")] Administrador administrador)
         {
             if (LogadoComo.Administrador(User))
             {
@@ -112,7 +112,7 @@ namespace SoftCandy.Controllers
         // POST: Administrador/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdAdministrador,NomeAdministrador,CelularAdministrador,LogradouroAdministrador,NumeroAdministrador,BairroAdministrador,CidadeAdministrador,EstadoEstoquista,EmailEstoquista,SenhaEstoquista,AtivoAdministrador")] Administrador administrador)
+        public async Task<IActionResult> Edit(int id, [Bind("IdAdministrador,NomeAdministrador,CelularAdministrador,LogradouroAdministrador,NumeroAdministrador,BairroAdministrador,CidadeAdministrador,EstadoAdministrador,EmailAdministrador,SenhaAdministrador")] Administrador administrador)
         {
             if (LogadoComo.Administrador(User))
             {
@@ -125,6 +125,7 @@ namespace SoftCandy.Controllers
                 {
                     try
                     {
+                        administrador.AtivoAdministrador = true;
                         _context.Update(administrador);
                         await _context.SaveChangesAsync();
                     }
