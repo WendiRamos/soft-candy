@@ -32,7 +32,7 @@ namespace SoftCandy.Controllers
         // GET: Vendedor
         public async Task<IActionResult> Index()
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 return View(await _context.Vendedor.Where(c => c.AtivoVendedor).ToListAsync());
             }
@@ -41,7 +41,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> Relatorio()
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 return View(await _context.Vendedor.Where(c => c.AtivoVendedor).ToListAsync());
             }
@@ -51,7 +51,7 @@ namespace SoftCandy.Controllers
         // GET: Vendedor/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -73,7 +73,7 @@ namespace SoftCandy.Controllers
         // GET: Vendedor/Create
         public IActionResult Create()
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 return View();
             }
@@ -83,9 +83,9 @@ namespace SoftCandy.Controllers
         // POST: Vendedor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdVendedor,NomeVendedor,CelularVendedor,EnderecoVendedor,EmailVendedor,SenhaVendedor")] Vendedor vendedor)
+        public async Task<IActionResult> Create([Bind("NomeVendedor,CelularVendedor,LogradouroVendedor,NumeroVendedor,BairroVendedor,CidadeVendedor,EstadoVendedor,EmailVendedor,SenhaVendedor")] Vendedor vendedor)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -102,7 +102,7 @@ namespace SoftCandy.Controllers
         // GET: Vendedor/Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -122,9 +122,9 @@ namespace SoftCandy.Controllers
         // POST: Vendedor/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdVendedor,NomeVendedor,CelularVendedor,EnderecoVendedor,EmailVendedor,SenhaVendedor")] Vendedor vendedor)
+        public async Task<IActionResult> Edit(int id, [Bind("IdVendedor,NomeVendedor,CelularVendedor,LogradouroVendedor,NumeroVendedor,BairroVendedor,CidadeVendedor,EstadoVendedor,EmailVendedor,SenhaVendedor")] Vendedor vendedor)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (id != vendedor.IdVendedor)
                 {
@@ -135,6 +135,7 @@ namespace SoftCandy.Controllers
                 {
                     try
                     {
+                        vendedor.AtivoVendedor = true;
                         _context.Update(vendedor);
                         await _context.SaveChangesAsync();
                     }
@@ -159,7 +160,7 @@ namespace SoftCandy.Controllers
         // GET: Vendedor/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -183,7 +184,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 var vendedor = await _context.Vendedor.FindAsync(id);
                 vendedor.AtivoVendedor = false;
@@ -197,7 +198,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -221,7 +222,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 var vendedor = await _context.Vendedor.FindAsync(id);
                 vendedor.AtivoVendedor = true;
@@ -233,7 +234,7 @@ namespace SoftCandy.Controllers
         }
         public IActionResult Login()
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Administrador(User))
             {
                 return null;
             }
