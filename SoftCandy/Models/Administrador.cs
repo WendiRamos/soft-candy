@@ -42,7 +42,7 @@ namespace SoftCandy.Models
 
         public bool AtivoAdministrador { get; set; }
 
-        public Administrador(string nomeAdministrador, string celularAdministrador, string logradouroAdministrador, string numeroAdministrador, string bairroAdministrador, string cidadeAdministrador, string estadoAdministrador, string emailAdministrador, string senhaAdministrador, bool ativoAdministrador)
+        public Administrador(string nomeAdministrador, string celularAdministrador, string logradouroAdministrador, string numeroAdministrador, string bairroAdministrador, string cidadeAdministrador, string estadoAdministrador, string emailAdministrador, string senhaAdministrador)
         {
             NomeAdministrador = nomeAdministrador;
             CelularAdministrador = celularAdministrador;
@@ -53,7 +53,6 @@ namespace SoftCandy.Models
             EstadoAdministrador = estadoAdministrador;
             EmailAdministrador = emailAdministrador;
             SenhaAdministrador = senhaAdministrador;
-            AtivoAdministrador = ativoAdministrador;
         }
 
         public Administrador()
