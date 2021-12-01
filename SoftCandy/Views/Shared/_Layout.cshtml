@@ -46,6 +46,12 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item">
+                                <span class="nav-link">
+                                    <img src="~/images/user.png" />
+                                    Vendedor(a): @(User.Identity.Name)
+                                </span>
+                            </li>
                             <li>
                                 <a asp-area="" asp-controller="Vendedor" asp-action="Logout" class="nav-link">
                                     <img src="~/images/sair.png" />
@@ -78,6 +84,12 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item">
+                                <span class="nav-link">
+                                    <img src="~/images/user.png" />
+                                    Estoquista: @(User.Identity.Name)
+                                </span>
+                            </li>
                             <li>
                                 <a asp-area="" asp-controller="Estoquista" asp-action="Logout" class="nav-link">
                                     <img src="~/images/sair.png" />
@@ -109,6 +121,12 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item">
+                                <span class="nav-link">
+                                    <img src="~/images/user.png" />
+                                    Administrador(a): @(User.Identity.Name)
+                                </span>
+                            </li>>
                             <li>
                                 <a asp-area="" asp-controller="Administrador" asp-action="Logout" class="nav-link">
                                     <img src="~/images/sair.png" />
@@ -145,7 +163,6 @@
     <script src="~/lib/bootstrap/dist/js/jquery-3.3.1.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/jquery-3.6.0.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/sweetalert2.all.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
