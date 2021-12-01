@@ -26,7 +26,17 @@ namespace SoftCandy.Controllers
         {
             if (LogadoComo.Estoquista(User))
             {
-                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria).Include(p => p.Fornecedor);
+                var softCandyContext = _context.Produto.Where(p => p.AtivoProduto).Include(p => p.Categoria).Include(p => p.Fornecedor);
+                return View(await softCandyContext.ToListAsync());
+            }
+            return RedirectToAction("User", "Home");
+        }
+
+        public async Task<IActionResult> EstoqueBaixo()
+        {
+            if (LogadoComo.Estoquista(User))
+            {
+                var softCandyContext = _context.Produto.Where(p => p.AtivoProduto && p.QuantidadeProduto <= p.QuantidadeMinimaProduto).Include(p => p.Fornecedor);
                 return View(await softCandyContext.ToListAsync());
             }
             return RedirectToAction("User", "Home");
@@ -126,7 +136,7 @@ namespace SoftCandy.Controllers
         // POST: Produto/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,IdCategoria,IdFornecedor")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("IdProduto,NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,IdCategoria,IdFornecedor")] Produto produto)
         {
             if (LogadoComo.Estoquista(User))
             {
