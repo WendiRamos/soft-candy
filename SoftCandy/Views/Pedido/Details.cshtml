@@ -14,7 +14,7 @@
             @Html.DisplayNameFor(model => model.ValorTotalPedido)
         </dt>
         <dd>
-          R$ @Html.DisplayFor(model => model.ValorTotalPedido)
+            R$ @Html.DisplayFor(model => model.ValorTotalPedido)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.DataPedido)
@@ -27,6 +27,12 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Cliente.NomeCliente)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Vendedor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Vendedor.NomeVendedor)
         </dd>
     </dl>
 </div>

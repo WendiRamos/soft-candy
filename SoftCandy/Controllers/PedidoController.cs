@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
 using SoftCandy.Models;
+using SoftCandy.Utils;
 
 namespace SoftCandy.Controllers
 {
@@ -23,14 +25,18 @@ namespace SoftCandy.Controllers
         // GET: Pedido
         public async Task<IActionResult> Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Vendedor(User))
             {
-                var softCandyContext = _context.Pedido.Where(c => c.AtivoPedido).OrderByDescending(p => p.IdPedido).Include(c => c.Cliente);
+                var softCandyContext = _context.Pedido
+                    .Where(c => c.AtivoPedido)
+                    .OrderByDescending(p => p.IdPedido)
+                    .Include(c => c.Cliente)
+                    .Include(v => v.Vendedor);
 
                 return View(await softCandyContext.ToListAsync());
-                
+
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
 
         }
 
@@ -48,7 +54,7 @@ namespace SoftCandy.Controllers
         // GET: Pedido/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Vendedor(User))
             {
                 if (id == null)
                 {
@@ -57,6 +63,7 @@ namespace SoftCandy.Controllers
 
                 var pedido = await _context.Pedido
                     .Include(p => p.Cliente)
+                    .Include(v => v.Vendedor)
                     .FirstOrDefaultAsync(m => m.IdPedido == id);
                 if (pedido == null)
                 {
@@ -65,20 +72,20 @@ namespace SoftCandy.Controllers
 
                 return View(pedido);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // GET: Pedido/Create
         public IActionResult Create()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Vendedor(User))
             {
                 var model = new RealizarPedido();
-                model.Produtos = _context.Produto.ToList();
-                ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
+                model.Produtos = _context.Produto.Where(p => p.AtivoProduto && p.QuantidadeProduto > 0).ToList();
+                ViewData["IdCliente"] = new SelectList(_context.Cliente.Where(c => c.AtivoCliente), "IdCliente", "NomeCliente");
                 return View(model);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Pedido/Create
@@ -108,8 +115,8 @@ namespace SoftCandy.Controllers
 
                 total += produto.PrecoVendaProduto * item.QuantidadeProduto;
             }
-
-            Pedido pedido = new Pedido(total, IdCliente, Itens)
+            int idVendedor = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            Pedido pedido = new Pedido(total, IdCliente, idVendedor, Itens)
             {
                 AtivoPedido = true
             };
@@ -119,69 +126,12 @@ namespace SoftCandy.Controllers
             return pedido.IdPedido;
         }
 
-        // GET: Pedido/Edit
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                if (id == null)
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
-                }
 
-                var pedido = await _context.Pedido.FindAsync(id);
-                if (pedido == null)
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
-                }
-                ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
-                return View(pedido);
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        // POST: Pedido/Edit
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPedido,ValorTotalPedido,DataPedido,IdCliente")] Pedido pedido)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                if (id != pedido.IdPedido)
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
-                }
-
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        _context.Update(pedido);
-                        await _context.SaveChangesAsync();
-                    }
-                    catch (DbUpdateConcurrencyException)
-                    {
-                        if (!PedidoExists(pedido.IdPedido))
-                        {
-                            return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                    return RedirectToAction(nameof(Index));
-                }
-                ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "NomeCliente");
-                return View(pedido);
-            }
-            return RedirectToAction("Index", "Home");
-        }
 
         // GET: Pedido/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Vendedor(User))
             {
                 if (id == null)
                 {
@@ -190,6 +140,7 @@ namespace SoftCandy.Controllers
 
                 var pedido = await _context.Pedido
                     .Include(p => p.Cliente)
+                    .Include(v => v.Vendedor)
                     .FirstOrDefaultAsync(m => m.IdPedido == id);
                 if (pedido == null)
                 {
@@ -198,7 +149,7 @@ namespace SoftCandy.Controllers
 
                 return View(pedido);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         // POST: Pedido/Delete
@@ -206,7 +157,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LogadoComo.Vendedor(User))
             {
 
                 Pedido pedido = await _context.Pedido.Include(p => p.ItensPedidos).FirstOrDefaultAsync(p => p.IdPedido == id);
@@ -234,7 +185,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("User", "Home");
         }
 
         private bool PedidoExists(int id)
@@ -243,16 +194,13 @@ namespace SoftCandy.Controllers
         }
         public IActionResult Error(string message)
         {
-            if (User.Identity.IsAuthenticated)
+            var viewModel = new ErrorViewModel
             {
-                var viewModel = new ErrorViewModel
-                {
-                    Message = message,
-                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-                };
-                return View(viewModel);
-            }
-            return RedirectToAction("Index", "Home");
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }
+
