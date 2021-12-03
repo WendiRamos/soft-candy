@@ -42,7 +42,7 @@ namespace SoftCandy.Models
 
         public bool AtivoVendedor { get; set; }
 
-        public virtual ICollection<Pedido> Pedidos { get; set; }
+        public ICollection<Pedido> Pedidos { get; set; }
 
         public Vendedor(string nomeVendedor, string celularVendedor, string logradouroVendedor, string numeroVendedor, string bairroVendedor, string cidadeVendedor, string estadoVendedor, string emailVendedor, string senhaVendedor, bool ativoVendedor)
         {

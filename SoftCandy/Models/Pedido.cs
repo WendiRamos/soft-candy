@@ -26,10 +26,12 @@ namespace SoftCandy.Models
 
         public bool AtivoPedido { get; set; }
 
+
         [ForeignKey("Cliente")]
         public int IdCliente { get; set; }
         
         public virtual Cliente Cliente { get; set; }
+
 
         [ForeignKey("Vendedor")]
         public int IdVendedor { get; set; }
