@@ -21,37 +21,44 @@
     <div class="card border-primary mb-3">
         <div class="card-header"><h4>Categorias</h4></div>
         <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr class="text-center">
-                        <th>
-                            @Html.DisplayNameFor(model => model.IdCategoria)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.NomeCategoria)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            @if (Model.Count() != 0)
+            {
+                <table class="table">
+                    <thead>
                         <tr class="text-center">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdCategoria)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NomeCategoria)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.IdCategoria">Editar</a> |
-                                <a asp-action="Details" asp-route-id="@item.IdCategoria">Detalhes</a> |
-                                <a asp-action="Delete" asp-route-id="@item.IdCategoria">Deletar</a>
-                            </td>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdCategoria)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NomeCategoria)
+                            </th>
+                            <th></th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="text-center">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdCategoria)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeCategoria)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.IdCategoria">Editar</a> |
+                                    <a asp-action="Details" asp-route-id="@item.IdCategoria">Detalhes</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.IdCategoria">Deletar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Não tem categorias para mostrar</p>
+            }
         </div>
     </div>
 </center>

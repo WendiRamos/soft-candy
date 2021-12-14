@@ -20,47 +20,54 @@
     <div class="card border-primary mb-3">
         <div class="card-header"><h4>Produtos Apagados</h4></div>
         <div class="card-body">
-            <table class="table ">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.IdProduto)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.NomeProduto)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.QuantidadeProduto)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PrecoVendaProduto)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            @if (Model.Count() != 0)
+            {
+                <table class="table ">
+                    <thead>
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdProduto)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NomeProduto)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.QuantidadeProduto)
-                            </td>
-                            <td>
-                                R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
-                            </td>
-                            <td>
-                                <a asp-controller="Produto" asp-action="Restore" asp-route-id="@item.IdProduto">Restaurar</a>
-                            </td>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdProduto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NomeProduto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.QuantidadeProduto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PrecoVendaProduto)
+                            </th>
+                            <th></th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdProduto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeProduto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
+                                </td>
+                                <td>
+                                    R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
+                                </td>
+                                <td>
+                                    <a asp-controller="Produto" asp-action="Restore" asp-route-id="@item.IdProduto">Restaurar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Não tem produtos apagados para mostrar</p>
+            }
         </div>
     </div>
 </center>
