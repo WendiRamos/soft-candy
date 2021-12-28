@@ -1,38 +1,84 @@
 ﻿@model SoftCandy.Models.Pedido
 
 @{
-    ViewData["Title"] = "Deletar Pedido";
+    ViewData["Title"] = "Deletar";
 }
-
-<h2>Deletar Pedido</h2>
-
-<h3>Tem certeza que deseja deletar?</h3>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ValorTotalPedido)
-        </dt>
-        <dd>
-          R$  @Html.DisplayFor(model => model.ValorTotalPedido)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataPedido)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataPedido)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Cliente)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Cliente.NomeCliente)
-        </dd>
-    </dl>
-    <br />
-    <form asp-action="Delete">
-        <a asp-action="Index" class="btn btn-primary mr-1">Voltar</a>
-        <input type="hidden" asp-for="IdPedido" />
-        <input type="submit" value="Deletar" class="btn btn-danger" />
-    </form>
-</div>
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Deletar Pedido</h4></div>
+        <div class="card-body">
+            <h5>Tem certeza que deseja excluir?</h5>
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.IdPedido): </td>
+                    <td>@Html.DisplayFor(model => model.IdPedido)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.DataPedido): </td>
+                    <td>@Html.DisplayFor(model => model.DataPedido)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Cliente): </td>
+                    <td>@Html.DisplayFor(model => model.Cliente.NomeCliente)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Vendedor): </td>
+                    <td>@Html.DisplayFor(model => model.Vendedor.NomeVendedor)</td>
+                </tr>
+            </table>
+            <h4>Itens do Pedido</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nome
+                        </th>
+                        <th>
+                            Quantidade
+                        </th>
+                        <th>
+                            Preço
+                        </th>
+                        <th>
+                            Subtotal
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ItensPedidos)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Produto.NomeProduto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.QuantidadeProduto)
+                            </td>
+                            <td>
+                                R$ @Html.DisplayFor(modelItem => item.PrecoPago)
+                            </td>
+                            <td>
+                                R$ @string.Format("{0:#,0.00}", item.PrecoPago * item.QuantidadeProduto)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><b>Total: </b></td>
+                        <td><b>R$ @Html.DisplayFor(model => model.ValorTotalPedido)</b></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <br />
+            <form asp-action="Delete">
+                <a asp-action="Index" class="btn btn-primary mr-1">Voltar</a>
+                <input type="hidden" asp-for="IdPedido" />
+                <input type="submit" value="Deletar" class="btn btn-danger" />
+            </form>
+        </div>
+    </div>
+</center>

@@ -3,12 +3,12 @@
 @{
     ViewData["Title"] = "Pedidos";
 }
-
-<h2>Pedidos</h2>
-
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaPedido">
-    <div class="form-check-inline">
-        <div class="container">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <a asp-action="Create" class="btn btn-success">Novo Pedido</a>
+        </div>
+        <div class="d-flex">
             <div class="row align-middle">
                 <div class="col">
                     <label for="minDate" class="control-label">Data inicial</label>
@@ -26,57 +26,65 @@
     </div>
 </form>
 <br />
-<div>
-    <a asp-controller="Pedido" asp-action="Create" class="btn btn-success">Novo Pedido</a> |
-    <a asp-action="Relatorio" target="_blank" class="btn btn-info">Gerar Relatório</a>
-</div>
-<br />
-@if (Model.Count() != 0)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdPedido)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ValorTotalPedido)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DataPedido)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cliente)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
+<center>
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Pedidos</h4></div>
+        <div class="card-body">
+            @if (Model.Count() != 0)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdPedido)
-                    </td>
-                    <td>
-                        R$ @Html.DisplayFor(modelItem => item.ValorTotalPedido)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DataPedido)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cliente.NomeCliente)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.IdPedido">Detalhes</a> |
-                        <a asp-action="Delete" asp-route-id="@item.IdPedido">Deletar</a>
-                    </td>
-                </tr>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdPedido)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ValorTotalPedido)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataPedido)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Vendedor)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cliente)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdPedido)
+                                </td>
+                                <td>
+                                    R$ @Html.DisplayFor(modelItem => item.ValorTotalPedido)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataPedido)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Vendedor.NomeVendedor)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.NomeCliente)
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.IdPedido">Detalhes</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.IdPedido">Deletar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Não tem pedidos para mostrar</p>
-}
+            else
+            {
+                <p>Não tem pedidos para mostrar</p>
+            }
+        </div>
+    </div>
+</center>
