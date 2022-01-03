@@ -64,6 +64,8 @@ namespace SoftCandy.Controllers
                 var pedido = await _context.Pedido
                     .Include(p => p.Cliente)
                     .Include(v => v.Vendedor)
+                    .Include(i => i.ItensPedidos)
+                    .ThenInclude(it => it.Produto)
                     .FirstOrDefaultAsync(m => m.IdPedido == id);
                 if (pedido == null)
                 {
@@ -141,6 +143,8 @@ namespace SoftCandy.Controllers
                 var pedido = await _context.Pedido
                     .Include(p => p.Cliente)
                     .Include(v => v.Vendedor)
+                    .Include(i => i.ItensPedidos)
+                    .ThenInclude(it => it.Produto)
                     .FirstOrDefaultAsync(m => m.IdPedido == id);
                 if (pedido == null)
                 {

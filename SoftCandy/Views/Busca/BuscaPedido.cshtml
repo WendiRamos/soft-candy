@@ -28,48 +28,55 @@
     <div class="card border-primary mb-3">
         <div class="card-header"><h4>Pedidos</h4></div>
         <div class="card-body">
-            <div class="panel panel-primary">
+            @if (Model.Count() != 0)
+            {
+                <div class="panel panel-primary">
 
-                <div class="panel-body">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr class="success">
-                                <th>
-                                    @Html.DisplayNameFor(model => model.IdPedido)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.ValorTotalPedido)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DataPedido)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Cliente)
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdPedido)
-                                    </td>
-                                    <td>
-                                        R$ @Html.DisplayFor(modelItem => item.ValorTotalPedido)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedido)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.NomeCliente)
-                                    </td>
+                    <div class="panel-body">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr class="success">
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.IdPedido)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ValorTotalPedido)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DataPedido)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Cliente)
+                                    </th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdPedido)
+                                        </td>
+                                        <td>
+                                            R$ @Html.DisplayFor(modelItem => item.ValorTotalPedido)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DataPedido)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Cliente.NomeCliente)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <p>Não tem pedidos para mostrar</p>
+            }
         </div>
     </div>
 </center>

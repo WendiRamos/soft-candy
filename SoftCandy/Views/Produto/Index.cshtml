@@ -8,7 +8,7 @@
         <div class="d-flex">
             <a asp-action="Create" class="btn btn-success mr-1">Novo Produto</a>
             <a asp-controller="Busca" asp-action="BuscaProdutoApagado" class="btn btn-info mr-1">Produtos Apagados</a>
-            <a asp-controller="Produto" asp-action="EstoqueBaixo" class="btn btn-warning">Produtos Escaços</a>
+            <a asp-controller="Produto" asp-action="EstoqueBaixo" class="btn btn-warning">Produtos Escassos</a>
         </div>
         <div class="d-flex">
             <label for="Nome"></label>
@@ -22,49 +22,56 @@
     <div class="card border-primary mb-3">
         <div class="card-header"><h4>Produtos</h4></div>
         <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.IdProduto)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.NomeProduto)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PrecoVendaProduto)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.QuantidadeProduto)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            @if (Model.Count() != 0)
+            {
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdProduto)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NomeProduto)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.QuantidadeProduto)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.IdProduto">Editar</a> |
-                                <a asp-action="Details" asp-route-id="@item.IdProduto">Detalhes</a> |
-                                <a asp-action="Delete" asp-route-id="@item.IdProduto">Deletar</a>
-                            </td>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdProduto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NomeProduto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PrecoVendaProduto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.QuantidadeProduto)
+                            </th>
+                            <th></th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdProduto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeProduto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.IdProduto">Editar</a> |
+                                    <a asp-action="Details" asp-route-id="@item.IdProduto">Detalhes</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.IdProduto">Deletar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Não tem produtos para mostrar</p>
+            }
         </div>
     </div>
 </center>
