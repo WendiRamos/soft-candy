@@ -13,7 +13,7 @@
 function validarCelularCliente() {
     var celular = document.getElementById("celularCliente").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 12) {
+    if (celular === "" || celular.length < 8 || celular.length > 20) {
         document.getElementById("erroCelularCliente").className = "visivel";
         return false;
     }
@@ -34,7 +34,7 @@ function validarEmailCliente() {
 function validarLogradouroCliente() {
     var celular = document.getElementById("logradouroCliente").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 100) {
+    if (celular === "" || celular.length < 2 || celular.length > 100) {
         document.getElementById("erroLogradouroCliente").className = "visivel";
         return false;
     }

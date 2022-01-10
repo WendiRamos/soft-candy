@@ -90,7 +90,7 @@ function validarNomeFantasia() {
 function validarCelularFornecedor() {
     var celular = document.getElementById("celularFornecedor").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 12) {
+    if (celular === "" || celular.length < 8 || celular.length > 20) {
         document.getElementById("erroCelularFornecedor").className = "visivel";
         return false;
     }
@@ -111,7 +111,7 @@ function validarEmailFornecedor() {
 function validarLogradouroFornecedor() {
     var Logradouro = document.getElementById("logradouroFornecedor").value;
     Logradouro = Logradouro.trim();
-    if (Logradouro === "" || Logradouro.length < 8 || Logradouro.length > 100) {
+    if (Logradouro === "" || Logradouro.length < 2 || Logradouro.length > 100) {
         document.getElementById("erroLogradouroFornecedor").className = "visivel";
         return false;
     }

@@ -13,7 +13,7 @@
 function validarCelularEstoquista() {
     var celular = document.getElementById("celularEstoquista").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 12) {
+    if (celular === "" || celular.length < 8 || celular.length > 20) {
         document.getElementById("erroCelularEstoquista").className = "visivel";
         return false;
     }
@@ -34,7 +34,7 @@ function validarEmailEstoquista() {
 function validarLogradouroEstoquista() {
     var celular = document.getElementById("logradouroEstoquista").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 100) {
+    if (celular === "" || celular.length < 2 || celular.length > 100) {
         document.getElementById("erroLogradouroEstoquista").className = "visivel";
         return false;
     }

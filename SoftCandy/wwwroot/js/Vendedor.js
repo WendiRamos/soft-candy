@@ -13,7 +13,7 @@
 function validarCelularVendedor() {
     var celular = document.getElementById("celularVendedor").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 12) {
+    if (celular === "" || celular.length < 8 || celular.length > 20) {
         document.getElementById("erroCelularVendedor").className = "visivel";
         return false;
     }
@@ -24,7 +24,7 @@ function validarCelularVendedor() {
 function validarLogradouroVendedor() {
     var celular = document.getElementById("logradouroVendedor").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 100) {
+    if (celular === "" || celular.length < 2 || celular.length > 100) {
         document.getElementById("erroLogradouroVendedor").className = "visivel";
         return false;
     }

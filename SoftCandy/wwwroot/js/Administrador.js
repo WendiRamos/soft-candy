@@ -13,7 +13,7 @@
 function validarCelularAdministrador() {
     var celular = document.getElementById("celularAdministrador").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 12) {
+    if (celular === "" || celular.length < 8 || celular.length > 20) {
         document.getElementById("erroCelularAdministrador").className = "visivel";
         return false;
     }
@@ -34,7 +34,7 @@ function validarEmailAdministrador() {
 function validarLogradouroAdministrador() {
     var celular = document.getElementById("logradouroAdministrador").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 100) {
+    if (celular === "" || celular.length < 3 || celular.length > 100) {
         document.getElementById("erroLogradouroAdministrador").className = "visivel";
         return false;
     }
