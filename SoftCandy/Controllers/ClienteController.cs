@@ -26,7 +26,7 @@ namespace SoftCandy.Controllers
         {
             if (LogadoComo.Vendedor(User))
             {
-                return View(await _context.Cliente.Where(c => c.AtivoCliente).ToListAsync());
+                return View(await _context.Cliente.Where(c => c.AtivoCliente && c.IdCliente != 1).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }
@@ -51,6 +51,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var cliente = await _context.Cliente
+                    .Where(c => c.AtivoCliente && c.IdCliente != 1)
                     .FirstOrDefaultAsync(m => m.IdCliente == id);
                 if (cliente == null)
                 {
@@ -101,7 +102,9 @@ namespace SoftCandy.Controllers
                     return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                 }
 
-                var cliente = await _context.Cliente.FindAsync(id);
+                var cliente = await _context.Cliente
+                    .Where(c => c.AtivoCliente && c.IdCliente != 1)
+                    .FirstOrDefaultAsync(c => c.IdCliente == id);
                 if (cliente == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -160,6 +163,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var cliente = await _context.Cliente
+                    .Where(c => c.AtivoCliente && c.IdCliente != 1)
                     .FirstOrDefaultAsync(m => m.IdCliente == id);
                 if (cliente == null)
                 {
@@ -198,6 +202,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var cliente = await _context.Cliente
+                    .Where(c => c.IdCliente != 1)
                     .FirstOrDefaultAsync(m => m.IdCliente == id);
                 if (cliente == null)
                 {
