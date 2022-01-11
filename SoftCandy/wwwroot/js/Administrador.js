@@ -56,7 +56,7 @@ function validarNumeroAdministrador() {
 function validarBairroAdministrador() {
     var celular = document.getElementById("bairroAdministrador").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 100) {
+    if (celular === "" || celular.length < 3 || celular.length > 100) {
         document.getElementById("erroBairroAdministrador").className = "visivel";
         return false;
     }

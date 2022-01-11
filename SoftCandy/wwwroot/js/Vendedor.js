@@ -46,7 +46,7 @@ function validarNumeroVendedor() {
 function validarBairroVendedor() {
     var celular = document.getElementById("bairroVendedor").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 100) {
+    if (celular === "" || celular.length < 3 || celular.length > 100) {
         document.getElementById("erroBairroVendedor").className = "visivel";
         return false;
     }

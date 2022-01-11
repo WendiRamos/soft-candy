@@ -133,7 +133,7 @@ function validarNumeroFornecedor() {
 function validarBairroFornecedor() {
     var Bairro = document.getElementById("bairroFornecedor").value;
     Bairro = Bairro.trim();
-    if (Bairro === "" || Bairro.length < 8 || Bairro.length > 100) {
+    if (Bairro === "" || Bairro.length < 3 || Bairro.length > 100) {
         document.getElementById("erroBairroFornecedor").className = "visivel";
         return false;
     }

@@ -56,7 +56,7 @@ function validarNumeroCliente() {
 function validarBairroCliente() {
     var celular = document.getElementById("bairroCliente").value;
     celular = celular.trim();
-    if (celular === "" || celular.length < 8 || celular.length > 100) {
+    if (celular === "" || celular.length < 3 || celular.length > 100) {
         document.getElementById("erroBairroCliente").className = "visivel";
         return false;
     }
