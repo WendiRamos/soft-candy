@@ -4,14 +4,15 @@ var itens = [];
 /****************** VERIFICA SE O PRODUTO JÁ FOI ADICIONADO *******************/
 
 function itensContem(produto) {
-    return itens.find((i) => i.IdProduto === produto.IdProduto);
+    return itens.find((i) => i.idProduto === produto.idProduto);
 }
 
 /********************** CALCULA O VALOR TOTAL DO PEDIDO ***********************/
 
 function calcula() {
-    const total = itens.reduce((s, v) => s + v.PrecoPago * v.QuantidadeProduto, 0.0);
-    document.getElementById("total-pedido").textContent = dinheiro(total);
+    const total = itens.reduce((s, v) => s + v.precoPago * v.quantidadeProduto, 0.0);
+    alert(total)
+    $("#total-pedido").html(dinheiro(total));
 }
 
 /*********************** ADICIONA UM PRODUTO AO PEDIDO ************************/
@@ -21,16 +22,16 @@ function adicionar(produto) {
     if (itensContem(produto)) return;
 
     // Cria elementos HTML de texto
-    const cod = document.createTextNode(produto.IdProduto);
-    const nome = document.createTextNode(produto.NomeProduto);
-    const preco = document.createTextNode(dinheiro(produto.PrecoVendaProduto));
-    const sub = document.createTextNode(dinheiro(produto.PrecoVendaProduto));
+    const cod = document.createTextNode(produto.idProduto);
+    const nome = document.createTextNode(produto.nomeProduto);
+    const preco = document.createTextNode(dinheiro(produto.precoVendaProduto));
+    const sub = document.createTextNode(dinheiro(produto.precoVendaProduto));
     const qnt = document.createElement("input");
     qnt.className = "entrada-transparente";
     qnt.type = "number";
     qnt.value = "1";
     qnt.min = "1";
-    qnt.max = produto.QuantidadeProduto;
+    qnt.max = produto.quantidadeProduto;
 
     // Adiciona um evento para alterar os valores quando mudar a QuantidadeProduto
     qnt.addEventListener("input", () => {
@@ -40,10 +41,10 @@ function adicionar(produto) {
         );
         // Muda, no array de itens, o item com QuantidadeProduto alterada
         itens = itens.map((i) => {
-            return i.IdProduto === id ? { ...i, QuantidadeProduto: Number(qnt.value) } : i;
+            return i.idProduto === id ? { ...i, quantidadeProduto: Number(qnt.value) } : i;
         });
         // Calcula e mostra novo subtotal
-        sub.textContent = dinheiro(produto.PrecoVendaProduto * qnt.value);
+        sub.textContent = dinheiro(produto.precoVendaProduto * qnt.value);
         calcula();
     });
 
@@ -82,10 +83,8 @@ function adicionar(produto) {
     $("#enviar").prop("disabled", false)
 }
 
-
-
 function enviar() {
-    itens = itens.map((i) => ({ ...i, PrecoPago: i.PrecoPago.toString().replace(".", ",") }));
+    itens = itens.map((i) => ({ ...i, precoPago: i.precoPago.toString().replace(".", ",") }));
     const id = $("select").val();
 
     $.ajax({
@@ -112,3 +111,34 @@ function enviar() {
         },
     });
 }
+
+function adicionarLinha(produto) {
+    $("#tabelaProdutos")
+        .append($("<tr>")
+            .append($("<td>").append(produto.idProduto))
+            .append($("<td>").append(produto.nomeProduto))
+            .append($("<td>").append(produto.quantidadeProduto))
+            .append($("<td>").append(dinheiro(produto.precoVendaProduto)))
+            .append($("<button>").append("Adicionar")
+                .click(() => adicionar(produto))
+                .addClass("btn btn-secondary")
+            )
+        );
+}
+
+function procurarProdutos()
+{
+    const termoPesquisa = $("#pesquisar").val() || "";
+    const tabelaProdutos = $("#tabelaProdutos");
+
+    tabelaProdutos.empty();
+
+    $.ajax({
+        url: "/Pedido/BuscarProdutoPorNomeTop5/?TermoProcurado=" + termoPesquisa,
+        success: function (listaProdutos) {
+            listaProdutos.forEach(adicionarLinha);
+        },
+    });
+}
+
+procurarProdutos();

@@ -49,8 +49,8 @@
             <form class="form-inline" asp-controller="Busca" asp-action="BuscaProduto">
                 <div class="d-flex">
                     <label for="Nome"></label>
-                    <input type="text" class="form-control mr-1" name="Nome" placeholder="Nome do produto" value=@ViewData["Nome"] />
-                    <button type="submit" class=" btn btn-primary">Pesquisar</button>
+                    <input type="text" class="form-control mr-1" id="pesquisar" placeholder="Nome do produto" value=@ViewData["Nome"] />
+                    <button type="button" onclick="procurarProdutos()" class=" btn btn-primary">Pesquisar</button>
                 </div>
             </form>
         </div>
@@ -74,32 +74,11 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var item in Model.Produtos)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IdProduto)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NomeProduto)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.QuantidadeProduto)
-                        </td>
-                        <td>
-                            R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
-                        </td>
-                        <td>
-                            <button class="btn btn-secondary" onclick="adicionar(@JsonConvert.SerializeObject(item))">Adicionar</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
+            <tbody id="tabelaProdutos"></tbody>
         </table>
     </div>
 </div>
-<script src="~/js/RealizarPedido.js"></script>
-<script src="~/js/formatador.js"></script>
+<script src="~/js/formatador.js" defer></script>
+<script src="~/js/RealizarPedido.js" defer></script>
 
 

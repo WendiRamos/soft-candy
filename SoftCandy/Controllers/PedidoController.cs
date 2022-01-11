@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
 using SoftCandy.Models;
+using SoftCandy.Services;
 using SoftCandy.Utils;
 
 namespace SoftCandy.Controllers
@@ -16,10 +17,12 @@ namespace SoftCandy.Controllers
     public class PedidoController : Controller
     {
         private readonly SoftCandyContext _context;
+        private readonly BuscaService _buscaService;
 
-        public PedidoController(SoftCandyContext context)
+        public PedidoController(SoftCandyContext context, BuscaService BuscaService)
         {
             _context = context;
+            _buscaService = BuscaService;
         }
 
         // GET: Pedido
@@ -76,14 +79,16 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("User", "Home");
         }
-
+        public List<Produto> BuscarProdutoPorNomeTop5(string TermoProcurado)
+        {
+            return _buscaService.FindByProdutoTop5(TermoProcurado);
+        }
         // GET: Pedido/Create
         public IActionResult Create()
         {
             if (LogadoComo.Vendedor(User))
             {
                 var model = new RealizarPedido();
-                model.Produtos = _context.Produto.Where(p => p.AtivoProduto && p.QuantidadeProduto > 0).ToList();
                 ViewData["IdCliente"] = new SelectList(_context.Cliente.Where(c => c.AtivoCliente), "IdCliente", "NomeCliente");
                 return View(model);
             }
