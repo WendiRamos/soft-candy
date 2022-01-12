@@ -44,15 +44,13 @@
         </table>
         <div class="d-flex justify-content-between">
             <div class="d-flex">
-                <button id="enviar" class="btn btn-warning" onclick="enviar()">Enviar</button>
+                <button id="enviar" class="btn btn-warning" onclick="enviarPedido()">Enviar</button>
             </div>
-            <form class="form-inline" asp-controller="Busca" asp-action="BuscaProduto">
                 <div class="d-flex">
                     <label for="Nome"></label>
-                    <input type="text" class="form-control mr-1" id="pesquisar" placeholder="Nome do produto" value=@ViewData["Nome"] />
+                    <input type="text" class="form-control mr-1" id="pesquisar" placeholder="Nome do produto"/>
                     <button type="button" onclick="procurarProdutos()" class=" btn btn-primary">Pesquisar</button>
                 </div>
-            </form>
         </div>
 
         <br />

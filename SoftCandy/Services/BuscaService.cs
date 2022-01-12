@@ -139,14 +139,15 @@ namespace SoftCandy.Services
 
         public List<Produto> FindByProdutoTop5(String Nome)
         {
-            var result = from obj in _context.Produto.Where(c => c.AtivoProduto) select obj;
+            var result = from obj in _context.Produto
+                         .Where(c => c.AtivoProduto && c.QuantidadeProduto > 0) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
                 string pesquisa = Encoding.UTF8.GetString(tmp);
-                result = result.Where(x => x.NomeProduto.Contains(pesquisa)).Take(5);
+                result = result.Where(x => x.NomeProduto.Contains(pesquisa));
             }
-            return  result.ToList();
+            return  result.Take(5).ToList();
         }
 
         public async Task<List<Produto>> FindByProdutoApagado(String Nome)
