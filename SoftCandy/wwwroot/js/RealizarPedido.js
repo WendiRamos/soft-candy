@@ -91,6 +91,12 @@ function adicionarLinhaTabelaItensPedido(item) {
     const celulaQuantidadeProduto = linha.insertCell();
     const celulaSubtotal = linha.insertCell();
     const celulaBotao = linha.insertCell();
+    const botaoRemover = document.createElement("button");
+    botaoRemover.innerText = "Remover";
+    botaoRemover.className = "btn btn-secondary";
+    botaoRemover.addEventListener("click", () =>
+        removerProdutoDoPedido(item.idProduto)
+    );
 
     // Adiciona os elementos de texto dentro de sua célula
     celulaId.appendChild(id);
@@ -98,7 +104,7 @@ function adicionarLinhaTabelaItensPedido(item) {
     celulaPreco.appendChild(preco);
     celulaQuantidadeProduto.appendChild(qnt);
     celulaSubtotal.appendChild(sub);
-    celulaBotao.appendChild("<button>");
+    celulaBotao.appendChild(botaoRemover);
 }
 
 /******************************************************************************/
