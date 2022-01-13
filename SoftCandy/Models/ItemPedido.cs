@@ -16,20 +16,18 @@ namespace SoftCandy.Models
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Quantidade")]
-        public int QuantidadeProduto { get; set; }
-
-        public bool AtivoItemPedido { get; set; }
+        public int Quantidade { get; set; }
 
         [ForeignKey("Produto")]
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Id Produto")]
         public int IdProduto { get; set; }
-        public  virtual Produto Produto { get; set; }
+        public virtual Produto Produto { get; set; }
 
         [ForeignKey("Pedido")]
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Id Pedido")]
         public int IdPedido { get; set; }
-        public virtual  Pedido Pedido { get; set; }
+        public virtual Pedido Pedido { get; set; }
     }
 }

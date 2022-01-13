@@ -137,6 +137,19 @@ namespace SoftCandy.Services
                   .ToListAsync();
         }
 
+        public List<Produto> FindByProdutoTop5(String Nome)
+        {
+            var result = from obj in _context.Produto
+                         .Where(c => c.AtivoProduto && c.QuantidadeProduto > 0) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
+                string pesquisa = Encoding.UTF8.GetString(tmp);
+                result = result.Where(x => x.NomeProduto.Contains(pesquisa));
+            }
+            return  result.Take(5).ToList();
+        }
+
         public async Task<List<Produto>> FindByProdutoApagado(String Nome)
         {
             var result = from obj in _context.Produto.Where(c => c.AtivoProduto == false) select obj;

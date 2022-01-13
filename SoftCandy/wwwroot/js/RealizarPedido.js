@@ -1,114 +1,190 @@
-﻿// Array de itens de pedido
-var itens = [];
+﻿let produtos = [];
+let itensPedido = [];
+let valorTotalPedido = 0.0;
+
+const botaoEnviar = $("#enviar");
+const tabelaProdutos = $("#tabelaProdutos");
+const tabelaItensPedido = $("#itens-pedido");
+const campoValorTotalPedido = $("#total-pedido");
 
 /****************** VERIFICA SE O PRODUTO JÁ FOI ADICIONADO *******************/
 
-function itensContem(produto) {
-    return itens.find((i) => i.IdProduto === produto.IdProduto);
+function itensContem(idProdAdd) {
+    return itensPedido.some((i) => i.idProduto === idProdAdd);
 }
 
-/********************** CALCULA O VALOR TOTAL DO PEDIDO ***********************/
+/************************ ADICIONAR PRODUTO AO PEDIDO *************************/
 
-function calcula() {
-    const total = itens.reduce((s, v) => s + v.PrecoPago * v.QuantidadeProduto, 0.0);
-    document.getElementById("total-pedido").textContent = dinheiro(total);
+function adicionarProdutoAoPedido(idProdAdd) {
+    if (itensContem(idProdAdd)) return;
+
+    const item = produtos.find((p) => p.idProduto === idProdAdd);
+
+    if (item !== null) {
+        const novoItem = {
+            ...item,
+            quantidade: 1,
+            subtotal: item.precoVendaProduto,
+        };
+
+        itensPedido = [...itensPedido, novoItem];
+        atualizarTabelaItensPedido();
+    }
 }
 
-/*********************** ADICIONA UM PRODUTO AO PEDIDO ************************/
+/******************************************************************************/
 
-function adicionar(produto) {
-    // Se um produto já foi adicionado, retorna sem executar a função
-    if (itensContem(produto)) return;
+function removerProdutoDoPedido(idProdRem) {
+    itensPedido = itensPedido.filter((i) => i.idProduto !== idProdRem);
+    atualizarTabelaItensPedido();
+}
 
-    // Cria elementos HTML de texto
-    const cod = document.createTextNode(produto.IdProduto);
-    const nome = document.createTextNode(produto.NomeProduto);
-    const preco = document.createTextNode(dinheiro(produto.PrecoVendaProduto));
-    const sub = document.createTextNode(dinheiro(produto.PrecoVendaProduto));
+/******************************************************************************/
+
+function atualizarValorTotalPedido() {
+    valorTotalPedido = itensPedido.reduce(
+        (s, i) => s + i.precoVendaProduto * i.quantidade,
+        0.0
+    );
+    campoValorTotalPedido.html(dinheiro(valorTotalPedido));
+}
+
+/******************************************************************************/
+
+function adicionarLinhaTabelaItensPedido(item) {
+    const id = document.createTextNode(item.idProduto);
+    const nome = document.createTextNode(item.nomeProduto);
+    const preco = document.createTextNode(dinheiro(item.precoVendaProduto));
+    const sub = document.createTextNode(dinheiro(item.subtotal));
     const qnt = document.createElement("input");
-    qnt.className = "entrada-transparente";
-    qnt.type = "number";
-    qnt.value = "1";
+    qnt.className = "entrada-transparente tira-borda";
     qnt.min = "1";
-    qnt.max = produto.QuantidadeProduto;
+    qnt.type = "number";
+    qnt.value = item.quantidade;
+    qnt.max = item.quantidadeProduto;
+    qnt.onkeydown = () => { return false };
 
-    // Adiciona um evento para alterar os valores quando mudar a QuantidadeProduto
     qnt.addEventListener("input", () => {
-        // "Descobre" o id da linha do input alterado acessando o elemento avô
-        const id = Number(
-            qnt.parentNode.parentNode.querySelector(".codigo").textContent
-        );
-        // Muda, no array de itens, o item com QuantidadeProduto alterada
-        itens = itens.map((i) => {
-            return i.IdProduto === id ? { ...i, QuantidadeProduto: Number(qnt.value) } : i;
+        // Atualiza vetor de itens de pedido
+        itensPedido = itensPedido.map((i) => {
+            return i.idProduto !== item.idProduto
+                ? i
+                : {
+                    ...i,
+                    quantidade: Number(qnt.value),
+                    subtotal: Number(qnt.value) * i.precoVendaProduto
+                }
         });
-        // Calcula e mostra novo subtotal
-        sub.textContent = dinheiro(produto.PrecoVendaProduto * qnt.value);
-        calcula();
+        atualizarTabelaItensPedido();
     });
 
-    // Selecione a tabela no HTML (somente o tbody)
     const tabela = document.getElementById("itens-pedido");
 
     // Cria uma linha na tabela
     const linha = tabela.insertRow();
 
     // Cria várias células/colunas já dentro da linha criada
-    const celulaCod = linha.insertCell();
-    celulaCod.className = "codigo";
+    const celulaId = linha.insertCell();
+    celulaId.className = "codigo";
     const celulaNome = linha.insertCell();
     const celulaPreco = linha.insertCell();
     const celulaQuantidadeProduto = linha.insertCell();
     const celulaSubtotal = linha.insertCell();
+    const celulaBotao = linha.insertCell();
+    const botaoRemover = document.createElement("button");
+    botaoRemover.innerText = "Remover";
+    botaoRemover.className = "btn btn-secondary";
+    botaoRemover.addEventListener("click", () =>
+        removerProdutoDoPedido(item.idProduto)
+    );
 
     // Adiciona os elementos de texto dentro de sua célula
-    celulaCod.appendChild(cod);
+    celulaId.appendChild(id);
     celulaNome.appendChild(nome);
     celulaPreco.appendChild(preco);
     celulaQuantidadeProduto.appendChild(qnt);
     celulaSubtotal.appendChild(sub);
-
-    // Cria um item de pedido e adiciona ao array de itens
-    const tmp = {};
-    tmp.QuantidadeProduto = 1;
-    tmp.PrecoPago = produto.PrecoVendaProduto;
-    tmp.IdProduto = produto.IdProduto;
-    tmp.IdPedido = 0;
-    itens = [...itens, tmp];
-
-    calcula();
-
-    // Habilita o botão de envio
-    $("#enviar").prop("disabled", false)
+    celulaBotao.appendChild(botaoRemover);
 }
 
+/******************************************************************************/
 
+function controlarBotaoDePedido() {
+    botaoEnviar.prop("disabled", !itensPedido.length);
+}
 
-function enviar() {
-    itens = itens.map((i) => ({ ...i, PrecoPago: i.PrecoPago.toString().replace(".", ",") }));
+/******************************************************************************/
+
+function atualizarTabelaItensPedido() {
+    tabelaItensPedido.empty();
+    itensPedido.forEach(adicionarLinhaTabelaItensPedido);
+    controlarBotaoDePedido();
+    atualizarValorTotalPedido();
+}
+
+/******************************************************************************/
+
+function adicionarLinhaTabelaProdutos(produto) {
+    tabelaProdutos.append(
+        $("<tr>")
+            .append($("<td>").append(produto.idProduto))
+            .append($("<td>").append(produto.nomeProduto))
+            .append($("<td>").append(produto.quantidadeProduto))
+            .append($("<td>").append(dinheiro(produto.precoVendaProduto)))
+            .append(
+                $("<td>").append(
+                    $("<button>")
+                        .append("Adicionar")
+                        .click(() => adicionarProdutoAoPedido(produto.idProduto))
+                        .addClass("btn btn-secondary")
+                )
+            )
+    );
+}
+
+/******************************************************************************/
+
+function procurarProdutos() {
+    const termoPesquisa = $("#pesquisar").val() || "";
+
+    tabelaProdutos.empty();
+
+    $.ajax({
+        url: "/Pedido/BuscarProdutoPorNomeTop5/?TermoProcurado=" + termoPesquisa,
+        success: function (listaProdutos) {
+            produtos = [ ...listaProdutos ];
+            listaProdutos.forEach(adicionarLinhaTabelaProdutos);
+        },
+    });
+}
+
+/******************************************************************************/
+
+function enviarPedido() {
     const id = $("select").val();
+    const itens = itensPedido.map((i) => ({
+        Quantidade: i.quantidade,
+        IdProduto: i.idProduto,
+    }));
 
     $.ajax({
         url: "/Pedido/Create/",
         type: "POST",
-        data: { "Itens": itens, "IdCliente": id },
-        success: function (idPedido) {
-            if (idPedido != -1) {
-                Swal.fire({
-                    title: "Sucesso!",
-                    text: "Seu pedido foi realizado.",
-                    icon: "success"
-                }).then(() =>
-                    window.location.href = '/Pedido/Details/' + idPedido);
-
-            }
-            else {
-                Swal.fire({
-                    title: "Ocorreu um erro!",
-                    text: "Tente novamente.",
-                    icon: "error"
-                })
+        data: { Itens: itens, IdCliente: id },
+        success: (idPedido) => {
+            if (idPedido) {
+                Swal.fire("Sucesso!", "Seu pedido foi realizado.", "success").then(
+                    () => (window.location.href = "/Pedido/Details/" + idPedido)
+                );
+            } else {
+                Swal.fire("Ocorreu um erro!", "Tente novamente.", "error");
             }
         },
     });
 }
+
+/******************************************************************************/
+
+procurarProdutos();
+controlarBotaoDePedido();
+atualizarValorTotalPedido();

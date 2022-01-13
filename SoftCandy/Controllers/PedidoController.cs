@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
 using SoftCandy.Models;
+using SoftCandy.Services;
 using SoftCandy.Utils;
 
 namespace SoftCandy.Controllers
@@ -16,10 +17,12 @@ namespace SoftCandy.Controllers
     public class PedidoController : Controller
     {
         private readonly SoftCandyContext _context;
+        private readonly BuscaService _buscaService;
 
-        public PedidoController(SoftCandyContext context)
+        public PedidoController(SoftCandyContext context, BuscaService BuscaService)
         {
             _context = context;
+            _buscaService = BuscaService;
         }
 
         // GET: Pedido
@@ -76,14 +79,16 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("User", "Home");
         }
-
+        public List<Produto> BuscarProdutoPorNomeTop5(string TermoProcurado)
+        {
+            return _buscaService.FindByProdutoTop5(TermoProcurado);
+        }
         // GET: Pedido/Create
         public IActionResult Create()
         {
             if (LogadoComo.Vendedor(User))
             {
                 var model = new RealizarPedido();
-                model.Produtos = _context.Produto.Where(p => p.AtivoProduto && p.QuantidadeProduto > 0).ToList();
                 ViewData["IdCliente"] = new SelectList(_context.Cliente.Where(c => c.AtivoCliente), "IdCliente", "NomeCliente");
                 return View(model);
             }
@@ -100,9 +105,11 @@ namespace SoftCandy.Controllers
             {
                 var produto = await _context.Produto.FirstOrDefaultAsync(p => p.IdProduto == item.IdProduto);
 
+                item.PrecoPago = produto.PrecoVendaProduto;
+
                 try
                 {
-                    if (produto.ProblemaAoSubtrair(item.QuantidadeProduto))
+                    if (produto.ProblemaAoSubtrair(item.Quantidade))
                     {
                         throw new Exception();
                     }
@@ -112,10 +119,10 @@ namespace SoftCandy.Controllers
                 }
                 catch (Exception)
                 {
-                    return -1;
+                    return 0;
                 }
 
-                total += produto.PrecoVendaProduto * item.QuantidadeProduto;
+                total += item.PrecoPago * item.Quantidade;
             }
             int idVendedor = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             Pedido pedido = new Pedido(total, IdCliente, idVendedor, Itens)
@@ -123,7 +130,12 @@ namespace SoftCandy.Controllers
                 AtivoPedido = true
             };
             _context.Add(pedido);
-            _context.SaveChanges();
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch(Exception e) { }
 
             return pedido.IdPedido;
         }
@@ -174,7 +186,7 @@ namespace SoftCandy.Controllers
 
                     try
                     {
-                        produto.devolver(item.QuantidadeProduto);
+                        produto.devolver(item.Quantidade);
                         _context.Update(produto);
                         await _context.SaveChangesAsync();
                     }

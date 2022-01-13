@@ -37,10 +37,23 @@ option:hover {
     padding: 0.5rem;
 }
 
+.tira-borda, .tira-borda:focus {
+    outline: 0;
+}
+
 .mr-1 {
     margin-right: 1rem;
 }
 
 .center {
     text-align: center;
+}
+
+.negrito {
+    font-weight: bold;
+}
+
+.icone-menus {
+    margin-right: 1rem;
+    height: 1rem;
 }
