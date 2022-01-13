@@ -2,15 +2,21 @@
 @{
     ViewData["Title"] = "Error";
 }
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Erro!</h4></div>
+        <div class="card-body">
+            <h2 class="text-black-50">@Model.Message</h2>
 
-<h1 class="text-danger">Erro.</h1>
-<h2 class="text-danger">@Model.Message</h2>
-
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
+            @if (Model.ShowRequestId)
+            {
+                <p>
+                    <strong>Request ID:</strong> <code>@Model.RequestId</code>
+                </p>
+            }
+        </div>
+    </div>
+    </div>
+</center>
 
