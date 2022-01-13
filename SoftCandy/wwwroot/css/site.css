@@ -48,3 +48,12 @@ option:hover {
 .center {
     text-align: center;
 }
+
+.negrito {
+    font-weight: bold;
+}
+
+.icone-menus {
+    margin-right: 1rem;
+    height: 1rem;
+}
