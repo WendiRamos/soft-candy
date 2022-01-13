@@ -58,13 +58,13 @@
                                     @Html.DisplayFor(modelItem => item.EmailEstoquista)
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.IdEstoquista">
+                                    <a asp-action="Edit" asp-route-id="@item.IdEstoquista" class="sem-sub">
                                         <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
                                     </a>
-                                    <a asp-action="Details" asp-route-id="@item.IdEstoquista">
+                                    <a asp-action="Details" asp-route-id="@item.IdEstoquista" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.IdEstoquista">
+                                    <a asp-action="Delete" asp-route-id="@item.IdEstoquista" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Deletar" />
                                     </a>
                                 </td>

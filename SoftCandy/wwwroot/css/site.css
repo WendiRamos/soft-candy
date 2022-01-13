@@ -57,3 +57,7 @@ option:hover {
     margin-right: 1rem;
     height: 1rem;
 }
+
+.sem-sub {
+    text-decoration: none;
+}

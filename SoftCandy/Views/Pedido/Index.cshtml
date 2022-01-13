@@ -73,10 +73,10 @@
                                     @Html.DisplayFor(modelItem => item.Cliente.NomeCliente)
                                 </td>
                                 <td>
-                                    <a asp-action="Details" asp-route-id="@item.IdPedido">
+                                    <a asp-action="Details" asp-route-id="@item.IdPedido" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.IdPedido">
+                                    <a asp-action="Delete" asp-route-id="@item.IdPedido" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Deletar" />
                                     </a>
                                 </td>
