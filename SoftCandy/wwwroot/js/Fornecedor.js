@@ -100,7 +100,7 @@ function validarCelularFornecedor() {
 function validarEmailFornecedor() {
     var email = document.getElementById("emailFornecedor").value;
     email = email.trim();
-    if (email === "" || email.length < 12 || email.length > 50) {
+    if (email === "" || email.length < 12 || email.length > 500) {
         document.getElementById("erroEmailFornecedor").className = "visivel";
         return false;
     }

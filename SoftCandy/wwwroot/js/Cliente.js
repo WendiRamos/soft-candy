@@ -23,7 +23,7 @@ function validarCelularCliente() {
 function validarEmailCliente() {
     var email = document.getElementById("emailCliente").value;
     email = email.trim();
-    if (email === "" || email.length < 12 || email.length > 50) {
+    if (email === "" || email.length < 12 || email.length > 500) {
         document.getElementById("erroEmailCliente").className = "visivel";
         return false;
     }

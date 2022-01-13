@@ -23,7 +23,7 @@ function validarCelularAdministrador() {
 function validarEmailAdministrador() {
     var email = document.getElementById("emailAdministrador").value;
     email = email.trim();
-    if (email === "" || email.length < 12 || email.length > 50) {
+    if (email === "" || email.length < 12 || email.length > 500) {
         document.getElementById("erroEmailAdministrador").className = "visivel";
         return false;
     }

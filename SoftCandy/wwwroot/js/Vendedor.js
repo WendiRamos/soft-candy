@@ -79,7 +79,7 @@ function validarEstadoVendedor() {
 function validarEmailVendedor() {
     var email = document.getElementById("emailVendedor").value;
     email = email.trim();
-    if (email === "" || email.length < 12 || email.length > 50) {
+    if (email === "" || email.length < 12 || email.length > 500) {
         document.getElementById("erroEmailVendedor").className = "visivel";
         return false;
     }

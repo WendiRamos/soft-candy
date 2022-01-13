@@ -23,7 +23,7 @@ function validarCelularEstoquista() {
 function validarEmailEstoquista() {
     var email = document.getElementById("emailEstoquista").value;
     email = email.trim();
-    if (email === "" || email.length < 12 || email.length > 50) {
+    if (email === "" || email.length < 12 || email.length > 500) {
         document.getElementById("erroEmailEstoquista").className = "visivel";
         return false;
     }
