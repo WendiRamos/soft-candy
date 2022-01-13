@@ -58,9 +58,15 @@
                                     @Html.DisplayFor(modelItem => item.EmailCliente)
                                 </td>
                                 <td>
-                                    <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@item.IdCliente">Editar</a> |
-                                    <a asp-controller="Cliente" asp-action="Details" asp-route-id="@item.IdCliente">Detalhes</a> |
-                                    <a asp-controller="Cliente" asp-action="Delete" asp-route-id="@item.IdCliente">Deletar</a>
+                                    <a asp-action="Edit" asp-route-id="@item.IdCliente">
+                                        <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.IdCliente">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdCliente">
+                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Deletar" />
+                                    </a>
                                 </td>
                             </tr>
                         }

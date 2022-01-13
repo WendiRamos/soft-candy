@@ -63,9 +63,15 @@
                                     R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
                                 </td>
                                 <td>
-                                    <a asp-controller="Produto" asp-action="Edit" asp-route-id="@item.IdProduto">Editar</a> |
-                                    <a asp-controller="Produto" asp-action="Details" asp-route-id="@item.IdProduto">Detalhes</a> |
-                                    <a asp-controller="Produto" asp-action="Delete" asp-route-id="@item.IdProduto">Deletar</a>
+                                    <a asp-action="Edit" asp-route-id="@item.IdProduto">
+                                        <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.IdProduto">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdProduto">
+                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Deletar" />
+                                    </a>
                                 </td>
                             </tr>
                         }

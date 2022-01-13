@@ -58,9 +58,15 @@
                                     @Html.DisplayFor(modelItem => item.NomeFantasia)
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.IdFornecedor">Editar</a> |
-                                    <a asp-action="Details" asp-route-id="@item.IdFornecedor">Detalhes</a> |
-                                    <a asp-action="Delete" asp-route-id="@item.IdFornecedor">Deletar</a>
+                                    <a asp-action="Edit" asp-route-id="@item.IdFornecedor">
+                                        <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.IdFornecedor">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdFornecedor">
+                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Deletar" />
+                                    </a>
                                 </td>
                             </tr>
                         }
