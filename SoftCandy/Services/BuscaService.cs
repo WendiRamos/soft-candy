@@ -22,7 +22,7 @@ namespace SoftCandy.Services
         }
         public async Task<List<Cliente>> FindByCliente(String Nome)
         {
-            var result = from obj in _context.Cliente.Where(c => c.AtivoCliente) select obj;
+            var result = from obj in _context.Cliente.Where(c => c.AtivoCliente && c.IdCliente != 1) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
                 byte[] tmp = Encoding.GetEncoding("ISO-8859-8").GetBytes(Nome);
