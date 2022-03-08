@@ -24,7 +24,7 @@ namespace SoftCandy.Controllers
         // GET: Cliente
         public async Task<IActionResult> Index()
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 return View(await _context.Cliente.Where(c => c.AtivoCliente && c.IdCliente != 1).ToListAsync());
             }
@@ -33,7 +33,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> Relatorio()
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 return View(await _context.Cliente.Where(c => c.AtivoCliente).ToListAsync());
             }
@@ -43,7 +43,7 @@ namespace SoftCandy.Controllers
         // GET: Cliente/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -66,7 +66,7 @@ namespace SoftCandy.Controllers
         // GET: Cliente/Create
         public IActionResult Create()
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 return View();
             }
@@ -78,7 +78,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NomeCliente,CelularCliente,EmailCliente,LogradouroCliente,NumeroCliente,BairroCliente,CidadeCliente,EstadoCliente")] Cliente cliente)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -95,7 +95,7 @@ namespace SoftCandy.Controllers
         // GET: Cliente/Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -119,7 +119,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdCliente,NomeCliente,CelularCliente,EmailCliente,LogradouroCliente,NumeroCliente,BairroCliente,CidadeCliente,EstadoCliente")] Cliente cliente)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 if (id != cliente.IdCliente)
                 {
@@ -155,7 +155,7 @@ namespace SoftCandy.Controllers
         // GET: Cliente/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -180,7 +180,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 var cliente = await _context.Cliente.FindAsync(id);
                 cliente.AtivoCliente = false;
@@ -194,7 +194,7 @@ namespace SoftCandy.Controllers
         // GET: Cliente/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -219,7 +219,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 var cliente = await _context.Cliente.FindAsync(id);
                 cliente.AtivoCliente = true;

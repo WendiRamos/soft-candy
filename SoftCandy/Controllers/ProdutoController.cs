@@ -24,7 +24,7 @@ namespace SoftCandy.Controllers
         // GET: Produto
         public async Task<IActionResult> Index()
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 var softCandyContext = _context.Produto.Where(p => p.AtivoProduto).Include(p => p.Categoria).Include(p => p.Fornecedor);
                 return View(await softCandyContext.ToListAsync());
@@ -34,7 +34,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> EstoqueBaixo()
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 var softCandyContext = _context.Produto.Where(p => p.AtivoProduto && p.QuantidadeProduto <= p.QuantidadeMinimaProduto).Include(p => p.Fornecedor);
                 return View(await softCandyContext.ToListAsync());
@@ -56,7 +56,7 @@ namespace SoftCandy.Controllers
         // GET: Produto/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -80,7 +80,7 @@ namespace SoftCandy.Controllers
         // GET: Produto/Create
         public IActionResult Create()
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
                 ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
@@ -94,7 +94,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,IdCategoria,IdFornecedor")] Produto produto)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -113,7 +113,7 @@ namespace SoftCandy.Controllers
         // GET: Produto/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -138,7 +138,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdProduto,NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,IdCategoria,IdFornecedor")] Produto produto)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
 
                 if (id != produto.IdProduto)
@@ -177,7 +177,7 @@ namespace SoftCandy.Controllers
         // GET: Produto/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -204,7 +204,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 var produto = await _context.Produto.FindAsync(id);
                 produto.AtivoProduto = false;
@@ -218,7 +218,7 @@ namespace SoftCandy.Controllers
         // GET: Produto/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -243,7 +243,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 var produto = await _context.Produto.FindAsync(id);
                 produto.AtivoProduto = true;

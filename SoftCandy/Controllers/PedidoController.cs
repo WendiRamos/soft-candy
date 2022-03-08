@@ -28,7 +28,7 @@ namespace SoftCandy.Controllers
         // GET: Pedido
         public async Task<IActionResult> Index()
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 var softCandyContext = _context.Pedido
                     .Where(c => c.AtivoPedido)
@@ -57,7 +57,7 @@ namespace SoftCandy.Controllers
         // GET: Pedido/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -86,7 +86,7 @@ namespace SoftCandy.Controllers
         // GET: Pedido/Create
         public IActionResult Create()
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 var model = new RealizarPedido();
                 ViewData["IdCliente"] = new SelectList(_context.Cliente.Where(c => c.AtivoCliente), "IdCliente", "NomeCliente");
@@ -145,7 +145,7 @@ namespace SoftCandy.Controllers
         // GET: Pedido/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -173,7 +173,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (LogadoComo.Vendedor(User))
+            if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
 
                 Pedido pedido = await _context.Pedido.Include(p => p.ItensPedidos).FirstOrDefaultAsync(p => p.IdPedido == id);

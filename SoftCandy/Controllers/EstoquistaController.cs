@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -31,7 +30,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista
         public async Task<IActionResult> Index()
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 return View(await _context.Estoquista.Where(c => c.AtivoEstoquista).ToListAsync());
             }
@@ -41,7 +40,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -63,7 +62,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Create
         public IActionResult Create()
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 return View();
             }
@@ -75,7 +74,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdEstoquista,NomeEstoquista,CelularEstoquista,LogradouroEstoquista,NumeroEstoquista,BairroEstoquista,CidadeEstoquista,EstadoEstoquista,EmailEstoquista,SenhaEstoquista")] Estoquista estoquista)
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -92,7 +91,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -114,7 +113,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdEstoquista,NomeEstoquista,CelularEstoquista,LogradouroEstoquista,NumeroEstoquista,BairroEstoquista,CidadeEstoquista,EstadoEstoquista,EmailEstoquista,SenhaEstoquista,AtivoEstoquista")] Estoquista estoquista)
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 if (id != estoquista.IdEstoquista)
                 {
@@ -150,7 +149,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -174,7 +173,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 var estoquista = await _context.Estoquista.FindAsync(id);
                 estoquista.AtivoEstoquista = false;
@@ -188,7 +187,7 @@ namespace SoftCandy.Controllers
         // GET: Estoquista/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 if (id == null)
                 {
@@ -212,7 +211,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 var estoquista = await _context.Estoquista.FindAsync(id);
                 estoquista.AtivoEstoquista = true;
@@ -225,7 +224,7 @@ namespace SoftCandy.Controllers
         //GET: Estoquista/Login
         public IActionResult Login()
         {
-            if (LogadoComo.Administrador(User))
+            if (LogadoComo.Administrador(User) || LogadoComo.Administrador(User))
             {
                 return null;
             }
@@ -274,7 +273,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            if (LogadoComo.Estoquista(User))
+            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
             {
                 await HttpContext.SignOutAsync();
             }
