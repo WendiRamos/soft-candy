@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-@model IEnumerable<SoftCandy.Models.Vendedor>
+@model IEnumerable<SoftCandy.Models.Funcionario>
 
 @{
     ViewData["Title"] = "Pesquisar Vendedor";
@@ -8,7 +8,7 @@
     <form class="form-inline" asp-controller="Busca" asp-action="BuscaVendedorApagado">
         <div class="d-flex justify-content-between">
             <div class="d-flex">
-                <a asp-controller="Vendedor" asp-action="Index" class="btn btn-info mr-1">Voltar</a>
+                <a asp-controller="Funcionario" asp-action="IndexVendedor" class="btn btn-info mr-1">Voltar</a>
             </div>
             <div class="d-flex">
                 <label for="Nome"></label>
@@ -27,16 +27,16 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.IdVendedor)
+                                @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.NomeVendedor)
+                                @Html.DisplayNameFor(model => model.Nome)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CelularVendedor)
+                                @Html.DisplayNameFor(model => model.Celular)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.EmailVendedor)
+                                @Html.DisplayNameFor(model => model.Email)
                             </th>
                             <th></th>
                         </tr>
@@ -46,19 +46,19 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IdVendedor)
+                                    @Html.DisplayFor(modelItem => item.Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.NomeVendedor)
+                                    @Html.DisplayFor(modelItem => item.Nome)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CelularVendedor)
+                                    @Html.DisplayFor(modelItem => item.Celular)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.EmailVendedor)
+                                    @Html.DisplayFor(modelItem => item.Email)
                                 </td>
                                 <td>
-                                    <a asp-controller="Vendedor" asp-action="Restore" asp-route-id="@item.IdVendedor">Restaurar</a>
+                                    <a asp-controller="Funcionario" asp-action="RestoreVendedor" asp-route-id="@item.Id">Restaurar</a>
                                 </td>
                             </tr>
                         }

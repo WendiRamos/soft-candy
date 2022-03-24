@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-@model IEnumerable<SoftCandy.Models.Administrador>
+@model IEnumerable<SoftCandy.Models.Funcionario>
 
 @{
     ViewData["Title"] = "Pesquisar Administrador";
@@ -8,7 +8,7 @@
     <form class="form-inline" asp-controller="Busca" asp-action="BuscaAdministradorApagado">
         <div class="d-flex justify-content-between">
             <div class="d-flex">
-                <a asp-controller="Administrador" asp-action="Index" class="btn btn-info mr-1">Voltar</a>
+                <a asp-controller="Funcionario" asp-action="IndexAdministrador" class="btn btn-info mr-1">Voltar</a>
             </div>
             <div class="d-flex">
                 <label for="Nome"></label>
@@ -27,16 +27,16 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.IdAdministrador)
+                                @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.NomeAdministrador)
+                                @Html.DisplayNameFor(model => model.Nome)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CelularAdministrador)
+                                @Html.DisplayNameFor(model => model.Celular)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.EmailAdministrador)
+                                @Html.DisplayNameFor(model => model.Email)
                             </th>
                             <th></th>
                         </tr>
@@ -46,19 +46,19 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IdAdministrador)
+                                    @Html.DisplayFor(modelItem => item.Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.NomeAdministrador)
+                                    @Html.DisplayFor(modelItem => item.Nome)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CelularAdministrador)
+                                    @Html.DisplayFor(modelItem => item.Celular)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.EmailAdministrador)
+                                    @Html.DisplayFor(modelItem => item.Email)
                                 </td>
                                 <td>
-                                    <a asp-controller="Administrador" asp-action="Restore" asp-route-id="@item.IdAdministrador">Restaurar</a>
+                                    <a asp-controller="Funcionario" asp-action="RestoreAdministrador" asp-route-id="@item.Id">Restaurar</a>
                                 </td>
                             </tr>
                         }
