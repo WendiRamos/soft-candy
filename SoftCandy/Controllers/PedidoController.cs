@@ -81,7 +81,7 @@ namespace SoftCandy.Controllers
         }
         public List<Produto> BuscarProdutoPorNomeTop5(string TermoProcurado)
         {
-            return _buscaService.FindByProdutoTop5(TermoProcurado);
+            return _buscaService.FindByNomeProdutoTop5(TermoProcurado);
         }
         // GET: Pedido/Create
         public IActionResult Create()

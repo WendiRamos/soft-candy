@@ -11,17 +11,17 @@ namespace SoftCandy.Utils
     {
         public static bool Administrador(ClaimsPrincipal user)
         {
-            return user.Identity.IsAuthenticated && user.HasClaim(ClaimTypes.Actor, Atores.ADMINISTRADOR.ToString());
+            return user.Identity.IsAuthenticated && user.HasClaim(ClaimTypes.Actor, ((int) CargosEnum.ADMINISTRADOR).ToString());
         }
 
         public static bool Estoquista(ClaimsPrincipal user)
         {
-            return user.Identity.IsAuthenticated && user.HasClaim(ClaimTypes.Actor, Atores.ESTOQUISTA.ToString());
+            return user.Identity.IsAuthenticated && user.HasClaim(ClaimTypes.Actor, ((int) CargosEnum.ESTOQUISTA).ToString());
         }
 
         public static bool Vendedor(ClaimsPrincipal user)
         {
-            return user.Identity.IsAuthenticated && user.HasClaim(ClaimTypes.Actor, Atores.VENDEDOR.ToString());
+            return user.Identity.IsAuthenticated && user.HasClaim(ClaimTypes.Actor, ((int) CargosEnum.VENDEDOR).ToString());
         }
     }
 }
