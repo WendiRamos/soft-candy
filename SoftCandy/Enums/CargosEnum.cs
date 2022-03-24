@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SoftCandy.Enums
 {
-    public enum Atores
+    public enum CargosEnum
     {
         ADMINISTRADOR = 1,
 
