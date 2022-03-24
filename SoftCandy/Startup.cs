@@ -40,8 +40,8 @@ namespace SoftCandy
             services.AddAuthentication("Identity.Login")
                 .AddCookie("Identity.Login", config => {
                     config.Cookie.Name = "Identity.Login";
-                    config.LoginPath = "/Vendedor";
-                    config.AccessDeniedPath = "/Index";
+                    config.LoginPath = "/Funcionario";
+                    config.AccessDeniedPath = "/Login";
                     config.ExpireTimeSpan = TimeSpan.FromHours(1);
                 });
             services.AddAuthorization();
@@ -74,7 +74,7 @@ namespace SoftCandy
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=User}/{id?}");
+                    template: "{controller=Funcionario}/{action=Login}/{id?}");
             });
         }
     }
