@@ -34,7 +34,7 @@ namespace SoftCandy.Controllers
                     .Where(c => c.AtivoPedido)
                     .OrderByDescending(p => p.IdPedido)
                     .Include(c => c.Cliente)
-                    .Include(v => v.Vendedor);
+                    .Include(f => f.Funcionario);
 
                 return View(await softCandyContext.ToListAsync());
 
@@ -66,7 +66,7 @@ namespace SoftCandy.Controllers
 
                 var pedido = await _context.Pedido
                     .Include(p => p.Cliente)
-                    .Include(v => v.Vendedor)
+                    .Include(f => f.Funcionario)
                     .Include(i => i.ItensPedidos)
                     .ThenInclude(it => it.Produto)
                     .FirstOrDefaultAsync(m => m.IdPedido == id);
@@ -135,7 +135,7 @@ namespace SoftCandy.Controllers
             {
                 _context.SaveChanges();
             }
-            catch(Exception e) { }
+            catch(Exception ) { }
 
             return pedido.IdPedido;
         }
@@ -154,7 +154,7 @@ namespace SoftCandy.Controllers
 
                 var pedido = await _context.Pedido
                     .Include(p => p.Cliente)
-                    .Include(v => v.Vendedor)
+                    .Include(f => f.Funcionario)
                     .Include(i => i.ItensPedidos)
                     .ThenInclude(it => it.Produto)
                     .FirstOrDefaultAsync(m => m.IdPedido == id);

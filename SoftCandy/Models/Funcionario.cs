@@ -43,6 +43,7 @@ namespace SoftCandy.Models
         public int Cargo { get; set; }
 
         public bool Ativo { get; set; }
+        public ICollection<Pedido> Pedidos { get; set; }
 
         public Funcionario()
         {

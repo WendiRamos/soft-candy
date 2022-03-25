@@ -33,19 +33,19 @@ namespace SoftCandy.Models
         public virtual Cliente Cliente { get; set; }
 
 
-        [ForeignKey("Vendedor")]
-        public int IdVendedor { get; set; }
+        [ForeignKey("Funcionario")]
+        public int Id { get; set; }
 
-        public virtual Vendedor Vendedor { get; set; }
+        public virtual Funcionario Funcionario { get; set; }
 
         public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
 
-        public Pedido(decimal ValorTotalPedido, int IdCliente,int IdVendedor, ICollection<ItemPedido> ItensPedidos)
+        public Pedido(decimal ValorTotalPedido, int IdCliente,int id, ICollection<ItemPedido> ItensPedidos)
         {
             this.ValorTotalPedido = ValorTotalPedido;
             this.DataPedido = DateTime.Now;
             this.IdCliente = IdCliente;
-            this.IdVendedor = IdVendedor;
+            this.Id = id;
             this.ItensPedidos = ItensPedidos;
         }
 
