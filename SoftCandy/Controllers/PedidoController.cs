@@ -33,8 +33,7 @@ namespace SoftCandy.Controllers
                 var softCandyContext = _context.Pedido
                     .Where(c => c.AtivoPedido)
                     .OrderByDescending(p => p.IdPedido)
-                    .Include(c => c.Cliente)
-                    .Include(v => v.Vendedor);
+                    .Include(f => f.Funcionario);
 
                 return View(await softCandyContext.ToListAsync());
 
@@ -47,7 +46,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Pedido.Where(c => c.AtivoPedido).Include(c => c.Cliente);
+                var softCandyContext = _context.Pedido.Where(c => c.AtivoPedido);
 
                 return View(await softCandyContext.ToListAsync());
             }
@@ -65,11 +64,17 @@ namespace SoftCandy.Controllers
                 }
 
                 var pedido = await _context.Pedido
-                    .Include(p => p.Cliente)
-                    .Include(v => v.Vendedor)
+                    .Include(f => f.Funcionario)
                     .Include(i => i.ItensPedidos)
                     .ThenInclude(it => it.Produto)
                     .FirstOrDefaultAsync(m => m.IdPedido == id);
+
+                if (pedido.IdCliente != 0)
+                {
+                    var cliente = await _context.Cliente.FirstOrDefaultAsync(c => c.IdCliente == pedido.IdCliente);
+                    pedido.Cliente = cliente;
+                }
+
                 if (pedido == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -81,7 +86,7 @@ namespace SoftCandy.Controllers
         }
         public List<Produto> BuscarProdutoPorNomeTop5(string TermoProcurado)
         {
-            return _buscaService.FindByProdutoTop5(TermoProcurado);
+            return _buscaService.FindByNomeProdutoTop5(TermoProcurado);
         }
         // GET: Pedido/Create
         public IActionResult Create()
@@ -135,7 +140,10 @@ namespace SoftCandy.Controllers
             {
                 _context.SaveChanges();
             }
-            catch(Exception e) { }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e);
+            }
 
             return pedido.IdPedido;
         }
@@ -153,8 +161,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var pedido = await _context.Pedido
-                    .Include(p => p.Cliente)
-                    .Include(v => v.Vendedor)
+                    .Include(f => f.Funcionario)
                     .Include(i => i.ItensPedidos)
                     .ThenInclude(it => it.Produto)
                     .FirstOrDefaultAsync(m => m.IdPedido == id);

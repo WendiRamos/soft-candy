@@ -22,7 +22,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByCliente(Nome);
+                var result = await _buscaService.FindByNomeCliente(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -31,7 +31,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByClienteApagado(Nome);
+                var result = await _buscaService.FindByNomeClienteApagado(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -41,7 +41,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByVendedor(Nome);
+                var result = await _buscaService.FindByNomeVendedor(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -51,7 +51,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByVendedorApagado(Nome);
+                var result = await _buscaService.FindByNomeVendedorApagado(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -61,7 +61,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByEstoquista(Nome);
+                var result = await _buscaService.FindByNomeEstoquista(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -71,7 +71,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByEstoquistaApagado(Nome);
+                var result = await _buscaService.FindByNomeEstoquistaApagado(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -81,7 +81,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByAdministrador(Nome);
+                var result = await _buscaService.FindByNomeAdministrador(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -91,7 +91,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByAdministradorApagado(Nome);
+                var result = await _buscaService.FindByNomeAdministradorApagado(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -101,7 +101,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByProduto(Nome);
+                var result = await _buscaService.FindByNomeProduto(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -111,7 +111,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByProdutoApagado(Nome);
+                var result = await _buscaService.FindByNomeProdutoApagado(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -121,7 +121,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByCategoria(Nome);
+                var result = await _buscaService.FindByNomeCategoria(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -131,7 +131,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByCategoriaApagada(Nome);
+                var result = await _buscaService.FindByNomeCategoriaApagada(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -141,7 +141,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByFornecedor(Nome);
+                var result = await _buscaService.FindByNomeFornecedor(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -151,7 +151,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByFornecedorApagado(Nome);
+                var result = await _buscaService.FindByNomeFornecedorApagado(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");

@@ -1,0 +1,56 @@
+﻿@model SoftCandy.Models.Funcionario
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Detalhes Administrador</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Id): </td>
+                    <td>@Html.DisplayFor(model => model.Id)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Nome): </td>
+                    <td>@Html.DisplayFor(model => model.Nome)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Celular): </td>
+                    <td>@Html.DisplayFor(model => model.Celular)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Email): </td>
+                    <td>@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Logradouro):</td>
+                    <td>@Html.DisplayFor(model => model.Logradouro)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Numero): </td>
+                    <td>@Html.DisplayFor(model => model.Numero)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Bairro): </td>
+                    <td>@Html.DisplayFor(model => model.Bairro)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Cidade): </td>
+                    <td>@Html.DisplayFor(model => model.Cidade)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Estado): </td>
+                    <td>@Html.DisplayFor(model => model.Estado)</td>
+                </tr>
+            </table>
+            <br />
+            <div>
+                <a asp-action="Index" class="btn btn-primary mr-1">Voltar</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Editar</a>
+            </div>
+        </div>
+    </div>
+</center>

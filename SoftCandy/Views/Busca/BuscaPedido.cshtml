@@ -45,9 +45,7 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.DataPedido)
                                     </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Cliente)
-                                    </th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,7 +62,12 @@
                                             @Html.DisplayFor(modelItem => item.DataPedido)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Cliente.NomeCliente)
+                                            <a asp-action="Details" asp-route-id="@item.IdPedido" class="sem-sub">
+                                                <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.IdPedido" class="sem-sub">
+                                                <img src="~/icons/deletar.svg" class="icone-menus" title="Deletar" />
+                                            </a>
                                         </td>
                                     </tr>
                                 }

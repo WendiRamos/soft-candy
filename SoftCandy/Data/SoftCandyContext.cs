@@ -20,16 +20,12 @@ namespace SoftCandy.Data
 
         public DbSet<SoftCandy.Models.Pedido> Pedido { get; set; }
 
-        public DbSet<SoftCandy.Models.Vendedor> Vendedor { get; set; }
-
         public DbSet<SoftCandy.Models.ItemPedido> Item_Pedido { get; set; }
 
         public DbSet<SoftCandy.Models.Categoria> Categoria { get; set; }
 
         public DbSet<SoftCandy.Models.Fornecedor> Fornecedor { get; set; }
 
-        public DbSet<SoftCandy.Models.Estoquista> Estoquista { get; set; }
-
-        public DbSet<SoftCandy.Models.Administrador> Administrador { get; set; }
+        public DbSet<SoftCandy.Models.Funcionario> Funcionario { get; set; }
     }
 }
