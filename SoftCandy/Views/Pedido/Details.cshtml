@@ -18,12 +18,19 @@
                     <td>@Html.DisplayFor(model => model.DataPedido)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.Cliente): </td>
-                    <td>@Html.DisplayFor(model => model.Cliente.NomeCliente)</td>
-                </tr>
-                <tr>
                     <td>@Html.DisplayNameFor(model => model.Funcionario): </td>
                     <td>@Html.DisplayFor(model => model.Funcionario.Nome)</td>
+                </tr>
+                <tr>
+                    @if (Model.IdCliente != 0)
+                    {
+                        <td>@Html.DisplayNameFor(model => model.Cliente): </td>
+                        <td>@Html.DisplayFor(model => model.Cliente.NomeCliente)</td>
+                    }
+                    else
+                    {
+                        <td colspan="2">Venda sem cliente cadastrado</td>
+                    }
                 </tr>
             </table>
             <h4>Itens do Pedido</h4>
