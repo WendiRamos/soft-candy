@@ -26,7 +26,7 @@ namespace SoftCandy.Controllers
         {
             if (LogadoComo.Vendedor(User) || LogadoComo.Administrador(User))
             {
-                return View(await _context.Cliente.Where(c => c.AtivoCliente && c.IdCliente != 1).ToListAsync());
+                return View(await _context.Cliente.Where(c => c.AtivoCliente).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }
@@ -51,7 +51,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var cliente = await _context.Cliente
-                    .Where(c => c.AtivoCliente && c.IdCliente != 1)
+                    .Where(c => c.AtivoCliente)
                     .FirstOrDefaultAsync(m => m.IdCliente == id);
                 if (cliente == null)
                 {
@@ -103,7 +103,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var cliente = await _context.Cliente
-                    .Where(c => c.AtivoCliente && c.IdCliente != 1)
+                    .Where(c => c.AtivoCliente)
                     .FirstOrDefaultAsync(c => c.IdCliente == id);
                 if (cliente == null)
                 {
@@ -163,7 +163,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var cliente = await _context.Cliente
-                    .Where(c => c.AtivoCliente && c.IdCliente != 1)
+                    .Where(c => c.AtivoCliente)
                     .FirstOrDefaultAsync(m => m.IdCliente == id);
                 if (cliente == null)
                 {
@@ -202,7 +202,6 @@ namespace SoftCandy.Controllers
                 }
 
                 var cliente = await _context.Cliente
-                    .Where(c => c.IdCliente != 1)
                     .FirstOrDefaultAsync(m => m.IdCliente == id);
                 if (cliente == null)
                 {

@@ -38,7 +38,6 @@ namespace SoftCandy.Models
         public string EstadoCliente { get; set; }
         public bool AtivoCliente { get; set; }
 
-        public ICollection<Pedido> Pedidos { get; set; }
         
         public Cliente()
         {
@@ -56,7 +55,6 @@ namespace SoftCandy.Models
             CidadeCliente = cidadeCliente;
             EstadoCliente = estadoCliente;
             AtivoCliente = ativoCliente;
-            Pedidos = pedidos;
         }
     }
 }

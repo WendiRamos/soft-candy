@@ -186,7 +186,6 @@ namespace SoftCandy.Services
                 result = result.Where(x => x.DataPedido <= maxDate.Value);
             }
             return await result
-                .Include(x => x.Cliente)
                 .OrderByDescending(x => x.DataPedido)
                 .ToListAsync();
         }

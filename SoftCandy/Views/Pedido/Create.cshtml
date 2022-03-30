@@ -14,7 +14,9 @@
                     <div asp-validation-summary="ModelOnly" class="text-dark"></div>
                     <div class="form-group">
                         <label asp-for="IdCliente" class="control-label">Selecione o Cliente:</label>
-                        <select asp-for="IdCliente" class="form-control" asp-items="ViewBag.IdCliente"></select>
+                        <select asp-for="IdCliente" class="form-control" asp-items="ViewBag.IdCliente">
+                            <option value="0">Venda sem cadastro</option>
+                        </select>
                     </div>
                 </form>
 

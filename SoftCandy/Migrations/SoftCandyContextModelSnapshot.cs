@@ -164,8 +164,6 @@ namespace SoftCandy.Migrations
 
                     b.HasIndex("Id");
 
-                    b.HasIndex("IdCliente");
-
                     b.ToTable("Pedido");
                 });
 
@@ -217,11 +215,6 @@ namespace SoftCandy.Migrations
                     b.HasOne("SoftCandy.Models.Funcionario", "Funcionario")
                         .WithMany("Pedidos")
                         .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SoftCandy.Models.Cliente", "Cliente")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("IdCliente")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
