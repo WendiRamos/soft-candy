@@ -25,7 +25,7 @@
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.Email): </td>
-                        <td>@Html.DisplayFor(model => model.Email)</td>
+                        <td class="text-preto">@Html.DisplayFor(model => model.Email)</td>
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.Logradouro):</td>
@@ -49,10 +49,10 @@
                     </tr>
                 </table>
                 <br />
-                <form asp-action="Restore">
-                    <a asp-action="Index" class="btn btn-primary mr-1">Voltar</a>
+                <form asp-action="RestoreVendedor">
+                    <a asp-action="IndexVendedor" class="btn btn-primary mr-1">Voltar</a>
                     <input type="hidden" asp-for="Id" />
-                    <input type="submit" value="Restaurar" class="btn btn-danger" />
+                    <input type="submit" value="Restaurar" class="btn btn-danger text-preto" />
                 </form>
             </div>
         </div>

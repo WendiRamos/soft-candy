@@ -54,7 +54,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Celular)
                                 </td>
-                                <td>
+                                <td class="text-preto">
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
                                 <td>
@@ -64,7 +64,7 @@
                                     <a asp-action="DetailsAdministrador" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
                                     </a>
-                                    <a asp-action="DeleteAdministardor" asp-route-id="@item.Id" class="sem-sub">
+                                    <a asp-action="DeleteAdministrador" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Deletar" />
                                     </a>
                                 </td>

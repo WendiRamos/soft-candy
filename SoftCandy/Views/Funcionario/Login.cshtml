@@ -1,17 +1,16 @@
 ﻿@model SoftCandy.Models.Funcionario
 @{
     ViewData["Title"] = "Conecte-se";
-
+    Layout = "_LayoutInicial";
 }
 
-<center style="position: fixed; top: 58%; left: 50%; transform: translate(-50%, -50%)">
+<center>
     <p></p>
     <img src="~/images/nova_logo.png" width="550">
     <p></p>
     <div class="card border-primary mb-3" style="max-width: 20rem;">
         <div class="card-header">Entre com suas credenciais!</div>
         <div class="card-body">
-            <h4 class="card-title">Conecte-se</h4>
             <form asp-controller="Funcionario" asp-action="Login" method="post" autocomplete="off">
                 <div asp-validation-summary="ModelOnly" class="text-dark"></div>
                 <div class="form-group">
@@ -26,7 +25,7 @@
                 </div>
                 <br />
                 <div class="form-group">
-                    <input type="submit" onclick="return validarLogin()" value="Entrar" class="btn btn-success" />
+                    <input type="submit" onclick="return validarLogin()" value="Entrar" class="btn btn-primary" />
                 </div>
             </form>
         </div>

@@ -9,7 +9,7 @@
         <div class="card-header"><h4>Editar Estoquista</h4></div>
         <div class="card-body">
             <div class="row-center">
-                <form asp-action="Edit">
+                <form asp-action="EditEstoquista">
                     <div asp-validation-summary="ModelOnly" class="text-dark"></div>
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="Cargo" value="2" />
@@ -79,7 +79,7 @@
                     </div>
                     <br />
                     <div class="form-group">
-                        <a asp-action="Index" class="btn btn-primary mr-1">Voltar</a>
+                        <a asp-action="IndexEstoquista" class="btn btn-primary mr-1">Voltar</a>
                         <input type="submit" onclick="return validarFuncionario()" value="Salvar" class="btn btn-success" />
                     </div>
                 </form>
