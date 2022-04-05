@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.Email): </td>
-                    <td>@Html.DisplayFor(model => model.Email)</td>
+                    <td class="text-preto">@Html.DisplayFor(model => model.Email)</td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.Logradouro):</td>
@@ -48,8 +48,8 @@
             </table>
             <br />
             <div>
-                <a asp-action="Index" class="btn btn-primary mr-1">Voltar</a>
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Editar</a>
+                <a asp-action="IndexEstoquista" class="btn btn-primary mr-1">Voltar</a>
+                <a asp-action="EditEstoquista" asp-route-id="@Model.Id" class="btn btn-info">Editar</a>
             </div>
         </div>
     </div>
