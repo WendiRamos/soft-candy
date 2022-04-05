@@ -54,10 +54,10 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CelularCliente)
                                 </td>
-                                <td>
+                                <td class="text-preto">
                                     @Html.DisplayFor(modelItem => item.EmailCliente)
                                 </td>
-                                <td>
+                                <td class="text-preto">
                                     <a asp-controller="Cliente" asp-action="Restore" asp-route-id="@item.IdCliente">Restaurar</a>
                                 </td>
                             </tr>
