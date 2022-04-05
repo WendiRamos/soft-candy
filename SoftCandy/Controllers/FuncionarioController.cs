@@ -155,6 +155,7 @@ namespace SoftCandy.Controllers
                 if (ModelState.IsValid)
                 {
                     funcionario.Ativo = true;
+                    funcionario.Cargo = 1;
                     _context.Add(funcionario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(IndexAdministrador));
@@ -173,9 +174,10 @@ namespace SoftCandy.Controllers
                 if (ModelState.IsValid)
                 {
                     funcionario.Ativo = true;
+                    funcionario.Cargo = 2;
                     _context.Add(funcionario);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(IndexAdministrador));
+                    return RedirectToAction(nameof(IndexEstoquista));
                 }
                 return View(funcionario);
             }
@@ -191,9 +193,10 @@ namespace SoftCandy.Controllers
                 if (ModelState.IsValid)
                 {
                     funcionario.Ativo = true;
+                    funcionario.Cargo = 3;
                     _context.Add(funcionario);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(IndexAdministrador));
+                    return RedirectToAction(nameof(IndexVendedor));
                 }
                 return View(funcionario);
             }
@@ -461,7 +464,7 @@ namespace SoftCandy.Controllers
                 funcionario.Cargo = 2;
                 _context.Funcionario.Update(funcionario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(IndexAdministrador));
+                return RedirectToAction(nameof(IndexEstoquista));
             }
             return RedirectToAction("User", "Home");
         }
@@ -477,7 +480,7 @@ namespace SoftCandy.Controllers
                 funcionario.Cargo = 3;
                 _context.Funcionario.Update(funcionario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(IndexAdministrador));
+                return RedirectToAction(nameof(IndexVendedor));
             }
             return RedirectToAction("User", "Home");
         }
@@ -570,7 +573,7 @@ namespace SoftCandy.Controllers
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = true;
-                funcionario.Cargo = 1;
+                funcionario.Cargo = 2;
                 _context.Funcionario.Update(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexEstoquista));
@@ -586,7 +589,7 @@ namespace SoftCandy.Controllers
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = true;
-                funcionario.Cargo = 1;
+                funcionario.Cargo = 3;
                 _context.Funcionario.Update(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexVendedor));
@@ -597,10 +600,6 @@ namespace SoftCandy.Controllers
         //GET: Funcionario/Login
         public IActionResult Login()
         {
-            if (LogadoComo.Administrador(User))
-            {
-                return null;
-            }
             return View();
         }
         //Post: Funcionario/Login
