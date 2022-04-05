@@ -155,7 +155,7 @@ namespace SoftCandy.Controllers
                 if (ModelState.IsValid)
                 {
                     funcionario.Ativo = true;
-                    funcionario.Cargo = 1;
+                    funcionario.Cargo = (int)CargosEnum.ADMINISTRADOR;
                     _context.Add(funcionario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(IndexAdministrador));
@@ -174,7 +174,7 @@ namespace SoftCandy.Controllers
                 if (ModelState.IsValid)
                 {
                     funcionario.Ativo = true;
-                    funcionario.Cargo = 2;
+                    funcionario.Cargo = (int)CargosEnum.ESTOQUISTA;
                     _context.Add(funcionario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(IndexEstoquista));
@@ -193,7 +193,7 @@ namespace SoftCandy.Controllers
                 if (ModelState.IsValid)
                 {
                     funcionario.Ativo = true;
-                    funcionario.Cargo = 3;
+                    funcionario.Cargo = (int)CargosEnum.VENDEDOR;
                     _context.Add(funcionario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(IndexVendedor));
@@ -276,7 +276,7 @@ namespace SoftCandy.Controllers
                     try
                     {
                         funcionario.Ativo = true;
-                        funcionario.Cargo = 1;
+                        funcionario.Cargo = (int)CargosEnum.ADMINISTRADOR;
                         _context.Update(funcionario);
                         await _context.SaveChangesAsync();
                     }
@@ -314,7 +314,7 @@ namespace SoftCandy.Controllers
                     try
                     {
                         funcionario.Ativo = true;
-                        funcionario.Cargo = 2;
+                        funcionario.Cargo = (int)CargosEnum.ESTOQUISTA;
                         _context.Update(funcionario);
                         await _context.SaveChangesAsync();
                     }
@@ -352,7 +352,7 @@ namespace SoftCandy.Controllers
                     try
                     {
                         funcionario.Ativo = true;
-                        funcionario.Cargo = 3;
+                        funcionario.Cargo = (int)CargosEnum.VENDEDOR;
                         _context.Update(funcionario);
                         await _context.SaveChangesAsync();
                     }
@@ -445,7 +445,7 @@ namespace SoftCandy.Controllers
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = false;
-                funcionario.Cargo = 1;
+                funcionario.Cargo = (int)CargosEnum.ADMINISTRADOR;
                 _context.Funcionario.Update(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexAdministrador));
@@ -461,7 +461,7 @@ namespace SoftCandy.Controllers
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = false;
-                funcionario.Cargo = 2;
+                funcionario.Cargo = (int)CargosEnum.ESTOQUISTA;
                 _context.Funcionario.Update(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexEstoquista));
@@ -477,7 +477,7 @@ namespace SoftCandy.Controllers
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = false;
-                funcionario.Cargo = 3;
+                funcionario.Cargo = (int)CargosEnum.VENDEDOR;
                 _context.Funcionario.Update(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexVendedor));
@@ -557,7 +557,7 @@ namespace SoftCandy.Controllers
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = true;
-                funcionario.Cargo = 1;
+                funcionario.Cargo = (int)CargosEnum.ADMINISTRADOR;
                 _context.Funcionario.Update(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexAdministrador));
@@ -573,7 +573,7 @@ namespace SoftCandy.Controllers
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = true;
-                funcionario.Cargo = 2;
+                funcionario.Cargo = (int)CargosEnum.ESTOQUISTA;
                 _context.Funcionario.Update(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexEstoquista));
@@ -589,7 +589,7 @@ namespace SoftCandy.Controllers
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = true;
-                funcionario.Cargo = 3;
+                funcionario.Cargo = (int)CargosEnum.VENDEDOR;
                 _context.Funcionario.Update(funcionario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexVendedor));
