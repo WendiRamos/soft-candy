@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-fixed-top" style="z-index: 9">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-controller="Funcionario" asp-action="Login"><img src="~/images/nova_logo.png" width="165" /></a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/images/nova_logo.png" width="165" /></a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -148,9 +148,16 @@
     <div class="container body-content">
         <br />
         @RenderBody()
-
     </div>
 
+
+    <footer>
+        <span>
+            <a asp-controller="Home" asp-action="Footer"  class="nav-link">
+                © 2022 SoftCandy
+            </a>
+        </span>
+    </footer>
 
     <script src="~/lib/bootstrap/dist/js/jquery-3.3.1.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
