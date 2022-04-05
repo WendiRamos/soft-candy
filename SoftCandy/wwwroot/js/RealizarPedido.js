@@ -93,7 +93,7 @@ function adicionarLinhaTabelaItensPedido(item) {
     const celulaBotao = linha.insertCell();
     const botaoRemover = document.createElement("button");
     botaoRemover.innerText = "Remover";
-    botaoRemover.className = "btn btn-secondary";
+    botaoRemover.className = "btn btn-danger";
     botaoRemover.addEventListener("click", () =>
         removerProdutoDoPedido(item.idProduto)
     );
@@ -136,7 +136,7 @@ function adicionarLinhaTabelaProdutos(produto) {
                     $("<button>")
                         .append("Adicionar")
                         .click(() => adicionarProdutoAoPedido(produto.idProduto))
-                        .addClass("btn btn-secondary")
+                        .addClass("btn btn-warning")
                 )
             )
     );
