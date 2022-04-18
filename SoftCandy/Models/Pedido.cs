@@ -32,10 +32,18 @@ namespace SoftCandy.Models
 
         public virtual Cliente Cliente { get; set; }
 
+
         [ForeignKey("Funcionario")]
         public int Id { get; set; }
 
         public virtual Funcionario Funcionario { get; set; }
+
+
+        [ForeignKey("Caixa")]
+        public int IdCaixa { get; set; }
+
+        public virtual Caixa Caixa { get; set; }
+
 
         public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
 
