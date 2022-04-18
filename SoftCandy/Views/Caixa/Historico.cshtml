@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SoftCandy.Models.Caixa>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataHoraAbertura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataHoraFechamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorAbertura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorFechamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstaAberto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FuncionarioAberturaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FuncionarioFechamentoId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataHoraAbertura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataHoraFechamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorAbertura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorFechamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstaAberto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuncionarioAberturaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuncionarioFechamentoId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdCaixa">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdCaixa">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdCaixa">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
