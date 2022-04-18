@@ -21,7 +21,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
 
-                @if (LogadoComo.Vendedor(User))
+                @if (LoginAtual.IsVendedor(User))
                 {
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
@@ -59,7 +59,7 @@
 
                     </ul>
                 }
-                else if (LogadoComo.Estoquista(User))
+                else if (LoginAtual.IsEstoquista(User))
                 {
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
@@ -96,7 +96,7 @@
                         </li>
                     </ul>
                 }
-                else if (LogadoComo.Administrador(User))
+                else if (LoginAtual.IsAdministrador(User))
                 {
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item dropdown">
@@ -163,6 +163,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/jquery-3.6.0.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/sweetalert2.all.min.js"></script>
+    <script src="~/js/Chart.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
