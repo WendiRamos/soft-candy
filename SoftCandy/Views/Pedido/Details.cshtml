@@ -22,6 +22,10 @@
                     <td>@Html.DisplayFor(model => model.Funcionario.Nome)</td>
                 </tr>
                 <tr>
+                    <td>@Html.DisplayNameFor(model => model.IdCaixa): </td>
+                    <td>@Html.DisplayFor(model => model.IdCaixa)</td>
+                </tr>
+                <tr>
                     @if (Model.IdCliente != 0)
                     {
                         <td>@Html.DisplayNameFor(model => model.Cliente): </td>
