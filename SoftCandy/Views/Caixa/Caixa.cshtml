@@ -6,42 +6,41 @@
     ViewData["Title"] = "Caixa";
 }
 
-<h2>Caixa</h2>
-
-@if (ViewBag.CaixaIdAberto != 0)
-{
-    <span>Caixa aberto: @ViewBag.CaixaIdAberto</span>
-    <form asp-action="Fechamento">
-        <div class="form-group">
-            <input type="submit" value="Fechar Caixa" class="btn btn-default" />
+<center>
+    <form class="form-inline" asp-controller="Caixa" asp-action="FechamentoCaixa">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <a asp-controller="Caixa" asp-action="Historico" class="btn btn-info">Caixas</a>
+            </div>
+            <div class="d-flex">
+                <button type="submit" class=" btn btn-danger">Fechar Caixa</button>
+            </div>
         </div>
     </form>
-}
-else
-{
-    <h4>Caixa</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Caixa">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="ValorAbertura" class="control-label"></label>
-                    <input asp-for="ValorAbertura" class="form-control" />
-                    <span asp-validation-for="ValorAbertura" class="text-danger"></span>
+
+    <br />
+
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Pedidos à receber</h4></div>
+        <div class="card-body">
+            <div class="row-center">
+                <div class="col-md-4">
+                    fghjkfjhdgshdkf
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 
-}
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <br />
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <div class="card border-success mb-3">
+        <div class="card-header"><h4>Lançamentos</h4></div>
+        <div class="card-body">
+            <div class="row-center">
+                <div class="col-md-4">
+                    ysuaiosdfhsfh
+                </div>
+            </div>
+        </div>
+    </div>
+</center>

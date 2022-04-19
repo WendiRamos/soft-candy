@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
+using SoftCandy.Enums;
 using SoftCandy.Models;
 using SoftCandy.Utils;
 
@@ -23,38 +24,44 @@ namespace SoftCandy.Controllers
         // GET: Histórico
         public async Task<IActionResult> Historico()
         {
-            return View(await _context.Caixa.ToListAsync());
+            return View(await _context.Caixa
+                .Where(c => !c.EstaAberto)
+                .Include(f => f.FuncionarioAbertura)
+                .Include(f => f.FuncionarioFechamento)
+                .ToListAsync());
         }
 
 
         // GET: Caixa
         public IActionResult Caixa()
         {
-            ViewData["CaixaIdAberto"] = CaixaUtils.IdAberto(_context);
-            return View();
+            if (CaixaUtils.IsAberto(_context))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction(nameof(Abertura));
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Caixa([Bind("ValorAbertura")] Caixa caixa)
         {
-            if (ModelState.IsValid)
-            {
-                caixa.EstaAberto = true;
-                caixa.DataHoraAbertura = DateTime.Now;
-                caixa.FuncionarioAberturaId = LoginAtual.Id(User);
-                caixa.FuncionarioFechamentoId = LoginAtual.Id(User);
-                _context.Add(caixa);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Caixa));
-            }
             return View(caixa);
         }
 
         public IActionResult Abertura()
         {
-            ViewData["CaixaIdAberto"] = CaixaUtils.IdAberto(_context);
-            return View();
+            if (CaixaUtils.IsFechado(_context))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction(nameof(Caixa));
+            }
         }
 
         [HttpPost]
@@ -74,53 +81,33 @@ namespace SoftCandy.Controllers
             return View(caixa);
         }
 
-        // GET: Caixa/Edit/5
-        public async Task<IActionResult> Fechamento(int? id)
+        // GET: Caixa/Fechamento
+        public async Task<IActionResult> Fechamento()
         {
-            if (id == null)
+            if (CaixaUtils.IsAberto(_context))
             {
-                return NotFound();
+                return View();
             }
-
-            var caixa = await _context.Caixa.FindAsync(id);
-            if (caixa == null)
+            else
             {
-                return NotFound();
-            }
-            return View(caixa);
-        }
-
-       
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Fechamento(int id, [Bind("IdCaixa,DataHoraAbertura,DataHoraFechamento,ValorAbertura,ValorFechamento,EstaAberto,FuncionarioAberturaId,FuncionarioFechamentoId")] Caixa caixa)
-        {
-            if (id != caixa.IdCaixa)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(caixa);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CaixaExists(caixa.IdCaixa))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Historico));
             }
-            return View(caixa);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> FechamentoCaixa()
+        {
+            Caixa caixa = CaixaUtils.CaixaAberto(_context);
+            caixa.EstaAberto = false;
+            caixa.FuncionarioFechamentoId = LoginAtual.Id(User);
+            caixa.AtualizaValorFechamento();
+            caixa.DataHoraFechamento = DateTime.Now;
+            _context.Update(caixa);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Historico));
         }
 
         // GET: Caixa/Details/5

@@ -62,9 +62,12 @@ namespace SoftCandy.Models
         private decimal CalcularTotalPedidos()
         {
             decimal soma = 0;
-            foreach (Pedido p in Pedidos)
+            if (Pedidos != null)
             {
-                soma += p.ValorTotalPedido;
+                foreach (Pedido p in Pedidos)
+                {
+                    soma += p.ValorTotalPedido;
+                }
             }
             return soma;
         }
@@ -72,16 +75,19 @@ namespace SoftCandy.Models
         private decimal CalcularTotalOperacoes()
         {
             decimal soma = 0;
-            foreach (OperacaoCaixa o in Operacoes)
+            if (Operacoes != null)
             {
-                soma += o.Valor;
+                foreach (OperacaoCaixa o in Operacoes)
+                {
+                    soma += o.Valor;
+                }
             }
             return soma;
         }
 
         public void AtualizaValorFechamento()
         {
-            ValorFechamento = CalcularTotalOperacoes() + CalcularTotalPedidos();
+            ValorFechamento = CalcularTotalOperacoes() + CalcularTotalPedidos() + ValorAbertura;
         }
     }
 }
