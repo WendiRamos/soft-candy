@@ -9,8 +9,8 @@ using SoftCandy.Data;
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    [Migration("20220413003454_SoftCandy")]
-    partial class SoftCandy
+    [Migration("20220424161838_softcandy")]
+    partial class softcandy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -216,21 +216,21 @@ namespace SoftCandy.Migrations
 
                     b.Property<DateTime>("DataPedido");
 
-                    b.Property<int>("Id");
-
                     b.Property<int>("IdCaixa");
 
-                    b.Property<int>("IdCliente");
+                    b.Property<int?>("IdCliente");
+
+                    b.Property<int>("IdFuncionario");
 
                     b.Property<decimal>("ValorTotalPedido");
 
                     b.HasKey("IdPedido");
 
-                    b.HasIndex("Id");
-
                     b.HasIndex("IdCaixa");
 
                     b.HasIndex("IdCliente");
+
+                    b.HasIndex("IdFuncionario");
 
                     b.ToTable("Pedido");
                 });
@@ -305,11 +305,6 @@ namespace SoftCandy.Migrations
 
             modelBuilder.Entity("SoftCandy.Models.Pedido", b =>
                 {
-                    b.HasOne("SoftCandy.Models.Funcionario", "Funcionario")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("SoftCandy.Models.Caixa", "Caixa")
                         .WithMany("Pedidos")
                         .HasForeignKey("IdCaixa")
@@ -317,7 +312,11 @@ namespace SoftCandy.Migrations
 
                     b.HasOne("SoftCandy.Models.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("IdCliente")
+                        .HasForeignKey("IdCliente");
+
+                    b.HasOne("SoftCandy.Models.Funcionario", "Funcionario")
+                        .WithMany("Pedidos")
+                        .HasForeignKey("IdFuncionario")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

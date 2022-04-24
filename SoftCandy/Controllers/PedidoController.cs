@@ -111,7 +111,7 @@ namespace SoftCandy.Controllers
 
         // POST: Pedido/Create
         [HttpPost]
-        public async Task<int> Create(List<ItemPedido> Itens, int IdCliente)
+        public async Task<int> Create(List<ItemPedido> Itens, int? IdCliente)
         {
             foreach (ItemPedido item in Itens)
             {

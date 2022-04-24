@@ -28,8 +28,7 @@ namespace SoftCandy.Models
 
 
         [Display(Name = "Cliente")]
-        public int IdCliente { get; set; }
-
+        public int? IdCliente { get; set; }
         public virtual Cliente Cliente { get; set; }
 
 

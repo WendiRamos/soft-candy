@@ -26,7 +26,7 @@
                     <td>@Html.DisplayFor(model => model.IdCaixa)</td>
                 </tr>
                 <tr>
-                    @if (Model.IdCliente != 0)
+                    @if (Model.IdCliente != null)
                     {
                         <td>@Html.DisplayNameFor(model => model.Cliente): </td>
                         <td>@Html.DisplayFor(model => model.Cliente.NomeCliente)</td>

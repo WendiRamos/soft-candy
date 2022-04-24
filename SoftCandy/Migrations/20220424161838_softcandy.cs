@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SoftCandy.Migrations
 {
-    public partial class SoftCandy : Migration
+    public partial class softcandy : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -192,19 +192,13 @@ namespace SoftCandy.Migrations
                     ValorTotalPedido = table.Column<decimal>(nullable: false),
                     DataPedido = table.Column<DateTime>(nullable: false),
                     AtivoPedido = table.Column<bool>(nullable: false),
-                    IdCliente = table.Column<int>(nullable: false),
-                    Id = table.Column<int>(nullable: false),
+                    IdCliente = table.Column<int>(nullable: true),
+                    IdFuncionario = table.Column<int>(nullable: false),
                     IdCaixa = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedido", x => x.IdPedido);
-                    table.ForeignKey(
-                        name: "FK_Pedido_Funcionario_Id",
-                        column: x => x.Id,
-                        principalTable: "Funcionario",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Pedido_Caixa_IdCaixa",
                         column: x => x.IdCaixa,
@@ -216,6 +210,12 @@ namespace SoftCandy.Migrations
                         column: x => x.IdCliente,
                         principalTable: "Cliente",
                         principalColumn: "IdCliente",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Pedido_Funcionario_IdFuncionario",
+                        column: x => x.IdFuncionario,
+                        principalTable: "Funcionario",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -278,11 +278,6 @@ namespace SoftCandy.Migrations
                 column: "IdFuncionario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pedido_Id",
-                table: "Pedido",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Pedido_IdCaixa",
                 table: "Pedido",
                 column: "IdCaixa");
@@ -291,6 +286,11 @@ namespace SoftCandy.Migrations
                 name: "IX_Pedido_IdCliente",
                 table: "Pedido",
                 column: "IdCliente");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pedido_IdFuncionario",
+                table: "Pedido",
+                column: "IdFuncionario");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Produto_IdCategoria",
