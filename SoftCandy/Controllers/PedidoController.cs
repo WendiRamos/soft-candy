@@ -93,32 +93,36 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                var model = new RealizarPedido();
-                ViewData["IdCliente"] = new SelectList(_context.Cliente.Where(c => c.AtivoCliente), "IdCliente", "NomeCliente");
-                return View(model);
+                if (CaixaUtils.IsAberto(_context))
+                {
+                    var model = new RealizarPedido();
+                    ViewData["IdCliente"] = new SelectList(_context.Cliente.Where(c => c.AtivoCliente), "IdCliente", "NomeCliente");
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Abertura", "Caixa");
+                }
+
             }
-            return RedirectToAction("User", "Home");
+
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Pedido/Create
         [HttpPost]
         public async Task<int> Create(List<ItemPedido> Itens, int IdCliente)
         {
-            decimal total = 0;
-
             foreach (ItemPedido item in Itens)
             {
                 var produto = await _context.Produto.FirstOrDefaultAsync(p => p.IdProduto == item.IdProduto);
-
                 item.PrecoPago = produto.PrecoVendaProduto;
-
                 try
                 {
                     if (produto.ProblemaAoSubtrair(item.Quantidade))
                     {
                         throw new Exception();
                     }
-
                     _context.Update(produto);
                     await _context.SaveChangesAsync();
                 }
@@ -126,16 +130,28 @@ namespace SoftCandy.Controllers
                 {
                     return 0;
                 }
-
-                total += item.PrecoPago * item.Quantidade;
             }
-            int idVendedor = LoginAtual.Id(User);
-            Pedido pedido = new Pedido(total, IdCliente, idVendedor, Itens)
+            Pedido pedido = new Pedido()
             {
-                AtivoPedido = true
+                AtivoPedido = true,
+                DataPedido = DateTime.Now,
+                IdFuncionario = LoginAtual.Id(User),
+                IdCliente = IdCliente,
+                IdCaixa = CaixaUtils.IdAberto(_context),
+                ItensPedidos = Itens
             };
+            pedido.CalcularValorPedido();
             _context.Add(pedido);
+            try
+            {
 
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+
+                System.Console.WriteLine(e);
+            }
             try
             {
                 _context.SaveChanges();
