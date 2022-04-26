@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
+using SoftCandy.Enums;
 using SoftCandy.Models;
 using SoftCandy.Services;
 using SoftCandy.Utils;
@@ -54,15 +55,10 @@ namespace SoftCandy.Controllers
 
         }
         // GET: Pedido/Details
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                if (id == null)
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
-                }
-
                 var pedido = await _context.Pedido
                     .Include(f => f.Funcionario)
                     .Include(i => i.ItensPedidos)
@@ -82,6 +78,30 @@ namespace SoftCandy.Controllers
 
                 return View(pedido);
             }
+            return RedirectToAction("User", "Home");
+        }
+
+        public async Task<IActionResult> Receber(int id)
+        {
+
+            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+            {
+                var pedido = await _context.Pedido
+                    .Include(c => c.Cliente)
+                    .Include(f => f.Funcionario)
+                    .Include(i => i.ItensPedidos)
+                    .ThenInclude(it => it.Produto)
+                    .FirstOrDefaultAsync(m => m.IdPedido == id);
+
+
+                if (pedido == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+
+                return View(pedido);
+            }
+            //ViewData["FormasPagamento"] = StatusPagamento.GetNames(typeOf(StatusPagamento)).ToList();
             return RedirectToAction("User", "Home");
         }
         public List<Produto> BuscarProdutoPorNomeTop5(string TermoProcurado)
@@ -138,7 +158,8 @@ namespace SoftCandy.Controllers
                 IdFuncionario = LoginAtual.Id(User),
                 IdCliente = IdCliente,
                 IdCaixa = CaixaUtils.IdAberto(_context),
-                ItensPedidos = Itens
+                ItensPedidos = Itens,
+                Recebido = false
             };
             pedido.CalcularValorPedido();
             _context.Add(pedido);
@@ -227,6 +248,17 @@ namespace SoftCandy.Controllers
             return RedirectToAction("User", "Home");
         }
 
+        [HttpPost, ActionName("Receber")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Receber(int IdPedido, int FormaPagamento)
+        {
+            Pedido pedido = await _context.Pedido.Where(p => p.IdPedido == IdPedido).FirstAsync();
+            pedido.FormaPagamento = (FormasPagamento) FormaPagamento;
+            pedido.Recebido = true;
+            _context.Pedido.Update(pedido);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Caixa", "Caixa");
+        }
         private bool PedidoExists(int id)
         {
             return _context.Pedido.Any(e => e.IdPedido == id);

@@ -33,11 +33,15 @@ namespace SoftCandy.Controllers
 
 
         // GET: Caixa
-        public IActionResult Caixa()
+        public async Task<IActionResult> Caixa()
         {
             if (CaixaUtils.IsAberto(_context))
             {
-                return View();
+                return View( await _context.Caixa
+                .Where(c => c.EstaAberto)
+                .Include(p => p.Pedidos)
+                .ThenInclude(c => c.Cliente)
+                .FirstAsync());
             }
             else
             {
