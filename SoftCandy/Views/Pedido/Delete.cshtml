@@ -86,7 +86,7 @@
             </table>
             <br />
             <form asp-action="Delete">
-                <a asp-action="Index" class="btn btn-primary mr-1">Voltar</a>
+                <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
                 <input type="hidden" asp-for="IdPedido" />
                 <input type="submit" value="Deletar" class="btn btn-danger" />
             </form>

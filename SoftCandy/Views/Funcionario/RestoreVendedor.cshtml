@@ -50,7 +50,7 @@
                 </table>
                 <br />
                 <form asp-action="RestoreVendedor">
-                    <a asp-action="IndexVendedor" class="btn btn-primary mr-1">Voltar</a>
+                    <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
                     <input type="hidden" asp-for="Id" />
                     <input type="submit" value="Restaurar" class="btn btn-danger text-preto" />
                 </form>
