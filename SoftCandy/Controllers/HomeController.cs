@@ -12,15 +12,15 @@ namespace SoftCandy.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Funcionario");
         }
+
 
         public IActionResult Footer()
-        {
-            return View();
-        }
-
-        public IActionResult User()
         {
             return View();
         }
