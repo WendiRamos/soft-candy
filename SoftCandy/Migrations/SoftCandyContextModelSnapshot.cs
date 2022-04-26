@@ -214,11 +214,15 @@ namespace SoftCandy.Migrations
 
                     b.Property<DateTime>("DataPedido");
 
+                    b.Property<int>("FormaPagamento");
+
                     b.Property<int>("IdCaixa");
 
                     b.Property<int?>("IdCliente");
 
                     b.Property<int>("IdFuncionario");
+
+                    b.Property<bool>("Recebido");
 
                     b.Property<decimal>("ValorTotalPedido");
 

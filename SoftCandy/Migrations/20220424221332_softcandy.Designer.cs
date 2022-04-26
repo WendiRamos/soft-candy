@@ -9,7 +9,7 @@ using SoftCandy.Data;
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    [Migration("20220424161838_softcandy")]
+    [Migration("20220424221332_softcandy")]
     partial class softcandy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -216,11 +216,15 @@ namespace SoftCandy.Migrations
 
                     b.Property<DateTime>("DataPedido");
 
+                    b.Property<int>("FormaPagamento");
+
                     b.Property<int>("IdCaixa");
 
                     b.Property<int?>("IdCliente");
 
                     b.Property<int>("IdFuncionario");
+
+                    b.Property<bool>("Recebido");
 
                     b.Property<decimal>("ValorTotalPedido");
 

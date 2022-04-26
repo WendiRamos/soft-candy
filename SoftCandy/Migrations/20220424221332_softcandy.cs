@@ -192,9 +192,11 @@ namespace SoftCandy.Migrations
                     ValorTotalPedido = table.Column<decimal>(nullable: false),
                     DataPedido = table.Column<DateTime>(nullable: false),
                     AtivoPedido = table.Column<bool>(nullable: false),
+                    Recebido = table.Column<bool>(nullable: false),
                     IdCliente = table.Column<int>(nullable: true),
                     IdFuncionario = table.Column<int>(nullable: false),
-                    IdCaixa = table.Column<int>(nullable: false)
+                    IdCaixa = table.Column<int>(nullable: false),
+                    FormaPagamento = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
