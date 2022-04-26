@@ -101,7 +101,6 @@ namespace SoftCandy.Controllers
 
                 return View(pedido);
             }
-            //ViewData["FormasPagamento"] = StatusPagamento.GetNames(typeOf(StatusPagamento)).ToList();
             return RedirectToAction("User", "Home");
         }
         public List<Produto> BuscarProdutoPorNomeTop5(string TermoProcurado)
