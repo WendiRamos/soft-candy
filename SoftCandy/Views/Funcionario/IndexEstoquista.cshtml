@@ -38,7 +38,15 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Email)
                             </th>
-                            <th></th>
+                            <th>
+                                Visualizar
+                            </th>
+                            <th>
+                                Editar
+                            </th>
+                            <th>
+                                Apagar
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,14 +66,20 @@
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
                                 <td>
+                                    <a asp-action="DetailsEstoquista" asp-route-id="@item.Id" class="sem-sub">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                    </a>
+                                </td>
+                                <td>
                                     <a asp-action="EditEstoquista" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
                                     </a>
-                                    <a asp-action="DetailsEstoquista" asp-route-id="@item.Id" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
-                                    </a>
+
+                                </td>
+                                <td>
+
                                     <a asp-action="DeleteEstoquista" asp-route-id="@item.Id" class="sem-sub">
-                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Deletar" />
+                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
                                     </a>
                                 </td>
                             </tr>
