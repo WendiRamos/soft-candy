@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoftCandy.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,6 +26,7 @@ namespace SoftCandy.Models
         public DateTime DataPedido { get; set; }
 
         public bool AtivoPedido { get; set; }
+        public bool Recebido { get; set; }
 
 
         [Display(Name = "Cliente")]
@@ -43,6 +45,7 @@ namespace SoftCandy.Models
 
         public virtual Caixa Caixa { get; set; }
 
+        public FormasPagamento FormaPagamento {get; set;}
 
         public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
 
@@ -62,6 +65,5 @@ namespace SoftCandy.Models
             }
             ValorTotalPedido = soma;
         }
-
     }
 }
