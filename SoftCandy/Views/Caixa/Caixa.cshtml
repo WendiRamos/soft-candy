@@ -21,13 +21,71 @@
     <br />
 
     <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Pedidos à receber</h4></div>
+        <div class="card-header"><h4>Pedidos a receber</h4></div>
         <div class="card-body">
-            <div class="row-center">
-                <div class="col-md-4">
-                    fghjkfjhdgshdkf
-                </div>
-            </div>
+            @if (Model.Pedidos.Where(p => !p.Recebido).Count() == 0)
+            {
+                <span>Não há pedidos a receber</span>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Cliente
+                            </th>
+                            <th>
+                                Valor
+                            </th>
+                            <th>Visualizar</th>
+                            <th>Apagar</th>
+                            <th>Receber</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pedido in Model.Pedidos.Where(p => !p.Recebido))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => pedido.IdPedido)
+                                </td>
+                                <td>
+                                    @if (pedido.IdCliente != null)
+                                    {
+                                        @Html.DisplayFor(modelItem => pedido.Cliente.NomeCliente)
+                                    }
+                                    else
+                                    {
+                                        <span>Cliente não cadastrado</span>
+                                    }
+                                </td>
+                                <td>
+                                    R$ @Html.DisplayFor(modelItem => pedido.ValorTotalPedido)
+                                </td>
+                                <td>
+                                    <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.IdPedido" class="sem-sub">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                    </a>
+                                </td>
+                                <td>
+                                    <a asp-controller="Pedido" asp-action="Delete" asp-route-id="@pedido.IdPedido" class="sem-sub">
+                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Deletar" />
+                                    </a>
+                                </td>
+                                <td>
+                                    <a asp-controller="Pedido" asp-action="Receber" asp-route-id="@pedido.IdPedido" class="sem-sub">
+                                        <img src="~/icons/editar.svg" class="icone-menus" title="Receber" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
         </div>
     </div>
 
@@ -36,11 +94,63 @@
     <div class="card border-success mb-3">
         <div class="card-header"><h4>Lançamentos</h4></div>
         <div class="card-body">
-            <div class="row-center">
-                <div class="col-md-4">
-                    ysuaiosdfhsfh
-                </div>
-            </div>
+            @if (Model.Pedidos.Where(p => p.Recebido).Count() == 0)
+            {
+                <span>Não há pedidos e/ou operações para mostrar</span>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Cliente
+                            </th>
+                            <th>
+                                Forma de pagamento
+                            </th>
+                            <th>
+                                Valor
+                            </th>
+                            <th>Visualizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pedido in Model.Pedidos.Where(p => p.Recebido))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => pedido.IdPedido)
+                                </td>
+                                <td>
+                                    @if (pedido.IdCliente != null)
+                                    {
+                                        @Html.DisplayFor(modelItem => pedido.Cliente.NomeCliente)
+                                    }
+                                    else
+                                    {
+                                        <span>Cliente não cadastrado</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => pedido.FormaPagamento)
+                                </td>
+                                <td>
+                                    R$ @Html.DisplayFor(modelItem => pedido.ValorTotalPedido)
+                                </td>
+                                <td>
+                                    <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.IdPedido" class="sem-sub">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
         </div>
     </div>
 </center>

@@ -1,12 +1,13 @@
 ﻿@model SoftCandy.Models.Pedido
+@using SoftCandy.Enums
 
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = "Receber";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
-        <div class="card-header"><h4>Detalhes Pedido</h4></div>
+        <div class="card-header"><h4>Receber Pedido</h4></div>
         <div class="card-body">
             <table class="table">
                 <tr>
@@ -83,10 +84,22 @@
                     </tr>
                 </tfoot>
             </table>
-            <br />
-            <div>
+            <h4>Dados do Pagamento</h4>
+            <form asp-action="Receber">
+                <input type="hidden" asp-for="IdPedido" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="control-label">Selecione a forma de pagamento:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select asp-for="FormaPagamento" class="form-control" asp-items="Html.GetEnumSelectList<FormasPagamento>()"></select>
+                    </div>
+                </div>
+                <br />
                 <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-            </div>
+                <input type="submit" class="btn btn-success mr-1" value="Confirmar e Receber" />
+            </form>
+            <br />
         </div>
     </div>
 </center>
