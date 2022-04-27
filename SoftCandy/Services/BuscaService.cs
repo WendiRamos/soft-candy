@@ -189,5 +189,21 @@ namespace SoftCandy.Services
                 .OrderByDescending(x => x.DataPedido)
                 .ToListAsync();
         }
+
+        public async Task<List<Caixa>> FindByCaixa(DateTime? minDate, DateTime? maxDate)
+        {
+            var result = from obj in _context.Caixa.Where(c => !c.EstaAberto) select obj;
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.DataHoraFechamento >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.DataHoraFechamento <= maxDate.Value);
+            }
+            return await result
+                .OrderByDescending(x => x.DataHoraFechamento)
+                .ToListAsync();
+        }
     }
 }

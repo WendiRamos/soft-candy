@@ -4,6 +4,29 @@
     ViewData["Title"] = "Histórico";
 }
 
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaCaixa">
+    <div class="d-flex justify-content-between">
+        <div class="col d-flex align-items-end">
+            <a asp-action="Abertura" class="btn btn-success">Novo Caixa</a>
+        </div>
+        <div class="d-flex">
+            <div class="row align-middle">
+                <div class="col">
+                    <label for="minDate" class="control-label text-preto">Data inicial</label>
+                    <input type="date" name="minDate" class="form-control" />
+                </div>
+                <div class="col">
+                    <label for="maxDate" class="control-label text-preto">Data final</label>
+                    <input type="date" name="maxDate" class="form-control" />
+                </div>
+                <div class="col d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
 <center>
     <div class="card border-primary mb-3">
         <div class="card-header"><h4>Histórico de Caixas</h4></div>
