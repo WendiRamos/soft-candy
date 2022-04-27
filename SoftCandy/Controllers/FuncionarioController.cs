@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace SoftCandy.Controllers
         // GET: Funcionario
         public async Task<IActionResult> IndexAdministrador()
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.ADMINISTRADOR)).ToListAsync());
             }
@@ -39,7 +40,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> IndexEstoquista()
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.ESTOQUISTA)).ToListAsync());
             }
@@ -48,7 +49,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> IndexVendedor()
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.VENDEDOR)).ToListAsync());
             }
@@ -57,7 +58,7 @@ namespace SoftCandy.Controllers
         // GET: Funcionario/Details
         public async Task<IActionResult> DetailsAdministrador(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -79,7 +80,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> DetailsEstoquista(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -100,7 +101,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> DetailsVendedor(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -121,7 +122,7 @@ namespace SoftCandy.Controllers
         // GET: Funcionario/Create
         public IActionResult CreateAdministrador()
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 return View();
             }
@@ -130,7 +131,7 @@ namespace SoftCandy.Controllers
 
         public IActionResult CreateEstoquista()
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 return View();
             }
@@ -139,7 +140,7 @@ namespace SoftCandy.Controllers
 
         public IActionResult CreateVendedor()
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 return View();
             }
@@ -150,7 +151,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAdministrador([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -169,7 +170,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateEstoquista([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -188,7 +189,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateVendedor([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -205,7 +206,7 @@ namespace SoftCandy.Controllers
         // GET: Funcionario/Edit
         public async Task<IActionResult> EditAdministrador(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -224,7 +225,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> EditEstoquista(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -243,7 +244,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> EditVendedor(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -264,7 +265,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAdministrador(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id != funcionario.Id)
                 {
@@ -302,7 +303,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditEstoquista(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id != funcionario.Id)
                 {
@@ -340,7 +341,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditVendedor(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id != funcionario.Id)
                 {
@@ -376,7 +377,7 @@ namespace SoftCandy.Controllers
         // GET: Funcionario/Delete
         public async Task<IActionResult> DeleteAdministrador(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -397,7 +398,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> DeleteEstoquista(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -418,7 +419,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> DeleteVendedor(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -441,7 +442,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmedAdministrador(int id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = false;
@@ -457,7 +458,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmedEstoquista(int id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = false;
@@ -473,7 +474,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmedVendedor(int id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = false;
@@ -487,7 +488,7 @@ namespace SoftCandy.Controllers
         // GET: Funcionario/Restore
         public async Task<IActionResult> RestoreAdministrador(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -508,7 +509,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> RestoreEstoquista(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -529,7 +530,7 @@ namespace SoftCandy.Controllers
 
         public async Task<IActionResult> RestoreVendedor(int? id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -553,7 +554,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreConfirmedAdministrador(int id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = true;
@@ -569,7 +570,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreConfirmedEstoquista(int id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = true;
@@ -585,7 +586,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreConfirmedVendedor(int id)
         {
-            if (LogadoComo.Administrador(User))
+            if (LoginAtual.IsAdministrador(User))
             {
                 var funcionario = await _context.Funcionario.FindAsync(id);
                 funcionario.Ativo = true;
@@ -630,6 +631,8 @@ namespace SoftCandy.Controllers
 
                 var identity = new ClaimsIdentity(direitosdeAcesso, "Identity.Login");
                 var userPrincipal = new ClaimsPrincipal(new[] { identity });
+
+                Thread.CurrentPrincipal = userPrincipal;
 
                 await HttpContext.SignInAsync(userPrincipal,
                     new AuthenticationProperties

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoftCandy.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +11,7 @@ namespace SoftCandy.Models
     public class Pedido
     {
         [Key()]
-        [Display(Name = "Id")]
+        [Display(Name = "Id Pedido")]
         public int IdPedido { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
@@ -25,32 +26,44 @@ namespace SoftCandy.Models
         public DateTime DataPedido { get; set; }
 
         public bool AtivoPedido { get; set; }
+        public bool Recebido { get; set; }
 
 
-        
-        public int IdCliente { get; set; }
-
+        [Display(Name = "Cliente")]
+        public int? IdCliente { get; set; }
         public virtual Cliente Cliente { get; set; }
 
+
         [ForeignKey("Funcionario")]
-        public int Id { get; set; }
+        public int IdFuncionario { get; set; }
 
         public virtual Funcionario Funcionario { get; set; }
 
+
+        [ForeignKey("Caixa")]
+        public int IdCaixa { get; set; }
+
+        public virtual Caixa Caixa { get; set; }
+
+        public FormasPagamento FormaPagamento {get; set;}
+
         public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
-
-        public Pedido(decimal ValorTotalPedido, int IdCliente,int id, ICollection<ItemPedido> ItensPedidos)
-        {
-            this.ValorTotalPedido = ValorTotalPedido;
-            this.DataPedido = DateTime.Now;
-            this.IdCliente = IdCliente;
-            this.Id = id;
-            this.ItensPedidos = ItensPedidos;
-        }
-
 
         public Pedido()
         {
+        }
+
+        public void CalcularValorPedido()
+        {
+            decimal soma = 0;
+            if (ItensPedidos != null)
+            {
+                foreach (ItemPedido item in ItensPedidos)
+                {
+                    soma += item.PrecoPago * item.Quantidade;
+                }
+            }
+            ValorTotalPedido = soma;
         }
     }
 }

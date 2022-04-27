@@ -21,7 +21,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
 
-                @if (LogadoComo.Vendedor(User))
+                @if (LoginAtual.IsVendedor(User))
                 {
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
@@ -59,7 +59,7 @@
 
                     </ul>
                 }
-                else if (LogadoComo.Estoquista(User))
+                else if (LoginAtual.IsEstoquista(User))
                 {
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
@@ -96,34 +96,41 @@
                         </li>
                     </ul>
                 }
-                else if (LogadoComo.Administrador(User))
+                else if (LoginAtual.IsAdministrador(User))
                 {
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Funcionários</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Funcionario" asp-action="IndexAdministrador"><img src="~/images/administradores.png" />Administradores</a>
-                                <a class="dropdown-item" asp-controller="Funcionario" asp-action="IndexEstoquista"><img src="~/images/estoquistas.png" />Estoquistas</a>
-                                <a class="dropdown-item" asp-controller="Funcionario" asp-action="IndexVendedor"><img src="~/images/vendedores.png" />Vendedores</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Vendedor</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Cliente" asp-action="Index"><img src="~/images/clientes.png" />Clientes</a>
-                                <a class="dropdown-item" asp-controller="Pedido" asp-action="Create"><img src="~/images/pedidos.png" />Realizar Pedido</a>
-                                <a class="dropdown-item" asp-controller="Pedido" asp-action="Index"><img src="~/images/compras.png" />Meus Pedidos</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Estoquista</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Categoria" asp-action="Index"><img src="~/images/categoria.png" />Categorias</a>
-                                <a class="dropdown-item" asp-controller="Fornecedor" asp-action="Index"><img src="~/images/fornecedor.png" />Fornecedores</a>
-                                <a class="dropdown-item" asp-controller="Produto" asp-action="Index"><img src="~/images/produtos.png" />Produtos</a>
-                            </div>
-                        </li>
-                    </ul>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Funcionários</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" asp-controller="Funcionario" asp-action="IndexAdministrador"><img src="~/images/administradores.png" />Administradores</a>
+                        <a class="dropdown-item" asp-controller="Funcionario" asp-action="IndexEstoquista"><img src="~/images/estoquistas.png" />Estoquistas</a>
+                        <a class="dropdown-item" asp-controller="Funcionario" asp-action="IndexVendedor"><img src="~/images/vendedores.png" />Vendedores</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Vendedor</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" asp-controller="Cliente" asp-action="Index"><img src="~/images/clientes.png" />Clientes</a>
+                        <a class="dropdown-item" asp-controller="Pedido" asp-action="Create"><img src="~/images/pedidos.png" />Realizar Pedido</a>
+                        <a class="dropdown-item" asp-controller="Pedido" asp-action="Index"><img src="~/images/compras.png" />Meus Pedidos</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Estoquista</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" asp-controller="Categoria" asp-action="Index"><img src="~/images/categoria.png" />Categorias</a>
+                        <a class="dropdown-item" asp-controller="Fornecedor" asp-action="Index"><img src="~/images/fornecedor.png" />Fornecedores</a>
+                        <a class="dropdown-item" asp-controller="Produto" asp-action="Index"><img src="~/images/produtos.png" />Produtos</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Caixa</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" asp-controller="Caixa" asp-action="Caixa"><img src="~/images/compras.png" />Caixa</a>
+                        <a class="dropdown-item" asp-controller="Caixa" asp-action="Historico"><img src="~/images/pedidos.png" />Histórico</a>
+                    </div>
+                </li>
+            </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item">
                             <span class="nav-link">

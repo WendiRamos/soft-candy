@@ -159,7 +159,7 @@ namespace SoftCandy.Services
             var result = from obj in _context.Fornecedor.Where(c => Validacao.IsFornecedorAtivo(c)) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
-                result = result.Where(x => Texto.CaseInsensitiveContains(x.NomeFantasia, Nome));
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.RazaoSocial, Nome));
             }
             return await result.ToListAsync();
         }
@@ -169,7 +169,7 @@ namespace SoftCandy.Services
             var result = from obj in _context.Fornecedor.Where(c => Validacao.IsFornecedorInativo(c)) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
-                result = result.Where(x => Texto.CaseInsensitiveContains(x.NomeFantasia, Nome));
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.RazaoSocial, Nome));
             }
             return await result.ToListAsync();
         }
@@ -187,6 +187,22 @@ namespace SoftCandy.Services
             }
             return await result
                 .OrderByDescending(x => x.DataPedido)
+                .ToListAsync();
+        }
+
+        public async Task<List<Caixa>> FindByCaixa(DateTime? minDate, DateTime? maxDate)
+        {
+            var result = from obj in _context.Caixa.Where(c => !c.EstaAberto) select obj;
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.DataHoraFechamento >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.DataHoraFechamento <= maxDate.Value);
+            }
+            return await result
+                .OrderByDescending(x => x.DataHoraFechamento)
                 .ToListAsync();
         }
     }

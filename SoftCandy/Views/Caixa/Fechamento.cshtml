@@ -1,0 +1,66 @@
+﻿@model SoftCandy.Models.Caixa
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Caixa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdCaixa" />
+            <div class="form-group">
+                <label asp-for="DataHoraAbertura" class="control-label"></label>
+                <input asp-for="DataHoraAbertura" class="form-control" />
+                <span asp-validation-for="DataHoraAbertura" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataHoraFechamento" class="control-label"></label>
+                <input asp-for="DataHoraFechamento" class="form-control" />
+                <span asp-validation-for="DataHoraFechamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorAbertura" class="control-label"></label>
+                <input asp-for="ValorAbertura" class="form-control" />
+                <span asp-validation-for="ValorAbertura" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorFechamento" class="control-label"></label>
+                <input asp-for="ValorFechamento" class="form-control" />
+                <span asp-validation-for="ValorFechamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="EstaAberto" /> @Html.DisplayNameFor(model => model.EstaAberto)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="FuncionarioAberturaId" class="control-label"></label>
+                <input asp-for="FuncionarioAberturaId" class="form-control" />
+                <span asp-validation-for="FuncionarioAberturaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FuncionarioFechamentoId" class="control-label"></label>
+                <input asp-for="FuncionarioFechamentoId" class="form-control" />
+                <span asp-validation-for="FuncionarioFechamentoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

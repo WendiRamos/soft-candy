@@ -27,5 +27,7 @@ namespace SoftCandy.Data
         public DbSet<SoftCandy.Models.Fornecedor> Fornecedor { get; set; }
 
         public DbSet<SoftCandy.Models.Funcionario> Funcionario { get; set; }
+
+        public DbSet<SoftCandy.Models.Caixa> Caixa { get; set; }
     }
 }

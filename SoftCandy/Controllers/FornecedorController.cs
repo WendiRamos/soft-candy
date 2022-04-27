@@ -24,7 +24,7 @@ namespace SoftCandy.Controllers
         // GET: Fornecedor
         public async Task<IActionResult> Index()
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 return View(await _context.Fornecedor.Where(c => c.AtivoFornecedor).ToListAsync());
             }
@@ -43,7 +43,7 @@ namespace SoftCandy.Controllers
         // GET: Fornecedor/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -65,7 +65,7 @@ namespace SoftCandy.Controllers
         // GET: Fornecedore/Create
         public IActionResult Create()
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 return View();
             }
@@ -77,7 +77,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Cnpj,RazaoSocial,NomeFantasia,CelularFornecedor,EmailFornecedor,LogradouroFornecedor,NumeroFornecedor,BairroFornecedor,CidadeFornecedor,EstadoFornecedor")] Fornecedor fornecedor)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -94,7 +94,7 @@ namespace SoftCandy.Controllers
         // GET: Fornecedor/Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -116,7 +116,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdFornecedor,Cnpj,RazaoSocial,NomeFantasia,CelularFornecedor,EmailFornecedor,LogradouroFornecedor,NumeroFornecedor,BairroFornecedor,CidadeFornecedor,EstadoFornecedor")] Fornecedor fornecedor)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (id != fornecedor.IdFornecedor)
                 {
@@ -152,7 +152,7 @@ namespace SoftCandy.Controllers
         // GET: Fornecedor/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -176,7 +176,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 var fornecedor = await _context.Fornecedor.FindAsync(id);
                 fornecedor.AtivoFornecedor = false;
@@ -190,7 +190,7 @@ namespace SoftCandy.Controllers
         // GET: Fornecedor/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -214,7 +214,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 var fornecedor = await _context.Fornecedor.FindAsync(id);
                 fornecedor.AtivoFornecedor = true;

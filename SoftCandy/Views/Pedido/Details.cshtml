@@ -22,7 +22,11 @@
                     <td>@Html.DisplayFor(model => model.Funcionario.Nome)</td>
                 </tr>
                 <tr>
-                    @if (Model.IdCliente != 0)
+                    <td>@Html.DisplayNameFor(model => model.IdCaixa): </td>
+                    <td>@Html.DisplayFor(model => model.IdCaixa)</td>
+                </tr>
+                <tr>
+                    @if (Model.IdCliente != null)
                     {
                         <td>@Html.DisplayNameFor(model => model.Cliente): </td>
                         <td>@Html.DisplayFor(model => model.Cliente.NomeCliente)</td>
@@ -81,7 +85,7 @@
             </table>
             <br />
             <div>
-                <a asp-action="Index" class="btn btn-primary mr-1">Voltar</a>
+                <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
             </div>
         </div>
     </div>

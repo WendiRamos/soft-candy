@@ -24,7 +24,7 @@ namespace SoftCandy.Controllers
         // GET: Categoria
         public async Task<IActionResult> Index()
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {   
                 return View(await _context.Categoria.Where(c => c.AtivoCategoria).ToListAsync());
             }
@@ -42,7 +42,7 @@ namespace SoftCandy.Controllers
         // GET: Categoria/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -64,7 +64,7 @@ namespace SoftCandy.Controllers
         // GET: Categoria/Create
         public IActionResult Create()
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 return View();
             }
@@ -76,7 +76,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCategoria,NomeCategoria")] Categoria categoria)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (ModelState.IsValid)
                 {
@@ -93,7 +93,7 @@ namespace SoftCandy.Controllers
         // GET: Categoria/Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -115,7 +115,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdCategoria,NomeCategoria")] Categoria categoria)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (id != categoria.IdCategoria)
                 {
@@ -151,7 +151,7 @@ namespace SoftCandy.Controllers
         // GET: Categoria/Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -175,7 +175,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 var categoria = await _context.Categoria.FindAsync(id);
                 categoria.AtivoCategoria = false;
@@ -189,7 +189,7 @@ namespace SoftCandy.Controllers
         // GET: Categoria/Restore
         public async Task<IActionResult> Restore(int? id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (id == null)
                 {
@@ -213,7 +213,7 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestore(int id)
         {
-            if (LogadoComo.Estoquista(User) || LogadoComo.Administrador(User))
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 var categoria = await _context.Categoria.FindAsync(id);
                 categoria.AtivoCategoria = true;

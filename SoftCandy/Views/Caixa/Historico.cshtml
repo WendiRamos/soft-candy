@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SoftCandy.Models.Caixa>
+
+@{
+    ViewData["Title"] = "Histórico";
+}
+
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaCaixa">
+    <div class="d-flex justify-content-between">
+        <div class="col d-flex align-items-end">
+            <a asp-action="Abertura" class="btn btn-success">Novo Caixa</a>
+        </div>
+        <div class="d-flex">
+            <div class="row align-middle">
+                <div class="col">
+                    <label for="minDate" class="control-label text-preto">Data inicial</label>
+                    <input type="date" name="minDate" class="form-control" />
+                </div>
+                <div class="col">
+                    <label for="maxDate" class="control-label text-preto">Data final</label>
+                    <input type="date" name="maxDate" class="form-control" />
+                </div>
+                <div class="col d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<center>
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Histórico de Caixas</h4></div>
+        <div class="card-body">
+            @if (Model.Count() != 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Data e Hora(Abertura)
+                            </th>
+                            <th>
+                                Data e Hora(Fechamento)
+                            </th>
+                            <th>
+                                Valor Abertura
+                            </th>
+                            <th>
+                                Valor Fechamento
+                            </th>
+                            <th>
+                                Funcionário Abertura
+                            </th>
+                            <th>
+                                Funcionário Fechamento
+                            </th>
+                            <th>
+                                Visualizar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataHoraAbertura)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataHoraFechamento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ValorAbertura)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ValorFechamento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FuncionarioAbertura.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FuncionarioFechamento.Nome)
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.IdCaixa" class="sem-sub">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Não tem caixas para mostrar</p>
+            }
+        </div>
+    </div>
+</center>
