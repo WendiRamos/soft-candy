@@ -174,7 +174,7 @@ function enviarPedido() {
         success: (idPedido) => {
             if (idPedido) {
                 Swal.fire("Sucesso!", "Seu pedido foi realizado.", "success").then(
-                    () => (window.location.href = "/Pedido/Details/" + idPedido)
+                    () => (window.location.href = "/Caixa/Caixa/" + idPedido)
                 );
             } else {
                 Swal.fire("Ocorreu um erro!", "Tente novamente.", "error");

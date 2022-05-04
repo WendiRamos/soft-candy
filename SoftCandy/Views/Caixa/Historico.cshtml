@@ -37,6 +37,9 @@
                     <thead>
                         <tr>
                             <th>
+                                Id
+                            </th>
+                            <th>
                                 Data e Hora(Abertura)
                             </th>
                             <th>
@@ -62,31 +65,34 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataHoraAbertura)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataHoraFechamento)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ValorAbertura)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ValorFechamento)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FuncionarioAbertura.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FuncionarioFechamento.Nome)
-                                </td>
-                                <td>
-                                    <a asp-action="Details" asp-route-id="@item.IdCaixa" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdCaixa)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataHoraAbertura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataHoraFechamento)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ValorAbertura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ValorFechamento)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FuncionarioAbertura.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FuncionarioFechamento.Nome)
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.IdCaixa" class="sem-sub">
+                                    <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

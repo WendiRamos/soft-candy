@@ -28,6 +28,7 @@ namespace SoftCandy.Controllers
                 .Where(c => !c.EstaAberto)
                 .Include(f => f.FuncionarioAbertura)
                 .Include(f => f.FuncionarioFechamento)
+                .OrderByDescending(p => p.IdCaixa)
                 .ToListAsync());
         }
 
@@ -123,6 +124,8 @@ namespace SoftCandy.Controllers
             }
 
             var caixa = await _context.Caixa
+                .Include(c => c.FuncionarioAbertura)
+                .Include(c => c.FuncionarioFechamento)
                 .FirstOrDefaultAsync(m => m.IdCaixa == id);
             if (caixa == null)
             {
