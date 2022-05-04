@@ -99,7 +99,6 @@ namespace SoftCandy.Controllers
             }
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> FechamentoCaixa()

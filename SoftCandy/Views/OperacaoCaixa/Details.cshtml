@@ -1,0 +1,54 @@
+﻿@model SoftCandy.Models.OperacaoCaixa
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OperacaoCaixa</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Operacao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Operacao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataHora)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataHora)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Funcionario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Funcionario.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

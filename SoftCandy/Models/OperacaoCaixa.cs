@@ -26,12 +26,11 @@ namespace SoftCandy.Models
         [Display(Name = "Operação")]
         public string Operacao { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime DataHoraFechamento { get; set; }
+        public DateTime DataHora { get; set; }
 
         [ForeignKey("Funcionario")]
         [Display(Name = "Funcionário Operação")]
@@ -39,14 +38,18 @@ namespace SoftCandy.Models
 
         public virtual Funcionario Funcionario{ get; set; }
 
-        public OperacaoCaixa(decimal valor, int tipo, string operacao, string descricao, DateTime dataHoraFechamento, int idFuncionario)
+        public OperacaoCaixa(decimal valor, int tipo, string operacao, string descricao, DateTime dataHora, int idFuncionario)
         {
             Valor = valor;
             Tipo = tipo;
             Operacao = operacao;
             Descricao = descricao;
-            DataHoraFechamento = dataHoraFechamento;
+            DataHora = dataHora;
             IdFuncionario = idFuncionario;
+        }
+
+        public OperacaoCaixa()
+        {
         }
     }
 }
