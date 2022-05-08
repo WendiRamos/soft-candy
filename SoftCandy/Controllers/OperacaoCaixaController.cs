@@ -49,13 +49,14 @@ namespace SoftCandy.Controllers
         // POST: OperacaoCaixa/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Valor,Tipo,Operacao,Descricao")] OperacaoCaixa operacaoCaixa)
+        public async Task<IActionResult> Create([Bind("Valor,Tipo,Nome,Descricao")] OperacaoCaixa operacaoCaixa)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(operacaoCaixa);
                 operacaoCaixa.DataHora = DateTime.Now;
                 operacaoCaixa.IdFuncionario = LoginAtual.Id(User);
+                operacaoCaixa.IdCaxa = CaixaUtils.IdAberto(_context);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Caixa", "Caixa");
             }
