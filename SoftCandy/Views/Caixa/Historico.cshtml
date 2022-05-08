@@ -5,10 +5,7 @@
 }
 
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaCaixa">
-    <div class="d-flex justify-content-between">
-        <div class="col d-flex align-items-end">
-            <a asp-action="Abertura" class="btn btn-success">Novo Caixa</a>
-        </div>
+    <div class="d-flex justify-content-end">
         <div class="d-flex">
             <div class="row align-middle">
                 <div class="col">
@@ -76,10 +73,10 @@
                                 @Html.DisplayFor(modelItem => item.DataHoraFechamento)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ValorAbertura)
+                              R$ @Html.DisplayFor(modelItem => item.ValorAbertura)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ValorFechamento)
+                              R$ @Html.DisplayFor(modelItem => item.ValorFechamento)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.FuncionarioAbertura.Nome)
