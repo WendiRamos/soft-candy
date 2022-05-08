@@ -1,54 +1,56 @@
 ﻿@model SoftCandy.Models.OperacaoCaixa
-
+@using SoftCandy.Enums
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Detalhes Operação</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Valor): </td>
+                    <td> R$ @Html.DisplayFor(model => model.Valor)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Tipo): </td>
+                    @if (Model.Tipo == (int)OperacoesEnum.ENTRADA)
+                    {
+                        <td>Entrada</td>
+                    }
+                    else
+                    {
+                        <td>Saída</td>
+                    }
+                </tr>
+                <tr>
+                    <td>Nome da Operação: </td>
+                    <td>@Html.DisplayFor(model => model.Nome)</td>
+                </tr>
+                @if (Model.Descricao != null && Model.Descricao.Length != 0)
+                {
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.Descricao): </td>
 
-<h2>Details</h2>
+                        <td>@Html.DisplayFor(model => model.Descricao)</td>
+                    </tr>
+                }
+                <tr>
+                    <td>Data/Hora: </td>
+                    <td>@Html.DisplayFor(model => model.DataHora)</td>
+                </tr>
+                <tr>
+                    <td>Funcionário: </td>
+                    <td>@Html.DisplayFor(model => model.Funcionario.Nome)</td>
+                </tr>
+            </table>
+            <br />
+            <div>
+                <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+            </div>
+            <br />
+        </div>
+    </div>
+</center>
 
-<div>
-    <h4>OperacaoCaixa</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Valor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Valor)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Tipo)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Tipo)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Operacao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Operacao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataHora)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataHora)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Funcionario)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Funcionario.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
