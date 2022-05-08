@@ -17,6 +17,7 @@ namespace SoftCandy.Models
         public string NomeProduto { get; set; }
 
         [Display(Name = "Preço Venda")]
+        [Column(TypeName = "decimal(8, 2)")]
         public decimal PrecoVendaProduto { get; set; }
 
         [Display(Name = "Quantidade")]

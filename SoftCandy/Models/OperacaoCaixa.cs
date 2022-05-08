@@ -16,6 +16,7 @@ namespace SoftCandy.Models
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Valor")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
         public decimal Valor { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
@@ -23,8 +24,8 @@ namespace SoftCandy.Models
         public int Tipo { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Operação")]
-        public string Operacao { get; set; }
+        [Display(Name = "Nome")]
+        public string Nome { get; set; }
 
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
@@ -38,11 +39,16 @@ namespace SoftCandy.Models
 
         public virtual Funcionario Funcionario{ get; set; }
 
+        [ForeignKey("Caixa")]
+        [Display(Name = "Caixa")]
+        public int IdCaxa{ get; set; }
+
+        public virtual Caixa Caixa{ get; set; }
         public OperacaoCaixa(decimal valor, int tipo, string operacao, string descricao, DateTime dataHora, int idFuncionario)
         {
             Valor = valor;
             Tipo = tipo;
-            Operacao = operacao;
+            Nome = operacao;
             Descricao = descricao;
             DataHora = dataHora;
             IdFuncionario = idFuncionario;

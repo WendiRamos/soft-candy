@@ -17,11 +17,11 @@ namespace SoftCandy.Models
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Valor Total")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
         public decimal ValorTotalPedido { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Data Pedido")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.DateTime)]
         public DateTime DataPedido { get; set; }
 
