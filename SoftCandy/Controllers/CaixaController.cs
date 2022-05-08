@@ -40,6 +40,8 @@ namespace SoftCandy.Controllers
             {
                 return View( await _context.Caixa
                 .Where(c => c.EstaAberto)
+                .Include(c => c.Operacoes)
+                .ThenInclude(c => c.Funcionario)
                 .Include(p => p.Pedidos)
                 .ThenInclude(c => c.Cliente)
                 .FirstAsync());
@@ -52,7 +54,7 @@ namespace SoftCandy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Caixa([Bind("ValorAbertura")] Caixa caixa)
+        public IActionResult Caixa([Bind("ValorAbertura")] Caixa caixa)
         {
             return View(caixa);
         }
@@ -87,7 +89,7 @@ namespace SoftCandy.Controllers
         }
 
         // GET: Caixa/Fechamento
-        public async Task<IActionResult> Fechamento()
+        public IActionResult Fechamento()
         {
             if (CaixaUtils.IsAberto(_context))
             {
@@ -114,7 +116,7 @@ namespace SoftCandy.Controllers
             return RedirectToAction(nameof(Historico));
         }
 
-        // GET: Caixa/Details/5
+        // GET: Caixa/Details/
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
