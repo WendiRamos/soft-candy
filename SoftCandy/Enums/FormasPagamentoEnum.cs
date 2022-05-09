@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoftCandy.Enums
 {
-    public enum FormasPagamento
+    public enum FormasPagamentoEnum
     {
         [Display(Name = "Dinheiro")]
         DINHEIRO = 1,
