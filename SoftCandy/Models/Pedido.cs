@@ -17,11 +17,11 @@ namespace SoftCandy.Models
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Valor Total")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
         public decimal ValorTotalPedido { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Data Pedido")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.DateTime)]
         public DateTime DataPedido { get; set; }
 
@@ -45,7 +45,7 @@ namespace SoftCandy.Models
 
         public virtual Caixa Caixa { get; set; }
 
-        public FormasPagamento FormaPagamento {get; set;}
+        public FormasPagamentoEnum FormaPagamento {get; set;}
 
         public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
 
@@ -64,6 +64,26 @@ namespace SoftCandy.Models
                 }
             }
             ValorTotalPedido = soma;
+        }
+
+        public bool FormaPagamentoIsDinheiro()
+        {
+            return FormaPagamento == FormasPagamentoEnum.DINHEIRO;
+        }
+
+        public bool FormaPagamentoIsCredito()
+        {
+            return FormaPagamento == FormasPagamentoEnum.CARTAO_CREDITO;
+        }
+
+        public bool FormaPagamentoIsDebito()
+        {
+            return FormaPagamento == FormasPagamentoEnum.CARTAO_DEBITO;
+        }
+
+        public bool FormaPagamentoIsPix()
+        {
+            return FormaPagamento == FormasPagamentoEnum.PIX;
         }
     }
 }

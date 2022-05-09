@@ -1,66 +1,77 @@
 ﻿@model SoftCandy.Models.Caixa
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Fechamento";
 }
-
-<h2>Edit</h2>
-
-<h4>Caixa</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdCaixa" />
-            <div class="form-group">
-                <label asp-for="DataHoraAbertura" class="control-label"></label>
-                <input asp-for="DataHoraAbertura" class="form-control" />
-                <span asp-validation-for="DataHoraAbertura" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataHoraFechamento" class="control-label"></label>
-                <input asp-for="DataHoraFechamento" class="form-control" />
-                <span asp-validation-for="DataHoraFechamento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ValorAbertura" class="control-label"></label>
-                <input asp-for="ValorAbertura" class="form-control" />
-                <span asp-validation-for="ValorAbertura" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ValorFechamento" class="control-label"></label>
-                <input asp-for="ValorFechamento" class="form-control" />
-                <span asp-validation-for="ValorFechamento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="EstaAberto" /> @Html.DisplayNameFor(model => model.EstaAberto)
-                    </label>
+<br />
+<center>
+    <form asp-controller="Caixa" asp-action="FechamentoCaixa">
+        <div class="card border-primary mb-3" style="max-width: 40rem;">
+            <div class="card-header"><h4>Fechar Caixa</h4></div>
+            <div class="card-body">
+                <h4>Pedidos</h4>
+                <table class="table">
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorVendasDinheiro): </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorVendasDinheiro)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoDebito): </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoDebito)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoCredito): </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoCredito)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorVendasPix): </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorVendasPix)</td>
+                    </tr>
+                    <tr>
+                        <td><b>@Html.DisplayNameFor(model => model.ValorTotalVendas): </b></td>
+                        <td><b>R$ @Html.DisplayFor(model => model.ValorTotalVendas)</b></td>
+                    </tr>
+                </table>
+                <br />
+                <h4>Operações</h4>
+                <table class="table">
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorOperacoesEntrada): </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorOperacoesEntrada)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorOperacoesSaida): </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorOperacoesSaida)</td>
+                    </tr>
+                    <tr>
+                        <td><b>@Html.DisplayNameFor(model => model.ValorTotalOperacoes): </b></td>
+                        <td><b>R$ @Html.DisplayFor(model => model.ValorTotalOperacoes)</b></td>
+                    </tr>
+                </table>
+                <h4>Caixa</h4>
+                <table class="table">
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorDinheiroAbertura): </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorDinheiroAbertura)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorVendasDinheiro): </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorVendasDinheiro)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorTotalOperacoes): </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorTotalOperacoes)</td>
+                    </tr>
+                    <tr>
+                        <td><b>@Html.DisplayNameFor(model => model.ValorTotalFechamentoDinheiro): </b></td>
+                        <td><b>R$ @Html.DisplayFor(model => model.ValorTotalFechamentoDinheiro)</b></td>
+                    </tr>
+                </table>
+                <div>
+                    <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+                    <button type="submit" class="btn btn-success">Confirmar e Fechar</button>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="FuncionarioAberturaId" class="control-label"></label>
-                <input asp-for="FuncionarioAberturaId" class="form-control" />
-                <span asp-validation-for="FuncionarioAberturaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FuncionarioFechamentoId" class="control-label"></label>
-                <input asp-for="FuncionarioFechamentoId" class="form-control" />
-                <span asp-validation-for="FuncionarioFechamentoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+        </div>
+    </form>
+</center>

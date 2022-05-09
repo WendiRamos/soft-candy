@@ -1,6 +1,5 @@
 ﻿@model SoftCandy.Models.Caixa
-@using SoftCandy.Utils
-@using SoftCandy.Data
+@using SoftCandy.Enums
 
 @{
     ViewData["Title"] = "Caixa";
@@ -10,18 +9,20 @@
     <form class="form-inline" asp-controller="Caixa" asp-action="FechamentoCaixa">
         <div class="d-flex justify-content-between">
             <div class="d-flex">
-                <a asp-controller="Caixa" asp-action="Historico" class="btn btn-info">Caixas</a>
+                <a asp-controller="Caixa" asp-action="Historico" class="btn btn-info">Histórico</a>
             </div>
             <div class="d-flex">
-                <button type="submit" class=" btn btn-danger">Fechar Caixa</button>
+                <a asp-controller="Pedido" asp-action="Create" class="btn btn-warning mr-1">Realizar Pedido</a>
+                <a asp-controller="OperacaoCaixa" asp-action="Create" class="btn btn-primary mr-1">Nova Operação</a>
+                <a asp-controller="Caixa" asp-action="Fechamento" class="btn btn-danger">Fechar Caixa</a>
             </div>
         </div>
     </form>
 
     <br />
 
-    <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Pedidos a receber</h4></div>
+    <div class="card border-warning mb-3">
+        <div class="card-header"><h4>Pedidos a Receber</h4></div>
         <div class="card-body">
             @if (Model.Pedidos.Where(p => !p.Recebido).Count() == 0)
             {
@@ -41,13 +42,13 @@
                             <th>
                                 Valor
                             </th>
-                            <th>
+                            <th class="center">
                                 Visualizar
                             </th>
-                            <th>
+                            <th class="center">
                                 Apagar
                             </th>
-                            <th>
+                            <th class="center">
                                 Receber
                             </th>
                         </tr>
@@ -72,19 +73,19 @@
                                 <td>
                                     R$ @Html.DisplayFor(modelItem => pedido.ValorTotalPedido)
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.IdPedido" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                     </a>
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-controller="Pedido" asp-action="Delete" asp-route-id="@pedido.IdPedido" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
                                     </a>
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-controller="Pedido" asp-action="Receber" asp-route-id="@pedido.IdPedido" class="sem-sub">
-                                        <img src="~/icons/editar.svg" class="icone-menus" title="Receber" />
+                                        <img src="~/icons/receber.svg" class="icone-menus" title="Receber" />
                                     </a>
                                 </td>
                             </tr>
@@ -98,11 +99,11 @@
     <br />
 
     <div class="card border-success mb-3">
-        <div class="card-header"><h4>Lançamentos</h4></div>
+        <div class="card-header"><h4>Pedidos Recebidos</h4></div>
         <div class="card-body">
             @if (Model.Pedidos.Where(p => p.Recebido).Count() == 0)
             {
-                <span>Não há pedidos e/ou operações para mostrar</span>
+                <span>Não há pedidos para mostrar</span>
             }
             else
             {
@@ -114,6 +115,9 @@
                             </th>
                             <th>
                                 Cliente
+                            </th>
+                            <th>
+                                Data/Hora
                             </th>
                             <th>
                                 Forma de pagamento
@@ -142,6 +146,9 @@
                                     }
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modeItem => pedido.DataPedido)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => pedido.FormaPagamento)
                                 </td>
                                 <td>
@@ -149,6 +156,77 @@
                                 </td>
                                 <td>
                                     <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.IdPedido" class="sem-sub">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <br />
+
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Operações Realizadas</h4></div>
+        <div class="card-body">
+            @if (Model.Operacoes.Count() == 0)
+            {
+                <span>Não há operações para mostrar</span>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Valor
+                            </th>
+                            <th>
+                                Tipo
+                            </th>
+                            <th>
+                                Nome
+                            </th>
+                            <th>
+                                Funcionário
+                            </th>
+                            <th>Visualizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var operacao in Model.Operacoes)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => operacao.Id)
+                                </td>
+                                <td>
+                                   R$ @Html.DisplayFor(modeItem => operacao.Valor)
+                                </td>
+                                <td>
+                                    @if (operacao.Tipo == OperacoesEnum.ENTRADA)
+                                    {
+                                        <span>Entrada</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Saída</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => operacao.Nome)
+                                </td>
+                                <td>
+                                     @Html.DisplayFor(modelItem => operacao.Funcionario.Nome)
+                                </td>
+                                <td>
+                                    <a asp-controller="OperacaoCaixa" asp-action="Details" asp-route-id="@operacao.Id" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
                                     </a>
                                 </td>

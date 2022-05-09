@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SoftCandy.Migrations
 {
-    public partial class softcandy : Migration
+    public partial class SoftCandy : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -96,7 +96,7 @@ namespace SoftCandy.Migrations
                     IdProduto = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     NomeProduto = table.Column<string>(nullable: true),
-                    PrecoVendaProduto = table.Column<decimal>(nullable: false),
+                    PrecoVendaProduto = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
                     QuantidadeProduto = table.Column<int>(nullable: false),
                     QuantidadeMinimaProduto = table.Column<int>(nullable: false),
                     DescricaoProduto = table.Column<string>(nullable: true),
@@ -129,11 +129,19 @@ namespace SoftCandy.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DataHoraAbertura = table.Column<DateTime>(nullable: false),
                     DataHoraFechamento = table.Column<DateTime>(nullable: false),
-                    ValorAbertura = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
-                    ValorFechamento = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
                     EstaAberto = table.Column<bool>(nullable: false),
                     FuncionarioAberturaId = table.Column<int>(nullable: false),
-                    FuncionarioFechamentoId = table.Column<int>(nullable: false)
+                    FuncionarioFechamentoId = table.Column<int>(nullable: false),
+                    ValorDinheiroAbertura = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorTotalFechamentoDinheiro = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorVendasDinheiro = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorVendasCartaoDebito = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorVendasCartaoCredito = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorVendasPix = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorTotalVendas = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorOperacoesEntrada = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorOperacoesSaida = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorTotalOperacoes = table.Column<decimal>(type: "decimal(8, 2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -158,23 +166,23 @@ namespace SoftCandy.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Valor = table.Column<decimal>(nullable: false),
+                    Valor = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
                     Tipo = table.Column<int>(nullable: false),
-                    Operacao = table.Column<string>(nullable: false),
-                    Descricao = table.Column<string>(nullable: false),
-                    DataHoraFechamento = table.Column<DateTime>(nullable: false),
+                    Nome = table.Column<string>(nullable: false),
+                    Descricao = table.Column<string>(nullable: true),
+                    DataHora = table.Column<DateTime>(nullable: false),
                     IdFuncionario = table.Column<int>(nullable: false),
-                    CaixaIdCaixa = table.Column<int>(nullable: true)
+                    IdCaxa = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OperacaoCaixa", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OperacaoCaixa_Caixa_CaixaIdCaixa",
-                        column: x => x.CaixaIdCaixa,
+                        name: "FK_OperacaoCaixa_Caixa_IdCaxa",
+                        column: x => x.IdCaxa,
                         principalTable: "Caixa",
                         principalColumn: "IdCaixa",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OperacaoCaixa_Funcionario_IdFuncionario",
                         column: x => x.IdFuncionario,
@@ -189,7 +197,7 @@ namespace SoftCandy.Migrations
                 {
                     IdPedido = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ValorTotalPedido = table.Column<decimal>(nullable: false),
+                    ValorTotalPedido = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
                     DataPedido = table.Column<DateTime>(nullable: false),
                     AtivoPedido = table.Column<bool>(nullable: false),
                     Recebido = table.Column<bool>(nullable: false),
@@ -227,7 +235,7 @@ namespace SoftCandy.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    PrecoPago = table.Column<decimal>(nullable: false),
+                    PrecoPago = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
                     Quantidade = table.Column<int>(nullable: false),
                     IdProduto = table.Column<int>(nullable: false),
                     IdPedido = table.Column<int>(nullable: false)
@@ -270,9 +278,9 @@ namespace SoftCandy.Migrations
                 column: "IdProduto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OperacaoCaixa_CaixaIdCaixa",
+                name: "IX_OperacaoCaixa_IdCaxa",
                 table: "OperacaoCaixa",
-                column: "CaixaIdCaixa");
+                column: "IdCaxa");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OperacaoCaixa_IdFuncionario",

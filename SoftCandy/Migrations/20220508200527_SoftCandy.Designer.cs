@@ -9,8 +9,8 @@ using SoftCandy.Data;
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    [Migration("20220424221332_softcandy")]
-    partial class softcandy
+    [Migration("20220508200527_SoftCandy")]
+    partial class SoftCandy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,10 +34,34 @@ namespace SoftCandy.Migrations
 
                     b.Property<int>("FuncionarioFechamentoId");
 
-                    b.Property<decimal>("ValorAbertura")
+                    b.Property<decimal>("ValorDinheiroAbertura")
                         .HasColumnType("decimal(8, 2)");
 
-                    b.Property<decimal>("ValorFechamento")
+                    b.Property<decimal>("ValorOperacoesEntrada")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("ValorOperacoesSaida")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("ValorTotalFechamentoDinheiro")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("ValorTotalOperacoes")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("ValorTotalVendas")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("ValorVendasCartaoCredito")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("ValorVendasCartaoDebito")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("ValorVendasDinheiro")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("ValorVendasPix")
                         .HasColumnType("decimal(8, 2)");
 
                     b.HasKey("IdCaixa");
@@ -164,7 +188,8 @@ namespace SoftCandy.Migrations
 
                     b.Property<int>("IdProduto");
 
-                    b.Property<decimal>("PrecoPago");
+                    b.Property<decimal>("PrecoPago")
+                        .HasColumnType("decimal(8, 2)");
 
                     b.Property<int>("Quantidade");
 
@@ -182,25 +207,25 @@ namespace SoftCandy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CaixaIdCaixa");
+                    b.Property<DateTime>("DataHora");
 
-                    b.Property<DateTime>("DataHoraFechamento");
+                    b.Property<string>("Descricao");
 
-                    b.Property<string>("Descricao")
-                        .IsRequired();
+                    b.Property<int>("IdCaxa");
 
                     b.Property<int>("IdFuncionario");
 
-                    b.Property<string>("Operacao")
+                    b.Property<string>("Nome")
                         .IsRequired();
 
                     b.Property<int>("Tipo");
 
-                    b.Property<decimal>("Valor");
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(8, 2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CaixaIdCaixa");
+                    b.HasIndex("IdCaxa");
 
                     b.HasIndex("IdFuncionario");
 
@@ -226,7 +251,8 @@ namespace SoftCandy.Migrations
 
                     b.Property<bool>("Recebido");
 
-                    b.Property<decimal>("ValorTotalPedido");
+                    b.Property<decimal>("ValorTotalPedido")
+                        .HasColumnType("decimal(8, 2)");
 
                     b.HasKey("IdPedido");
 
@@ -254,7 +280,8 @@ namespace SoftCandy.Migrations
 
                     b.Property<string>("NomeProduto");
 
-                    b.Property<decimal>("PrecoVendaProduto");
+                    b.Property<decimal>("PrecoVendaProduto")
+                        .HasColumnType("decimal(8, 2)");
 
                     b.Property<int>("QuantidadeMinimaProduto");
 
@@ -297,9 +324,10 @@ namespace SoftCandy.Migrations
 
             modelBuilder.Entity("SoftCandy.Models.OperacaoCaixa", b =>
                 {
-                    b.HasOne("SoftCandy.Models.Caixa")
+                    b.HasOne("SoftCandy.Models.Caixa", "Caixa")
                         .WithMany("Operacoes")
-                        .HasForeignKey("CaixaIdCaixa");
+                        .HasForeignKey("IdCaxa")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SoftCandy.Models.Funcionario", "Funcionario")
                         .WithMany()

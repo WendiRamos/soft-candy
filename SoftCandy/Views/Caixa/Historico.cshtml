@@ -5,10 +5,7 @@
 }
 
 <form class="form-inline" asp-controller="Busca" asp-action="BuscaCaixa">
-    <div class="d-flex justify-content-between">
-        <div class="col d-flex align-items-end">
-            <a asp-action="Abertura" class="btn btn-success">Novo Caixa</a>
-        </div>
+    <div class="d-flex justify-content-end">
         <div class="d-flex">
             <div class="row align-middle">
                 <div class="col">
@@ -29,7 +26,7 @@
 <br />
 <center>
     <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Histórico de Caixas</h4></div>
+        <div class="card-header"><h4>Histórico de Caixas Fechados</h4></div>
         <div class="card-body">
             @if (Model.Count() != 0)
             {
@@ -37,22 +34,25 @@
                     <thead>
                         <tr>
                             <th>
-                                Data e Hora(Abertura)
+                                Id
                             </th>
                             <th>
-                                Data e Hora(Fechamento)
+                                Data/Hora<br />Abertura
                             </th>
                             <th>
-                                Valor Abertura
+                                Data/Hora<br />Fechamento
                             </th>
                             <th>
-                                Valor Fechamento
+                                Valor<br />Abertura
                             </th>
                             <th>
-                                Funcionário Abertura
+                                Valor<br />Fechamento
                             </th>
                             <th>
-                                Funcionário Fechamento
+                                Funcionário<br />Abertura
+                            </th>
+                            <th>
+                                Funcionário<br />Fechamento
                             </th>
                             <th>
                                 Visualizar
@@ -62,31 +62,34 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataHoraAbertura)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataHoraFechamento)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ValorAbertura)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ValorFechamento)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FuncionarioAbertura.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FuncionarioFechamento.Nome)
-                                </td>
-                                <td>
-                                    <a asp-action="Details" asp-route-id="@item.IdCaixa" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdCaixa)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataHoraAbertura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataHoraFechamento)
+                            </td>
+                            <td>
+                              R$ @Html.DisplayFor(modelItem => item.ValorDinheiroAbertura)
+                            </td>
+                            <td>
+                              R$ @Html.DisplayFor(modelItem => item.ValorTotalFechamentoDinheiro)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FuncionarioAbertura.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FuncionarioFechamento.Nome)
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.IdCaixa" class="sem-sub">
+                                    <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
