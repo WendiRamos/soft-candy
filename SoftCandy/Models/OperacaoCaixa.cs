@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoftCandy.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,7 +22,7 @@ namespace SoftCandy.Models
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Tipo")]
-        public int Tipo { get; set; }
+        public OperacoesEnum Tipo { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Nome")]
@@ -37,14 +38,14 @@ namespace SoftCandy.Models
         [Display(Name = "Funcionário Operação")]
         public int IdFuncionario { get; set; }
 
-        public virtual Funcionario Funcionario{ get; set; }
+        public virtual Funcionario Funcionario { get; set; }
 
         [ForeignKey("Caixa")]
         [Display(Name = "Caixa")]
-        public int IdCaxa{ get; set; }
+        public int IdCaxa { get; set; }
 
-        public virtual Caixa Caixa{ get; set; }
-        public OperacaoCaixa(decimal valor, int tipo, string operacao, string descricao, DateTime dataHora, int idFuncionario)
+        public virtual Caixa Caixa { get; set; }
+        public OperacaoCaixa(decimal valor, OperacoesEnum tipo, string operacao, string descricao, DateTime dataHora, int idFuncionario)
         {
             Valor = valor;
             Tipo = tipo;
@@ -53,9 +54,18 @@ namespace SoftCandy.Models
             DataHora = dataHora;
             IdFuncionario = idFuncionario;
         }
-
         public OperacaoCaixa()
         {
+        }
+
+        public bool TipoIsEntrada()
+        {
+            return Tipo == OperacoesEnum.ENTRADA;
+        }
+
+        public bool TipoIsSaida()
+        {
+            return Tipo == OperacoesEnum.SAIDA;
         }
     }
 }
