@@ -1,0 +1,19 @@
+﻿.cupom-fiscal {
+    width: 300px;
+    max-width: 300px;
+    background-color: #ffff66;
+    padding: 5px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    background: transparent;
+    width: 100%;
+    border: none;
+    border-top: solid 1px #000;
+}
+
+.center{
+    text-align: center;
+}
