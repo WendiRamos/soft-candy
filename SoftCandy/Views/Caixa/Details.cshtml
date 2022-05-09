@@ -128,7 +128,7 @@
                             <th>
                                 Valor
                             </th>
-                            <th>Visualizar</th>
+                            <th class="center">Visualizar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -157,7 +157,7 @@
                                 <td>
                                     R$ @Html.DisplayFor(modelItem => pedido.ValorTotalPedido)
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.IdPedido" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
                                     </a>

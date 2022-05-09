@@ -54,7 +54,7 @@
                                     <th>
                                         Funcionário Fechamento
                                     </th>
-                                    <th>
+                                    <th class="center">
                                         Visualizar
                                     </th>
                                 </tr>
@@ -81,7 +81,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.FuncionarioFechamento.Nome)
                                     </td>
-                                    <td>
+                                    <td class="center">
                                         <a asp-action="Details" asp-route-id="@item.IdCaixa" class="sem-sub">
                                             <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                         </a>

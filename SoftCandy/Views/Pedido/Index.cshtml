@@ -50,10 +50,10 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.IdCaixa)
                             </th>
-                            <th>
+                            <th class="center">
                                 Visualizar
                             </th>
-                            <th>
+                            <th class="center">
                                 Apagar
                             </th>
                         </tr>
@@ -77,12 +77,12 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IdCaixa)
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="Details" asp-route-id="@item.IdPedido" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                     </a>
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="Delete" asp-route-id="@item.IdPedido" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
                                     </a>
