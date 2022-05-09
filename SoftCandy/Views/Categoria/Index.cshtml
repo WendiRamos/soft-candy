@@ -32,13 +32,13 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.NomeCategoria)
                             </th>
-                            <th>
+                            <th class="center">
                                 Visualizar
                             </th>
-                            <th>
+                            <th class="center">
                                 Editar
                             </th>
-                            <th>
+                            <th class="center">
                                 Apagar
                             </th>
                         </tr>
@@ -53,18 +53,18 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.NomeCategoria)
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="Details" asp-route-id="@item.IdCategoria" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                     </a>
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="Edit" asp-route-id="@item.IdCategoria" class="sem-sub">
                                         <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
                                     </a>
 
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="Delete" asp-route-id="@item.IdCategoria" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
                                     </a>

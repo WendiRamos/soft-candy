@@ -38,13 +38,13 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Email)
                             </th>
-                            <th>
+                            <th class="center">
                                 Visualizar
                             </th>
-                            <th>
+                            <th class="center">
                                 Editar
                             </th>
-                            <th>
+                            <th class="center">
                                 Apagar
                             </th>
                         </tr>
@@ -65,18 +65,18 @@
                                 <td class="text-preto">
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="DetailsAdministrador" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                     </a>
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="EditAdministrador" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
                                     </a>
 
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="DeleteAdministrador" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
                                     </a>

@@ -40,13 +40,13 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.PrecoVendaProduto)
                             </th>
-                            <th>
+                            <th class="center">
                                 Visualizar
                             </th>
-                            <th>
+                            <th class="center">
                                 Editar
                             </th>
-                            <th>
+                            <th class="center">
                                 Apagar
                             </th>
                         </tr>
@@ -70,18 +70,18 @@
                                 <td>
                                     R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="Details" asp-route-id="@item.IdProduto" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                     </a>
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="Edit" asp-route-id="@item.IdProduto" class="sem-sub">
                                         <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
                                     </a>
 
                                 </td>
-                                <td>
+                                <td class="center">
                                     <a asp-action="Delete" asp-route-id="@item.IdProduto" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
                                     </a>
