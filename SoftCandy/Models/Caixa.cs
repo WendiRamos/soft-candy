@@ -14,37 +14,76 @@ namespace SoftCandy.Models
         public int IdCaixa { get; set; }
 
         [DataType(DataType.DateTime)]
+        [Display(Name = "Data/Hora Abertura")]
         public DateTime DataHoraAbertura { get; set; }
 
         [DataType(DataType.DateTime)]
+        [Display(Name = "Data/Hora Fechamento")]
         public DateTime DataHoraFechamento { get; set; }
-
-        [Display(Name = "Valor de Abertura:")]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
-        [Column(TypeName = "decimal(8, 2)")]
-        public decimal ValorAbertura { get; set; }
-
-
-        [Display(Name = "Valor de Fechamento:")]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
-        [Column(TypeName = "decimal(8, 2)")]
-        public decimal ValorFechamento { get; set; }
 
         public bool EstaAberto { get; set; }
 
         [ForeignKey("Funcionario")]
-        [Display(Name = "Funcionário Abertura")]
         public int FuncionarioAberturaId { get; set; }
-
+        [Display(Name = "Funcionário Abertura")]
         public virtual Funcionario FuncionarioAbertura { get; set; }
 
 
         [ForeignKey("Funcionario")]
-        [Display(Name = "Funcionário Fechamento")]
         public int FuncionarioFechamentoId { get; set; }
-
+        [Display(Name = "Funcionário Fechamento")]
         public virtual Funcionario FuncionarioFechamento { get; set; }
 
+
+        [Display(Name = "Valor de Abertura")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorDinheiroAbertura { get; set; }
+
+        [Display(Name = "Valor Total do Fechamento em Dinheiro")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorTotalFechamentoDinheiro { get; set; }
+
+        [Display(Name = "Vendas em Dinheiro")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorVendasDinheiro { get; set; }
+
+        [Display(Name = "Vendas em Cartão Débito")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorVendasCartaoDebito { get; set; }
+
+        [Display(Name = "Vendas em Cartão Crédito")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorVendasCartaoCredito { get; set; }
+
+        [Display(Name = "Vendas em Pix")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorVendasPix { get; set; }
+
+        [Display(Name = "Valor Total das Vendas")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorTotalVendas { get; set; }
+
+        [Display(Name = "Operações de Entrada")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorOperacoesEntrada { get; set; }
+
+        [Display(Name = "Operações de Saída")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorOperacoesSaida { get; set; }
+
+        [Display(Name = "Valor Total das Operaçoes")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorTotalOperacoes { get; set; }
 
         public ICollection<OperacaoCaixa> Operacoes { get; set; }
         public ICollection<Pedido> Pedidos { get; set; }
@@ -52,42 +91,91 @@ namespace SoftCandy.Models
 
         public Caixa(decimal valorAbertura)
         {
-            ValorAbertura = valorAbertura;
+            ValorDinheiroAbertura = valorAbertura;
         }
 
         public Caixa()
         {
         }
 
-        private decimal CalcularTotalPedidos()
+        private void SomarEmValorVendasDinheiro(decimal valor)
         {
-            decimal soma = 0;
-            if (Pedidos != null)
-            {
-                foreach (Pedido p in Pedidos)
-                {
-                    soma += p.ValorTotalPedido;
-                }
-            }
-            return soma;
+            ValorVendasDinheiro = valor + ValorVendasDinheiro;
         }
 
-        private decimal CalcularTotalOperacoes()
+        private void SomarEmValorVendasCartaoCredito(decimal valor)
         {
-            decimal soma = 0;
-            if (Operacoes != null)
-            {
-                foreach (OperacaoCaixa o in Operacoes)
-                {
-                    soma += o.Valor;
-                }
-            }
-            return soma;
+            ValorVendasCartaoCredito = valor + ValorVendasCartaoCredito;
         }
 
-        public void AtualizaValorFechamento()
+        private void SomarEmValorVendasCartaoDebido(decimal valor)
         {
-            ValorFechamento = CalcularTotalOperacoes() + CalcularTotalPedidos() + ValorAbertura;
+            ValorVendasCartaoDebito = valor + ValorVendasCartaoDebito;
+        }
+
+        private void SomarEmValorVendasPix(decimal valor)
+        {
+            ValorVendasPix = valor + ValorVendasPix;
+        }
+        private void AtualizarValorTotalVendas()
+        {
+            ValorTotalVendas = ValorVendasCartaoCredito + ValorVendasCartaoDebito + ValorVendasPix + ValorVendasDinheiro;
+        }
+
+        private void SomarValorOperacoesEntrada(decimal valor)
+        {
+            ValorOperacoesEntrada = valor + ValorOperacoesEntrada;
+        }
+
+        private void SomarValorOperacoesSaida(decimal valor)
+        {
+            ValorOperacoesSaida = valor + ValorOperacoesSaida;
+        }
+
+        private void AtualizarValorTotalOperacoes()
+        {
+            ValorTotalOperacoes = ValorOperacoesEntrada - ValorOperacoesSaida;
+        }
+
+        private void AtualizarValorTotalFechamentoDinheiro()
+        {
+            ValorTotalFechamentoDinheiro = ValorDinheiroAbertura + ValorVendasDinheiro + ValorTotalOperacoes;
+        }
+
+        public void SomarEmValorVendas(Pedido pedido)
+        {
+            if (pedido.FormaPagamentoIsDinheiro())
+            {
+                SomarEmValorVendasDinheiro(pedido.ValorTotalPedido);
+                AtualizarValorTotalFechamentoDinheiro();
+            }
+            else if (pedido.FormaPagamentoIsCredito())
+            {
+                SomarEmValorVendasCartaoCredito(pedido.ValorTotalPedido);
+            }
+            else if (pedido.FormaPagamentoIsDebito())
+            {
+                SomarEmValorVendasCartaoDebido(pedido.ValorTotalPedido);
+            }
+            else if (pedido.FormaPagamentoIsPix())
+            {
+                SomarEmValorVendasPix(pedido.ValorTotalPedido);
+            }
+            AtualizarValorTotalVendas();
+        }
+
+        public void SomarEmValorOperacoes(OperacaoCaixa operacao)
+        {
+            if (operacao.TipoIsEntrada())
+            {
+                SomarValorOperacoesEntrada(operacao.Valor);
+            }
+            else if (operacao.TipoIsSaida())
+            {
+                SomarValorOperacoesSaida(operacao.Valor);
+            }
+            AtualizarValorTotalOperacoes();
+            AtualizarValorTotalFechamentoDinheiro();
         }
     }
 }

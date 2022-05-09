@@ -26,7 +26,7 @@
 <br />
 <center>
     <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Histórico de Caixas</h4></div>
+        <div class="card-header"><h4>Histórico de Caixas Fechados</h4></div>
         <div class="card-body">
             @if (Model.Count() != 0)
             {
@@ -37,22 +37,22 @@
                                 Id
                             </th>
                             <th>
-                                Data e Hora(Abertura)
+                                Data/Hora<br />Abertura
                             </th>
                             <th>
-                                Data e Hora(Fechamento)
+                                Data/Hora<br />Fechamento
                             </th>
                             <th>
-                                Valor Abertura
+                                Valor<br />Abertura
                             </th>
                             <th>
-                                Valor Fechamento
+                                Valor<br />Fechamento
                             </th>
                             <th>
-                                Funcionário Abertura
+                                Funcionário<br />Abertura
                             </th>
                             <th>
-                                Funcionário Fechamento
+                                Funcionário<br />Fechamento
                             </th>
                             <th>
                                 Visualizar
@@ -73,10 +73,10 @@
                                 @Html.DisplayFor(modelItem => item.DataHoraFechamento)
                             </td>
                             <td>
-                              R$ @Html.DisplayFor(modelItem => item.ValorAbertura)
+                              R$ @Html.DisplayFor(modelItem => item.ValorDinheiroAbertura)
                             </td>
                             <td>
-                              R$ @Html.DisplayFor(modelItem => item.ValorFechamento)
+                              R$ @Html.DisplayFor(modelItem => item.ValorTotalFechamentoDinheiro)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.FuncionarioAbertura.Nome)

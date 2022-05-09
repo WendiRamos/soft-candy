@@ -1,14 +1,29 @@
 ﻿@model SoftCandy.Models.Caixa
-
+@using SoftCandy.Enums
 @{
     ViewData["Title"] = "Detalhes";
 }
 <br />
 <center>
-    <div class="card border-primary mb-3" style="max-width: 40rem;">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+        </div>
+    </div>
+    <br />
+    <div class="card border-info mb-3">
         <div class="card-header"><h4>Detalhes Caixa</h4></div>
         <div class="card-body">
+            <h4>Informações Gerais</h4>
             <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.IdCaixa): </td>
+                    <td>@Html.DisplayFor(model => model.IdCaixa)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorDinheiroAbertura): </td>
+                    <td>@Html.DisplayFor(model => model.ValorDinheiroAbertura)</td>
+                </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.DataHoraAbertura): </td>
                     <td>@Html.DisplayFor(model => model.DataHoraAbertura)</td>
@@ -16,14 +31,6 @@
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.DataHoraFechamento): </td>
                     <td>@Html.DisplayFor(model => model.DataHoraFechamento)</td>
-                </tr>
-                <tr>
-                    <td>@Html.DisplayNameFor(model => model.ValorAbertura): </td>
-                    <td>@Html.DisplayFor(model => model.ValorAbertura)</td>
-                </tr>
-                <tr>
-                    <td>@Html.DisplayNameFor(model => model.ValorFechamento): </td>
-                    <td>@Html.DisplayFor(model => model.ValorFechamento)</td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.FuncionarioAbertura): </td>
@@ -34,10 +41,201 @@
                     <td>@Html.DisplayFor(model => model.FuncionarioFechamento.Nome)</td>
                 </tr>
             </table>
-            <br />
-            <div>
-                <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-            </div>
-            <br />
+            <h4>Pedidos</h4>
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorVendasDinheiro): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorVendasDinheiro)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoDebito): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoDebito)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoCredito): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoCredito)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorVendasPix): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorVendasPix)</td>
+                </tr>
+                <tr>
+                    <td><b>@Html.DisplayNameFor(model => model.ValorTotalVendas): </b></td>
+                    <td><b>R$ @Html.DisplayFor(model => model.ValorTotalVendas)</b></td>
+                </tr>
+            </table>
+            <h4>Operações</h4>
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorOperacoesEntrada): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorOperacoesEntrada)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorOperacoesSaida): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorOperacoesSaida)</td>
+                </tr>
+                <tr>
+                    <td><b>@Html.DisplayNameFor(model => model.ValorTotalOperacoes): </b></td>
+                    <td><b>R$ @Html.DisplayFor(model => model.ValorTotalOperacoes)</b></td>
+                </tr>
+            </table>
+            <h4>Caixa</h4>
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorDinheiroAbertura): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorDinheiroAbertura)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorVendasDinheiro): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorVendasDinheiro)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorTotalOperacoes): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorTotalOperacoes)</td>
+                </tr>
+                <tr>
+                    <td><b>@Html.DisplayNameFor(model => model.ValorTotalFechamentoDinheiro): </b></td>
+                    <td><b>R$ @Html.DisplayFor(model => model.ValorTotalFechamentoDinheiro)</b></td>
+                </tr>
+            </table>
         </div>
+    </div>
+    <br />
+    <div class="card border-success mb-3">
+        <div class="card-header"><h4>Pedidos Recebidos</h4></div>
+        <div class="card-body">
+            @if (Model.Pedidos.Where(p => p.Recebido).Count() == 0)
+            {
+                <span>Não há pedidos para mostrar</span>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Cliente
+                            </th>
+                            <th>
+                                Data/Hora
+                            </th>
+                            <th>
+                                Forma de pagamento
+                            </th>
+                            <th>
+                                Valor
+                            </th>
+                            <th>Visualizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pedido in Model.Pedidos)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => pedido.IdPedido)
+                                </td>
+                                <td>
+                                    @if (pedido.IdCliente != null)
+                                    {
+                                        @Html.DisplayFor(modelItem => pedido.Cliente.NomeCliente)
+                                    }
+                                    else
+                                    {
+                                        <span>Cliente não cadastrado</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modeItem => pedido.DataPedido)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => pedido.FormaPagamento)
+                                </td>
+                                <td>
+                                    R$ @Html.DisplayFor(modelItem => pedido.ValorTotalPedido)
+                                </td>
+                                <td>
+                                    <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.IdPedido" class="sem-sub">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <br />
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Operações Realizadas</h4></div>
+        <div class="card-body">
+            @if (Model.Operacoes.Count() == 0)
+            {
+                <span>Não há operações para mostrar</span>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Valor
+                            </th>
+                            <th>
+                                Tipo
+                            </th>
+                            <th>
+                                Nome
+                            </th>
+                            <th>
+                                Funcionário
+                            </th>
+                            <th>Visualizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var operacao in Model.Operacoes)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => operacao.Id)
+                                </td>
+                                <td>
+                                    R$ @Html.DisplayFor(modeItem => operacao.Valor)
+                                </td>
+                                <td>
+                                    @if (operacao.Tipo == OperacoesEnum.ENTRADA)
+                                    {
+                                        <span>Entrada</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Saída</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => operacao.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => operacao.Funcionario.Nome)
+                                </td>
+                                <td>
+                                    <a asp-controller="OperacaoCaixa" asp-action="Details" asp-route-id="@operacao.Id" class="sem-sub">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
 </center>

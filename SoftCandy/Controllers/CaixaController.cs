@@ -73,10 +73,11 @@ namespace SoftCandy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Abertura([Bind("ValorAbertura")] Caixa caixa)
+        public async Task<IActionResult> Abertura([Bind("ValorDinheiroAbertura")] Caixa caixa)
         {
             if (ModelState.IsValid)
             {
+                caixa.ValorTotalFechamentoDinheiro = caixa.ValorDinheiroAbertura;
                 caixa.EstaAberto = true;
                 caixa.DataHoraAbertura = DateTime.Now;
                 caixa.FuncionarioAberturaId = LoginAtual.Id(User);
@@ -93,7 +94,8 @@ namespace SoftCandy.Controllers
         {
             if (CaixaUtils.IsAberto(_context))
             {
-                return View();
+                Caixa caixa = CaixaUtils.CaixaAberto(_context);
+                return View(caixa);
             }
             else
             {
@@ -108,7 +110,6 @@ namespace SoftCandy.Controllers
             Caixa caixa = CaixaUtils.CaixaAberto(_context);
             caixa.EstaAberto = false;
             caixa.FuncionarioFechamentoId = LoginAtual.Id(User);
-            caixa.AtualizaValorFechamento();
             caixa.DataHoraFechamento = DateTime.Now;
             _context.Update(caixa);
             await _context.SaveChangesAsync();
@@ -125,6 +126,8 @@ namespace SoftCandy.Controllers
             }
 
             var caixa = await _context.Caixa
+                .Include(c => c.Pedidos)
+                .Include(c => c.Operacoes)
                 .Include(c => c.FuncionarioAbertura)
                 .Include(c => c.FuncionarioFechamento)
                 .FirstOrDefaultAsync(m => m.IdCaixa == id);
