@@ -43,7 +43,14 @@ namespace SoftCandy.Controllers
         // GET: OperacaoCaixa/Create
         public IActionResult Create()
         {
-            return View();
+            if (CaixaUtils.IsAberto(_context))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Caixa", "Caixa");
+            }
         }
 
         // POST: OperacaoCaixa/Create
@@ -53,19 +60,18 @@ namespace SoftCandy.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(operacaoCaixa);
                 operacaoCaixa.DataHora = DateTime.Now;
                 operacaoCaixa.IdFuncionario = LoginAtual.Id(User);
                 operacaoCaixa.IdCaxa = CaixaUtils.IdAberto(_context);
+                _context.Add(operacaoCaixa);
+                Caixa caixaAberto = CaixaUtils.CaixaAberto(_context);
+                caixaAberto.SomarEmValorOperacoes(operacaoCaixa);
+                _context.Update(caixaAberto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Caixa", "Caixa");
             }
             return View(operacaoCaixa);
         }
 
-        private bool OperacaoCaixaExists(int id)
-        {
-            return _context.OperacaoCaixa.Any(e => e.Id == id);
-        }
     }
 }
