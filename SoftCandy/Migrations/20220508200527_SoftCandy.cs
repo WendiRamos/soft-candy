@@ -129,11 +129,19 @@ namespace SoftCandy.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DataHoraAbertura = table.Column<DateTime>(nullable: false),
                     DataHoraFechamento = table.Column<DateTime>(nullable: false),
-                    ValorAbertura = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
-                    ValorFechamento = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
                     EstaAberto = table.Column<bool>(nullable: false),
                     FuncionarioAberturaId = table.Column<int>(nullable: false),
-                    FuncionarioFechamentoId = table.Column<int>(nullable: false)
+                    FuncionarioFechamentoId = table.Column<int>(nullable: false),
+                    ValorDinheiroAbertura = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorTotalFechamentoDinheiro = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorVendasDinheiro = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorVendasCartaoDebito = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorVendasCartaoCredito = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorVendasPix = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorTotalVendas = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorOperacoesEntrada = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorOperacoesSaida = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    ValorTotalOperacoes = table.Column<decimal>(type: "decimal(8, 2)", nullable: false)
                 },
                 constraints: table =>
                 {
