@@ -45,7 +45,7 @@ namespace SoftCandy.Models
 
         public virtual Caixa Caixa { get; set; }
 
-        public FormasPagamento FormaPagamento {get; set;}
+        public FormasPagamentoEnum FormaPagamento {get; set;}
 
         public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
 
@@ -64,6 +64,26 @@ namespace SoftCandy.Models
                 }
             }
             ValorTotalPedido = soma;
+        }
+
+        public bool FormaPagamentoIsDinheiro()
+        {
+            return FormaPagamento == FormasPagamentoEnum.DINHEIRO;
+        }
+
+        public bool FormaPagamentoIsCredito()
+        {
+            return FormaPagamento == FormasPagamentoEnum.CARTAO_CREDITO;
+        }
+
+        public bool FormaPagamentoIsDebito()
+        {
+            return FormaPagamento == FormasPagamentoEnum.CARTAO_DEBITO;
+        }
+
+        public bool FormaPagamentoIsPix()
+        {
+            return FormaPagamento == FormasPagamentoEnum.PIX;
         }
     }
 }

@@ -84,8 +84,16 @@
                 </tfoot>
             </table>
             <br />
-            <div>
-                <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+            <div class="d-flex justify-content-center">
+                <div class="d-flex">
+                    <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+                </div>
+                @if (Model.Recebido)
+                {
+                    <div class="d-flex">
+                        @Html.ActionLink("Gerar Cupom", "Cupom", new { id = Model.IdPedido }, new { target = "_blank", @class = "btn btn-info" })
+                    </div>
+                }
             </div>
         </div>
     </div>
