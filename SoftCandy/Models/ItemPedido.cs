@@ -10,25 +10,23 @@ namespace SoftCandy.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Preço Pago")]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
-        [Column(TypeName = "decimal(8, 2)")]
-        public decimal PrecoPago { get; set; }
-
-        [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Quantidade")]
         public int Quantidade { get; set; }
 
-        [ForeignKey("Produto")]
+        [ForeignKey("Lote")]
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Id Produto")]
-        public int IdProduto { get; set; }
-        public virtual Produto Produto { get; set; }
+        [Display(Name = "Id Lote")]
+        public int IdLote { get; set; }
+        public virtual Lote Lote { get; set; }
 
         [ForeignKey("Pedido")]
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Id Pedido")]
         public int IdPedido { get; set; }
         public virtual Pedido Pedido { get; set; }
+
+        public ItemPedido()
+        {
+        }
     }
 }
