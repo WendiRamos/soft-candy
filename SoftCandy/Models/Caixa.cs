@@ -146,20 +146,20 @@ namespace SoftCandy.Models
         {
             if (pedido.FormaPagamentoIsDinheiro())
             {
-                SomarEmValorVendasDinheiro(pedido.ValorTotalPedido);
+                SomarEmValorVendasDinheiro(pedido.ValorTotal);
                 AtualizarValorTotalFechamentoDinheiro();
             }
             else if (pedido.FormaPagamentoIsCredito())
             {
-                SomarEmValorVendasCartaoCredito(pedido.ValorTotalPedido);
+                SomarEmValorVendasCartaoCredito(pedido.ValorTotal);
             }
             else if (pedido.FormaPagamentoIsDebito())
             {
-                SomarEmValorVendasCartaoDebido(pedido.ValorTotalPedido);
+                SomarEmValorVendasCartaoDebido(pedido.ValorTotal);
             }
             else if (pedido.FormaPagamentoIsPix())
             {
-                SomarEmValorVendasPix(pedido.ValorTotalPedido);
+                SomarEmValorVendasPix(pedido.ValorTotal);
             }
             AtualizarValorTotalVendas();
         }
