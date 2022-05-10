@@ -31,5 +31,7 @@ namespace SoftCandy.Data
         public DbSet<SoftCandy.Models.Caixa> Caixa { get; set; }
 
         public DbSet<SoftCandy.Models.OperacaoCaixa> OperacaoCaixa { get; set; }
+
+        public DbSet<SoftCandy.Models.Lote> Lote { get; set; }
     }
 }

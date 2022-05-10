@@ -1,0 +1,48 @@
+﻿@model SoftCandy.Models.Lote
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Lote</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantidadeEstoque)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.QuantidadeEstoque)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFabricacao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataFabricacao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataValidade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataValidade)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Preco)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Preco)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Produto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Produto.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
