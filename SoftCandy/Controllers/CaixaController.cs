@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -108,6 +109,11 @@ namespace SoftCandy.Controllers
         public async Task<IActionResult> FechamentoCaixa()
         {
             Caixa caixa = CaixaUtils.CaixaAberto(_context);
+            _context.Entry(caixa).Collection(c => c.Pedidos).Load();
+            if (caixa.ExistePedidoSemReceber())
+            {
+                return RedirectToAction(nameof(Error), new { message = "Existe pedido sem receber!" });
+            }
             caixa.EstaAberto = false;
             caixa.FuncionarioFechamentoId = LoginAtual.Id(User);
             caixa.DataHoraFechamento = DateTime.Now;
@@ -138,9 +144,15 @@ namespace SoftCandy.Controllers
 
             return View(caixa);
         }
-        private bool CaixaExists(int id)
+
+        public IActionResult Error(string message)
         {
-            return _context.Caixa.Any(e => e.IdCaixa == id);
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }
