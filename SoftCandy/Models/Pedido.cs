@@ -12,20 +12,20 @@ namespace SoftCandy.Models
     {
         [Key()]
         [Display(Name = "Id Pedido")]
-        public int IdPedido { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Valor Total")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         [Column(TypeName = "decimal(8, 2)")]
-        public decimal ValorTotalPedido { get; set; }
+        public decimal ValorTotal { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Data Pedido")]
+        [Display(Name = "Data/Hora Pedido")]
         [DataType(DataType.DateTime)]
-        public DateTime DataPedido { get; set; }
+        public DateTime DataHora { get; set; }
 
-        public bool AtivoPedido { get; set; }
+        public bool Ativo { get; set; }
         public bool Recebido { get; set; }
 
 
@@ -60,10 +60,10 @@ namespace SoftCandy.Models
             {
                 foreach (ItemPedido item in ItensPedidos)
                 {
-                    soma += item.PrecoPago * item.Quantidade;
+                    soma += item.Lote.Preco * item.Quantidade;
                 }
             }
-            ValorTotalPedido = soma;
+            ValorTotal = soma;
         }
 
         public bool FormaPagamentoIsDinheiro()
