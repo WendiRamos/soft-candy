@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SoftCandy.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,25 +9,23 @@ namespace SoftCandy.Models
     {
         [Key]
         [Display(Name = "Id")]
-        public int IdProduto { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Nome")]
-        public string NomeProduto { get; set; }
-
-        [Display(Name = "Preço Venda")]
-        [Column(TypeName = "decimal(8, 2)")]
-        public decimal PrecoVendaProduto { get; set; }
-
-        [Display(Name = "Quantidade")]
-        public int QuantidadeProduto { get; set; }
+        public string Nome { get; set; }
 
         [Display(Name = "Quantidade Mínima")]
-        public int QuantidadeMinimaProduto { get; set; }
+        public int QuantidadeMinima { get; set; }
 
-        [Display(Name = "Descrição")]
-        public string DescricaoProduto { get; set; }
+        [Display(Name = "Quantidade Descartada")]
+        public int QuantidadeDescartada { get; set; }
+
+        [Display(Name = "Quantidade Decremento")]
+        public int QuantidadeDecremento { get; set; }
 
         public bool AtivoProduto { get; set; }
+
+        public MedidaEnum Medida {get; set;}
 
         [ForeignKey("Categoria")]
         [Display(Name = "Categoria")]
@@ -40,38 +39,27 @@ namespace SoftCandy.Models
 
         public virtual Fornecedor Fornecedor { get; set; }
 
-        public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
+        public virtual List<Lote> Lotes { get; set; }
+
 
         public Produto()
         {
         }
 
-        public Produto(string nomeProduto, decimal precoVendaProduto, int quantidadeProduto, int quantidadeMinimaProduto, string descricaoProduto, bool ativoProduto, int idCategoria, Categoria categoria, int idFornecedor, Fornecedor fornecedor)
-        {
-            NomeProduto = nomeProduto;
-            PrecoVendaProduto = precoVendaProduto;
-            QuantidadeProduto = quantidadeProduto;
-            QuantidadeMinimaProduto = quantidadeMinimaProduto;
-            DescricaoProduto = descricaoProduto;
-            AtivoProduto = ativoProduto;
-            IdCategoria = idCategoria;
-            IdFornecedor = idFornecedor;
-
-        }
 
         public bool ProblemaAoSubtrair(int quantidadeParaSubtrair)
         {
-            if (quantidadeParaSubtrair > QuantidadeProduto)
+            if (quantidadeParaSubtrair > QuantidadeDescartada)
             {
                 return true;
             }
-            QuantidadeProduto -= quantidadeParaSubtrair;
+            QuantidadeDescartada -= quantidadeParaSubtrair;
             return false;
         }
 
         public void devolver(int quantidadeParaDevolver)
         {
-            QuantidadeProduto += quantidadeParaDevolver;
+            QuantidadeDescartada += quantidadeParaDevolver;
         }
     }
 
