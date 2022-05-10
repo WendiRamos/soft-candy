@@ -64,17 +64,15 @@ namespace SoftCandy.Controllers
                     .ThenInclude(it => it.Produto)
                     .FirstOrDefaultAsync(m => m.IdPedido == id);
 
+                if (pedido == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
                 if (pedido.IdCliente != 0)
                 {
                     var cliente = await _context.Cliente.FirstOrDefaultAsync(c => c.IdCliente == pedido.IdCliente);
                     pedido.Cliente = cliente;
                 }
-
-                if (pedido == null)
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
-                }
-
                 return View(pedido);
             }
             return RedirectToAction("User", "Home");
@@ -92,17 +90,15 @@ namespace SoftCandy.Controllers
                     .ThenInclude(it => it.Produto)
                     .FirstOrDefaultAsync(m => m.IdPedido == id);
 
+                if (pedido == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
                 if (pedido.IdCliente != 0)
                 {
                     var cliente = await _context.Cliente.FirstOrDefaultAsync(c => c.IdCliente == pedido.IdCliente);
                     pedido.Cliente = cliente;
                 }
-
-                if (pedido == null)
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
-                }
-
                 return View(pedido);
             }
             return RedirectToAction("User", "Home");
@@ -179,8 +175,6 @@ namespace SoftCandy.Controllers
             return pedido.IdPedido;
         }
 
-
-
         // GET: Pedido/Delete
         public async Task<IActionResult> Delete(int? id)
         {
@@ -241,6 +235,8 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("User", "Home");
         }
+
+        //GET:Pedido/Receber
         public async Task<IActionResult> Receber(int id)
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
@@ -255,6 +251,10 @@ namespace SoftCandy.Controllers
                 if (pedido == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+                if (pedido.Recebido)
+                {
+                    return RedirectToAction("Details", "Pedido", new { id = id });
                 }
                 return View(pedido);
             }

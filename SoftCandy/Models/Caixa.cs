@@ -177,5 +177,10 @@ namespace SoftCandy.Models
             AtualizarValorTotalOperacoes();
             AtualizarValorTotalFechamentoDinheiro();
         }
+
+        public bool ExistePedidoSemReceber()
+        {
+            return Pedidos.Any(p => p.Recebido == false);
+        }
     }
 }
