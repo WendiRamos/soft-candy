@@ -5,7 +5,7 @@ let valorTotalPedido = 0.0;
 const botaoEnviar = $("#enviar");
 const tabelaProdutos = $("#tabelaProdutos");
 const tabelaItensPedido = $("#itens-pedido");
-const campoValorTotalPedido = $("#total-pedido");
+const campoValorTotal = $("#total-pedido");
 
 /****************** VERIFICA SE O PRODUTO JÁ FOI ADICIONADO *******************/
 
@@ -41,12 +41,12 @@ function removerProdutoDoPedido(idProdRem) {
 
 /******************************************************************************/
 
-function atualizarValorTotalPedido() {
+function atualizarValorTotal() {
     valorTotalPedido = itensPedido.reduce(
         (s, i) => s + i.precoVendaProduto * i.quantidade,
         0.0
     );
-    campoValorTotalPedido.html(dinheiro(valorTotalPedido));
+    campoValorTotal.html(dinheiro(valorTotalPedido));
 }
 
 /******************************************************************************/
@@ -88,7 +88,7 @@ function adicionarLinhaTabelaItensPedido(item) {
     celulaId.className = "codigo";
     const celulaNome = linha.insertCell();
     const celulaPreco = linha.insertCell();
-    const celulaQuantidadeProduto = linha.insertCell();
+    const celulaQuantidadeDescartada = linha.insertCell();
     const celulaSubtotal = linha.insertCell();
     const celulaBotao = linha.insertCell();
     const botaoRemover = document.createElement("button");
@@ -102,7 +102,7 @@ function adicionarLinhaTabelaItensPedido(item) {
     celulaId.appendChild(id);
     celulaNome.appendChild(nome);
     celulaPreco.appendChild(preco);
-    celulaQuantidadeProduto.appendChild(qnt);
+    celulaQuantidadeDescartada.appendChild(qnt);
     celulaSubtotal.appendChild(sub);
     celulaBotao.appendChild(botaoRemover);
 }
@@ -119,7 +119,7 @@ function atualizarTabelaItensPedido() {
     tabelaItensPedido.empty();
     itensPedido.forEach(adicionarLinhaTabelaItensPedido);
     controlarBotaoDePedido();
-    atualizarValorTotalPedido();
+    atualizarValorTotal();
 }
 
 /******************************************************************************/
@@ -187,4 +187,4 @@ function enviarPedido() {
 
 procurarProdutos();
 controlarBotaoDePedido();
-atualizarValorTotalPedido();
+atualizarValorTotal();

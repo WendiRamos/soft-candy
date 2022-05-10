@@ -11,24 +11,20 @@
             <div>
                 <table class="table">
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.IdProduto): </td>
-                        <td>@Html.DisplayFor(model => model.IdProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.Id): </td>
+                        <td>@Html.DisplayFor(model => model.Id)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.NomeProduto): </td>
-                        <td>@Html.DisplayFor(model => model.NomeProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.Nome): </td>
+                        <td>@Html.DisplayFor(model => model.Nome)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.PrecoVendaProduto): </td>
-                        <td>@Html.DisplayFor(model => model.PrecoVendaProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.QuantidadeDescartada): </td>
+                        <td>@Html.DisplayFor(model => model.QuantidadeDescartada)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.QuantidadeProduto): </td>
-                        <td>@Html.DisplayFor(model => model.QuantidadeProduto)</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.DisplayNameFor(model => model.QuantidadeMinimaProduto): </td>
-                        <td>@Html.DisplayFor(model => model.QuantidadeMinimaProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.QuantidadeMinima): </td>
+                        <td>@Html.DisplayFor(model => model.QuantidadeMinima)</td>
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.Categoria): </td>
@@ -38,15 +34,11 @@
                         <td>@Html.DisplayNameFor(model => model.Fornecedor):</td>
                         <td>@Html.DisplayFor(model => model.Fornecedor.RazaoSocial)</td>
                     </tr>
-                    <tr>
-                        <td>@Html.DisplayNameFor(model => model.DescricaoProduto):</td>
-                        <td>@Html.DisplayFor(model => model.DescricaoProduto)</td>
-                    </tr>
                 </table>
                 <br />
                 <div>
                     <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                    <a asp-action="Edit" asp-route-id="@Model.IdProduto" class="btn btn-info">Editar</a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Editar</a>
                 </div>
             </div>
         </div>

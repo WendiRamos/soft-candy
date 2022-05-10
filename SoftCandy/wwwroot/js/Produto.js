@@ -1,55 +1,55 @@
-﻿function validarNomeProduto() {
+﻿function validarNome() {
     var nome = document.getElementById("nomeProduto").value;
     nome = nome.trim();
     if (nome === "" || nome.length < 3 || nome.length > 100) {
-        document.getElementById("erroNomeProduto").className = "visivel";
+        document.getElementById("erroNome").className = "visivel";
 
         return false;
     }
-    document.getElementById("erroNomeProduto").className = "invisivel";
+    document.getElementById("erroNome").className = "invisivel";
     return true;
 }
 
-function validarPrecoVendaProduto() {
+function validarPreco() {
     var preco = document.getElementById("precoVenda").value;
     preco = preco.trim();
     if (preco === "" || preco.length < 0 || preco.length > 100) {
-        document.getElementById("erroPrecoVenda").className = "visivel";
+        document.getElementById("erroPreco").className = "visivel";
 
         return false;
     }
-    document.getElementById("erroPrecoVenda").className = "invisivel";
+    document.getElementById("erroPreco").className = "invisivel";
     return true;
 }
 
-function validarQuantidadeProduto() {
+function validarQuantidadeDescartada() {
     var quantidade = document.getElementById("quantidadeProduto").value;
     quantidade = quantidade.trim();
     if (quantidade === "" || quantidade.length < 0 || quantidade.length > 100) {
-        document.getElementById("erroQuantidadeProduto").className = "visivel";
+        document.getElementById("erroQuantidadeDescartada").className = "visivel";
 
         return false;
     }
-    document.getElementById("erroQuantidadeProduto").className = "invisivel";
+    document.getElementById("erroQuantidadeDescartada").className = "invisivel";
     return true;
 }
 
-function validarQuantidadeMinimaProduto() {
+function validarQuantidadeMinima() {
     var quantidade = document.getElementById("quantidadeMinimaProduto").value;
     quantidade = quantidade.trim();
     if (quantidade === "" || quantidade.length < 0 || quantidade.length > 100) {
-        document.getElementById("erroQuantidadeMinimaProduto").className = "visivel";
+        document.getElementById("erroQuantidadeMinima").className = "visivel";
 
         return false;
     }
-    document.getElementById("erroQuantidadeMinimaProduto").className = "invisivel";
+    document.getElementById("erroQuantidadeMinima").className = "invisivel";
     return true;
 }
 
 function validarProduto() {
-    var nomeValido = validarNomeProduto();
-    var precoValido = validarPrecoVendaProduto();
-    var quantidadeValida = validarQuantidadeProduto();
-    var quantidadeMinimaValida = validarQuantidadeMinimaProduto();
+    var nomeValido = validarNome();
+    var precoValido = validarPreco();
+    var quantidadeValida = validarQuantidadeDescartada();
+    var quantidadeMinimaValida = validarQuantidadeMinima();
     return nomeValido && precoValido && quantidadeValida && quantidadeMinimaValida;
 }

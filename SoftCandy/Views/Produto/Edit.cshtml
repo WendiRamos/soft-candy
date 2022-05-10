@@ -11,29 +11,24 @@
             <div class="row-center">
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="IdProduto" />
+                    <input type="hidden" asp-for="Id" />
                     <div class="row">
                         <div class="col">
-                            <label asp-for="NomeProduto" class="control-label">Nome:</label>
-                            <input asp-for="NomeProduto" id="nomeProduto" class="form-control" />
-                            <span class="invisivel" id="erroNomeProduto">Insira um nome válido!</span>
-                        </div>
-                        <div class="col">
-                            <label asp-for="PrecoVendaProduto" class="control-label">Preço:</label>
-                            <input asp-for="PrecoVendaProduto" id="precoVenda" class="form-control" />
-                            <span class="invisivel" id="erroPrecoVenda">Insira um preço válido!</span>
+                            <label asp-for="Nome" class="control-label">Nome:</label>
+                            <input asp-for="Nome" id="nomeProduto" class="form-control" />
+                            <span class="invisivel" id="erroNome">Insira um nome válido!</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label asp-for="QuantidadeProduto" class="control-label">Quantidade:</label>
-                            <input asp-for="QuantidadeProduto" id="quantidadeProduto" class="form-control" />
-                            <span class="invisivel" id="erroQuantidadeProduto">Insira uma quantidade válida!</span>
+                            <label asp-for="QuantidadeDescartada" class="control-label">Quantidade:</label>
+                            <input asp-for="QuantidadeDescartada" id="quantidadeProduto" class="form-control" />
+                            <span class="invisivel" id="erroQuantidadeDescartada">Insira uma quantidade válida!</span>
                         </div>
                         <div class="col">
-                            <label asp-for="QuantidadeMinimaProduto" class="control-label">Quantidade Mínima:</label>
-                            <input asp-for="QuantidadeMinimaProduto" id="quantidadeMinimaProduto" class="form-control" />
-                            <span class="invisivel" id="erroQuantidadeMinimaProduto">Insira uma quantidade válida!</span>
+                            <label asp-for="QuantidadeMinima" class="control-label">Quantidade Mínima:</label>
+                            <input asp-for="QuantidadeMinima" id="quantidadeMinimaProduto" class="form-control" />
+                            <span class="invisivel" id="erroQuantidadeMinima">Insira uma quantidade válida!</span>
                         </div>
                     </div>
                     <div class="row">
@@ -44,12 +39,6 @@
                         <div class="col">
                             <label asp-for="IdFornecedor" class="control-label">Fornecedor:</label>
                             <select asp-for="IdFornecedor" class="form-control" asp-items="ViewBag.FOR"></select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label asp-for="DescricaoProduto" class="control-label">Descrição:</label>
-                            <input asp-for="DescricaoProduto" class="form-control" placeholder="Descrição opcional" />
                         </div>
                     </div>
                     <br/>

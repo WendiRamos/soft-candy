@@ -12,24 +12,20 @@
             <div>
                 <table class="table">
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.IdProduto): </td>
-                        <td>@Html.DisplayFor(model => model.IdProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.Id): </td>
+                        <td>@Html.DisplayFor(model => model.Id)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.NomeProduto): </td>
-                        <td>@Html.DisplayFor(model => model.NomeProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.Nome): </td>
+                        <td>@Html.DisplayFor(model => model.Nome)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.PrecoVendaProduto): </td>
-                        <td>@Html.DisplayFor(model => model.PrecoVendaProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.QuantidadeDescartada): </td>
+                        <td>@Html.DisplayFor(model => model.QuantidadeDescartada)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.QuantidadeProduto): </td>
-                        <td>@Html.DisplayFor(model => model.QuantidadeProduto)</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.DisplayNameFor(model => model.QuantidadeMinimaProduto): </td>
-                        <td>@Html.DisplayFor(model => model.QuantidadeMinimaProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.QuantidadeMinima): </td>
+                        <td>@Html.DisplayFor(model => model.QuantidadeMinima)</td>
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.Categoria): </td>
@@ -39,15 +35,11 @@
                         <td>@Html.DisplayNameFor(model => model.Fornecedor):</td>
                         <td>@Html.DisplayFor(model => model.Fornecedor.RazaoSocial)</td>
                     </tr>
-                    <tr>
-                        <td>@Html.DisplayNameFor(model => model.DescricaoProduto):</td>
-                        <td>@Html.DisplayFor(model => model.DescricaoProduto)</td>
-                    </tr>
                 </table>
                 <br />
                 <form asp-action="Restore">
                     <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                    <input type="hidden" asp-for="IdProduto" />
+                    <input type="hidden" asp-for="Id" />
                     <input type="submit" value="Restaurar" class="btn btn-danger" />
                 </form>
             </div>

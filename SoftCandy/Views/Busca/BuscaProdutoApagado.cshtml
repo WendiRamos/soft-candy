@@ -26,16 +26,10 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.IdProduto)
+                                @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.NomeProduto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.QuantidadeProduto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.PrecoVendaProduto)
+                                @Html.DisplayNameFor(model => model.Nome)
                             </th>
                             <th class="center">
                                 Restaurar
@@ -47,19 +41,13 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IdProduto)
+                                    @Html.DisplayFor(modelItem => item.Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.NomeProduto)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
-                                </td>
-                                <td>
-                                    R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
+                                    @Html.DisplayFor(modelItem => item.Nome)
                                 </td>
                                 <td class="text-preto center">
-                                    <a asp-controller="Produto" asp-action="Restore" asp-route-id="@item.IdProduto">Restaurar</a>
+                                    <a asp-controller="Produto" asp-action="Restore" asp-route-id="@item.Id">Restaurar</a>
                                 </td>
                             </tr>
                         }

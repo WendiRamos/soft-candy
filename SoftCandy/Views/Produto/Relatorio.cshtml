@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<SoftCandy.Models.Produto>
+@using SoftCandy.Models;
 
 @{
     ViewData["Title"] = "Relatório Produtos";
@@ -11,16 +12,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NomeProduto)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuantidadeProduto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecoVendaProduto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescricaoProduto)
+                @Html.DisplayNameFor(model => model.QuantidadeDescartada)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Categoria)
@@ -32,16 +27,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NomeProduto)
+                    @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
-                </td>
-                <td>
-                    <script>dinheiro("@item.PrecoVendaProduto")</script>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DescricaoProduto)
+                    @Html.DisplayFor(modelItem => item.QuantidadeDescartada)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Categoria.NomeCategoria)

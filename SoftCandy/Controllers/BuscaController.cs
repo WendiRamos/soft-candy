@@ -101,7 +101,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByNomeProduto(Nome);
+                var result = await _buscaService.FindByNome(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -111,7 +111,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByNomeProdutoApagado(Nome);
+                var result = await _buscaService.FindByNomeApagado(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");

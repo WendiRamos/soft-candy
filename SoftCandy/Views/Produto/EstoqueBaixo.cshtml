@@ -15,16 +15,10 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.IdProduto)
+                                @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.NomeProduto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.QuantidadeProduto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.QuantidadeMinimaProduto)
+                                @Html.DisplayNameFor(model => model.Nome)
                             </th>
                             <th>
                                 Fornecedor
@@ -36,16 +30,10 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IdProduto)
+                                    @Html.DisplayFor(modelItem => item.Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.NomeProduto)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.QuantidadeMinimaProduto)
+                                    @Html.DisplayFor(modelItem => item.Nome)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Fornecedor.NomeFantasia)

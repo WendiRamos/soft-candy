@@ -10,12 +10,12 @@
         <div class="card-body">
             <table class="table">
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.IdPedido): </td>
-                    <td>@Html.DisplayFor(model => model.IdPedido)</td>
+                    <td>@Html.DisplayNameFor(model => model.Id): </td>
+                    <td>@Html.DisplayFor(model => model.Id)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.DataPedido): </td>
-                    <td>@Html.DisplayFor(model => model.DataPedido)</td>
+                    <td>@Html.DisplayNameFor(model => model.DataHora): </td>
+                    <td>@Html.DisplayFor(model => model.DataHora)</td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.Funcionario): </td>
@@ -60,16 +60,16 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Produto.NomeProduto)
+                                @Html.DisplayFor(modelItem => item.Lote.Produto.Nome)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Quantidade)
                             </td>
                             <td>
-                                R$ @Html.DisplayFor(modelItem => item.PrecoPago)
+                                R$ @Html.DisplayFor(modelItem => item.Lote.Preco)
                             </td>
                             <td>
-                                R$ @string.Format("{0:#,0.00}", item.PrecoPago * item.Quantidade)
+                                R$ @string.Format("{0:#,0.00}", item.Lote.Preco * item.Quantidade)
                             </td>
                         </tr>
                     }
@@ -79,7 +79,7 @@
                         <td></td>
                         <td></td>
                         <td><b>Total: </b></td>
-                        <td><b>R$ @Html.DisplayFor(model => model.ValorTotalPedido)</b></td>
+                        <td><b>R$ @Html.DisplayFor(model => model.ValorTotal)</b></td>
                     </tr>
                 </tfoot>
             </table>
@@ -91,7 +91,7 @@
                 @if (Model.Recebido)
                 {
                     <div class="d-flex">
-                        @Html.ActionLink("Gerar Cupom", "Cupom", new { id = Model.IdPedido }, new { target = "_blank", @class = "btn btn-info" })
+                        @Html.ActionLink("Gerar Cupom", "Cupom", new { id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
                     </div>
                 }
             </div>

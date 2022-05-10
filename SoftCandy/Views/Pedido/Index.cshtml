@@ -36,13 +36,13 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.IdPedido)
+                                @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ValorTotalPedido)
+                                @Html.DisplayNameFor(model => model.ValorTotal)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.DataPedido)
+                                @Html.DisplayNameFor(model => model.DataHora)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Funcionario)
@@ -63,13 +63,13 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IdPedido)
+                                    @Html.DisplayFor(modelItem => item.Id)
                                 </td>
                                 <td>
-                                    R$ @Html.DisplayFor(modelItem => item.ValorTotalPedido)
+                                    R$ @Html.DisplayFor(modelItem => item.ValorTotal)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.DataPedido)
+                                    @Html.DisplayFor(modelItem => item.DataHora)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Funcionario.Nome)
@@ -78,12 +78,12 @@
                                     @Html.DisplayFor(modelItem => item.IdCaixa)
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Details" asp-route-id="@item.IdPedido" class="sem-sub">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                     </a>
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Delete" asp-route-id="@item.IdPedido" class="sem-sub">
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
                                     </a>
 

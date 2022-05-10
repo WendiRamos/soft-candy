@@ -32,8 +32,8 @@ namespace SoftCandy.Controllers
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
                 var softCandyContext = _context.Pedido
-                    .Where(c => c.AtivoPedido)
-                    .OrderByDescending(p => p.IdPedido)
+                    .Where(c => c.Ativo)
+                    .OrderByDescending(p => p.Id)
                     .Include(f => f.Funcionario);
 
                 return View(await softCandyContext.ToListAsync());
@@ -46,7 +46,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Pedido.Where(c => c.AtivoPedido);
+                var softCandyContext = _context.Pedido.Where(c => c.Ativo);
 
                 return View(await softCandyContext.ToListAsync());
             }
@@ -61,8 +61,7 @@ namespace SoftCandy.Controllers
                 var pedido = await _context.Pedido
                     .Include(f => f.Funcionario)
                     .Include(i => i.ItensPedidos)
-                    .ThenInclude(it => it.Produto)
-                    .FirstOrDefaultAsync(m => m.IdPedido == id);
+                    .FirstOrDefaultAsync(m => m.Id == id);
 
                 if (pedido == null)
                 {
@@ -87,8 +86,7 @@ namespace SoftCandy.Controllers
                 var pedido = await _context.Pedido
                     .Include(f => f.Funcionario)
                     .Include(i => i.ItensPedidos)
-                    .ThenInclude(it => it.Produto)
-                    .FirstOrDefaultAsync(m => m.IdPedido == id);
+                    .FirstOrDefaultAsync(m => m.Id == id);
 
                 if (pedido == null)
                 {
@@ -105,17 +103,17 @@ namespace SoftCandy.Controllers
         }
 
         [HttpPost]
-        public IActionResult GerarCupom(int IdPedido)
+        public IActionResult GerarCupom(int Id)
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                return RedirectToAction("Cupom", "Pedido", new { id = IdPedido });
+                return RedirectToAction("Cupom", "Pedido", new { id = Id });
             }
             return RedirectToAction("User", "Home");
         }
         public List<Produto> BuscarProdutoPorNomeTop5(string TermoProcurado)
         {
-            return _buscaService.FindByNomeProdutoTop5(TermoProcurado);
+            return _buscaService.FindByNomeTop5(TermoProcurado);
         }
 
         // GET: Pedido/Create
@@ -139,41 +137,41 @@ namespace SoftCandy.Controllers
 
         // POST: Pedido/Create
         [HttpPost]
-        public async Task<int> Create(List<ItemPedido> Itens, int? IdCliente)
-        {
-            foreach (ItemPedido item in Itens)
-            {
-                var produto = await _context.Produto.FirstOrDefaultAsync(p => p.IdProduto == item.IdProduto);
-                item.PrecoPago = produto.PrecoVendaProduto;
-                try
-                {
-                    if (produto.ProblemaAoSubtrair(item.Quantidade))
-                    {
-                        throw new Exception();
-                    }
-                    _context.Update(produto);
-                    await _context.SaveChangesAsync();
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-            }
-            Pedido pedido = new Pedido()
-            {
-                AtivoPedido = true,
-                DataPedido = DateTime.Now,
-                IdFuncionario = LoginAtual.Id(User),
-                IdCliente = IdCliente,
-                IdCaixa = CaixaUtils.IdAberto(_context),
-                ItensPedidos = Itens,
-                Recebido = false
-            };
-            pedido.CalcularValorPedido();
-            _context.Add(pedido);
-            await _context.SaveChangesAsync();
-            return pedido.IdPedido;
-        }
+        //public async Task<int> Create(List<ItemPedido> Itens, int? IdCliente)
+        //{
+        //    foreach (ItemPedido item in Itens)
+        //    {
+        //        var produto = await _context.Produto.FirstOrDefaultAsync(p => p.Id == item.Id);
+        //        item.Lote.Preco = Lote.;
+        //        try
+        //        {
+        //            if (produto.ProblemaAoSubtrair(item.Quantidade))
+        //            {
+        //                throw new Exception();
+        //            }
+        //            _context.Update(produto);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (Exception)
+        //        {
+        //            return 0;
+        //        }
+        //    }
+        //    Pedido pedido = new Pedido()
+        //    {
+        //        Ativo = true,
+        //        Data = DateTime.Now,
+        //        IdFuncionario = LoginAtual.Id(User),
+        //        IdCliente = IdCliente,
+        //        IdCaixa = CaixaUtils.IdAberto(_context),
+        //        ItensPedidos = Itens,
+        //        Recebido = false
+        //    };
+        //    pedido.CalcularValorPedido();
+        //    _context.Add(pedido);
+        //    await _context.SaveChangesAsync();
+        //    return pedido.Id;
+        //}
 
         // GET: Pedido/Delete
         public async Task<IActionResult> Delete(int? id)
@@ -188,8 +186,8 @@ namespace SoftCandy.Controllers
                 var pedido = await _context.Pedido
                     .Include(f => f.Funcionario)
                     .Include(i => i.ItensPedidos)
-                    .ThenInclude(it => it.Produto)
-                    .FirstOrDefaultAsync(m => m.IdPedido == id);
+                    //.ThenInclude(it => it.Produto)
+                    .FirstOrDefaultAsync(m => m.Id == id);
                 if (pedido == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
@@ -203,38 +201,38 @@ namespace SoftCandy.Controllers
         // POST: Pedido/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
-            {
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+        //    {
 
-                Pedido pedido = await _context.Pedido.Include(p => p.ItensPedidos).FirstOrDefaultAsync(p => p.IdPedido == id);
+        //        Pedido pedido = await _context.Pedido.Include(p => p.ItensPedidos).FirstOrDefaultAsync(p => p.Id == id);
 
-                Produto produto;
+        //        Produto produto;
 
-                foreach (ItemPedido item in pedido.ItensPedidos)
-                {
-                    produto = await _context.Produto.FirstOrDefaultAsync(p => p.IdProduto == item.IdProduto);
+        //        foreach (ItemPedido item in pedido.ItensPedidos)
+        //        {
+        //            produto = await _context.Produto.FirstOrDefaultAsync(p => p.Id == item.IdProduto);
 
-                    try
-                    {
-                        produto.devolver(item.Quantidade);
-                        _context.Update(produto);
-                        await _context.SaveChangesAsync();
-                    }
-                    catch (Exception)
-                    {
-                        return RedirectToAction(nameof(Error), new { message = "Ocorre um erro :(" });
-                    }
-                }
+        //            try
+        //            {
+        //                produto.devolver(item.Quantidade);
+        //                _context.Update(produto);
+        //                await _context.SaveChangesAsync();
+        //            }
+        //            catch (Exception)
+        //            {
+        //                return RedirectToAction(nameof(Error), new { message = "Ocorre um erro :(" });
+        //            }
+        //        }
 
-                pedido.AtivoPedido = false;
-                _context.Pedido.Update(pedido);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return RedirectToAction("User", "Home");
-        }
+        //        pedido.Ativo = false;
+        //        _context.Pedido.Update(pedido);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return RedirectToAction("User", "Home");
+        //}
 
         //GET:Pedido/Receber
         public async Task<IActionResult> Receber(int id)
@@ -245,8 +243,8 @@ namespace SoftCandy.Controllers
                     .Include(c => c.Cliente)
                     .Include(f => f.Funcionario)
                     .Include(i => i.ItensPedidos)
-                    .ThenInclude(it => it.Produto)
-                    .FirstOrDefaultAsync(m => m.IdPedido == id);
+                    //.ThenInclude(it => it.Produto)
+                    .FirstOrDefaultAsync(m => m.Id == id);
 
                 if (pedido == null)
                 {
@@ -263,9 +261,9 @@ namespace SoftCandy.Controllers
 
         [HttpPost, ActionName("Receber")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Receber(int IdPedido, int FormaPagamento)
+        public async Task<IActionResult> Receber(int Id, int FormaPagamento)
         {
-            Pedido pedido = await _context.Pedido.Where(p => p.IdPedido == IdPedido).FirstAsync();
+            Pedido pedido = await _context.Pedido.Where(p => p.Id == Id).FirstAsync();
             pedido.FormaPagamento = (FormasPagamentoEnum)FormaPagamento;
             pedido.Recebido = true;
             Caixa caixaAberto = CaixaUtils.CaixaAberto(_context);
@@ -273,11 +271,11 @@ namespace SoftCandy.Controllers
             _context.Update(caixaAberto);
             _context.Pedido.Update(pedido);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Details", "Pedido", new { id = IdPedido });
+            return RedirectToAction("Details", "Pedido", new { id = Id });
         }
         private bool PedidoExists(int id)
         {
-            return _context.Pedido.Any(e => e.IdPedido == id);
+            return _context.Pedido.Any(e => e.Id == id);
         }
         public IActionResult Error(string message)
         {

@@ -11,10 +11,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ValorTotalPedido)
+                @Html.DisplayNameFor(model => model.ValorTotal)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataPedido)
+                @Html.DisplayNameFor(model => model.DataHora)
             </th>
             <th></th>
         </tr>
@@ -24,10 +24,10 @@
         {
             <tr>
                 <td>
-                  R$  @Html.DisplayFor(modelItem => item.ValorTotalPedido)
+                  R$  @Html.DisplayFor(modelItem => item.ValorTotal)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DataPedido)
+                    @Html.DisplayFor(modelItem => item.DataHora)
                 </td>
             </tr>
         }
