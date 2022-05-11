@@ -33,7 +33,7 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsAdministrador(User))
             {
-                return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.ADMINISTRADOR)).ToListAsync());
+                return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.ADMINISTRADOR)).Take(20).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }
@@ -42,7 +42,7 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsAdministrador(User))
             {
-                return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.ESTOQUISTA)).ToListAsync());
+                return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.ESTOQUISTA)).Take(20).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }
@@ -51,7 +51,7 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsAdministrador(User))
             {
-                return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.VENDEDOR)).ToListAsync());
+                return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.VENDEDOR)).Take(20).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }

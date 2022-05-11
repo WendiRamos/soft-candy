@@ -27,7 +27,7 @@ namespace SoftCandy.Controllers
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 var softCandyContext = _context.Produto.Where(p => p.AtivoProduto).Include(p => p.Categoria).Include(p => p.Fornecedor);
-                return View(await softCandyContext.ToListAsync());
+                return View(await softCandyContext.Take(20).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }
@@ -37,7 +37,7 @@ namespace SoftCandy.Controllers
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 var softCandyContext = _context.Produto.Where(p => p.AtivoProduto && p.QuantidadeProduto <= p.QuantidadeMinimaProduto).Include(p => p.Fornecedor);
-                return View(await softCandyContext.ToListAsync());
+                return View(await softCandyContext.Take(20).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }

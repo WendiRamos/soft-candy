@@ -29,7 +29,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.NomeCliente, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Cliente>> FindByNomeClienteApagado(String Nome)
@@ -39,7 +39,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.NomeCliente, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Funcionario>> FindByNomeVendedor(String Nome)
@@ -49,7 +49,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Funcionario>> FindByNomeVendedorApagado(String Nome)
@@ -59,7 +59,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Funcionario>> FindByNomeEstoquista(String Nome)
@@ -69,7 +69,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Funcionario>> FindByNomeEstoquistaApagado(String Nome)
@@ -79,7 +79,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Funcionario>> FindByNomeAdministrador(String Nome)
@@ -89,7 +89,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Funcionario>> FindByNomeAdministradorApagado(String Nome)
@@ -99,7 +99,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Produto>> FindByNomeProduto(String Nome)
@@ -109,7 +109,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.NomeProduto, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public List<Produto> FindByNomeProdutoTop5(String Nome)
@@ -131,7 +131,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.NomeProduto, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Categoria>> FindByNomeCategoria(String Nome)
@@ -141,7 +141,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.NomeCategoria, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Categoria>> FindByNomeCategoriaApagada(String Nome)
@@ -151,7 +151,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.NomeCategoria, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Fornecedor>> FindByNomeFornecedor(String Nome)
@@ -161,7 +161,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.RazaoSocial, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Fornecedor>> FindByNomeFornecedorApagado(String Nome)
@@ -171,7 +171,7 @@ namespace SoftCandy.Services
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.RazaoSocial, Nome));
             }
-            return await result.ToListAsync();
+            return await result.Take(20).ToListAsync();
         }
 
         public async Task<List<Pedido>> FindByPedido(DateTime? minDate, DateTime? maxDate)
@@ -187,6 +187,7 @@ namespace SoftCandy.Services
             }
             return await result
                 .OrderByDescending(x => x.DataPedido)
+                .Take(20)
                 .ToListAsync();
         }
 
@@ -203,6 +204,7 @@ namespace SoftCandy.Services
             }
             return await result
                 .OrderByDescending(x => x.DataHoraFechamento)
+                .Take(20)
                 .ToListAsync();
         }
     }

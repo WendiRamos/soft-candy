@@ -36,7 +36,7 @@ namespace SoftCandy.Controllers
                     .OrderByDescending(p => p.IdPedido)
                     .Include(f => f.Funcionario);
 
-                return View(await softCandyContext.ToListAsync());
+                return View(await softCandyContext.Take(20).Take(20).ToListAsync());
 
             }
             return RedirectToAction("User", "Home");

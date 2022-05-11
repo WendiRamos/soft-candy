@@ -26,7 +26,7 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                return View(await _context.Cliente.Where(c => c.AtivoCliente).ToListAsync());
+                return View(await _context.Cliente.Where(c => c.AtivoCliente).Take(20).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }

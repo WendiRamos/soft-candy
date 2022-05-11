@@ -30,6 +30,7 @@ namespace SoftCandy.Controllers
                 .Include(f => f.FuncionarioAbertura)
                 .Include(f => f.FuncionarioFechamento)
                 .OrderByDescending(p => p.IdCaixa)
+                .Take(20)
                 .ToListAsync());
         }
 
