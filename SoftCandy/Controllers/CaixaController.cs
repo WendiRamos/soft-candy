@@ -110,10 +110,12 @@ namespace SoftCandy.Controllers
         {
             Caixa caixa = CaixaUtils.CaixaAberto(_context);
             _context.Entry(caixa).Collection(c => c.Pedidos).Load();
-            if (caixa.ExistePedidoSemReceber())
+
+            if (caixa.ExistePedidoSemReceber() && !LoginAtual.IsAdministrador(User))
             {
-                return RedirectToAction(nameof(Error), new { message = "Existe pedido sem receber!" });
+                    return RedirectToAction(nameof(Error), new { message = "Existe pedido sem receber!" });
             }
+
             caixa.EstaAberto = false;
             caixa.FuncionarioFechamentoId = LoginAtual.Id(User);
             caixa.DataHoraFechamento = DateTime.Now;
