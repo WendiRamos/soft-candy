@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Castle.Windsor" Version="5.1.1" />
     <PackageReference Include="JQuery.MoneyMask" Version="1.0.3.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -43,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Relatorio\" />
     <Folder Include="wwwroot\icons\" />
   </ItemGroup>
 
