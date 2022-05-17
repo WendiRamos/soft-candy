@@ -17,17 +17,10 @@
                             <input asp-for="Nome" id="nomeProduto" class="form-control" />
                             <span class="invisivel" id="erroNome">Insira um nome válido!</span>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label asp-for="QuantidadeDescartada" class="control-label">Quantidade:</label>
-                            <input asp-for="QuantidadeDescartada" id="quantidadeProduto" class="form-control" />
-                            <span class="invisivel" id="erroQuantidadeDescartada">Insira uma quantidade válida!</span>
-                        </div>
                         <div class="col">
                             <label asp-for="QuantidadeMinima" class="control-label">Quantidade Mínima:</label>
-                            <input asp-for="QuantidadeMinima" id="quantidadeMinimaProduto" class="form-control" />
-                            <span class="invisivel" id="erroQuantidadeMinima">Insira uma quantidade válida!</span>
+                            <input asp-for="QuantidadeMinima" id="quantidadeProduto" class="form-control" />
+                            <span class="invisivel" id="erroQuantidadeDescartada">Insira uma quantidade válida!</span>
                         </div>
                     </div>
                     <div class="row">
@@ -38,6 +31,18 @@
                         <div class="col">
                             <label asp-for="IdFornecedor" class="control-label">Fornecedor:</label>
                             <select asp-for="IdFornecedor" class="form-control" asp-items="ViewBag.FOR"></select>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col">
+                            <span>Medida:</span>
+                        </div>
+                        <div class="col">
+                            <input type="radio" id="unidade" name="tipo" value="1" checked="checked">
+                            <label for="unidade" asp-for="Medida">Unidade</label>
+                            <input type="radio" id="ml" name="tipo" value="2">
+                            <label for="ml" asp-for="Medida">Ml</label>
                         </div>
                     </div>
                     <br />

@@ -21,24 +21,38 @@
                                 @Html.DisplayNameFor(model => model.Nome)
                             </th>
                             <th>
-                                Fornecedor
+                                @Html.DisplayNameFor(model => model.QuantidadeMinima)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.QuantidadeEstoque)
+                            </th>
+                            <th class="center">
+                                Adicionar Mercadoria
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Id)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Fornecedor.NomeFantasia)
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.QuantidadeMinima)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.QuantidadeEstoque)
+                            </td>
+                            <td class="center">
+                                <a asp-action="Create" asp-controller="Lote" asp-route-id="@item.Id" class="sem-sub">
+                                    <img src="~/icons/adicionarMercadoria.svg" class="icone-menus" title="Adicionar" />
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

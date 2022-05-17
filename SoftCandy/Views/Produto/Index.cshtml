@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<SoftCandy.Models.Produto>
+@using SoftCandy.Models
+@using SoftCandy.Enums
 
 @{
     ViewData["Title"] = "Produtos";
@@ -33,6 +35,15 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Nome)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.QuantidadeEstoque)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Medida)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Categoria)
+                            </th>
                             <th class="center">
                                 Visualizar
                             </th>
@@ -53,6 +64,20 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.QuantidadeEstoque)
+                                </td>
+                                @if (item.Medida == MedidaEnum.UNIDADE)
+                                {
+                                    <td>Unidade</td>
+                                }
+                                else
+                                {
+                                    <td>Ml</td>
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Categoria.NomeCategoria)
                                 </td>
                                 <td class="center">
                                     <a asp-action="Details" asp-route-id="@item.Id" class="sem-sub">

@@ -1,5 +1,6 @@
 ﻿@model SoftCandy.Models.Produto
 @using SoftCandy.Models
+@using SoftCandy.Enums
 
 @{
     ViewData["Title"] = "Deletar";
@@ -21,12 +22,23 @@
                         <td>@Html.DisplayFor(model => model.Nome)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.QuantidadeDescartada): </td>
-                        <td>@Html.DisplayFor(model => model.QuantidadeDescartada)</td>
-                    </tr>
-                    <tr>
                         <td>@Html.DisplayNameFor(model => model.QuantidadeMinima): </td>
                         <td>@Html.DisplayFor(model => model.QuantidadeMinima)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.QuantidadeEstoque): </td>
+                        <td>@Html.DisplayFor(model => model.QuantidadeEstoque)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.Medida): </td>
+                        @if (Model.Medida == MedidaEnum.UNIDADE)
+                        {
+                            <td>Unidade</td>
+                        }
+                        else
+                        {
+                            <td>Ml</td>
+                        }
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.Categoria): </td>
