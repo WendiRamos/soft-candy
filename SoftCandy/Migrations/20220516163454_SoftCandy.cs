@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SoftCandy.Migrations
 {
-    public partial class softcandy : Migration
+    public partial class SoftCandy : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -99,7 +99,7 @@ namespace SoftCandy.Migrations
                     QuantidadeMinima = table.Column<int>(nullable: false),
                     QuantidadeDescartada = table.Column<int>(nullable: false),
                     QuantidadeDecremento = table.Column<int>(nullable: false),
-                    AtivoProduto = table.Column<bool>(nullable: false),
+                    Ativo = table.Column<bool>(nullable: false),
                     Medida = table.Column<int>(nullable: false),
                     IdCategoria = table.Column<int>(nullable: false),
                     IdFornecedor = table.Column<int>(nullable: false)
@@ -169,7 +169,9 @@ namespace SoftCandy.Migrations
                     QuantidadeEstoque = table.Column<int>(nullable: false),
                     DataFabricacao = table.Column<DateTime>(nullable: false),
                     DataValidade = table.Column<DateTime>(nullable: false),
-                    Preco = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    PrecoCompra = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    PrecoVenda = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    Ativo = table.Column<bool>(nullable: false),
                     IdProduto = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

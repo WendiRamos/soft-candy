@@ -202,13 +202,18 @@ namespace SoftCandy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Ativo");
+
                     b.Property<DateTime>("DataFabricacao");
 
                     b.Property<DateTime>("DataValidade");
 
                     b.Property<int>("IdProduto");
 
-                    b.Property<decimal>("Preco")
+                    b.Property<decimal>("PrecoCompra")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("PrecoVenda")
                         .HasColumnType("decimal(8, 2)");
 
                     b.Property<int>("QuantidadeEstoque");
@@ -288,7 +293,7 @@ namespace SoftCandy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("AtivoProduto");
+                    b.Property<bool>("Ativo");
 
                     b.Property<int>("IdCategoria");
 

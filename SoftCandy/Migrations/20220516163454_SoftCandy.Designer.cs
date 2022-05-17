@@ -9,8 +9,8 @@ using SoftCandy.Data;
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    [Migration("20220510195407_softcandy")]
-    partial class softcandy
+    [Migration("20220516163454_SoftCandy")]
+    partial class SoftCandy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -204,13 +204,18 @@ namespace SoftCandy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Ativo");
+
                     b.Property<DateTime>("DataFabricacao");
 
                     b.Property<DateTime>("DataValidade");
 
                     b.Property<int>("IdProduto");
 
-                    b.Property<decimal>("Preco")
+                    b.Property<decimal>("PrecoCompra")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("PrecoVenda")
                         .HasColumnType("decimal(8, 2)");
 
                     b.Property<int>("QuantidadeEstoque");
@@ -290,7 +295,7 @@ namespace SoftCandy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("AtivoProduto");
+                    b.Property<bool>("Ativo");
 
                     b.Property<int>("IdCategoria");
 
