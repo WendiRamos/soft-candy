@@ -1,48 +1,44 @@
 ﻿@model SoftCandy.Models.Lote
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Lote</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.QuantidadeEstoque)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.QuantidadeEstoque)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataFabricacao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataFabricacao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataValidade)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataValidade)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Preco)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Preco)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Produto)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Produto.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Detalhes Lote</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.QuantidadeEstoque): </td>
+                    <td>@Html.DisplayFor(model => model.QuantidadeEstoque)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.DataFabricacao): </td>
+                    <td>@Html.DisplayFor(model => model.DataFabricacao)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.DataValidade): </td>
+                    <td>@Html.DisplayFor(model => model.DataValidade)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PrecoCompra): </td>
+                    <td> @Html.DisplayFor(model => model.PrecoCompra)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PrecoVenda):</td>
+                    <td>@Html.DisplayFor(model => model.PrecoVenda)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Produto): </td>
+                    <td>@Html.DisplayFor(model => model.Produto.Nome)</td>
+                </tr>
+            </table>
+            <br />
+            <div>
+                <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Editar</a>
+            </div>
+        </div>
+    </div>
+</center>
