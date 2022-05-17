@@ -67,7 +67,7 @@ namespace SoftCandy.Utils
         //Produtos
         public static bool IsProdutoAtivo(Produto produto)
         {
-            return produto.AtivoProduto;
+            return produto.Ativo;
         }
 
         public static bool IsProdutoInativo(Produto produto)
