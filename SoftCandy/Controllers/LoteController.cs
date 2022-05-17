@@ -19,14 +19,7 @@ namespace SoftCandy.Controllers
             _context = context;
         }
 
-        // GET: Lote
-        public async Task<IActionResult> Index()
-        {
-            var softCandyContext = _context.Lote.Include(l => l.Produto);
-            return View(await softCandyContext.ToListAsync());
-        }
-
-        // GET: Lote/Details/5
+        // GET: Lote/Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,28 +41,28 @@ namespace SoftCandy.Controllers
         // GET: Lote/Create
         public IActionResult Create()
         {
-            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Id");
+            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome");
             return View();
         }
 
         // POST: Lote/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,QuantidadeEstoque,DataFabricacao,DataValidade,Preco,IdProduto")] Lote lote)
+        public async Task<IActionResult> Create([Bind("QuantidadeEstoque,DataFabricacao,PrecoCompra,PrecoVenda,IdProduto,DiasVencimento")] Lote lote)
         {
             if (ModelState.IsValid)
             {
+                lote.Ativo = true;
+                lote.DataValidade = lote.DataFabricacao.AddDays(lote.DiasVencimento);
                 _context.Add(lote);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Produto", new { id = lote.IdProduto });
             }
-            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Id", lote.IdProduto);
+            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome", lote.IdProduto);
             return View(lote);
         }
 
-        // GET: Lote/Edit/5
+        // GET: Lote/Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,16 +75,14 @@ namespace SoftCandy.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Id", lote.IdProduto);
+            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome", lote.IdProduto);
             return View(lote);
         }
 
-        // POST: Lote/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Lote/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,QuantidadeEstoque,DataFabricacao,DataValidade,Preco,IdProduto")] Lote lote)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,QuantidadeEstoque,DataFabricacao,DataValidade,PrecoCompra,PrecoVenda,Ativo,IdProduto")] Lote lote)
         {
             if (id != lote.Id)
             {
@@ -116,13 +107,13 @@ namespace SoftCandy.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
             }
-            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Id", lote.IdProduto);
+            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome", lote.IdProduto);
             return View(lote);
         }
 
-        // GET: Lote/Delete/5
+        // GET: Lote/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,15 +132,16 @@ namespace SoftCandy.Controllers
             return View(lote);
         }
 
-        // POST: Lote/Delete/5
+        // POST: Lote/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var lote = await _context.Lote.FindAsync(id);
-            _context.Lote.Remove(lote);
+            lote.Ativo = true;
+            _context.Lote.Update(lote);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details));
         }
 
         private bool LoteExists(int id)
