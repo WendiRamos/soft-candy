@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace SoftCandy.Models
 {
@@ -23,9 +24,12 @@ namespace SoftCandy.Models
         [Display(Name = "Quantidade Decremento")]
         public int QuantidadeDecremento { get; set; }
 
-        public bool AtivoProduto { get; set; }
+        public bool Ativo { get; set; }
 
         public MedidaEnum Medida {get; set;}
+
+        [NotMapped]
+        public int QuantidadeEstoque { get; set; }
 
         [ForeignKey("Categoria")]
         [Display(Name = "Categoria")]
@@ -49,7 +53,7 @@ namespace SoftCandy.Models
 
         public bool ProblemaAoSubtrair(int quantidadeParaSubtrair)
         {
-            if (quantidadeParaSubtrair > QuantidadeDescartada)
+            if (quantidadeParaSubtrair > QuantidadeEstoque)
             {
                 return true;
             }
@@ -57,9 +61,14 @@ namespace SoftCandy.Models
             return false;
         }
 
-        public void devolver(int quantidadeParaDevolver)
+        public void Devolver(int quantidadeParaDevolver)
         {
-            QuantidadeDescartada += quantidadeParaDevolver;
+            QuantidadeEstoque += quantidadeParaDevolver;
+        }
+
+        public void SomarQuantidade()
+        {
+            QuantidadeEstoque = Lotes.Where(p => p.Ativo).Select(lt => lt.QuantidadeEstoque).Sum();
         }
     }
 

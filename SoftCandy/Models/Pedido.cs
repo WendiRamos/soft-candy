@@ -60,7 +60,7 @@ namespace SoftCandy.Models
             {
                 foreach (ItemPedido item in ItensPedidos)
                 {
-                    soma += item.Lote.Preco * item.Quantidade;
+                    soma += item.Lote.PrecoCompra * item.Quantidade;
                 }
             }
             ValorTotal = soma;

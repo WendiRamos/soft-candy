@@ -1,5 +1,4 @@
-﻿using Castle.MicroKernel.SubSystems.Conversion;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -29,9 +28,20 @@ namespace SoftCandy.Models
         public DateTime DataValidade { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Preço")]
+        [Display(Name = "Preço de Compra")]
         [Column(TypeName = "decimal(8, 2)")]
-        public decimal Preco { get; set; }
+        public decimal PrecoCompra { get; set; }
+
+        [Required(ErrorMessage = "{0} obrigatório")]
+        [Display(Name = "Preço de Venda")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal PrecoVenda { get; set; }
+
+        public bool Ativo { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Dias de Validade")]
+        public int DiasVencimento { get; set; }
 
         [ForeignKey("Produto")]
         [Display(Name = "Produto")]
