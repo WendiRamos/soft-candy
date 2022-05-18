@@ -67,10 +67,10 @@
                                 @Html.DisplayFor(modelItem => item.Quantidade)
                             </td>
                             <td>
-                                R$ @Html.DisplayFor(modelItem => item.Lote.Preco)
+                                R$ @Html.DisplayFor(modelItem => item.Lote.PrecoVenda)
                             </td>
                             <td>
-                                R$ @string.Format("{0:#,0.00}", item.Lote.Preco * item.Quantidade)
+                                R$ @string.Format("{0:#,0.00}", item.Lote.PrecoVenda * item.Quantidade)
                             </td>
                         </tr>
                     }
