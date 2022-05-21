@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Content Remove="Views\Categoria\CategoriasApagadas.cshtml" />
-    <Content Remove="Views\Cliente\ClientesApagados.cshtml" />
     <Content Remove="wwwroot\favicon.ico" />
     <Content Remove="wwwroot\images\fornecedor-32.png" />
     <Content Remove="wwwroot\js\site.js" />
@@ -39,10 +38,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Relatorios\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
