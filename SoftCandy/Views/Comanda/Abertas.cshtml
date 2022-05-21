@@ -20,22 +20,19 @@
                                 @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
+                                @Html.DisplayNameFor(model => model.IdCaixa)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.ValorTotal)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.DataHoraCriacao)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DataHoraRecebimento)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.IdCaixa)
-                            </th>
                             <th class="center">
                                 Visualizar
                             </th>
                             <th class="center">
-                                Apagar
+                                Receber
                             </th>
                         </tr>
                     </thead>
@@ -47,25 +44,22 @@
                                 @Html.DisplayFor(modelItem => item.Id)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.IdCaixa)
+                            </td>
+                            <td>
                                 R$ @Html.DisplayFor(modelItem => item.ValorTotal)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DataHoraCriacao)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DataHoraRecebimento)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdCaixa)
-                            </td>
                             <td class="center">
-                                <a asp-action="Details" asp-route-id="@item.Id" class="sem-sub">
+                                <a asp-action="Details" asp-controller="Comanda" asp-route-id="@item.Id" class="sem-sub">
                                     <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                 </a>
                             </td>
                             <td class="center">
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="sem-sub">
-                                    <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
+                                <a asp-action="Receber" asp-controller="Comanda" asp-route-id="@item.Id" class="sem-sub">
+                                    <img src="~/icons/receber.svg" class="icone-menus" title="Receber" />
                                 </a>
 
                             </td>
