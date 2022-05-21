@@ -146,8 +146,8 @@ namespace SoftCandy.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     QuantidadeEstoque = table.Column<int>(nullable: false),
-                    DataFabricacao = table.Column<DateTime>(nullable: false),
-                    DataValidade = table.Column<DateTime>(nullable: false),
+                    DataHoraFabricacao = table.Column<DateTime>(nullable: false),
+                    DataHoraValidade = table.Column<DateTime>(nullable: false),
                     PrecoCompra = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
                     PrecoVenda = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
                     Ativo = table.Column<bool>(nullable: false),
@@ -175,18 +175,11 @@ namespace SoftCandy.Migrations
                     DataHoraRecebimento = table.Column<DateTime>(nullable: false),
                     Recebido = table.Column<bool>(nullable: false),
                     IdCaixa = table.Column<int>(nullable: false),
-                    FormaPagamento = table.Column<int>(nullable: false),
-                    FuncionarioId = table.Column<int>(nullable: true)
+                    FormaPagamento = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comanda", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Comanda_Funcionario_FuncionarioId",
-                        column: x => x.FuncionarioId,
-                        principalTable: "Funcionario",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comanda_Caixa_IdCaixa",
                         column: x => x.IdCaixa,
@@ -234,18 +227,17 @@ namespace SoftCandy.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Quantidade = table.Column<int>(nullable: false),
                     IdLote = table.Column<int>(nullable: false),
-                    IdComanda = table.Column<int>(nullable: false),
-                    ComandaId = table.Column<int>(nullable: true)
+                    IdComanda = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ItemComanda", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ItemComanda_Comanda_ComandaId",
-                        column: x => x.ComandaId,
+                        name: "FK_ItemComanda_Comanda_IdComanda",
+                        column: x => x.IdComanda,
                         principalTable: "Comanda",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ItemComanda_Lote_IdLote",
                         column: x => x.IdLote,
@@ -265,19 +257,14 @@ namespace SoftCandy.Migrations
                 column: "FuncionarioFechamentoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comanda_FuncionarioId",
-                table: "Comanda",
-                column: "FuncionarioId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Comanda_IdCaixa",
                 table: "Comanda",
                 column: "IdCaixa");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemComanda_ComandaId",
+                name: "IX_ItemComanda_IdComanda",
                 table: "ItemComanda",
-                column: "ComandaId");
+                column: "IdComanda");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemComanda_IdLote",

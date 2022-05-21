@@ -9,7 +9,7 @@ using SoftCandy.Data;
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    [Migration("20220521002902_SoftCandy")]
+    [Migration("20220521225932_SoftCandy")]
     partial class SoftCandy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,8 +98,6 @@ namespace SoftCandy.Migrations
 
                     b.Property<int>("FormaPagamento");
 
-                    b.Property<int?>("FuncionarioId");
-
                     b.Property<int>("IdCaixa");
 
                     b.Property<bool>("Recebido");
@@ -108,8 +106,6 @@ namespace SoftCandy.Migrations
                         .HasColumnType("decimal(8, 2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FuncionarioId");
 
                     b.HasIndex("IdCaixa");
 
@@ -185,8 +181,6 @@ namespace SoftCandy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ComandaId");
-
                     b.Property<int>("IdComanda");
 
                     b.Property<int>("IdLote");
@@ -195,7 +189,7 @@ namespace SoftCandy.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ComandaId");
+                    b.HasIndex("IdComanda");
 
                     b.HasIndex("IdLote");
 
@@ -209,9 +203,9 @@ namespace SoftCandy.Migrations
 
                     b.Property<bool>("Ativo");
 
-                    b.Property<DateTime>("DataFabricacao");
+                    b.Property<DateTime>("DataHoraFabricacao");
 
-                    b.Property<DateTime>("DataValidade");
+                    b.Property<DateTime>("DataHoraValidade");
 
                     b.Property<int>("IdProduto");
 
@@ -305,10 +299,6 @@ namespace SoftCandy.Migrations
 
             modelBuilder.Entity("SoftCandy.Models.Comanda", b =>
                 {
-                    b.HasOne("SoftCandy.Models.Funcionario")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("FuncionarioId");
-
                     b.HasOne("SoftCandy.Models.Caixa", "Caixa")
                         .WithMany("Pedidos")
                         .HasForeignKey("IdCaixa")
@@ -319,7 +309,8 @@ namespace SoftCandy.Migrations
                 {
                     b.HasOne("SoftCandy.Models.Comanda", "Comanda")
                         .WithMany("ItensPedidos")
-                        .HasForeignKey("ComandaId");
+                        .HasForeignKey("IdComanda")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SoftCandy.Models.Lote", "Lote")
                         .WithMany()
