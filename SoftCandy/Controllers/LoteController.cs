@@ -39,21 +39,34 @@ namespace SoftCandy.Controllers
         }
 
         // GET: Lote/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int? id)
         {
-            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome");
+            if (id == null)
+            {
+                ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome");
+            }
+            else
+            {
+                var produto =  await _context.Produto.FirstOrDefaultAsync(p => p.Id == id);
+                if(produto == null)
+                {
+                    return NotFound();
+                }
+                ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome", produto);
+                ViewBag.Produto = produto.Nome;
+            }
             return View();
         }
 
         // POST: Lote/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("QuantidadeEstoque,DataFabricacao,PrecoCompra,PrecoVenda,IdProduto,DiasVencimento")] Lote lote)
+        public async Task<IActionResult> Create([Bind("QuantidadeEstoque,DataHoraFabricacao,PrecoCompra,PrecoVenda,IdProduto,DiasVencimento")] Lote lote)
         {
             if (ModelState.IsValid)
             {
                 lote.Ativo = true;
-                lote.DataValidade = lote.DataFabricacao.AddDays(lote.DiasVencimento);
+                lote.DataHoraValidade = lote.DataHoraFabricacao.AddDays(lote.DiasVencimento);
                 _context.Add(lote);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Details", "Produto", new { id = lote.IdProduto });
@@ -82,7 +95,7 @@ namespace SoftCandy.Controllers
         // POST: Lote/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,QuantidadeEstoque,DataFabricacao,DataValidade,PrecoCompra,PrecoVenda,Ativo,IdProduto")] Lote lote)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,QuantidadeEstoque,DataHoraFabricacao,DiasVencimento,PrecoCompra,PrecoVenda,IdProduto")] Lote lote)
         {
             if (id != lote.Id)
             {
@@ -93,6 +106,8 @@ namespace SoftCandy.Controllers
             {
                 try
                 {
+                    lote.Ativo = true;
+                    lote.DataHoraValidade = lote.DataHoraFabricacao.AddDays(lote.DiasVencimento);
                     _context.Update(lote);
                     await _context.SaveChangesAsync();
                 }
@@ -107,10 +122,8 @@ namespace SoftCandy.Controllers
                         throw;
                     }
                 }
-                //return RedirectToAction(nameof(Index));
             }
-            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome", lote.IdProduto);
-            return View(lote);
+            return RedirectToAction("Details", "Produto", new {id = lote.IdProduto });
         }
 
         // GET: Lote/Delete

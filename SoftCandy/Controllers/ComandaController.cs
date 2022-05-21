@@ -26,7 +26,7 @@ namespace SoftCandy.Controllers
             _buscaService = BuscaService;
         }
 
-        // GET: Pedido
+        // GET: Comanda/Index
         public async Task<IActionResult> Index()
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
@@ -40,6 +40,7 @@ namespace SoftCandy.Controllers
             return RedirectToAction("User", "Home");
         }
 
+        // GET: Comanda/Abertas
         public async Task<IActionResult> Abertas()
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
@@ -53,37 +54,7 @@ namespace SoftCandy.Controllers
             return RedirectToAction("User", "Home");
         }
 
-        public async Task<IActionResult> Relatorio()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var softCandyContext = _context.Comanda;
-
-                return View(await softCandyContext.ToListAsync());
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        // GET: Pedido/Details
-        public async Task<IActionResult> Details(int id)
-        {
-            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
-            {
-                var pedido = await _context.Comanda
-                    .Include(i => i.ItensPedidos)
-                    .FirstOrDefaultAsync(m => m.Id == id);
-
-                if (pedido == null)
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
-                }
-                return View(pedido);
-            }
-            return RedirectToAction("User", "Home");
-        }
-
-
-        // GET: Pedido/Cupom
+        // GET: Comanda/CupomRecebimento
         public async Task<IActionResult> CupomRecebimento(int id)
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
@@ -100,7 +71,7 @@ namespace SoftCandy.Controllers
             return RedirectToAction("User", "Home");
         }
 
-        // GET: Pedido/Cupom
+        // GET: Comanda/CupomCriação
         public async Task<IActionResult> CupomCriacao(int id)
         {
             var comanda = await _context.Comanda
@@ -113,15 +84,28 @@ namespace SoftCandy.Controllers
             return View(comanda);
         }
 
-        [HttpPost]
-        public IActionResult GerarCupomRecebimento(int Id)
+        // GET: Comanda/Details
+        public async Task<IActionResult> Details(int id)
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                return RedirectToAction("Cupom", "Pedido", new { id = Id });
+                var comanda = await _context.Comanda
+                    .Include(i => i.ItensPedidos)
+                    .ThenInclude(c => c.Lote)
+                    .ThenInclude(c => c.Produto)
+                    .FirstOrDefaultAsync(c => c.Id == id);
+
+                if (comanda == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+
+                return View(comanda);
             }
             return RedirectToAction("User", "Home");
         }
+
+        // GET: Comanda/Top5
         public List<Produto> BuscarProdutoPorNomeTop5(string TermoProcurado)
         {
             return _buscaService.FindByNomeTop5(TermoProcurado);
@@ -143,67 +127,67 @@ namespace SoftCandy.Controllers
             return RedirectToAction("CupomCriacao", "Comanda", new { id = comanda.Id });
         }
 
-        // GET: Pedido/Delete
-        public async Task<IActionResult> Delete(int? id)
+        //GET:Comanda/Venda
+        public async Task<IActionResult> Venda()
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                if (id == null)
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
-                }
+                var lotes = await _context.Lote
+                    .Where(lote => lote.DisponivelParaVenda())
+                    .Include(lote => lote.Produto)
+                    .OrderBy(lote => lote.Produto.Nome)
+                    .ToListAsync();
 
-                var pedido = await _context.Comanda
-                    .Include(i => i.ItensPedidos)
-                    //.ThenInclude(it => it.Produto)
-                    .FirstOrDefaultAsync(m => m.Id == id);
-                if (pedido == null)
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
-                }
-
-                return View(pedido);
+                return View(lotes);
             }
             return RedirectToAction("User", "Home");
         }
 
-        // POST: Pedido/Delete
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
-        //    {
+        [HttpPost, ActionName("Venda")]
+        public async Task<IActionResult> Venda(int IdComanda, int IdLote, int Quantidade)
+        {
+            var lote = await _context.Lote
+                    .FirstOrDefaultAsync(lt => lt.Id == IdLote);
 
-        //        Pedido pedido = await _context.Pedido.Include(p => p.ItensPedidos).FirstOrDefaultAsync(p => p.Id == id);
+            if (lote == null)
+            {
+                return Json("Lote inválido!");
+            }
 
-        //        Produto produto;
+            var comanda = await _context.Comanda
+                .Include(c => c.ItensPedidos)
+                .FirstOrDefaultAsync(c => c.Id == IdComanda);
 
-        //        foreach (ItemPedido item in pedido.ItensPedidos)
-        //        {
-        //            produto = await _context.Produto.FirstOrDefaultAsync(p => p.Id == item.IdProduto);
+            if (comanda == null)
+            {
+                return Json("Comanda inválida!");
+            }
 
-        //            try
-        //            {
-        //                produto.devolver(item.Quantidade);
-        //                _context.Update(produto);
-        //                await _context.SaveChangesAsync();
-        //            }
-        //            catch (Exception)
-        //            {
-        //                return RedirectToAction(nameof(Error), new { message = "Ocorre um erro :(" });
-        //            }
-        //        }
+            if (comanda.Recebido == true)
+            {
+                return Json("Comanda já recebida!");
+            }
 
-        //        pedido.Ativo = false;
-        //        _context.Pedido.Update(pedido);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return RedirectToAction("User", "Home");
-        //}
+            if (!lote.DecrementarVenda(Quantidade))
+            {
+                return Json("Quantidade indiponível!");
+            }
 
-        //GET:Pedido/Receber
+            ItemComanda itemComanda = new ItemComanda()
+            {
+                Lote = lote,
+                Comanda = comanda,
+                Quantidade = Quantidade
+            };
+
+            comanda.AdicionarItem(itemComanda);
+            _context.Comanda.Update(comanda);
+            _context.Lote.Update(lote);
+            await _context.SaveChangesAsync();
+            return Json("");
+        }
+
+        //GET:Comanda/Receber
         public async Task<IActionResult> Receber(int id)
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
@@ -240,7 +224,8 @@ namespace SoftCandy.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Details", "Pedido", new { id = Id });
         }
-        private bool PedidoExists(int id)
+
+        private bool ComandaExists(int id)
         {
             return _context.Comanda.Any(e => e.Id == id);
         }
