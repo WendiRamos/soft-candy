@@ -20,7 +20,7 @@ namespace SoftCandy.Models
         public decimal ValorTotal { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Data/Hora Criada")]
+        [Display(Name = "Data/Hora Criação")]
         public DateTime DataHoraCriacao { get; set; }
 
         [Display(Name = "Data/Hora Recebimento")]
@@ -47,7 +47,7 @@ namespace SoftCandy.Models
             {
                 foreach (ItemComanda item in ItensPedidos)
                 {
-                    soma += item.Lote.PrecoCompra * item.Quantidade;
+                    soma += item.Lote.PrecoVenda * item.Quantidade;
                 }
             }
             ValorTotal = soma;
@@ -71,6 +71,12 @@ namespace SoftCandy.Models
         public bool FormaPagamentoIsPix()
         {
             return FormaPagamento == FormasPagamentoEnum.PIX;
+        }
+
+        public void AdicionarItem(ItemComanda item)
+        {
+            ItensPedidos.Add(item);
+            CalcularValorComanda();
         }
     }
 }

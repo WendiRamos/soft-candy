@@ -18,14 +18,14 @@ namespace SoftCandy.Models
         public int QuantidadeEstoque { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Data de Fabricação")]
+        [Display(Name = "Data/Hora de Fabricação")]
         [DataType(DataType.DateTime)]
-        public DateTime DataFabricacao { get; set; }
+        public DateTime DataHoraFabricacao { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Data de Validade")]
+        [Display(Name = "Data/Hora de Validade")]
         [DataType(DataType.DateTime)]
-        public DateTime DataValidade { get; set; }
+        public DateTime DataHoraValidade { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Preço de Compra")]
@@ -50,6 +50,26 @@ namespace SoftCandy.Models
 
         public Lote()
         {
+        }
+
+        public bool DisponivelParaVenda()
+        {
+            return Ativo
+                && QuantidadeEstoque > 0
+                && DataHoraValidade > DateTime.Now;
+        }
+
+        public bool DecrementarVenda(int quantidadeRetirar)
+        {
+            if (quantidadeRetirar > QuantidadeEstoque)
+            {
+                return false;
+            }
+            else
+            {
+                QuantidadeEstoque -= quantidadeRetirar;
+                return true;
+            }
         }
     }
 }
