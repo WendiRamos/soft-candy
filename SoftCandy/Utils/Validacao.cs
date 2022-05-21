@@ -86,16 +86,6 @@ namespace SoftCandy.Utils
             return !IsFornecedorAtivo(fornecedor);
         }
 
-        //Clientes
-        public static bool IsClienteAtivo(Cliente cliente)
-        {
-            return cliente.AtivoCliente;
-        }
-
-        public static bool IsClienteInativo(Cliente cliente)
-        {
-            return !IsClienteAtivo(cliente);
-        }
 
         //Categoria
         public static bool IsCategoriaAtivo(Categoria categoria)

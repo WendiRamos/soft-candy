@@ -86,7 +86,7 @@ namespace SoftCandy.Models
         public decimal ValorTotalOperacoes { get; set; }
 
         public ICollection<OperacaoCaixa> Operacoes { get; set; }
-        public ICollection<Pedido> Pedidos { get; set; }
+        public ICollection<Comanda> Pedidos { get; set; }
 
 
         public Caixa(decimal valorAbertura)
@@ -142,7 +142,7 @@ namespace SoftCandy.Models
             ValorTotalFechamentoDinheiro = ValorDinheiroAbertura + ValorVendasDinheiro + ValorTotalOperacoes;
         }
 
-        public void SomarEmValorVendas(Pedido pedido)
+        public void SomarEmValorVendas(Comanda pedido)
         {
             if (pedido.FormaPagamentoIsDinheiro())
             {

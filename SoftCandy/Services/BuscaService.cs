@@ -22,26 +22,7 @@ namespace SoftCandy.Services
             _context = context;
 
         }
-        public async Task<List<Cliente>> FindByNomeCliente(String Nome)
-        {
-            var result = from obj in _context.Cliente.Where(c => Validacao.IsClienteAtivo(c)) select obj;
-            if (!string.IsNullOrEmpty(Nome))
-            {
-                result = result.Where(x => Texto.CaseInsensitiveContains(x.NomeCliente, Nome));
-            }
-            return await result.ToListAsync();
-        }
-
-        public async Task<List<Cliente>> FindByNomeClienteApagado(String Nome)
-        {
-            var result = from obj in _context.Cliente.Where(c => Validacao.IsClienteInativo(c)) select obj;
-            if (!string.IsNullOrEmpty(Nome))
-            {
-                result = result.Where(x => Texto.CaseInsensitiveContains(x.NomeCliente, Nome));
-            }
-            return await result.ToListAsync();
-        }
-
+      
         public async Task<List<Funcionario>> FindByNomeVendedor(String Nome)
         {
             var result = from obj in _context.Funcionario.Where(c => Validacao.IsVendedorAtivo(c)) select obj;
@@ -174,19 +155,19 @@ namespace SoftCandy.Services
             return await result.ToListAsync();
         }
 
-        public async Task<List<Pedido>> FindByPedido(DateTime? minDate, DateTime? maxDate)
+        public async Task<List<Comanda>> FindByPedido(DateTime? minDate, DateTime? maxDate)
         {
-            var result = from obj in _context.Pedido.Where(c => c.Ativo) select obj;
+            var result = from obj in _context.Comanda  select obj;
             if (minDate.HasValue)
             {
-                result = result.Where(x => x.DataHora >= minDate.Value);
+                result = result.Where(x => x.DataHoraRecebimento >= minDate.Value);
             }
             if (maxDate.HasValue)
             {
-                result = result.Where(x => x.DataHora <= maxDate.Value);
+                result = result.Where(x => x.DataHoraRecebimento <= maxDate.Value);
             }
             return await result
-                .OrderByDescending(x => x.DataHora)
+                .OrderByDescending(x => x.DataHoraRecebimento)
                 .ToListAsync();
         }
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SoftCandy.Utils
 {
-    public sealed class Orcamento : Models.Pedido
+    public sealed class Orcamento : Models.Comanda
     {
 
         private static readonly Orcamento instance = new Orcamento();

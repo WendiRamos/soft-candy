@@ -60,16 +60,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => pedido.Id)
                                 </td>
-                                <td>
-                                    @if (pedido.IdCliente != null)
-                                    {
-                                        @Html.DisplayFor(modelItem => pedido.Cliente.NomeCliente)
-                                    }
-                                    else
-                                    {
-                                        <span>Cliente não cadastrado</span>
-                                    }
-                                </td>
+                                
                                 <td>
                                     R$ @Html.DisplayFor(modelItem => pedido.ValorTotal)
                                 </td>
@@ -136,17 +127,7 @@
                                     @Html.DisplayFor(modelItem => pedido.Id)
                                 </td>
                                 <td>
-                                    @if (pedido.IdCliente != null)
-                                    {
-                                        @Html.DisplayFor(modelItem => pedido.Cliente.NomeCliente)
-                                    }
-                                    else
-                                    {
-                                        <span>Cliente não cadastrado</span>
-                                    }
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modeItem => pedido.DataHora)
+                                    @Html.DisplayFor(modeItem => pedido.DataHoraRecebimento)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => pedido.FormaPagamento)

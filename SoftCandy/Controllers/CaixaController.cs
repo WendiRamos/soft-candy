@@ -44,7 +44,6 @@ namespace SoftCandy.Controllers
                 .Include(c => c.Operacoes)
                 .ThenInclude(c => c.Funcionario)
                 .Include(p => p.Pedidos)
-                .ThenInclude(c => c.Cliente)
                 .FirstAsync());
             }
             else
