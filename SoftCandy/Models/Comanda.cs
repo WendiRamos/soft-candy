@@ -8,37 +8,24 @@ using System.Threading.Tasks;
 
 namespace SoftCandy.Models
 {
-    public class Pedido
+    public class Comanda
     {
         [Key()]
-        [Display(Name = "Id Pedido")]
+        [Display(Name = "Id Comanda")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Valor Total")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         [Column(TypeName = "decimal(8, 2)")]
         public decimal ValorTotal { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Data/Hora Pedido")]
-        [DataType(DataType.DateTime)]
-        public DateTime DataHora { get; set; }
+        [Display(Name = "Data/Hora Criada")]
+        public DateTime DataHoraCriacao { get; set; }
 
-        public bool Ativo { get; set; }
+        [Display(Name = "Data/Hora Recebimento")]
+        public DateTime DataHoraRecebimento { get; set; }
         public bool Recebido { get; set; }
-
-
-        [Display(Name = "Cliente")]
-        public int? IdCliente { get; set; }
-        public virtual Cliente Cliente { get; set; }
-
-
-        [ForeignKey("Funcionario")]
-        public int IdFuncionario { get; set; }
-
-        public virtual Funcionario Funcionario { get; set; }
-
 
         [ForeignKey("Caixa")]
         public int IdCaixa { get; set; }
@@ -47,18 +34,18 @@ namespace SoftCandy.Models
 
         public FormasPagamentoEnum FormaPagamento {get; set;}
 
-        public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
+        public virtual ICollection<ItemComanda> ItensPedidos { get; set; }
 
-        public Pedido()
+        public Comanda()
         {
         }
 
-        public void CalcularValorPedido()
+        public void CalcularValorComanda()
         {
             decimal soma = 0;
             if (ItensPedidos != null)
             {
-                foreach (ItemPedido item in ItensPedidos)
+                foreach (ItemComanda item in ItensPedidos)
                 {
                     soma += item.Lote.PrecoCompra * item.Quantidade;
                 }

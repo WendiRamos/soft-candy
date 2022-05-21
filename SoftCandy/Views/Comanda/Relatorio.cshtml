@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SoftCandy.Models.Pedido>
+﻿@model IEnumerable<SoftCandy.Models.Comanda>
 
 @{
     ViewData["Title"] = "Pedidos";
@@ -14,7 +14,7 @@
                 @Html.DisplayNameFor(model => model.ValorTotal)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataHora)
+                @Html.DisplayNameFor(model => model.DataHoraRecebimento)
             </th>
             <th></th>
         </tr>
@@ -27,7 +27,7 @@
                   R$  @Html.DisplayFor(modelItem => item.ValorTotal)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DataHora)
+                    @Html.DisplayFor(modelItem => item.DataHoraRecebimento)
                 </td>
             </tr>
         }

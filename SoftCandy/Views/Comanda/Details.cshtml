@@ -1,4 +1,4 @@
-﻿@model SoftCandy.Models.Pedido
+﻿@model SoftCandy.Models.Comanda
 
 @{
     ViewData["Title"] = "Detalhes";
@@ -14,27 +14,16 @@
                     <td>@Html.DisplayFor(model => model.Id)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.DataHora): </td>
-                    <td>@Html.DisplayFor(model => model.DataHora)</td>
+                    <td>@Html.DisplayNameFor(model => model.DataHoraCriacao): </td>
+                    <td>@Html.DisplayFor(model => model.DataHoraCriacao)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.Funcionario): </td>
-                    <td>@Html.DisplayFor(model => model.Funcionario.Nome)</td>
+                    <td>@Html.DisplayNameFor(model => model.DataHoraRecebimento): </td>
+                    <td>@Html.DisplayFor(model => model.DataHoraRecebimento)</td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.IdCaixa): </td>
                     <td>@Html.DisplayFor(model => model.IdCaixa)</td>
-                </tr>
-                <tr>
-                    @if (Model.IdCliente != null)
-                    {
-                        <td>@Html.DisplayNameFor(model => model.Cliente): </td>
-                        <td>@Html.DisplayFor(model => model.Cliente.NomeCliente)</td>
-                    }
-                    else
-                    {
-                        <td colspan="2">Venda sem cliente cadastrado</td>
-                    }
                 </tr>
             </table>
             <h4>Itens do Pedido</h4>
@@ -91,7 +80,7 @@
                 @if (Model.Recebido)
                 {
                     <div class="d-flex">
-                        @Html.ActionLink("Gerar Cupom", "Cupom", new { id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+                        @Html.ActionLink("Gerar Cupom", "CupomRecebimento", new { id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
                     </div>
                 }
             </div>

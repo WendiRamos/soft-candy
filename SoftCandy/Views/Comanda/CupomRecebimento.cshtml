@@ -1,4 +1,4 @@
-﻿@model SoftCandy.Models.Pedido
+﻿@model SoftCandy.Models.Comanda
 
 @{
     ViewData["Title"] = "Cupom";
@@ -17,23 +17,12 @@
             <td>@Html.DisplayFor(model => model.IdCaixa)</td>
         </tr>
         <tr>
-            <td>@Html.DisplayNameFor(model => model.DataHora): </td>
-            <td>@Html.DisplayFor(model => model.DataHora)</td>
+            <td>@Html.DisplayNameFor(model => model.DataHoraCriacao): </td>
+            <td>@Html.DisplayFor(model => model.DataHoraCriacao)</td>
         </tr>
         <tr>
-            <td>@Html.DisplayNameFor(model => model.Funcionario): </td>
-            <td>@Html.DisplayFor(model => model.Funcionario.Nome)</td>
-        </tr>
-        <tr>
-            @if (Model.IdCliente != null)
-            {
-                <td>@Html.DisplayNameFor(model => model.Cliente): </td>
-                <td>@Html.DisplayFor(model => model.Cliente.NomeCliente)</td>
-            }
-            else
-            {
-                <td colspan="2">Venda sem cliente cadastrado</td>
-            }
+            <td>@Html.DisplayNameFor(model => model.DataHoraRecebimento): </td>
+            <td>@Html.DisplayFor(model => model.DataHoraRecebimento)</td>
         </tr>
         <tr>
             <td>Meio de Pagamento: </td>
