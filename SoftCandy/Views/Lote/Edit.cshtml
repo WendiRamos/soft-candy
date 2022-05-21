@@ -20,17 +20,17 @@
                             <span asp-validation-for="QuantidadeEstoque" class="text-danger"></span>
                         </div>
                         <div class="col">
-                            <label asp-for="DataFabricacao" class="control-label"></label>
-                            <input asp-for="DataFabricacao" class="form-control" />
-                            <span asp-validation-for="DataFabricacao" class="text-danger"></span>
+                            <label asp-for="DataHoraFabricacao" class="control-label">Data de Fabricação:</label>
+                            <input asp-for="DataHoraFabricacao" class="form-control" autocomplete="off" max="@DateTime.Now.ToString("yyyy-MM-ddT23:59")" />
+                            <span asp-validation-for="DataHoraFabricacao" class="text-danger"></span>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div class="row">
                         <div class="col">
-                            <label asp-for="DataValidade" class="control-label"></label>
-                            <input asp-for="DataValidade" class="form-control" autocomplete="off" />
-                            <span asp-validation-for="DataValidade" class="text-danger"></span>
+                            <label asp-for="DiasVencimento" class="control-label">Dias para Vencimento:</label>
+                            <input asp-for="DiasVencimento" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="DiasVencimento" class="text-danger"></span>
                         </div>
                         <div class="col">
                             <label asp-for="PrecoCompra" class="control-label"></label>
@@ -38,7 +38,7 @@
                             <span asp-validation-for="PrecoCompra" class="text-danger"></span>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div class="row">
                         <div class="col">
                             <label asp-for="PrecoVenda" class="control-label"></label>
@@ -51,10 +51,10 @@
                             <span asp-validation-for="IdProduto" class="text-danger"></span>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div class="form-group">
                         <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                        <input type="submit"  value="Salvar" class="btn btn-success" />
+                        <input type="submit" value="Salvar" class="btn btn-success" />
                     </div>
                 </form>
             </div>
