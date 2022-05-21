@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SoftCandy.Models
 {
-    public class ItemPedido
+    public class ItemComanda
     {
         [Key]
         public int Id { get; set; }
@@ -22,10 +22,10 @@ namespace SoftCandy.Models
         [ForeignKey("Pedido")]
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Id Pedido")]
-        public int IdPedido { get; set; }
-        public virtual Pedido Pedido { get; set; }
+        public int IdComanda { get; set; }
+        public virtual Comanda Comanda { get; set; }
 
-        public ItemPedido()
+        public ItemComanda()
         {
         }
     }
