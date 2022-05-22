@@ -70,6 +70,13 @@ namespace SoftCandy.Models
         {
             QuantidadeEstoque = Lotes.Where(p => p.Ativo).Select(lt => lt.QuantidadeEstoque).Sum();
         }
+
+        public bool EstoqueBaixo()
+        {
+            return Ativo
+                && (Lotes == null || Lotes.Count == 0
+                || Lotes.Select(lt => lt.QuantidadeEstoque).Sum() <= QuantidadeMinima);
+        }
     }
 
 }

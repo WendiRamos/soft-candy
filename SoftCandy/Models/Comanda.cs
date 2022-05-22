@@ -78,5 +78,11 @@ namespace SoftCandy.Models
             ItensPedidos.Add(item);
             CalcularValorComanda();
         }
+
+        public void RemoverItem(ItemComanda item)
+        {
+            ItensPedidos.Remove(item);
+            CalcularValorComanda();
+        }
     }
 }

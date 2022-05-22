@@ -71,5 +71,10 @@ namespace SoftCandy.Models
                 return true;
             }
         }
+
+         public void DevolverQuantidade(int quantidade)
+        {
+            QuantidadeEstoque += quantidade;
+        }
     }
 }
