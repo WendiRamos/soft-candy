@@ -33,3 +33,9 @@
         }
     });
 });
+
+function procurarProdutos() {
+    const termoPesquisa = $("#pesquisar").val() || "";
+    const url = "/Comanda/Venda?procura=" + termoPesquisa;
+    window.location.href = url;
+}

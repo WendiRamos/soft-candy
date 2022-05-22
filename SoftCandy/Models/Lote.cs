@@ -72,7 +72,7 @@ namespace SoftCandy.Models
             }
         }
 
-         public void DevolverQuantidade(int quantidade)
+        public void DevolverQuantidade(int quantidade)
         {
             QuantidadeEstoque += quantidade;
         }

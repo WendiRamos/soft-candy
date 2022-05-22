@@ -32,7 +32,7 @@ namespace SoftCandy.Controllers
                 var softCandyContext = _context.Comanda.Where(c => !c.Recebido)
                     .OrderByDescending(p => p.Id);
 
-                return View(await softCandyContext.ToListAsync());
+                return View(await softCandyContext.Take(20).ToListAsync());
 
             }
             return RedirectToAction("User", "Home");
@@ -92,12 +92,6 @@ namespace SoftCandy.Controllers
             return RedirectToAction("User", "Home");
         }
 
-        // GET: Comanda/Top5
-        public List<Produto> BuscarProdutoPorNomeTop5(string TermoProcurado)
-        {
-            return _buscaService.FindByNomeTop5(TermoProcurado);
-        }
-
         // POST: Comanda/Create
         [HttpPost]
         public async Task<IActionResult> Create()
@@ -120,17 +114,23 @@ namespace SoftCandy.Controllers
             }
         }
 
-        //GET:Comanda/Venda
-        public async Task<IActionResult> Venda()
+        public async Task<IActionResult> Venda(string procura)
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
                 if (CaixaUtils.IsAberto(_context))
                 {
+                    if (procura == null)
+                    {
+                        procura = "";
+                    }
+
                     var lotes = await _context.Lote
                         .Where(lote => lote.DisponivelParaVenda())
+                        .Where(lote => lote.Produto.Nome.IndexOf(procura, 0, System.StringComparison.CurrentCultureIgnoreCase) != -1)
                         .Include(lote => lote.Produto)
                         .OrderBy(lote => lote.Produto.Nome)
+                        .Take(2)
                         .ToListAsync();
 
                     return View(lotes);
