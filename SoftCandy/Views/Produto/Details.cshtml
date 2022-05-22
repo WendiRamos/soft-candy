@@ -102,7 +102,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var lote in Model.Lotes.Where(lote => lote.Ativo).Take(10))
+                        @foreach (var lote in Model.Lotes.Where(lote => lote.Ativo && lote.QuantidadeEstoque > 0).Take(10))
                         {
                             <tr>
                                 <td>

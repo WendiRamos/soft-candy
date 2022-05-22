@@ -11,7 +11,7 @@
             <table class="table">
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.Id): </td>
-                    <td>@Html.DisplayFor(model => model.Id)</td>
+                    <td id="idComanda">@Html.DisplayFor(model => model.Id)</td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.IdCaixa): </td>
@@ -59,6 +59,10 @@
                             <th>
                                 Subtotal
                             </th>
+                            @if (!Model.Recebido)
+                            {
+                                <th></th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -77,6 +81,12 @@
                                 <td>
                                     R$ @string.Format("{0:#,0.00}", item.Lote.PrecoVenda * item.Quantidade)
                                 </td>
+                                @if (!Model.Recebido)
+                                {
+                                    <td>
+                                        <button type="submit" id-item="@item.Id" class="btn btn-danger btn-Remove">Remover</button>
+                                    </td>
+                                }
                             </tr>
                         }
                     </tbody>
@@ -94,6 +104,9 @@
             {
                 <span>Ainda não existe itens lançados</span>
             }
+            <br/>
+            <br/>
+            <a class="btn btn-success" asp-controller="Comanda" asp-action="Venda">Lançar Itens</a>
             <br />
         </div>
     </div>
@@ -108,5 +121,6 @@
             </div>
         }
     </div>
-    <br/>
+    <br />
 </center>
+<script defer src="~/js/RemoverItemComanda.js"></script>

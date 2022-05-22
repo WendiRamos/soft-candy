@@ -9,7 +9,7 @@
     <hr />
     <table>
         <tr>
-            <td>Pedido nº: </td>
+            <td>Comanda nº: </td>
             <td>@Html.DisplayFor(model => model.Id)</td>
         </tr>
         <tr>
@@ -25,16 +25,20 @@
             <td>@Html.DisplayFor(model => model.DataHoraRecebimento)</td>
         </tr>
         <tr>
+            <td>@Html.DisplayNameFor(model => model.ValorTotal): </td>
+            <td>@Html.DisplayFor(model => model.ValorTotal)</td>
+        </tr>
+        <tr>
             <td>Meio de Pagamento: </td>
             <td>@Html.DisplayFor(model => model.FormaPagamento)</td>
         </tr>
     </table>
     <hr />
-    <h4 class="center">ITENS DO PEDIDO</h4>
+    <h4 class="center">ITENS DA COMANDA</h4>
     <table class="table">
         <thead>
             <tr>
-                <th>
+                <th style="text-align:left">
                     Nome
                 </th>
                 <th>
@@ -51,14 +55,20 @@
         <tbody>
             @foreach (var item in Model.ItensPedidos)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Lote.Produto.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantidade)
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lote.Produto.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lote.PrecoVenda)
+                </td>
+                <td>
+                    R$ @string.Format("{0:#,0.00}", item.Lote.PrecoVenda * item.Quantidade)
+                </td>
+            </tr>
             }
         </tbody>
         <tfoot>
