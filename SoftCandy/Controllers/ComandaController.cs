@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
 using SoftCandy.Enums;
@@ -24,20 +22,6 @@ namespace SoftCandy.Controllers
         {
             _context = context;
             _buscaService = BuscaService;
-        }
-
-        // GET: Comanda/Index
-        public async Task<IActionResult> Index()
-        {
-            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
-            {
-                var softCandyContext = _context.Comanda
-                    .OrderByDescending(p => p.Id);
-
-                return View(await softCandyContext.ToListAsync());
-
-            }
-            return RedirectToAction("User", "Home");
         }
 
         // GET: Comanda/Abertas
@@ -115,16 +99,22 @@ namespace SoftCandy.Controllers
         [HttpPost]
         public async Task<IActionResult> Create()
         {
-            Comanda comanda = new Comanda()
+            if (CaixaUtils.IsAberto(_context))
             {
-                DataHoraCriacao = DateTime.Now,
-                IdCaixa = CaixaUtils.IdAberto(_context),
-                Recebido = false
-            };
-            _context.Comanda.Add(comanda);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("CupomCriacao", "Comanda", new { id = comanda.Id });
+                Comanda comanda = new Comanda()
+                {
+                    DataHoraCriacao = DateTime.Now,
+                    IdCaixa = CaixaUtils.IdAberto(_context),
+                    Recebido = false
+                };
+                _context.Comanda.Add(comanda);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("CupomCriacao", "Comanda", new { id = comanda.Id });
+            }
+            else
+            {
+                return RedirectToAction("Abertura", "Caixa");
+            }
         }
 
         //GET:Comanda/Venda
@@ -132,13 +122,20 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                var lotes = await _context.Lote
-                    .Where(lote => lote.DisponivelParaVenda())
-                    .Include(lote => lote.Produto)
-                    .OrderBy(lote => lote.Produto.Nome)
-                    .ToListAsync();
+                if (CaixaUtils.IsAberto(_context))
+                {
+                    var lotes = await _context.Lote
+                        .Where(lote => lote.DisponivelParaVenda())
+                        .Include(lote => lote.Produto)
+                        .OrderBy(lote => lote.Produto.Nome)
+                        .ToListAsync();
 
-                return View(lotes);
+                    return View(lotes);
+                }
+                else
+                {
+                    return RedirectToAction("Abertura", "Caixa");
+                }
             }
             return RedirectToAction("User", "Home");
         }
@@ -146,45 +143,49 @@ namespace SoftCandy.Controllers
         [HttpPost, ActionName("Venda")]
         public async Task<IActionResult> Venda(int IdComanda, int IdLote, int Quantidade)
         {
-            var lote = await _context.Lote
-                    .FirstOrDefaultAsync(lt => lt.Id == IdLote);
-
-            if (lote == null)
+            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                return Json("Lote inválido!");
+                var lote = await _context.Lote
+                        .FirstOrDefaultAsync(lt => lt.Id == IdLote);
+
+                if (lote == null)
+                {
+                    return Json("Lote inválido!");
+                }
+
+                var comanda = await _context.Comanda
+                    .Include(c => c.ItensPedidos)
+                    .FirstOrDefaultAsync(c => c.Id == IdComanda);
+
+                if (comanda == null)
+                {
+                    return Json("Comanda inválida!");
+                }
+
+                if (comanda.Recebido == true)
+                {
+                    return Json("Comanda já recebida!");
+                }
+
+                if (!lote.DecrementarVenda(Quantidade))
+                {
+                    return Json("Quantidade indiponível!");
+                }
+
+                ItemComanda itemComanda = new ItemComanda()
+                {
+                    Lote = lote,
+                    Comanda = comanda,
+                    Quantidade = Quantidade
+                };
+
+                comanda.AdicionarItem(itemComanda);
+                _context.Comanda.Update(comanda);
+                _context.Lote.Update(lote);
+                await _context.SaveChangesAsync();
+                return Json("");
             }
-
-            var comanda = await _context.Comanda
-                .Include(c => c.ItensPedidos)
-                .FirstOrDefaultAsync(c => c.Id == IdComanda);
-
-            if (comanda == null)
-            {
-                return Json("Comanda inválida!");
-            }
-
-            if (comanda.Recebido == true)
-            {
-                return Json("Comanda já recebida!");
-            }
-
-            if (!lote.DecrementarVenda(Quantidade))
-            {
-                return Json("Quantidade indiponível!");
-            }
-
-            ItemComanda itemComanda = new ItemComanda()
-            {
-                Lote = lote,
-                Comanda = comanda,
-                Quantidade = Quantidade
-            };
-
-            comanda.AdicionarItem(itemComanda);
-            _context.Comanda.Update(comanda);
-            _context.Lote.Update(lote);
-            await _context.SaveChangesAsync();
-            return Json("");
+            return RedirectToAction("User", "Home");
         }
 
         //GET:Comanda/Receber
@@ -214,15 +215,20 @@ namespace SoftCandy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Receber(int Id, int FormaPagamento)
         {
-            Comanda pedido = await _context.Comanda.Where(p => p.Id == Id).FirstAsync();
-            pedido.FormaPagamento = (FormasPagamentoEnum)FormaPagamento;
-            pedido.Recebido = true;
-            Caixa caixaAberto = CaixaUtils.CaixaAberto(_context);
-            caixaAberto.SomarEmValorVendas(pedido);
-            _context.Update(caixaAberto);
-            _context.Comanda.Update(pedido);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Details", "Pedido", new { id = Id });
+            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+            {
+                Comanda pedido = await _context.Comanda.Where(p => p.Id == Id).FirstAsync();
+                pedido.FormaPagamento = (FormasPagamentoEnum)FormaPagamento;
+                pedido.Recebido = true;
+                Caixa caixaAberto = CaixaUtils.CaixaAberto(_context);
+                caixaAberto.SomarEmValorVendas(pedido);
+                _context.Update(caixaAberto);
+                _context.Comanda.Update(pedido);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", "Pedido", new { id = Id });
+
+            }
+            return RedirectToAction("User", "Home");
         }
 
         private bool ComandaExists(int id)

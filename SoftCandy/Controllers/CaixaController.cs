@@ -25,18 +25,23 @@ namespace SoftCandy.Controllers
         // GET: Histórico
         public async Task<IActionResult> Historico()
         {
-            return View(await _context.Caixa
+            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+            {
+                return View(await _context.Caixa
                 .Where(c => !c.EstaAberto)
                 .Include(f => f.FuncionarioAbertura)
                 .Include(f => f.FuncionarioFechamento)
                 .OrderByDescending(p => p.IdCaixa)
                 .ToListAsync());
+            }
+            return RedirectToAction("User", "Home");
         }
 
 
         // GET: Caixa
         public async Task<IActionResult> Caixa()
         {
+
             if (CaixaUtils.IsAberto(_context))
             {
                 return View( await _context.Caixa
