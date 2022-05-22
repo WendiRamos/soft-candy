@@ -47,8 +47,8 @@
                         </div>
                         <div class="col">
                             <label asp-for="IdProduto" class="control-label"></label>
-                            <select asp-for="IdProduto" class="form-control" asp-items="ViewBag.IdProduto"></select>
-                            <span asp-validation-for="IdProduto" class="text-danger"></span>
+                            <p>@ViewBag.NomeProduto</p>
+                            <input type="hidden" asp-for="IdProduto" value="@ViewBag.IdProduto" />
                         </div>
                     </div>
                     <br />

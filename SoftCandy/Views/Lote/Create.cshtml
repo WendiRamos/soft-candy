@@ -45,16 +45,16 @@
                         </div>
                         <div class="col">
                             <label asp-for="IdProduto" class="control-label">Produto:</label>
-                            @if (ViewBag.Produto != null)
+                            @if (ViewBag.IdProduto == null)
                             {
-                                <span>@ViewBag.Produto</span>
-                                <select hidden asp-for="IdProduto" class="form-control" asp-items="ViewBag.IdProduto"></select>
+                                <select asp-for="IdProduto" class="form-control" asp-items="ViewBag.ListaProdutos"></select>
                             }
                             else
                             {
-                                <select asp-for="IdProduto" class="form-control" asp-items="ViewBag.IdProduto"></select>
+                                <p>@ViewBag.NomeProduto</p>
+                                <input type="hidden" asp-for="IdProduto" value="@ViewBag.IdProduto"/>
                             }
-                        </div>
+                        </div>  
                     </div>
                     <br />
                     <div class="form-group">
