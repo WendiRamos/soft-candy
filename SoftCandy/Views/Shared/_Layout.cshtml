@@ -108,19 +108,19 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Vendedor</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Cliente" asp-action="Index"><img src="~/images/clientes.png" />Clientes</a>
-                                <a class="dropdown-item" asp-controller="Pedido" asp-action="Create"><img src="~/images/pedidos.png" />Realizar Pedido</a>
-                                <a class="dropdown-item" asp-controller="Pedido" asp-action="Index"><img src="~/images/compras.png" />Meus Pedidos</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Estoquista</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mercadorias</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-controller="Categoria" asp-action="Index"><img src="~/images/categoria.png" />Categorias</a>
                                 <a class="dropdown-item" asp-controller="Fornecedor" asp-action="Index"><img src="~/images/fornecedor.png" />Fornecedores</a>
                                 <a class="dropdown-item" asp-controller="Produto" asp-action="Index"><img src="~/images/produtos.png" />Produtos</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Vendas</a>
+                            <div class="dropdown-menu">
+                                <form asp-controller="Comanda" asp-action="Create" method="post" class="dropdown-item"><button type="submit" formtarget="_blank" class="btn btn-success">Nova Comanda</button></form>
+                                <a class="dropdown-item" asp-controller="Comanda" asp-action="Abertas"><img src="~/images/compras.png" />Comandas Abertas</a>
+                                <a class="dropdown-item" asp-controller="Comanda" asp-action="Venda"><img src="~/images/pedidos.png" />Realizar Venda</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -131,6 +131,7 @@
                             </div>
                         </li>
                     </ul>
+                    
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item">
                             <span class="nav-link">

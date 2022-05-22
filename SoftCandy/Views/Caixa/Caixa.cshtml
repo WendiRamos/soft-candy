@@ -9,24 +9,23 @@
     <form class="form-inline" asp-controller="Caixa" asp-action="FechamentoCaixa">
         <div class="d-flex justify-content-between">
             <div class="d-flex">
-                <a asp-controller="Caixa" asp-action="Historico" class="btn btn-info">Histórico</a>
+                <a asp-controller="Comanda" asp-action="Venda" class="btn btn-warning mr-1">Novo Delivery</a>
+                <a asp-controller="Comanda" asp-action="Venda" class="btn btn-info mr-1">Venda por Comanda</a>
+                <a asp-controller="OperacaoCaixa" asp-action="Create" class="btn btn-primary mr-1">Nova Operação</a>
             </div>
             <div class="d-flex">
-                <a asp-controller="Pedido" asp-action="Create" class="btn btn-warning mr-1">Realizar Pedido</a>
-                <a asp-controller="OperacaoCaixa" asp-action="Create" class="btn btn-primary mr-1">Nova Operação</a>
                 <a asp-controller="Caixa" asp-action="Fechamento" class="btn btn-danger">Fechar Caixa</a>
             </div>
         </div>
     </form>
-
     <br />
 
     <div class="card border-warning mb-3">
-        <div class="card-header"><h4>Pedidos a Receber</h4></div>
+        <div class="card-header"><h4>Pedidos Delivery Recebidos</h4></div>
         <div class="card-body">
             @if (Model.Pedidos.Where(p => !p.Recebido).Count() == 0)
             {
-                <span>Não há pedidos a receber</span>
+                <span>Não há pedidos delivery a receber</span>
             }
             else
             {
@@ -40,16 +39,16 @@
                                 Cliente
                             </th>
                             <th>
+                                Data/Hora Pedido
+                            </th>
+                            <th>
                                 Valor
+                            </th>
+                            <th>
+                                Forma Pagamento
                             </th>
                             <th class="center">
                                 Visualizar
-                            </th>
-                            <th class="center">
-                                Apagar
-                            </th>
-                            <th class="center">
-                                Receber
                             </th>
                         </tr>
                     </thead>
@@ -58,25 +57,23 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => pedido.Id)
+                                    Id
                                 </td>
-                                
                                 <td>
-                                    R$ @Html.DisplayFor(modelItem => pedido.ValorTotal)
+                                    Cliente
+                                </td>
+                                <td>
+                                    Data/Hora Pedido
+                                </td>
+                                <td>
+                                    Valor
+                                </td>
+                                <td>
+                                    Forma Pagamento
                                 </td>
                                 <td class="center">
                                     <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.Id" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
-                                    </a>
-                                </td>
-                                <td class="center">
-                                    <a asp-controller="Pedido" asp-action="Delete" asp-route-id="@pedido.Id" class="sem-sub">
-                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
-                                    </a>
-                                </td>
-                                <td class="center">
-                                    <a asp-controller="Pedido" asp-action="Receber" asp-route-id="@pedido.Id" class="sem-sub">
-                                        <img src="~/icons/receber.svg" class="icone-menus" title="Receber" />
                                     </a>
                                 </td>
                             </tr>
@@ -90,11 +87,11 @@
     <br />
 
     <div class="card border-success mb-3">
-        <div class="card-header"><h4>Pedidos Recebidos</h4></div>
+        <div class="card-header"><h4>Comandas Recebidas</h4></div>
         <div class="card-body">
             @if (Model.Pedidos.Where(p => p.Recebido).Count() == 0)
             {
-                <span>Não há pedidos para mostrar</span>
+                <span>Não há comandas para mostrar</span>
             }
             else
             {
@@ -105,10 +102,10 @@
                                 Id
                             </th>
                             <th>
-                                Cliente
+                                Data/Hora Criação
                             </th>
                             <th>
-                                Data/Hora
+                                Data/Hora Recebimento
                             </th>
                             <th>
                                 Forma de pagamento
@@ -127,6 +124,9 @@
                                     @Html.DisplayFor(modelItem => pedido.Id)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modeItem => pedido.DataHoraCriacao)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modeItem => pedido.DataHoraRecebimento)
                                 </td>
                                 <td>
@@ -136,7 +136,7 @@
                                     R$ @Html.DisplayFor(modelItem => pedido.ValorTotal)
                                 </td>
                                 <td class="center">
-                                    <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.Id" class="sem-sub">
+                                    <a asp-controller="Comanda" asp-action="Details" asp-route-id="@pedido.Id" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
                                     </a>
                                 </td>
@@ -188,7 +188,7 @@
                                     @Html.DisplayFor(modelItem => operacao.Id)
                                 </td>
                                 <td>
-                                   R$ @Html.DisplayFor(modeItem => operacao.Valor)
+                                    R$ @Html.DisplayFor(modeItem => operacao.Valor)
                                 </td>
                                 <td>
                                     @if (operacao.Tipo == OperacoesEnum.ENTRADA)
@@ -204,7 +204,7 @@
                                     @Html.DisplayFor(modelItem => operacao.Nome)
                                 </td>
                                 <td>
-                                     @Html.DisplayFor(modelItem => operacao.Funcionario.Nome)
+                                    @Html.DisplayFor(modelItem => operacao.Funcionario.Nome)
                                 </td>
                                 <td class="center">
                                     <a asp-controller="OperacaoCaixa" asp-action="Details" asp-route-id="@operacao.Id" class="sem-sub">
