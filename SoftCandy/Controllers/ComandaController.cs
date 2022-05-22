@@ -251,17 +251,23 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                Comanda comanda = await _context.Comanda.Where(p => p.Id == Id).FirstAsync();
-                comanda.FormaPagamento = (FormasPagamentoEnum)FormaPagamento;
-                comanda.Recebido = true;
-                comanda.DataHoraRecebimento = DateTime.Now;
-                Caixa caixaAberto = CaixaUtils.CaixaAberto(_context);
-                caixaAberto.SomarEmValorVendas(comanda);
-                _context.Update(caixaAberto);
-                _context.Comanda.Update(comanda);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Details", "Comanda", new { id = Id });
-
+                if (CaixaUtils.IsAberto(_context))
+                {
+                    Comanda comanda = await _context.Comanda.Where(p => p.Id == Id).FirstAsync();
+                    comanda.FormaPagamento = (FormasPagamentoEnum)FormaPagamento;
+                    comanda.Recebido = true;
+                    comanda.DataHoraRecebimento = DateTime.Now;
+                    Caixa caixaAberto = CaixaUtils.CaixaAberto(_context);
+                    caixaAberto.SomarEmValorVendas(comanda);
+                    _context.Update(caixaAberto);
+                    _context.Comanda.Update(comanda);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", "Comanda", new { id = Id });
+                }
+                else
+                {
+                    return RedirectToAction("Abertura", "Caixa");
+                }
             }
             return RedirectToAction("User", "Home");
         }

@@ -43,18 +43,19 @@ namespace SoftCandy.Controllers
         {
             if (id == null)
             {
-                ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome");
+                ViewData["ListaProdutos"] = new SelectList(_context.Produto.Where(p => p.Ativo), "Id", "Nome");
+                return View();
             }
-            else
+
+            var produto = await _context.Produto.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (produto == null)
             {
-                var produto =  await _context.Produto.FirstOrDefaultAsync(p => p.Id == id);
-                if(produto == null)
-                {
-                    return NotFound();
-                }
-                ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome", produto);
-                ViewBag.Produto = produto.Nome;
+                return NotFound();
             }
+
+            ViewData["NomeProduto"] = produto.Nome;
+            ViewData["IdProduto"] = id;
             return View();
         }
 
@@ -76,19 +77,21 @@ namespace SoftCandy.Controllers
         }
 
         // GET: Lote/Edit
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var lote = await _context.Lote
+                .Include(lt => lt.Produto)
+                .FirstOrDefaultAsync(lt => lt.Id == id);
 
-            var lote = await _context.Lote.FindAsync(id);
             if (lote == null)
             {
                 return NotFound();
             }
-            ViewData["IdProduto"] = new SelectList(_context.Produto, "Id", "Nome", lote.IdProduto);
+
+            lote.DiasVencimento = (lote.DataHoraValidade - lote.DataHoraFabricacao).Days;
+
+            ViewData["IdProduto"] = id;
+            ViewData["NomeProduto"] = lote.Produto.Nome;
             return View(lote);
         }
 
@@ -123,7 +126,7 @@ namespace SoftCandy.Controllers
                     }
                 }
             }
-            return RedirectToAction("Details", "Produto", new {id = lote.IdProduto });
+            return RedirectToAction("Details", "Produto", new { id = lote.IdProduto });
         }
 
         // GET: Lote/Delete

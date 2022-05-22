@@ -44,7 +44,9 @@ namespace SoftCandy.Controllers
             {
                 var produtos = await _context.Produto
                     .Include(p => p.Lotes)
-                    .Where(p => p.EstoqueBaixo())
+                    .Where(p => p.Ativo
+                    && (p.Lotes.Count == 0
+                    || p.Lotes.Select(lt => lt.QuantidadeEstoque).Sum() <= p.QuantidadeMinima))
                     .ToListAsync();
 
                 produtos.ForEach(p => p.SomarQuantidade());
