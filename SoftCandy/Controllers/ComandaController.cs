@@ -43,14 +43,17 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                var pedido = await _context.Comanda
+                var comanda = await _context.Comanda
                     .Include(i => i.ItensPedidos)
+                    .ThenInclude(c => c.Lote)
+                    .ThenInclude(c => c.Produto)
                     .FirstOrDefaultAsync(m => m.Id == id);
 
-                if (pedido == null)
+                if (comanda == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
+                return View(comanda);
             }
             return RedirectToAction("User", "Home");
         }
@@ -188,25 +191,56 @@ namespace SoftCandy.Controllers
             return RedirectToAction("User", "Home");
         }
 
+        [HttpDelete/*, ActionName("RemoverItem")*/]
+        public async Task<IActionResult> RemoverItem(int IdComanda, int IdItem)
+        {
+            var comanda = await _context.Comanda
+                .Include(c => c.ItensPedidos)
+                .ThenInclude(i => i.Lote)
+                .FirstOrDefaultAsync(c => c.Id == IdComanda);
+
+            if (comanda == null)
+            {
+                return Json("Comanda inexistente!");
+            }
+
+            var itemParaRemover = comanda.ItensPedidos.First(i => i.Id == IdItem);
+
+            if (itemParaRemover == null)
+            {
+                return Json("Item não existe nessa comanda!");
+            }
+
+            itemParaRemover.Lote.DevolverQuantidade(itemParaRemover.Quantidade);
+            comanda.RemoverItem(itemParaRemover);
+            _context.Comanda.Update(comanda);
+            _context.Lote.Update(itemParaRemover.Lote);
+            await _context.SaveChangesAsync();
+
+            return Json("");
+
+        }
+
         //GET:Comanda/Receber
         public async Task<IActionResult> Receber(int id)
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                var pedido = await _context.Comanda
+                var comanda = await _context.Comanda
                     .Include(i => i.ItensPedidos)
-                    //.ThenInclude(it => it.Produto)
+                    .ThenInclude(it => it.Lote)
+                    .ThenInclude(c => c.Produto)
                     .FirstOrDefaultAsync(m => m.Id == id);
 
-                if (pedido == null)
+                if (comanda == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-                if (pedido.Recebido)
+                if (comanda.Recebido)
                 {
-                    return RedirectToAction("Details", "Pedido", new { id = id });
+                    return RedirectToAction("Details", "Comanda", new { id = id });
                 }
-                return View(pedido);
+                return View(comanda);
             }
             return RedirectToAction("User", "Home");
         }
@@ -217,15 +251,16 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                Comanda pedido = await _context.Comanda.Where(p => p.Id == Id).FirstAsync();
-                pedido.FormaPagamento = (FormasPagamentoEnum)FormaPagamento;
-                pedido.Recebido = true;
+                Comanda comanda = await _context.Comanda.Where(p => p.Id == Id).FirstAsync();
+                comanda.FormaPagamento = (FormasPagamentoEnum)FormaPagamento;
+                comanda.Recebido = true;
+                comanda.DataHoraRecebimento = DateTime.Now;
                 Caixa caixaAberto = CaixaUtils.CaixaAberto(_context);
-                caixaAberto.SomarEmValorVendas(pedido);
+                caixaAberto.SomarEmValorVendas(comanda);
                 _context.Update(caixaAberto);
-                _context.Comanda.Update(pedido);
+                _context.Comanda.Update(comanda);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Details", "Pedido", new { id = Id });
+                return RedirectToAction("Details", "Comanda", new { id = Id });
 
             }
             return RedirectToAction("User", "Home");

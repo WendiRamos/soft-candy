@@ -42,11 +42,11 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
-                var produtos = await _context.Produto.Where(p => p.Ativo && p.QuantidadeEstoque <= p.QuantidadeMinima)
-                    .Include(p => p.Categoria)
-                    .Include(p => p.Fornecedor)
+                var produtos = await _context.Produto
                     .Include(p => p.Lotes)
+                    .Where(p => p.EstoqueBaixo())
                     .ToListAsync();
+
                 produtos.ForEach(p => p.SomarQuantidade());
                 return View(produtos);
             }
