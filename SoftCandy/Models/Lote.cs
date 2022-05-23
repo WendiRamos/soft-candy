@@ -76,5 +76,10 @@ namespace SoftCandy.Models
         {
             QuantidadeEstoque += quantidade;
         }
+
+        public bool EstaVencido()
+        {
+            return DataHoraValidade < DateTime.Now;
+        }
     }
 }

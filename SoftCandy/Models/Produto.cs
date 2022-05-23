@@ -50,17 +50,6 @@ namespace SoftCandy.Models
         {
         }
 
-
-        public bool ProblemaAoSubtrair(int quantidadeParaSubtrair)
-        {
-            if (quantidadeParaSubtrair > QuantidadeEstoque)
-            {
-                return true;
-            }
-            QuantidadeDescartada -= quantidadeParaSubtrair;
-            return false;
-        }
-
         public void Devolver(int quantidadeParaDevolver)
         {
             QuantidadeEstoque += quantidadeParaDevolver;
