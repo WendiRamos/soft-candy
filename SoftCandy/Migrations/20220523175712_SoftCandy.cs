@@ -69,6 +69,26 @@ namespace SoftCandy.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Motoboy",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(nullable: true),
+                    Celular = table.Column<string>(nullable: true),
+                    Logradouro = table.Column<string>(nullable: true),
+                    Numero = table.Column<string>(nullable: true),
+                    Bairro = table.Column<string>(nullable: true),
+                    Cidade = table.Column<string>(nullable: true),
+                    Estado = table.Column<string>(nullable: true),
+                    Ativo = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Motoboy", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Produto",
                 columns: table => new
                 {
@@ -189,6 +209,37 @@ namespace SoftCandy.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Delivery",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ValorTotal = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
+                    DataHoraCriacao = table.Column<DateTime>(nullable: false),
+                    DataHoraRecebimento = table.Column<DateTime>(nullable: false),
+                    Recebido = table.Column<bool>(nullable: false),
+                    IdCaixa = table.Column<int>(nullable: false),
+                    IdMotoboy = table.Column<int>(nullable: false),
+                    FormaPagamento = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Delivery", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Delivery_Caixa_IdCaixa",
+                        column: x => x.IdCaixa,
+                        principalTable: "Caixa",
+                        principalColumn: "IdCaixa",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Delivery_Motoboy_IdMotoboy",
+                        column: x => x.IdMotoboy,
+                        principalTable: "Motoboy",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OperacaoCaixa",
                 columns: table => new
                 {
@@ -246,6 +297,34 @@ namespace SoftCandy.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ItemDelivery",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Quantidade = table.Column<int>(nullable: false),
+                    IdLote = table.Column<int>(nullable: false),
+                    IdDelivery = table.Column<int>(nullable: false),
+                    DeliveryId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemDelivery", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemDelivery_Delivery_DeliveryId",
+                        column: x => x.DeliveryId,
+                        principalTable: "Delivery",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemDelivery_Lote_IdLote",
+                        column: x => x.IdLote,
+                        principalTable: "Lote",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Caixa_FuncionarioAberturaId",
                 table: "Caixa",
@@ -262,6 +341,16 @@ namespace SoftCandy.Migrations
                 column: "IdCaixa");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Delivery_IdCaixa",
+                table: "Delivery",
+                column: "IdCaixa");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Delivery_IdMotoboy",
+                table: "Delivery",
+                column: "IdMotoboy");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ItemComanda_IdComanda",
                 table: "ItemComanda",
                 column: "IdComanda");
@@ -269,6 +358,16 @@ namespace SoftCandy.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ItemComanda_IdLote",
                 table: "ItemComanda",
+                column: "IdLote");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemDelivery_DeliveryId",
+                table: "ItemDelivery",
+                column: "DeliveryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemDelivery_IdLote",
+                table: "ItemDelivery",
                 column: "IdLote");
 
             migrationBuilder.CreateIndex(
@@ -303,16 +402,25 @@ namespace SoftCandy.Migrations
                 name: "ItemComanda");
 
             migrationBuilder.DropTable(
+                name: "ItemDelivery");
+
+            migrationBuilder.DropTable(
                 name: "OperacaoCaixa");
 
             migrationBuilder.DropTable(
                 name: "Comanda");
 
             migrationBuilder.DropTable(
+                name: "Delivery");
+
+            migrationBuilder.DropTable(
                 name: "Lote");
 
             migrationBuilder.DropTable(
                 name: "Caixa");
+
+            migrationBuilder.DropTable(
+                name: "Motoboy");
 
             migrationBuilder.DropTable(
                 name: "Produto");

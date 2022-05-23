@@ -9,7 +9,7 @@ using SoftCandy.Data;
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    [Migration("20220521225932_SoftCandy")]
+    [Migration("20220523175712_SoftCandy")]
     partial class SoftCandy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,6 +112,35 @@ namespace SoftCandy.Migrations
                     b.ToTable("Comanda");
                 });
 
+            modelBuilder.Entity("SoftCandy.Models.Delivery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataHoraCriacao");
+
+                    b.Property<DateTime>("DataHoraRecebimento");
+
+                    b.Property<int>("FormaPagamento");
+
+                    b.Property<int>("IdCaixa");
+
+                    b.Property<int>("IdMotoboy");
+
+                    b.Property<bool>("Recebido");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCaixa");
+
+                    b.HasIndex("IdMotoboy");
+
+                    b.ToTable("Delivery");
+                });
+
             modelBuilder.Entity("SoftCandy.Models.Fornecedor", b =>
                 {
                     b.Property<int>("IdFornecedor")
@@ -196,6 +225,28 @@ namespace SoftCandy.Migrations
                     b.ToTable("ItemComanda");
                 });
 
+            modelBuilder.Entity("SoftCandy.Models.ItemDelivery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("DeliveryId");
+
+                    b.Property<int>("IdDelivery");
+
+                    b.Property<int>("IdLote");
+
+                    b.Property<int>("Quantidade");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeliveryId");
+
+                    b.HasIndex("IdLote");
+
+                    b.ToTable("ItemDelivery");
+                });
+
             modelBuilder.Entity("SoftCandy.Models.Lote", b =>
                 {
                     b.Property<int>("Id")
@@ -222,6 +273,32 @@ namespace SoftCandy.Migrations
                     b.HasIndex("IdProduto");
 
                     b.ToTable("Lote");
+                });
+
+            modelBuilder.Entity("SoftCandy.Models.Motoboy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Ativo");
+
+                    b.Property<string>("Bairro");
+
+                    b.Property<string>("Celular");
+
+                    b.Property<string>("Cidade");
+
+                    b.Property<string>("Estado");
+
+                    b.Property<string>("Logradouro");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<string>("Numero");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Motoboy");
                 });
 
             modelBuilder.Entity("SoftCandy.Models.OperacaoCaixa", b =>
@@ -300,8 +377,21 @@ namespace SoftCandy.Migrations
             modelBuilder.Entity("SoftCandy.Models.Comanda", b =>
                 {
                     b.HasOne("SoftCandy.Models.Caixa", "Caixa")
-                        .WithMany("Pedidos")
+                        .WithMany("Comandas")
                         .HasForeignKey("IdCaixa")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SoftCandy.Models.Delivery", b =>
+                {
+                    b.HasOne("SoftCandy.Models.Caixa", "Caixa")
+                        .WithMany()
+                        .HasForeignKey("IdCaixa")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SoftCandy.Models.Motoboy", "Motoboy")
+                        .WithMany()
+                        .HasForeignKey("IdMotoboy")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -311,6 +401,18 @@ namespace SoftCandy.Migrations
                         .WithMany("ItensPedidos")
                         .HasForeignKey("IdComanda")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SoftCandy.Models.Lote", "Lote")
+                        .WithMany()
+                        .HasForeignKey("IdLote")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SoftCandy.Models.ItemDelivery", b =>
+                {
+                    b.HasOne("SoftCandy.Models.Delivery", "Delivery")
+                        .WithMany("ItensDelivery")
+                        .HasForeignKey("DeliveryId");
 
                     b.HasOne("SoftCandy.Models.Lote", "Lote")
                         .WithMany()
