@@ -86,7 +86,7 @@ namespace SoftCandy.Models
         public decimal ValorTotalOperacoes { get; set; }
 
         public ICollection<OperacaoCaixa> Operacoes { get; set; }
-        public ICollection<Comanda> Pedidos { get; set; }
+        public ICollection<Comanda> Comandas { get; set; }
 
 
         public Caixa(decimal valorAbertura)
@@ -180,7 +180,7 @@ namespace SoftCandy.Models
 
         public bool ExistePedidoSemReceber()
         {
-            return Pedidos.Any(p => p.Recebido == false);
+            return Comandas.Any(p => p.Recebido == false);
         }
     }
 }
