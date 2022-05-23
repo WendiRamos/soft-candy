@@ -9,7 +9,7 @@ using SoftCandy.Data;
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    [Migration("20220521225932_SoftCandy")]
+    [Migration("20220523194033_SoftCandy")]
     partial class SoftCandy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -158,6 +158,7 @@ namespace SoftCandy.Controllers
 
                 var comanda = await _context.Comanda
                     .Include(c => c.ItensPedidos)
+                    .ThenInclude(i => i.Lote)
                     .FirstOrDefaultAsync(c => c.Id == IdComanda);
 
                 if (comanda == null)

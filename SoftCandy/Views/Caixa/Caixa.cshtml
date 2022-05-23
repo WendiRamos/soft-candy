@@ -23,7 +23,7 @@
     <div class="card border-warning mb-3">
         <div class="card-header"><h4>Pedidos Delivery Recebidos</h4></div>
         <div class="card-body">
-            @if (Model.Pedidos.Where(p => !p.Recebido && p.AtivoPedido).Count() == 0)
+            @if (Model.Pedidos.Where(p => !p.Recebido).Count() == 0)
             {
                 <span>Não há pedidos delivery a receber</span>
             }
@@ -53,7 +53,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var pedido in Model.Pedidos.Where(p => !p.Recebido && p.AtivoPedido).Take(20))
+                        @foreach (var pedido in Model.Pedidos.Where(p => !p.Recebido).Take(20))
                         {
                             <tr>
                                 <td>
@@ -117,7 +117,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var pedido in Model.Pedidos.Where(p => p.Recebido && p.AtivoPedido).Take(20))
+                        @foreach (var pedido in Model.Pedidos.Where(p => p.Recebido).Take(20))
                         {
                             <tr>
                                 <td>
