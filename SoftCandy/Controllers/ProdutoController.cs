@@ -33,24 +33,34 @@ namespace SoftCandy.Controllers
                     .Include(p => p.Lotes)
                     .Take(20).ToListAsync();
                 produtos.ForEach(p => p.SomarQuantidade());
+
+                var foraEstoque = produtos
+                    .Any(p => p.Lotes.Where(lt => lt.Ativo).Select(lote => lote.QuantidadeEstoque).Sum() <= p.QuantidadeMinima || p.Lotes.Where(lt => lt.Ativo).Any(lote => lote.EstaVencido()));
+
+                ViewData["ForaEstoque"] = foraEstoque;
+
                 return View(produtos);
             }
             return RedirectToAction("User", "Home");
         }
 
-        public async Task<IActionResult> EstoqueBaixo()
+        public async Task<IActionResult> EstoqueBaixoVencido()
         {
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 var produtos = await _context.Produto
                     .Include(p => p.Lotes)
-                    .Where(p => p.Ativo
-                    && (p.Lotes.Count == 0
-                    || p.Lotes.Select(lt => lt.QuantidadeEstoque).Sum() <= p.QuantidadeMinima))
+                    .Where(p => p.Ativo)
                     .ToListAsync();
 
+                var a = produtos.SelectMany(p => p.Lotes.Where(lote => lote.EstaVencido()));
+                ViewData["LotesVencidos"] = a;
+
+                var b = produtos.Where(p => p.Lotes.Count == 0 || p.Lotes.Select(lt => lt.QuantidadeEstoque).Sum() <= p.QuantidadeMinima);
+                ViewData["ProdEscassos"] = b;
+
                 produtos.ForEach(p => p.SomarQuantidade());
-                return View(produtos);
+                return View();
             }
             return RedirectToAction("User", "Home");
         }
