@@ -53,7 +53,7 @@ namespace SoftCandy.Controllers
                     .Where(p => p.Ativo)
                     .ToListAsync();
 
-                var a = produtos.SelectMany(p => p.Lotes.Where(lote => lote.EstaVencido()));
+                var a = produtos.SelectMany(p => p.Lotes.Where(lote => lote.EstaVencido() && lote.Ativo));
                 ViewData["LotesVencidos"] = a;
 
                 var b = produtos.Where(p => p.Lotes.Count == 0 || p.Lotes.Select(lt => lt.QuantidadeEstoque).Sum() <= p.QuantidadeMinima);
