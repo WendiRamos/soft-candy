@@ -1,0 +1,66 @@
+﻿@model SoftCandy.Models.Motoboy
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Motoboy</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Celular)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Celular)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Logradouro)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Logradouro)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Numero)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Bairro)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Bairro)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cidade)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

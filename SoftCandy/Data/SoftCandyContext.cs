@@ -33,5 +33,6 @@ namespace SoftCandy.Data
         public DbSet<SoftCandy.Models.Lote> Lote { get; set; }
         public object Enum { get; internal set; }
         public object Enums { get; internal set; }
+        public DbSet<SoftCandy.Models.Motoboy> Motoboy { get; set; }
     }
 }
