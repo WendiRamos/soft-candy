@@ -154,10 +154,10 @@ namespace SoftCandy.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var lote = await _context.Lote.FindAsync(id);
-            lote.Ativo = true;
+            lote.Ativo = false;
             _context.Lote.Update(lote);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Details));
+            return RedirectToAction("Index", "Produto");
         }
 
         private bool LoteExists(int id)
