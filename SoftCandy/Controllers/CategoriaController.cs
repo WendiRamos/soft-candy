@@ -26,7 +26,7 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {   
-                return View(await _context.Categoria.Where(c => c.AtivoCategoria).ToListAsync());
+                return View(await _context.Categoria.Where(c => c.AtivoCategoria).Take(20).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }
