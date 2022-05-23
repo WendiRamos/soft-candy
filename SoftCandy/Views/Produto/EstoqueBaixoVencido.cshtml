@@ -3,11 +3,11 @@
 @{
     ViewData["Title"] = "Produtos";
 }
-<a asp-controller="Produto" asp-action="Index" class="btn btn-info">Voltar</a>
+<a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
 <p>   </p>
 <center>
-    <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Produtos com estoque baixo</h4></div>
+    <div class="card border-info mb-3">
+        <div class="card-header"><h4>Produtos com Estoque Baixo</h4></div>
         <div class="card-body">
             @if ((ViewBag.ProdEscassos as IEnumerable<Produto>).Count() != 0)
             {
@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <div class="card border-primary mb-3">
+    <div class="card border-danger mb-3">
         <div class="card-header"><h4>Lotes Vencidos</h4></div>
         <div class="card-body">
             @if ((ViewBag.LotesVencidos as IEnumerable<Lote>).Count() != 0)
@@ -106,8 +106,8 @@
                             @item.QuantidadeEstoque
                         </td>
                         <td class="center">
-                            <a asp-action="Create" asp-controller="Lote" asp-route-id="@item.Id" class="sem-sub">
-                                <img src="~/icons/adicionarMercadoria.svg" class="icone-menus" title="Adicionar" />
+                            <a asp-action="Delete" asp-controller="Lote" asp-route-id="@item.Id" class="sem-sub">
+                                <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
                             </a>
                         </td>
                     </tr>
@@ -117,7 +117,7 @@
             }
             else
             {
-            <p>Não tem produtos para mostrar</p>
+            <p>Não há produtos para mostrar</p>
             }
         </div>
     </div>
