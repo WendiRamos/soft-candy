@@ -11,5 +11,12 @@
     <center style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%)">
         <img src="~/images/nova_logo.png" width="800">
     </center>
+
+    @if (ViewBag.ForaEstoque)
+    {
+        <a asp-controller="Produto" asp-action="EstoqueBaixoVencido" id="linkForaEstoque">
+            <img id="imagemForaEstoque" src="~/images/estoque.png" title="Existem produtos escassos ou vencidos!"/>
+        </a>
+    }
 </body>
 </html>
