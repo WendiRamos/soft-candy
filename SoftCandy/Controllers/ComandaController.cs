@@ -44,7 +44,7 @@ namespace SoftCandy.Controllers
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
                 var comanda = await _context.Comanda
-                    .Include(i => i.ItensPedidos)
+                    .Include(i => i.ItensVendas)
                     .ThenInclude(c => c.Lote)
                     .ThenInclude(c => c.Produto)
                     .FirstOrDefaultAsync(m => m.Id == id);
@@ -77,7 +77,7 @@ namespace SoftCandy.Controllers
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
                 var comanda = await _context.Comanda
-                    .Include(i => i.ItensPedidos)
+                    .Include(i => i.ItensVendas)
                     .ThenInclude(c => c.Lote)
                     .ThenInclude(c => c.Produto)
                     .FirstOrDefaultAsync(c => c.Id == id);
@@ -157,7 +157,7 @@ namespace SoftCandy.Controllers
                 }
 
                 var comanda = await _context.Comanda
-                    .Include(c => c.ItensPedidos)
+                    .Include(c => c.ItensVendas)
                     .FirstOrDefaultAsync(c => c.Id == IdComanda);
 
                 if (comanda == null)
@@ -175,7 +175,7 @@ namespace SoftCandy.Controllers
                     return Json("Quantidade indiponível!");
                 }
 
-                ItemComanda itemComanda = new ItemComanda()
+                ItemVenda itemComanda = new ItemVenda()
                 {
                     Lote = lote,
                     Comanda = comanda,
@@ -195,7 +195,7 @@ namespace SoftCandy.Controllers
         public async Task<IActionResult> RemoverItem(int IdComanda, int IdItem)
         {
             var comanda = await _context.Comanda
-                .Include(c => c.ItensPedidos)
+                .Include(c => c.ItensVendas)
                 .ThenInclude(i => i.Lote)
                 .FirstOrDefaultAsync(c => c.Id == IdComanda);
 
@@ -204,7 +204,7 @@ namespace SoftCandy.Controllers
                 return Json("Comanda inexistente!");
             }
 
-            var itemParaRemover = comanda.ItensPedidos.First(i => i.Id == IdItem);
+            var itemParaRemover = comanda.ItensVendas.First(i => i.Id == IdItem);
 
             if (itemParaRemover == null)
             {
@@ -227,7 +227,7 @@ namespace SoftCandy.Controllers
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
                 var comanda = await _context.Comanda
-                    .Include(i => i.ItensPedidos)
+                    .Include(i => i.ItensVendas)
                     .ThenInclude(it => it.Lote)
                     .ThenInclude(c => c.Produto)
                     .FirstOrDefaultAsync(m => m.Id == id);

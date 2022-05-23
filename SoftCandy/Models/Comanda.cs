@@ -34,7 +34,7 @@ namespace SoftCandy.Models
 
         public FormasPagamentoEnum FormaPagamento {get; set;}
 
-        public virtual ICollection<ItemComanda> ItensPedidos { get; set; }
+        public virtual ICollection<ItemVenda> ItensVendas { get; set; }
 
         public Comanda()
         {
@@ -43,9 +43,9 @@ namespace SoftCandy.Models
         public void CalcularValorComanda()
         {
             decimal soma = 0;
-            if (ItensPedidos != null)
+            if (ItensVendas != null)
             {
-                foreach (ItemComanda item in ItensPedidos)
+                foreach (ItemVenda item in ItensVendas)
                 {
                     soma += item.Lote.PrecoVenda * item.Quantidade;
                 }
@@ -73,15 +73,15 @@ namespace SoftCandy.Models
             return FormaPagamento == FormasPagamentoEnum.PIX;
         }
 
-        public void AdicionarItem(ItemComanda item)
+        public void AdicionarItem(ItemVenda item)
         {
-            ItensPedidos.Add(item);
+            ItensVendas.Add(item);
             CalcularValorComanda();
         }
 
-        public void RemoverItem(ItemComanda item)
+        public void RemoverItem(ItemVenda item)
         {
-            ItensPedidos.Remove(item);
+            ItensVendas.Remove(item);
             CalcularValorComanda();
         }
     }

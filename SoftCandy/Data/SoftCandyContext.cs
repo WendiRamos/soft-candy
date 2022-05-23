@@ -18,7 +18,7 @@ namespace SoftCandy.Data
 
         public DbSet<SoftCandy.Models.Comanda> Comanda { get; set; }
 
-        public DbSet<SoftCandy.Models.ItemComanda> ItemComanda { get; set; }
+        public DbSet<SoftCandy.Models.ItemVenda> ItemVenda { get; set; }
 
         public DbSet<SoftCandy.Models.Categoria> Categoria { get; set; }
 
@@ -29,10 +29,10 @@ namespace SoftCandy.Data
         public DbSet<SoftCandy.Models.Caixa> Caixa { get; set; }
 
         public DbSet<SoftCandy.Models.OperacaoCaixa> OperacaoCaixa { get; set; }
+        public DbSet<SoftCandy.Models.Motoboy> Motoboy { get; set; }
 
         public DbSet<SoftCandy.Models.Lote> Lote { get; set; }
         public object Enum { get; internal set; }
         public object Enums { get; internal set; }
-        public DbSet<SoftCandy.Models.Motoboy> Motoboy { get; set; }
     }
 }

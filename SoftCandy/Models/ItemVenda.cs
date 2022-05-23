@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SoftCandy.Models
 {
-    public class ItemComanda
+    public class ItemVenda
     {
         [Key]
         public int Id { get; set; }
@@ -25,7 +25,7 @@ namespace SoftCandy.Models
         public int IdComanda { get; set; }
         public virtual Comanda Comanda { get; set; }
 
-        public ItemComanda()
+        public ItemVenda()
         {
         }
     }

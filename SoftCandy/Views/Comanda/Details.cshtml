@@ -42,7 +42,7 @@
     <div class="card border-info mb-3" style="max-width: 40rem;">
         <div class="card-header"><h4>Itens da Comanda</h4></div>
         <div class="card-body">
-            @if (Model.ItensPedidos.Count() > 0)
+            @if (Model.ItensVendas.Count() > 0)
             {
                 <table class="table">
                     <thead>
@@ -66,7 +66,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.ItensPedidos)
+                        @foreach (var item in Model.ItensVendas)
                         {
                             <tr>
                                 <td>
