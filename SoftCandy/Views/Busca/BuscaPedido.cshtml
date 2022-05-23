@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SoftCandy.Models.Pedido>
+﻿@model IEnumerable<SoftCandy.Models.Comanda>
 
 @{
     ViewData["Title"] = "Pesquisa Pedidos";
@@ -37,13 +37,16 @@
                             <thead>
                                 <tr class="success">
                                     <th>
-                                        @Html.DisplayNameFor(model => model.IdPedido)
+                                        @Html.DisplayNameFor(model => model.Id)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.ValorTotalPedido)
+                                        @Html.DisplayNameFor(model => model.ValorTotal)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.DataPedido)
+                                        @Html.DisplayNameFor(model => model.DataHoraCriacao)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DataHoraRecebimento)
                                     </th>
                                     <th class="center">
                                         Visualizar
@@ -56,28 +59,31 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.IdPedido)
-                                        </td>
-                                        <td>
-                                            R$ @Html.DisplayFor(modelItem => item.ValorTotalPedido)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DataPedido)
-                                        </td>
-                                        <td class="center">
-                                            <a asp-action="Details" asp-route-id="@item.IdPedido" class="sem-sub">
-                                                <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
-                                            </a>
-                                        </td>
-                                        <td class="center">
-                                            <a asp-action="Delete" asp-route-id="@item.IdPedido" class="sem-sub">
-                                                <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
-                                            </a>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        R$ @Html.DisplayFor(modelItem => item.ValorTotal)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataHoraCriacao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataHoraRecebimento)
+                                    </td>
+                                    <td class="center">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="sem-sub">
+                                            <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                        </a>
+                                    </td>
+                                    <td class="center">
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="sem-sub">
+                                            <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
+                                        </a>
 
-                                        </td>
-                                    </tr>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>

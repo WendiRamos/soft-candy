@@ -1,0 +1,87 @@
+﻿@model SoftCandy.Models.Comanda
+
+@{
+    ViewData["Title"] = "Cupom";
+    Layout = "_LayoutCupom";
+}
+<div class="cupom-fiscal">
+    <h4 class="center"><strong>CUPOM NÃO FISCAL</strong></h4>
+    <hr />
+    <table>
+        <tr>
+            <td>Comanda nº: </td>
+            <td>@Html.DisplayFor(model => model.Id)</td>
+        </tr>
+        <tr>
+            <td>Caixa nº: </td>
+            <td>@Html.DisplayFor(model => model.IdCaixa)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.DataHoraCriacao): </td>
+            <td>@Html.DisplayFor(model => model.DataHoraCriacao)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.DataHoraRecebimento): </td>
+            <td>@Html.DisplayFor(model => model.DataHoraRecebimento)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.ValorTotal): </td>
+            <td>R$ @Html.DisplayFor(model => model.ValorTotal)</td>
+        </tr>
+        <tr>
+            <td>Meio de Pagamento: </td>
+            <td>@Html.DisplayFor(model => model.FormaPagamento)</td>
+        </tr>
+    </table>
+    <hr />
+    <h4 class="center">ITENS DA COMANDA</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="text-align:left">
+                    Nome
+                </th>
+                <th>
+                    Qnt.
+                </th>
+                <th>
+                    Preço
+                </th>
+                <th>
+                    Subtotal
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ItensPedidos)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lote.Produto.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantidade)
+                </td>
+                <td>
+                    R$ @Html.DisplayFor(modelItem => item.Lote.PrecoVenda)
+                </td>
+                <td>
+                    R$ @string.Format("{0:#,0.00}", item.Lote.PrecoVenda * item.Quantidade)
+                </td>
+            </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><b>Total: </b></td>
+                <td><b>R$ @Html.DisplayFor(model => model.ValorTotal)</b></td>
+            </tr>
+        </tfoot>
+    </table>
+    <hr />
+    <h4 class="center">2022 © SOFTCANDY</h4>
+    <p class="center">Obrigado, volte sempre!</p>
+</div>
+<script>window.print()</script>

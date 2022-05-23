@@ -1,0 +1,124 @@
+﻿@model IEnumerable<SoftCandy.Models.Produto>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+<a asp-controller="Produto" asp-action="Index" class="btn btn-info">Voltar</a>
+<p>   </p>
+<center>
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Produtos com estoque baixo</h4></div>
+        <div class="card-body">
+            @if ((ViewBag.ProdEscassos as IEnumerable<Produto>).Count() != 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.QuantidadeMinima)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.QuantidadeEstoque)
+                            </th>
+                            <th class="center">
+                                Adicionar Mercadoria
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.ProdEscassos)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Id
+                                </td>
+                                <td>
+                                    @item.Nome
+                                </td>
+                                <td>
+                                    @item.QuantidadeMinima
+                                </td>
+                                <td>
+                                    @item.QuantidadeEstoque
+                                </td>
+                                <td class="center">
+                                    <a asp-action="Create" asp-controller="Lote" asp-route-id="@item.Id" class="sem-sub">
+                                        <img src="~/icons/adicionarMercadoria.svg" class="icone-menus" title="Adicionar" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Não há produtos para mostrar</p>
+            }
+        </div>
+    </div>
+
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Lotes Vencidos</h4></div>
+        <div class="card-body">
+            @if ((ViewBag.LotesVencidos as IEnumerable<Lote>).Count() != 0)
+            {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Produto
+                        </th>
+                        <th>
+                            Data/Hora Validade
+                        </th>
+                        <th>
+                            Quantidade
+                        </th>
+                        <th class="center">
+                            Apagar
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.LotesVencidos)
+                    {
+                    <tr>
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.Produto.Nome
+                        </td>
+                        <td>
+                            @item.DataHoraValidade
+                        </td>
+                        <td>
+                            @item.QuantidadeEstoque
+                        </td>
+                        <td class="center">
+                            <a asp-action="Create" asp-controller="Lote" asp-route-id="@item.Id" class="sem-sub">
+                                <img src="~/icons/adicionarMercadoria.svg" class="icone-menus" title="Adicionar" />
+                            </a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            }
+            else
+            {
+            <p>Não tem produtos para mostrar</p>
+            }
+        </div>
+    </div>
+</center>

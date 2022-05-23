@@ -86,7 +86,7 @@ namespace SoftCandy.Models
         public decimal ValorTotalOperacoes { get; set; }
 
         public ICollection<OperacaoCaixa> Operacoes { get; set; }
-        public ICollection<Pedido> Pedidos { get; set; }
+        public ICollection<Comanda> Pedidos { get; set; }
 
 
         public Caixa(decimal valorAbertura)
@@ -142,24 +142,24 @@ namespace SoftCandy.Models
             ValorTotalFechamentoDinheiro = ValorDinheiroAbertura + ValorVendasDinheiro + ValorTotalOperacoes;
         }
 
-        public void SomarEmValorVendas(Pedido pedido)
+        public void SomarEmValorVendas(Comanda pedido)
         {
             if (pedido.FormaPagamentoIsDinheiro())
             {
-                SomarEmValorVendasDinheiro(pedido.ValorTotalPedido);
+                SomarEmValorVendasDinheiro(pedido.ValorTotal);
                 AtualizarValorTotalFechamentoDinheiro();
             }
             else if (pedido.FormaPagamentoIsCredito())
             {
-                SomarEmValorVendasCartaoCredito(pedido.ValorTotalPedido);
+                SomarEmValorVendasCartaoCredito(pedido.ValorTotal);
             }
             else if (pedido.FormaPagamentoIsDebito())
             {
-                SomarEmValorVendasCartaoDebido(pedido.ValorTotalPedido);
+                SomarEmValorVendasCartaoDebido(pedido.ValorTotal);
             }
             else if (pedido.FormaPagamentoIsPix())
             {
-                SomarEmValorVendasPix(pedido.ValorTotalPedido);
+                SomarEmValorVendasPix(pedido.ValorTotal);
             }
             AtualizarValorTotalVendas();
         }

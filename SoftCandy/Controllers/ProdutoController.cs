@@ -26,18 +26,41 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
-                var softCandyContext = _context.Produto.Where(p => p.AtivoProduto).Include(p => p.Categoria).Include(p => p.Fornecedor);
-                return View(await softCandyContext.Take(20).ToListAsync());
+                var produtos = await _context.Produto
+                    .Where(p => p.Ativo)
+                    .Include(p => p.Categoria)
+                    .Include(p => p.Fornecedor)
+                    .Include(p => p.Lotes)
+                    .Take(20).ToListAsync();
+                produtos.ForEach(p => p.SomarQuantidade());
+
+                var foraEstoque = produtos
+                    .Any(p => p.Lotes.Where(lt => lt.Ativo).Select(lote => lote.QuantidadeEstoque).Sum() <= p.QuantidadeMinima || p.Lotes.Where(lt => lt.Ativo).Any(lote => lote.EstaVencido()));
+
+                ViewData["ForaEstoque"] = foraEstoque;
+
+                return View(produtos);
             }
             return RedirectToAction("User", "Home");
         }
 
-        public async Task<IActionResult> EstoqueBaixo()
+        public async Task<IActionResult> EstoqueBaixoVencido()
         {
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
-                var softCandyContext = _context.Produto.Where(p => p.AtivoProduto && p.QuantidadeProduto <= p.QuantidadeMinimaProduto).Include(p => p.Fornecedor);
-                return View(await softCandyContext.Take(20).ToListAsync());
+                var produtos = await _context.Produto
+                    .Include(p => p.Lotes)
+                    .Where(p => p.Ativo)
+                    .ToListAsync();
+
+                var a = produtos.SelectMany(p => p.Lotes.Where(lote => lote.EstaVencido()));
+                ViewData["LotesVencidos"] = a;
+
+                var b = produtos.Where(p => p.Lotes.Count == 0 || p.Lotes.Select(lt => lt.QuantidadeEstoque).Sum() <= p.QuantidadeMinima);
+                ViewData["ProdEscassos"] = b;
+
+                produtos.ForEach(p => p.SomarQuantidade());
+                return View();
             }
             return RedirectToAction("User", "Home");
         }
@@ -47,7 +70,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var softCandyContext = _context.Produto.Where(c => c.AtivoProduto).Include(p => p.Categoria).Include(p => p.Fornecedor);
+                var softCandyContext = _context.Produto.Where(c => c.Ativo).Include(p => p.Categoria).Include(p => p.Fornecedor);
                 return View(await softCandyContext.ToListAsync());
             }
             return RedirectToAction("Index", "Home");
@@ -66,12 +89,13 @@ namespace SoftCandy.Controllers
                 var produto = await _context.Produto
                     .Include(p => p.Categoria)
                     .Include(p => p.Fornecedor)
-                    .FirstOrDefaultAsync(m => m.IdProduto == id);
+                    .Include(p => p.Lotes)
+                    .FirstOrDefaultAsync(m => m.Id == id);
                 if (produto == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-
+                produto.SomarQuantidade();
                 return View(produto);
             }
             return RedirectToAction("User", "Home");
@@ -92,13 +116,13 @@ namespace SoftCandy.Controllers
         // POST: Produto/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,IdCategoria,IdFornecedor")] Produto produto)
+        public async Task<IActionResult> Create([Bind("Nome,QuantidadeMinima,IdCategoria,IdFornecedor,Medida")] Produto produto)
         {
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 if (ModelState.IsValid)
                 {
-                    produto.AtivoProduto = true;
+                    produto.Ativo = true;
                     _context.Add(produto);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -136,12 +160,12 @@ namespace SoftCandy.Controllers
         // POST: Produto/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdProduto,NomeProduto,PrecoVendaProduto,QuantidadeProduto,QuantidadeMinimaProduto,DescricaoProduto,IdCategoria,IdFornecedor")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("Nome,QuantidadeMinima,IdCategoria,IdFornecedor, Medida")] Produto produto)
         {
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
 
-                if (id != produto.IdProduto)
+                if (id != produto.Id)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                 }
@@ -150,13 +174,13 @@ namespace SoftCandy.Controllers
                 {
                     try
                     {
-                        produto.AtivoProduto = true;
+                        produto.Ativo = true;
                         _context.Update(produto);
                         await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!ProdutoExists(produto.IdProduto))
+                        if (!ProdutoExists(produto.Id))
                         {
                             return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                         }
@@ -187,12 +211,13 @@ namespace SoftCandy.Controllers
                 var produto = await _context.Produto
                     .Include(p => p.Categoria)
                     .Include(p => p.Fornecedor)
-                    .FirstOrDefaultAsync(m => m.IdProduto == id);
+                    .Include(p => p.Lotes)
+                    .FirstOrDefaultAsync(m => m.Id == id);
                 if (produto == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-
+                produto.SomarQuantidade();
                 return View(produto);
 
             }
@@ -207,7 +232,8 @@ namespace SoftCandy.Controllers
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 var produto = await _context.Produto.FindAsync(id);
-                produto.AtivoProduto = false;
+                produto.Ativo = false;
+                produto.SomarQuantidade();
                 _context.Produto.Update(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -227,12 +253,12 @@ namespace SoftCandy.Controllers
                 var produto = await _context.Produto
                     .Include(p => p.Categoria)
                     .Include(p => p.Fornecedor)
-                    .FirstOrDefaultAsync(m => m.IdProduto == id);
+                    .FirstOrDefaultAsync(m => m.Id == id);
                 if (produto == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-
+                produto.SomarQuantidade();
                 return View(produto);
             }
             return RedirectToAction("User", "Home");
@@ -246,7 +272,7 @@ namespace SoftCandy.Controllers
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
                 var produto = await _context.Produto.FindAsync(id);
-                produto.AtivoProduto = true;
+                produto.Ativo = true;
                 _context.Produto.Update(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -256,7 +282,7 @@ namespace SoftCandy.Controllers
 
         private bool ProdutoExists(int id)
         {
-            return _context.Produto.Any(e => e.IdProduto == id);
+            return _context.Produto.Any(e => e.Id == id);
         }
 
         public IActionResult Error(string message)

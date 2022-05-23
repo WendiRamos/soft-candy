@@ -18,25 +18,7 @@ namespace SoftCandy.Controllers
             _buscaService = BuscaService;
         }
 
-        public async Task<IActionResult> BuscaCliente(string Nome)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var result = await _buscaService.FindByNomeCliente(Nome);
-                return View(result);
-            }
-            return RedirectToAction("Index", "Home");
-        }
-        public async Task<IActionResult> BuscaClienteApagado(string Nome)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var result = await _buscaService.FindByNomeClienteApagado(Nome);
-                return View(result);
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
+       
         public async Task<IActionResult> BuscaVendedor(string Nome)
         {
             if (User.Identity.IsAuthenticated)
@@ -101,7 +83,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByNomeProduto(Nome);
+                var result = await _buscaService.FindByNome(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");
@@ -111,7 +93,7 @@ namespace SoftCandy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var result = await _buscaService.FindByNomeProdutoApagado(Nome);
+                var result = await _buscaService.FindByNomeApagado(Nome);
                 return View(result);
             }
             return RedirectToAction("Index", "Home");

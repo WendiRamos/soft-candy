@@ -1,0 +1,92 @@
+﻿@model IEnumerable<SoftCandy.Models.Comanda>
+
+@{
+    ViewData["Title"] = "Comandas Abertas";
+}
+<div class="d-flex justify-content-between">
+
+    <form class="d-flex" asp-controller="Comanda" asp-action="Create">
+        <button type="submit" value="Criar Comanda" formtarget="_blank" class="btn btn-success">Criar Comanda</button>
+    </form>
+    <div class="d-flex">
+        <input id="pesquisaComanda" class="form-control mr-1" min="1" type="number" placeholder=" Nº Comanda" autocomplete="off" />
+        <button id="procurar" type="button" class="btn btn-primary" onclick="procurar()">Procurar</button>
+    </div>
+</div>
+<br />
+<center>
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Comandas Abertas</h4></div>
+        <div class="card-body">
+            @if (Model.Count() != 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdCaixa)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ValorTotal)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataHoraCriacao)
+                            </th>
+                            <th class="center">
+                                Visualizar
+                            </th>
+                            <th class="center">
+                                Receber
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdCaixa)
+                                </td>
+                                <td>
+                                    R$ @Html.DisplayFor(modelItem => item.ValorTotal)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataHoraCriacao)
+                                </td>
+                                <td class="center">
+                                    <a asp-action="Details" asp-controller="Comanda" asp-route-id="@item.Id" class="sem-sub">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                    </a>
+                                </td>
+                                <td class="center">
+                                    <a asp-action="Receber" asp-controller="Comanda" asp-route-id="@item.Id" class="sem-sub">
+                                        <img src="~/icons/receber.svg" class="icone-menus" title="Receber" />
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Não tem comandas para mostrar</p>
+            }
+        </div>
+    </div>
+</center>
+
+<script defer>
+   function procurar() {
+        const comanda = $("#pesquisaComanda").val() || "";
+        const url = "/Comanda/Details/" + comanda;
+        window.location.href = url;
+    }
+</script>

@@ -26,19 +26,10 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.IdProduto)
+                                @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.NomeProduto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DescricaoProduto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.QuantidadeProduto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.PrecoVendaProduto)
+                                @Html.DisplayNameFor(model => model.Nome)
                             </th>
                             <th class="center">
                                 Visualizar
@@ -56,33 +47,24 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IdProduto)
+                                    @Html.DisplayFor(modelItem => item.Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.NomeProduto)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DescricaoProduto)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
-                                </td>
-                                <td>
-                                    R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
+                                    @Html.DisplayFor(modelItem => item.Nome)
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Details" asp-route-id="@item.IdProduto" class="sem-sub">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                     </a>
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Edit" asp-route-id="@item.IdProduto" class="sem-sub">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
                                     </a>
 
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Delete" asp-route-id="@item.IdProduto" class="sem-sub">
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
                                     </a>
 

@@ -1,0 +1,126 @@
+﻿@model SoftCandy.Models.Comanda
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Detalhes da Comanda</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Id): </td>
+                    <td id="idComanda">@Html.DisplayFor(model => model.Id)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.IdCaixa): </td>
+                    <td>@Html.DisplayFor(model => model.IdCaixa)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.DataHoraCriacao): </td>
+                    <td>@Html.DisplayFor(model => model.DataHoraCriacao)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.DataHoraRecebimento): </td>
+                    @if (Model.Recebido)
+                    {
+                        <td>@Html.DisplayFor(model => model.DataHoraRecebimento)</td>
+                    }
+                    else
+                    {
+                        <td>Não recebida</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorTotal): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorTotal)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="card border-info mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Itens da Comanda</h4></div>
+        <div class="card-body">
+            @if (Model.ItensPedidos.Count() > 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Nome
+                            </th>
+                            <th>
+                                Quantidade
+                            </th>
+                            <th>
+                                Preço
+                            </th>
+                            <th>
+                                Subtotal
+                            </th>
+                            @if (!Model.Recebido)
+                            {
+                                <th></th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ItensPedidos)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lote.Produto.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantidade)
+                                </td>
+                                <td>
+                                    R$ @Html.DisplayFor(modelItem => item.Lote.PrecoVenda)
+                                </td>
+                                <td>
+                                    R$ @string.Format("{0:#,0.00}", item.Lote.PrecoVenda * item.Quantidade)
+                                </td>
+                                @if (!Model.Recebido)
+                                {
+                                    <td>
+                                        <button type="submit" id-item="@item.Id" class="btn btn-danger btn-Remove">Remover</button>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><b>Total: </b></td>
+                            <td><b>R$ @Html.DisplayFor(model => model.ValorTotal)</b></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            }
+            else
+            {
+                <span>Ainda não existe itens lançados</span>
+            }
+            <br/>
+            <br/>
+            <a class="btn btn-success" asp-controller="Comanda" asp-action="Venda">Lançar Itens</a>
+            <br />
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="d-flex">
+            <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+        </div>
+        @if (Model.Recebido)
+        {
+            <div class="d-flex">
+                @Html.ActionLink("Gerar Cupom", "CupomRecebimento", new { id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+            </div>
+        }
+    </div>
+    <br />
+</center>
+<script defer src="~/js/RemoverItemComanda.js"></script>

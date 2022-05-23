@@ -1,34 +1,52 @@
 ﻿@model SoftCandy.Models.Produto
+@using SoftCandy.Models
+@using SoftCandy.Enums
 
 @{
     ViewData["Title"] = "Detalhes";
 }
-<br />
+
 <center>
-    <div class="card border-primary mb-3" style="max-width: 40rem;">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+
+        </div>
+        <div class="d-flex">
+
+        </div>
+    </div>
+    <br />
+    <div class="card border-primary mb-3" style="max-width: 50rem;">
         <div class="card-header"><h4>Detalhes Produto</h4></div>
         <div class="card-body">
             <div>
                 <table class="table">
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.IdProduto): </td>
-                        <td>@Html.DisplayFor(model => model.IdProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.Id): </td>
+                        <td>@Html.DisplayFor(model => model.Id)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.NomeProduto): </td>
-                        <td>@Html.DisplayFor(model => model.NomeProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.Nome): </td>
+                        <td>@Html.DisplayFor(model => model.Nome)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.PrecoVendaProduto): </td>
-                        <td>@Html.DisplayFor(model => model.PrecoVendaProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.QuantidadeMinima): </td>
+                        <td>@Html.DisplayFor(model => model.QuantidadeMinima)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.QuantidadeProduto): </td>
-                        <td>@Html.DisplayFor(model => model.QuantidadeProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.QuantidadeEstoque): </td>
+                        <td>@Html.DisplayFor(model => model.QuantidadeEstoque)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.QuantidadeMinimaProduto): </td>
-                        <td>@Html.DisplayFor(model => model.QuantidadeMinimaProduto)</td>
+                        <td>@Html.DisplayNameFor(model => model.Medida): </td>
+                        @if (Model.Medida == MedidaEnum.UNIDADE)
+                        {
+                            <td>Unidade</td>
+                        }
+                        else
+                        {
+                            <td>Ml</td>
+                        }
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.Categoria): </td>
@@ -38,17 +56,104 @@
                         <td>@Html.DisplayNameFor(model => model.Fornecedor):</td>
                         <td>@Html.DisplayFor(model => model.Fornecedor.RazaoSocial)</td>
                     </tr>
-                    <tr>
-                        <td>@Html.DisplayNameFor(model => model.DescricaoProduto):</td>
-                        <td>@Html.DisplayFor(model => model.DescricaoProduto)</td>
-                    </tr>
                 </table>
-                <br />
                 <div>
-                    <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                    <a asp-action="Edit" asp-route-id="@Model.IdProduto" class="btn btn-info">Editar</a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="card border-info mb-3" style="max-width: 50rem;">
+        <div class="card-header"><h4>Lotes Cadastrados</h4></div>
+        <div class="card-body">
+            @if (Model.Lotes.Count() != 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lotes[0].Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lotes[0].DataHoraFabricacao)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lotes[0].DataHoraValidade)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lotes[0].PrecoCompra)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lotes[0].PrecoVenda)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lotes[0].QuantidadeEstoque)
+                            </th>
+                            <th class="center">
+                                Visualizar
+                            </th>
+                            <th class="center">
+                                Editar
+                            </th>
+                            <th class="center">
+                                Apagar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var lote in Model.Lotes.Where(lote => lote.Ativo && lote.QuantidadeEstoque > 0).Take(10))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => lote.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => lote.DataHoraFabricacao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => lote.DataHoraValidade)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => lote.PrecoCompra)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => lote.PrecoVenda)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => lote.QuantidadeEstoque)
+                                </td>
+                                <td class="center">
+                                    <a asp-controller="Lote" asp-action="Details" asp-route-id="@lote.Id" class="sem-sub">
+                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                    </a>
+                                </td>
+                                <td class="center">
+                                    <a asp-controller="Lote" asp-action="Edit" asp-route-id="@lote.Id" class="sem-sub">
+                                        <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
+                                    </a>
+
+                                </td>
+                                <td class="center">
+                                    <a asp-controller="Lote" asp-action="Delete" asp-route-id="@lote.Id" class="sem-sub">
+                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Não há lotes para mostrar</p>
+            }
+            <div>
+                <a asp-action="Create" asp-controller="Lote" asp-route-id="@Model.Id" class="btn btn-info">Criar Lote</a>
+            </div>
+        </div>
+    </div>
+    <div><a asp-controller="Produto" asp-action="Index" class="btn btn-primary">Voltar</a></div>
+    <br />
 </center>

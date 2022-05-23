@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Categoria\CategoriasApagadas.cshtml" />
+    <Content Remove="Views\Cliente\ClientesApagados.cshtml" />
     <Content Remove="wwwroot\favicon.ico" />
     <Content Remove="wwwroot\images\fornecedor-32.png" />
     <Content Remove="wwwroot\js\site.js" />
@@ -20,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Castle.Windsor" Version="5.1.1" />
     <PackageReference Include="JQuery.MoneyMask" Version="1.0.3.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -38,6 +40,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\icons\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

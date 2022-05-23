@@ -25,19 +25,24 @@ namespace SoftCandy.Controllers
         // GET: Histórico
         public async Task<IActionResult> Historico()
         {
-            return View(await _context.Caixa
+            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+            {
+                return View(await _context.Caixa
                 .Where(c => !c.EstaAberto)
                 .Include(f => f.FuncionarioAbertura)
                 .Include(f => f.FuncionarioFechamento)
                 .OrderByDescending(p => p.IdCaixa)
                 .Take(20)
                 .ToListAsync());
+            }
+            return RedirectToAction("User", "Home");
         }
 
 
         // GET: Caixa
         public async Task<IActionResult> Caixa()
         {
+
             if (CaixaUtils.IsAberto(_context))
             {
                 return View( await _context.Caixa
@@ -45,7 +50,6 @@ namespace SoftCandy.Controllers
                 .Include(c => c.Operacoes)
                 .ThenInclude(c => c.Funcionario)
                 .Include(p => p.Pedidos)
-                .ThenInclude(c => c.Cliente)
                 .FirstAsync());
             }
             else
@@ -111,10 +115,12 @@ namespace SoftCandy.Controllers
         {
             Caixa caixa = CaixaUtils.CaixaAberto(_context);
             _context.Entry(caixa).Collection(c => c.Pedidos).Load();
-            if (caixa.ExistePedidoSemReceber())
+
+            if (caixa.ExistePedidoSemReceber() && !LoginAtual.IsAdministrador(User))
             {
-                return RedirectToAction(nameof(Error), new { message = "Existe pedido sem receber!" });
+                    return RedirectToAction(nameof(Error), new { message = "Existe pedido sem receber!" });
             }
+
             caixa.EstaAberto = false;
             caixa.FuncionarioFechamentoId = LoginAtual.Id(User);
             caixa.DataHoraFechamento = DateTime.Now;

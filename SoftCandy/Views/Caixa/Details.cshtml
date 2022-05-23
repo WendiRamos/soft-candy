@@ -136,29 +136,19 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => pedido.IdPedido)
+                                    @Html.DisplayFor(modelItem => pedido.Id)
                                 </td>
                                 <td>
-                                    @if (pedido.IdCliente != null)
-                                    {
-                                        @Html.DisplayFor(modelItem => pedido.Cliente.NomeCliente)
-                                    }
-                                    else
-                                    {
-                                        <span>Cliente não cadastrado</span>
-                                    }
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modeItem => pedido.DataPedido)
+                                    @Html.DisplayFor(modeItem => pedido.DataHoraRecebimento)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => pedido.FormaPagamento)
                                 </td>
                                 <td>
-                                    R$ @Html.DisplayFor(modelItem => pedido.ValorTotalPedido)
+                                    R$ @Html.DisplayFor(modelItem => pedido.ValorTotal)
                                 </td>
                                 <td class="center">
-                                    <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.IdPedido" class="sem-sub">
+                                    <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.Id" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
                                     </a>
                                 </td>

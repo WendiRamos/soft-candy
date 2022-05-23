@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<SoftCandy.Models.Produto>
+@using SoftCandy.Models
+@using SoftCandy.Enums
 
 @{
     ViewData["Title"] = "Produtos";
@@ -7,8 +9,9 @@
     <div class="d-flex justify-content-between">
         <div class="d-flex">
             <a asp-action="Create" class="btn btn-success mr-1">Novo Produto</a>
-            <a asp-controller="Busca" asp-action="BuscaProdutoApagado" class="btn btn-info mr-1">Produtos Apagados</a>
-            <a asp-controller="Produto" asp-action="EstoqueBaixo" class="btn btn-warning">Produtos Escassos</a>
+            <a asp-controller="Lote" asp-action="Create" class="btn btn-info mr-1">Novo Lote</a>
+            <a asp-controller="Produto" asp-action="EstoqueBaixoVencido" class="btn btn-danger mr-1">Produtos Escassos</a>
+            <a asp-controller="Busca" asp-action="BuscaProdutoApagado" class="btn btn-warning mr-1">Produtos Apagados</a>
         </div>
         <div class="d-flex">
             <label for="Nome"></label>
@@ -28,16 +31,19 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.IdProduto)
+                                @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.NomeProduto)
+                                @Html.DisplayNameFor(model => model.Nome)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.PrecoVendaProduto)
+                                @Html.DisplayNameFor(model => model.QuantidadeEstoque)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.QuantidadeProduto)
+                                @Html.DisplayNameFor(model => model.Medida)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Categoria)
                             </th>
                             <th class="center">
                                 Visualizar
@@ -55,30 +61,38 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IdProduto)
+                                    @Html.DisplayFor(modelItem => item.Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.NomeProduto)
+                                    @Html.DisplayFor(modelItem => item.Nome)
                                 </td>
                                 <td>
-                                    R$ @Html.DisplayFor(modelItem => item.PrecoVendaProduto)
+                                    @Html.DisplayFor(modelItem => item.QuantidadeEstoque)
                                 </td>
+                                @if (item.Medida == MedidaEnum.UNIDADE)
+                                {
+                                    <td>Unidade</td>
+                                }
+                                else
+                                {
+                                    <td>Ml</td>
+                                }
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.QuantidadeProduto)
+                                    @Html.DisplayFor(modelItem => item.Categoria.NomeCategoria)
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Details" asp-route-id="@item.IdProduto" class="sem-sub">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                     </a>
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Edit" asp-route-id="@item.IdProduto" class="sem-sub">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
                                     </a>
 
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Delete" asp-route-id="@item.IdProduto" class="sem-sub">
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
                                     </a>
 
@@ -95,3 +109,10 @@
         </div>
     </div>
 </center>
+
+@if (ViewBag.ForaEstoque)
+{
+    <a asp-controller="Produto" asp-action="EstoqueBaixoVencido" id="linkForaEstoque">
+        <img id="imagemForaEstoque" src="~/images/estoque.png" title="Existem produtos escassos ou vencidos!" />
+    </a>
+}
