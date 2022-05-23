@@ -49,7 +49,7 @@ namespace SoftCandy.Controllers
                 .Where(c => c.EstaAberto)
                 .Include(c => c.Operacoes)
                 .ThenInclude(c => c.Funcionario)
-                .Include(p => p.Pedidos)
+                .Include(p => p.Comandas)
                 .FirstAsync());
             }
             else
@@ -114,7 +114,7 @@ namespace SoftCandy.Controllers
         public async Task<IActionResult> FechamentoCaixa()
         {
             Caixa caixa = CaixaUtils.CaixaAberto(_context);
-            _context.Entry(caixa).Collection(c => c.Pedidos).Load();
+            _context.Entry(caixa).Collection(c => c.Comandas).Load();
 
             if (caixa.ExistePedidoSemReceber() && !LoginAtual.IsAdministrador(User))
             {
@@ -139,7 +139,7 @@ namespace SoftCandy.Controllers
             }
 
             var caixa = await _context.Caixa
-                .Include(c => c.Pedidos)
+                .Include(c => c.Comandas)
                 .Include(c => c.Operacoes)
                 .Include(c => c.FuncionarioAbertura)
                 .Include(c => c.FuncionarioFechamento)
