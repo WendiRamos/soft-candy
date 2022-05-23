@@ -119,6 +119,8 @@ namespace SoftCandy.Migrations
 
                     b.Property<DateTime>("DataHoraRecebimento");
 
+                    b.Property<DateTime>("EnderecoEntrega");
+
                     b.Property<int>("FormaPagamento");
 
                     b.Property<int>("IdCaixa");
@@ -383,7 +385,7 @@ namespace SoftCandy.Migrations
             modelBuilder.Entity("SoftCandy.Models.Delivery", b =>
                 {
                     b.HasOne("SoftCandy.Models.Caixa", "Caixa")
-                        .WithMany()
+                        .WithMany("Deliveries")
                         .HasForeignKey("IdCaixa")
                         .OnDelete(DeleteBehavior.Cascade);
 

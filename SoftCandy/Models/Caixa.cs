@@ -85,8 +85,9 @@ namespace SoftCandy.Models
         [Column(TypeName = "decimal(8, 2)")]
         public decimal ValorTotalOperacoes { get; set; }
 
-        public ICollection<OperacaoCaixa> Operacoes { get; set; }
-        public ICollection<Comanda> Comandas { get; set; }
+        public virtual ICollection<OperacaoCaixa> Operacoes { get; set; }
+        public virtual ICollection<Comanda> Comandas { get; set; }
+        public virtual ICollection<Delivery> Deliveries { get; set; }
 
 
         public Caixa(decimal valorAbertura)

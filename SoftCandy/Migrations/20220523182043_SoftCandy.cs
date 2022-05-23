@@ -217,6 +217,7 @@ namespace SoftCandy.Migrations
                     ValorTotal = table.Column<decimal>(type: "decimal(8, 2)", nullable: false),
                     DataHoraCriacao = table.Column<DateTime>(nullable: false),
                     DataHoraRecebimento = table.Column<DateTime>(nullable: false),
+                    EnderecoEntrega = table.Column<DateTime>(nullable: false),
                     Recebido = table.Column<bool>(nullable: false),
                     IdCaixa = table.Column<int>(nullable: false),
                     IdMotoboy = table.Column<int>(nullable: false),

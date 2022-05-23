@@ -1,66 +1,52 @@
 ﻿@model SoftCandy.Models.Motoboy
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Motoboy</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Celular)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Celular)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Logradouro)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Logradouro)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Numero)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Bairro)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Bairro)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Cidade)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Cidade)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ativo)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Detalhes Motoboy</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Id): </td>
+                    <td>@Html.DisplayFor(model => model.Id)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Nome): </td>
+                    <td>@Html.DisplayFor(model => model.Nome)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Celular): </td>
+                    <td>@Html.DisplayFor(model => model.Celular)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Logradouro):</td>
+                    <td>@Html.DisplayFor(model => model.Logradouro)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Numero): </td>
+                    <td>@Html.DisplayFor(model => model.Numero)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Bairro): </td>
+                    <td>@Html.DisplayFor(model => model.Bairro)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Cidade): </td>
+                    <td>@Html.DisplayFor(model => model.Cidade)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Estado): </td>
+                    <td>@Html.DisplayFor(model => model.Estado)</td>
+                </tr>
+            </table>
+            <br />
+            <div>
+                <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Editar</a>
+            </div>
+        </div>
+    </div>
+</center>

@@ -43,6 +43,26 @@ namespace SoftCandy.Services
             return await result.ToListAsync();
         }
 
+        public async Task<List<Motoboy>> FindByNomeMotoboy(String Nome)
+        {
+            var result = from obj in _context.Motoboy.Where(m => m.Ativo) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
+            }
+            return await result.ToListAsync();
+        }
+
+        public async Task<List<Motoboy>> FindByNomeMotoboyApagado(String Nome)
+        {
+            var result = from obj in _context.Motoboy.Where(m => m.Ativo) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
+            }
+            return await result.ToListAsync();
+        }
+
         public async Task<List<Funcionario>> FindByNomeEstoquista(String Nome)
         {
             var result = from obj in _context.Funcionario.Where(c => Validacao.IsEstoquistaAtivo(c)) select obj;

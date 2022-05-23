@@ -29,6 +29,11 @@
                 <span asp-validation-for="DataHoraRecebimento" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="EnderecoEntrega" class="control-label"></label>
+                <input asp-for="EnderecoEntrega" class="form-control" />
+                <span asp-validation-for="EnderecoEntrega" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <div class="checkbox">
                     <label>
                         <input asp-for="Recebido" /> @Html.DisplayNameFor(model => model.Recebido)

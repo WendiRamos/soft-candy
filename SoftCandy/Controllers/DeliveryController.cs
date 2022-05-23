@@ -59,7 +59,7 @@ namespace SoftCandy.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ValorTotal,DataHoraCriacao,DataHoraRecebimento,Recebido,IdCaixa,IdMotoboy,FormaPagamento")] Delivery delivery)
+        public async Task<IActionResult> Create([Bind("Id,ValorTotal,DataHoraCriacao,DataHoraRecebimento,EnderecoEntrega,Recebido,IdCaixa,IdMotoboy,FormaPagamento")] Delivery delivery)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace SoftCandy.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ValorTotal,DataHoraCriacao,DataHoraRecebimento,Recebido,IdCaixa,IdMotoboy,FormaPagamento")] Delivery delivery)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ValorTotal,DataHoraCriacao,DataHoraRecebimento,EnderecoEntrega,Recebido,IdCaixa,IdMotoboy,FormaPagamento")] Delivery delivery)
         {
             if (id != delivery.Id)
             {

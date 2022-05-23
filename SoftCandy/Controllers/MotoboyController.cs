@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoftCandy.Data;
 using SoftCandy.Models;
+using SoftCandy.Utils;
 
 namespace SoftCandy.Controllers
 {
@@ -22,17 +24,12 @@ namespace SoftCandy.Controllers
         // GET: Motoboy
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Motoboy.ToListAsync());
+            return View(await _context.Motoboy.Where( m => m.Ativo).Take(20).ToListAsync());
         }
 
         // GET: Motoboy/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var motoboy = await _context.Motoboy
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (motoboy == null)
@@ -49,16 +46,14 @@ namespace SoftCandy.Controllers
             return View();
         }
 
-        // POST: Motoboy/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Ativo")] Motoboy motoboy)
+        public async Task<IActionResult> Create([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado")] Motoboy motoboy)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(motoboy);
+                motoboy.Ativo = true;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -66,13 +61,8 @@ namespace SoftCandy.Controllers
         }
 
         // GET: Motoboy/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var motoboy = await _context.Motoboy.FindAsync(id);
             if (motoboy == null)
             {
@@ -82,11 +72,9 @@ namespace SoftCandy.Controllers
         }
 
         // POST: Motoboy/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Ativo")] Motoboy motoboy)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado")] Motoboy motoboy)
         {
             if (id != motoboy.Id)
             {
@@ -117,13 +105,8 @@ namespace SoftCandy.Controllers
         }
 
         // GET: Motoboy/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var motoboy = await _context.Motoboy
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (motoboy == null)
@@ -140,14 +123,62 @@ namespace SoftCandy.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var motoboy = await _context.Motoboy.FindAsync(id);
-            _context.Motoboy.Remove(motoboy);
+            motoboy.Ativo = false;
+            _context.Motoboy.Update(motoboy);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Restore(int? id)
+        {
+            if (LoginAtual.IsAdministrador(User))
+            {
+                if (id == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
+                }
+
+                var motoboy = await _context.Funcionario
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (motoboy == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+
+                return View(motoboy);
+            }
+            return RedirectToAction("User", "Home");
+        }
+
+        // POST: Motoboy/Restore
+        [HttpPost, ActionName("Restore")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RestoreConfirmed(int id)
+        {
+            if (LoginAtual.IsAdministrador(User))
+            {
+                var motoboy = await _context.Funcionario.FindAsync(id);
+                motoboy.Ativo = true;
+                _context.Funcionario.Update(motoboy);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("User", "Home");
         }
 
         private bool MotoboyExists(int id)
         {
             return _context.Motoboy.Any(e => e.Id == id);
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }

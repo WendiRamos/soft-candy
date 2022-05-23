@@ -9,7 +9,7 @@ using SoftCandy.Data;
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    [Migration("20220523175712_SoftCandy")]
+    [Migration("20220523182043_SoftCandy")]
     partial class SoftCandy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,6 +120,8 @@ namespace SoftCandy.Migrations
                     b.Property<DateTime>("DataHoraCriacao");
 
                     b.Property<DateTime>("DataHoraRecebimento");
+
+                    b.Property<DateTime>("EnderecoEntrega");
 
                     b.Property<int>("FormaPagamento");
 
@@ -385,7 +387,7 @@ namespace SoftCandy.Migrations
             modelBuilder.Entity("SoftCandy.Models.Delivery", b =>
                 {
                     b.HasOne("SoftCandy.Models.Caixa", "Caixa")
-                        .WithMany()
+                        .WithMany("Deliveries")
                         .HasForeignKey("IdCaixa")
                         .OnDelete(DeleteBehavior.Cascade);
 

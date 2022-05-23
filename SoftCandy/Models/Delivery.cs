@@ -25,6 +25,9 @@ namespace SoftCandy.Models
 
         [Display(Name = "Data/Hora Recebimento")]
         public DateTime DataHoraRecebimento { get; set; }
+
+        [Display(Name = "Endereço Entrega")]
+        public DateTime EnderecoEntrega { get; set; }
         public bool Recebido { get; set; }
 
         [ForeignKey("Caixa")]
