@@ -158,6 +158,7 @@ namespace SoftCandy.Controllers
 
                 var comanda = await _context.Comanda
                     .Include(c => c.ItensPedidos)
+                    .ThenInclude( i => i.Lote)
                     .FirstOrDefaultAsync(c => c.Id == IdComanda);
 
                 if (comanda == null)
@@ -191,7 +192,7 @@ namespace SoftCandy.Controllers
             return RedirectToAction("User", "Home");
         }
 
-        [HttpDelete/*, ActionName("RemoverItem")*/]
+        [HttpDelete]
         public async Task<IActionResult> RemoverItem(int IdComanda, int IdItem)
         {
             var comanda = await _context.Comanda

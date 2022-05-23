@@ -19,7 +19,7 @@ namespace SoftCandy.Models
         public int IdLote { get; set; }
         public virtual Lote Lote { get; set; }
 
-        [ForeignKey("Comanda")]
+        [ForeignKey("Delivery")]
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Id Delivery")]
         public int IdDelivery { get; set; }

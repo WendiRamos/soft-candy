@@ -15,16 +15,23 @@ namespace SoftCandy.Models
         public int Id { get; set; }
 
         [Display(Name = "Valor Total")]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
         [Column(TypeName = "decimal(8, 2)")]
         public decimal ValorTotal { get; set; }
+
+        [Display(Name = "Valor Frete")]
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal ValorFrete { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Data/Hora Criação")]
         public DateTime DataHoraCriacao { get; set; }
 
         [Display(Name = "Data/Hora Recebimento")]
-        public DateTime DataHoraRecebimento { get; set; }
+        public string DataHoraRecebimento { get; set; }
+
+
+        [Display(Name = "Nome do Cliente")]
+        public string NomeCliente { get; set; }
 
         [Display(Name = "Endereço Entrega")]
         public DateTime EnderecoEntrega { get; set; }
@@ -58,7 +65,7 @@ namespace SoftCandy.Models
                     soma += item.Lote.PrecoVenda * item.Quantidade;
                 }
             }
-            ValorTotal = soma;
+            ValorTotal = soma + ValorFrete;
         }
 
         public bool FormaPagamentoIsDinheiro()
