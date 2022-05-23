@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoftCandy.Data;
 
 namespace SoftCandy.Migrations
 {
     [DbContext(typeof(SoftCandyContext))]
-    partial class SoftCandyContextModelSnapshot : ModelSnapshot
+    [Migration("20220523224511_Delivery")]
+    partial class Delivery
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,9 +119,9 @@ namespace SoftCandy.Migrations
 
                     b.Property<DateTime>("DataHoraCriacao");
 
-                    b.Property<DateTime>("DataHoraRecebimento");
+                    b.Property<string>("DataHoraRecebimento");
 
-                    b.Property<string>("EnderecoEntrega");
+                    b.Property<DateTime>("EnderecoEntrega");
 
                     b.Property<int>("FormaPagamento");
 

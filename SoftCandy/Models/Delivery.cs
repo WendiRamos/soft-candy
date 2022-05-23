@@ -27,14 +27,14 @@ namespace SoftCandy.Models
         public DateTime DataHoraCriacao { get; set; }
 
         [Display(Name = "Data/Hora Recebimento")]
-        public string DataHoraRecebimento { get; set; }
+        public DateTime DataHoraRecebimento { get; set; }
 
 
         [Display(Name = "Nome do Cliente")]
         public string NomeCliente { get; set; }
 
         [Display(Name = "Endereço Entrega")]
-        public DateTime EnderecoEntrega { get; set; }
+        public string EnderecoEntrega { get; set; }
         public bool Recebido { get; set; }
 
         [ForeignKey("Caixa")]
