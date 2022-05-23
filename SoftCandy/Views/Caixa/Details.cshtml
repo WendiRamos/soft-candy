@@ -104,7 +104,7 @@
     <div class="card border-success mb-3">
         <div class="card-header"><h4>Pedidos Recebidos</h4></div>
         <div class="card-body">
-            @if (Model.Pedidos.Where(p => p.Recebido).Count() == 0)
+            @if (Model.Comandas.Where(p => p.Recebido).Count() == 0)
             {
                 <span>Não há pedidos para mostrar</span>
             }
@@ -132,7 +132,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var pedido in Model.Pedidos)
+                        @foreach (var pedido in Model.Comandas)
                         {
                             <tr>
                                 <td>
