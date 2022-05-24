@@ -57,7 +57,7 @@ namespace SoftCandy.Controllers
                     return RedirectToAction("Abertura", "Caixa");
                 }
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpPost]
@@ -94,7 +94,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return Json("");
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpDelete]
@@ -124,23 +124,23 @@ namespace SoftCandy.Controllers
         {
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                var comanda = await _context.Comanda
-                    .Include(i => i.ItensPedidos)
+                var delivery = await _context.Delivery
+                    .Include(i => i.ItensDelivery)
                     .ThenInclude(it => it.Lote)
                     .ThenInclude(c => c.Produto)
                     .FirstOrDefaultAsync(m => m.Id == id);
 
-                if (comanda == null)
+                if (delivery == null)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-                if (comanda.Recebido)
+                if (delivery.Recebido)
                 {
-                    return RedirectToAction("Details", "Comanda", new { id = id });
+                    return RedirectToAction("Details", "Delivery", new { id = id });
                 }
-                return View(comanda);
+                return View(delivery);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpPost, ActionName("Receber")]
@@ -151,23 +151,23 @@ namespace SoftCandy.Controllers
             {
                 if (CaixaUtils.IsAberto(_context))
                 {
-                    Comanda comanda = await _context.Comanda.Where(p => p.Id == Id).FirstAsync();
-                    comanda.FormaPagamento = (FormasPagamentoEnum)FormaPagamento;
-                    comanda.Recebido = true;
-                    comanda.DataHoraRecebimento = DateTime.Now;
+                    Delivery delivery = await _context.Delivery.Where(p => p.Id == Id).FirstAsync();
+                    delivery.FormaPagamento = (FormasPagamentoEnum)FormaPagamento;
+                    delivery.Recebido = true;
+                    delivery.DataHoraRecebimento = DateTime.Now;
                     Caixa caixaAberto = CaixaUtils.CaixaAberto(_context);
-                    caixaAberto.SomarEmValorVendas(comanda);
+                    caixaAberto.SomarEmValorDelivery(delivery);
                     _context.Update(caixaAberto);
-                    _context.Comanda.Update(comanda);
+                    _context.Delivery.Update(delivery);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Details", "Comanda", new { id = Id });
+                    return RedirectToAction("Details", "Delivery", new { id = Id });
                 }
                 else
                 {
                     return RedirectToAction("Abertura", "Caixa");
                 }
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
         // GET: Delivery/Details/5
         public async Task<IActionResult> Details(int id)
