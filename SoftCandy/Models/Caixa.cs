@@ -165,6 +165,28 @@ namespace SoftCandy.Models
             AtualizarValorTotalVendas();
         }
 
+        public void SomarEmValorDelivery(Delivery delivery)
+        {
+            if (delivery.FormaPagamentoIsDinheiro())
+            {
+                SomarEmValorVendasDinheiro(delivery.ValorTotal);
+                AtualizarValorTotalFechamentoDinheiro();
+            }
+            else if (delivery.FormaPagamentoIsCredito())
+            {
+                SomarEmValorVendasCartaoCredito(delivery.ValorTotal);
+            }
+            else if (delivery.FormaPagamentoIsDebito())
+            {
+                SomarEmValorVendasCartaoDebido(delivery.ValorTotal);
+            }
+            else if (delivery.FormaPagamentoIsPix())
+            {
+                SomarEmValorVendasPix(delivery.ValorTotal);
+            }
+            AtualizarValorTotalVendas();
+        }
+
         public void SomarEmValorOperacoes(OperacaoCaixa operacao)
         {
             if (operacao.TipoIsEntrada())
