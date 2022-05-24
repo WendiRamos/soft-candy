@@ -31,12 +31,12 @@
                     <td>@Html.DisplayFor(model => model.DataHoraCriacao)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.DataHoraRecebimento): </td>
-                    <td>@Html.DisplayFor(model => model.DataHoraRecebimento)</td>
-                </tr>
-                <tr>
                     <td>@Html.DisplayNameFor(model => model.ValorTotal): </td>
                     <td>@Html.DisplayFor(model => model.ValorTotal)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.FormaPagamento): </td>
+                    <td>@Html.DisplayFor(model => model.FormaPagamento)</td>
                 </tr>
             </table>
             <h4>Itens do Pedido</h4>
@@ -78,45 +78,15 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td></td>
-                        <td></td>
+                        <td class="negrito">Taxa de Entrega:</td>
+                        <td class="negrito">R$ @Html.DisplayFor(model => model.ValorFrete)</td>
                         <td><b>Total: </b></td>
                         <td><b>R$ <span id="totalPedido">@Html.DisplayFor(model => model.ValorTotal)</span></b></td>
                     </tr>
                 </tfoot>
             </table>
-            <h4>Dados do Pagamento</h4>
-            <form asp-action="Receber">
+            <form asp-action="ReceberDelivery" asp-controller="Delivery">
                 <input type="hidden" asp-for="Id" />
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="control-label" for="formaPagamento">Selecione a forma de pagamento:</label>
-                    </div>
-                    <div class="col-md-4">
-                        <select id="formaPagamento" asp-for="FormaPagamento" class="form-control" asp-items="Html.GetEnumSelectList<FormasPagamentoEnum>()"></select>
-                    </div>
-                </div>
-                <br />
-                <div class="troco">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="control-label" for="dinheiro">Valor Recebido:</label>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="number" class="form-control number-sem-setas" id="dinheiro" autocomplete="off" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="control-label" for="troco">Troco:</label>
-                        </div>
-                        <div class="col-md-4">
-                            <span id="troco"></span>
-                        </div>
-                    </div>
-                    <br />
-                </div>
                 <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
                 <input type="submit" class="btn btn-success mr-1" value="Confirmar e Receber" />
             </form>
@@ -125,4 +95,3 @@
     </div>
 </center>
 <script src="~/js/Formatador.js" defer></script>
-<script src="~/js/ReceberPedido.js" defer></script>

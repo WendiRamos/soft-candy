@@ -50,5 +50,10 @@ namespace SoftCandy.Utils
             ItensDelivery.Remove(item);
             CalcularTotal();
         }
+
+        public void LimparItens()
+        {
+            ItensDelivery.Clear();
+        }
     }
 }

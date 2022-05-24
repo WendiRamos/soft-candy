@@ -58,10 +58,14 @@
                             <td></td>
                             <td><b>Total: </b></td>
                             <td><b>R$ @carrinho.ValorTotal</b></td>
-                            <td><button type="submit" class="btn btn-success btn-remove">Continuar</button></td>
+                            <td></td>
                         </tr>
                     </tfoot>
                 </table>
+                <div class=" d-flex justify-content-between">
+                    <button type="submit" class="btn btn-warning btn-remove mr-1">Limpar Carrinho</button>
+                    <a class="btn btn-success" asp-controller="Delivery" asp-action="Create">Prosseguir</a>
+                </div>
             }
             else
             {
@@ -125,7 +129,7 @@
                                     @Html.DisplayFor(modelLote => lote.QuantidadeEstoque)
                                 </td>
                                 <td class="qnt">
-                                    <input type="number" class="form-control" min="1" max="@lote.QuantidadeEstoque" />
+                                    <input type="number" class="form-control" value="1" min="1" max="@lote.QuantidadeEstoque" />
                                 </td>
                                 <td>
                                     <button type="submit" class="btn btn-success btn-Add">Adicionar</button>
