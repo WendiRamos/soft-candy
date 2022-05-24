@@ -191,8 +191,6 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-                ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
-                ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View(produto);
             }
             return RedirectToAction("User", "Home");
@@ -233,7 +231,6 @@ namespace SoftCandy.Controllers
             {
                 var produto = await _context.Produto.FindAsync(id);
                 produto.Ativo = false;
-                produto.SomarQuantidade();
                 _context.Produto.Update(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -258,7 +255,6 @@ namespace SoftCandy.Controllers
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-                produto.SomarQuantidade();
                 return View(produto);
             }
             return RedirectToAction("User", "Home");

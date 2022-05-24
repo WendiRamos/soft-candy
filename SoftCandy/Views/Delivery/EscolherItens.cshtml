@@ -62,10 +62,10 @@
                         </tr>
                     </tfoot>
                 </table>
-                <div class=" d-flex justify-content-between">
-                    <button type="submit" class="btn btn-warning btn-remove mr-1">Limpar Carrinho</button>
+                <form asp-controller="Delivery" asp-action="LimparCarrinho" class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-warning mr-1">Limpar Carrinho</button>
                     <a class="btn btn-success" asp-controller="Delivery" asp-action="Create">Prosseguir</a>
-                </div>
+                </form>
             }
             else
             {

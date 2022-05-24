@@ -130,7 +130,7 @@ namespace SoftCandy.Controllers
                         .Where(lote => lote.Produto.Nome.IndexOf(procura, 0, System.StringComparison.CurrentCultureIgnoreCase) != -1)
                         .Include(lote => lote.Produto)
                         .OrderBy(lote => lote.Produto.Nome)
-                        .Take(2)
+                        .Take(20)
                         .ToListAsync();
 
                     return View(lotes);

@@ -176,6 +176,26 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("Login", "Funcionario");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> LimparCarrinho()
+        {
+            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+            {
+                var carrinho = CarrinhoDelivery.Instancia;
+
+                (carrinho.ItensDelivery as List<ItemDelivery>).ForEach(i =>
+                {
+                    i.Lote.DevolverQuantidade(i.Quantidade);
+                    _context.Lote.Update(i.Lote);
+                });
+                carrinho.LimparItens();
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("EscolherItens", "Delivery");
+            }
+            return RedirectToAction("Login", "Funcionario");
+        }
         // GET: Delivery/Details/5
         public async Task<IActionResult> Details(int id)
         {
@@ -215,8 +235,12 @@ namespace SoftCandy.Controllers
                 delivery.ItensDelivery = CarrinhoDelivery.Instancia.ItensDelivery;
                 delivery.CalcularValor();
 
-                delivery.ItensDelivery = CarrinhoDelivery.Instancia.ItensDelivery.Select(i => new ItemDelivery() {
-                    Quantidade = i.Quantidade, IdLote = i.Lote.Id, Lote = null}).ToList();
+                delivery.ItensDelivery = CarrinhoDelivery.Instancia.ItensDelivery.Select(i => new ItemDelivery()
+                {
+                    Quantidade = i.Quantidade,
+                    IdLote = i.Lote.Id,
+                    Lote = null
+                }).ToList();
 
                 _context.Add(delivery);
                 await _context.SaveChangesAsync();
