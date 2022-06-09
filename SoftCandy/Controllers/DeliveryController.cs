@@ -74,7 +74,7 @@ namespace SoftCandy.Controllers
             {
                 var lote = await _context.Lote
                     .Include(lt => lt.Produto)
-                     .FirstOrDefaultAsync(lt => lt.Id == IdLote);
+                    .FirstOrDefaultAsync(lt => lt.Id == IdLote);
 
                 if (lote == null)
                 {
@@ -88,14 +88,23 @@ namespace SoftCandy.Controllers
                     return Json("Quantidade indiponível!");
                 }
 
-                ItemDelivery itemDelivery = new ItemDelivery()
+                if (carrinho.LoteIdJaEstaNoCarrinho(IdLote))
                 {
-                    Id = CarrinhoDelivery.Instancia.Id,
-                    Lote = lote,
-                    Quantidade = Quantidade
-                };
+                    var item = carrinho.ItensDelivery.First(i => i.Lote.Id == IdLote);
+                    item.Quantidade += Quantidade;
+                    carrinho.CalcularTotal();
+                }
+                else
+                {
+                    ItemDelivery itemDelivery = new ItemDelivery()
+                    {
+                        Id = CarrinhoDelivery.Instancia.Id,
+                        Lote = lote,
+                        Quantidade = Quantidade
+                    };
 
-                carrinho.AdicionarItem(itemDelivery);
+                    carrinho.AdicionarItem(itemDelivery);
+                }
 
                 _context.Lote.Update(lote);
                 await _context.SaveChangesAsync();
@@ -108,7 +117,6 @@ namespace SoftCandy.Controllers
         public async Task<IActionResult> RemoverItem(int IdItem)
         {
             var carrinho = CarrinhoDelivery.Instancia;
-
             var itemParaRemover = carrinho.ItensDelivery.First(i => i.Id == IdItem);
 
             if (itemParaRemover == null)
@@ -116,10 +124,11 @@ namespace SoftCandy.Controllers
                 return Json("Item não existe no carrinho!");
             }
 
-            itemParaRemover.Lote.DevolverQuantidade(itemParaRemover.Quantidade);
+            var lote = await _context.Lote.FirstAsync(lt => lt.Id == itemParaRemover.Lote.Id);
+            lote.DevolverQuantidade(itemParaRemover.Quantidade);
 
             carrinho.RemoverItem(itemParaRemover);
-            _context.Lote.Update(itemParaRemover.Lote);
+            _context.Lote.Update(lote);
             await _context.SaveChangesAsync();
 
             return Json("");
@@ -183,12 +192,13 @@ namespace SoftCandy.Controllers
             if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
                 var carrinho = CarrinhoDelivery.Instancia;
-
-                (carrinho.ItensDelivery as List<ItemDelivery>).ForEach(i =>
+                foreach (ItemDelivery i in carrinho.ItensDelivery)
                 {
-                    i.Lote.DevolverQuantidade(i.Quantidade);
-                    _context.Lote.Update(i.Lote);
-                });
+                    var lote = await _context.Lote.FirstAsync(lt => lt.Id == i.Lote.Id);
+                    lote.DevolverQuantidade(i.Quantidade);
+                    _context.Lote.Update(lote);
+                }
+
                 carrinho.LimparItens();
                 await _context.SaveChangesAsync();
 
@@ -204,6 +214,7 @@ namespace SoftCandy.Controllers
                 .Include(d => d.Motoboy)
                 .Include(d => d.ItensDelivery)
                 .ThenInclude(i => i.Lote)
+                .ThenInclude(i => i.Produto)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (delivery == null)
             {
@@ -211,6 +222,40 @@ namespace SoftCandy.Controllers
             }
 
             return View(delivery);
+        }
+
+        // GET: Delivery/CupomRecebimento
+        public async Task<IActionResult> CupomRecebimento(int id)
+        {
+            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+            {
+                var delivery = await _context.Delivery
+                    .Include(i => i.ItensDelivery)
+                    .ThenInclude(c => c.Lote)
+                    .ThenInclude(c => c.Produto)
+                    .Include(d => d.Motoboy)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+
+                if (delivery == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+                return View(delivery);
+            }
+            return RedirectToAction("Login", "Funcionario");
+        }
+
+        // GET: Comanda/CupomCriação
+        public async Task<IActionResult> CupomCriacao(int id)
+        {
+            var comanda = await _context.Comanda
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (comanda == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+            }
+            return View(comanda);
         }
 
         // GET: Delivery/Create
@@ -221,7 +266,7 @@ namespace SoftCandy.Controllers
             return View();
         }
 
-        // POST: Delivery/Create=
+        // POST: Delivery/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ValorFrete,EnderecoEntrega,IdMotoboy,NomeCliente,FormaPagamento")] Delivery delivery)
@@ -246,7 +291,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
 
                 CarrinhoDelivery.Instancia.LimparItens();
-                return RedirectToAction(nameof(Pendentes));
+                return RedirectToAction("CupomCriacao", "Delivery", new { id = delivery.Id });
             }
             return View(delivery);
         }
