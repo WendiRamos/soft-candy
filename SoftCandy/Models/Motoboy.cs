@@ -35,6 +35,8 @@ namespace SoftCandy.Models
 
         public bool Ativo { get; set; }
 
+        public virtual ICollection<Delivery> Deliveries { get; set; }
+
         public Motoboy()
         {
         }
