@@ -393,7 +393,7 @@ namespace SoftCandy.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SoftCandy.Models.Motoboy", "Motoboy")
-                        .WithMany()
+                        .WithMany("Deliveries")
                         .HasForeignKey("IdMotoboy")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
