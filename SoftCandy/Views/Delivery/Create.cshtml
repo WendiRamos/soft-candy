@@ -76,7 +76,7 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label asp-for="NomeCliente" class="control-label">Cliente:</label>
-                            <input asp-for="NomeCliente" class="form-control" placeholder="Nome"/>
+                            <input asp-for="NomeCliente" class="form-control" placeholder="Nome" autocomplete="off"/>
                             <span asp-validation-for="NomeCliente" class="text-danger"></span>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label asp-for="EnderecoEntrega" class="control-label">Endereço de Entrega:</label>
-                            <input asp-for="EnderecoEntrega" class="form-control" />
+                            <input asp-for="EnderecoEntrega" class="form-control" autocomplete="off" />
                             <span asp-validation-for="EnderecoEntrega" class="text-danger"></span>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                     <div class="col-2">
                         <div class="form-group">
                             <label asp-for="ValorFrete" class="control-label">Taxa de Entrega:</label>
-                            <input id="totalFrete" asp-for="ValorFrete" class="form-control" />
+                            <input id="totalFrete" asp-for="ValorFrete" class="form-control" autocomplete="off"/>
                             <span asp-validation-for="ValorFrete" class="text-danger"></span>
                         </div>
                     </div>
