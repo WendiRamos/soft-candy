@@ -55,5 +55,10 @@ namespace SoftCandy.Utils
         {
             ItensDelivery.Clear();
         }
+
+        public bool LoteIdJaEstaNoCarrinho(int loteId)
+        {
+            return ItensDelivery.Any(i => i.Lote.Id == loteId);
+        }
     }
 }
