@@ -201,9 +201,10 @@ namespace SoftCandy.Models
             AtualizarValorTotalFechamentoDinheiro();
         }
 
-        public bool ExistePedidoSemReceber()
+        public bool ExisteVendaPendente()
         {
-            return Comandas.Any(p => p.Recebido == false);
+            return Comandas.Any(c => c.Recebido == false)
+                || Deliveries.Any(d => d.Recebido == false);
         }
     }
 }
