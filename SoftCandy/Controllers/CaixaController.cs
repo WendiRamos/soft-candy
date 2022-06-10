@@ -48,8 +48,10 @@ namespace SoftCandy.Controllers
                 return View( await _context.Caixa
                 .Where(c => c.EstaAberto)
                 .Include(c => c.Operacoes)
-                .ThenInclude(c => c.Funcionario)
-                .Include(p => p.Comandas)
+                .ThenInclude(o => o.Funcionario)
+                .Include(c=> c.Comandas)
+                .Include(c => c.Deliveries)
+                .ThenInclude(d => d.Motoboy)
                 .FirstAsync());
             }
             else
@@ -101,6 +103,21 @@ namespace SoftCandy.Controllers
             if (CaixaUtils.IsAberto(_context))
             {
                 Caixa caixa = CaixaUtils.CaixaAberto(_context);
+                _context.Entry(caixa).Collection(c => c.Comandas).Load();
+                _context.Entry(caixa).Collection(c => c.Deliveries).Load();
+
+                ViewData["ComandaDinheiro"] = caixa.Comandas.Where(c => c.FormaPagamentoIsDinheiro()).Select(c => c.ValorTotal).Sum();
+                ViewData["ComandaCredito"] = caixa.Comandas.Where(c => c.FormaPagamentoIsCredito()).Select(c => c.ValorTotal).Sum();
+                ViewData["ComandaDebito"] = caixa.Comandas.Where(c => c.FormaPagamentoIsDebito()).Select(c => c.ValorTotal).Sum();
+                ViewData["ComandaPix"] = caixa.Comandas.Where(c => c.FormaPagamentoIsPix()).Select(c => c.ValorTotal).Sum();
+                ViewData["ComandaTotal"] = caixa.Comandas.Select(c => c.ValorTotal).Sum();
+
+                ViewData["DeliveryDinheiro"] = caixa.Deliveries.Where(c => c.FormaPagamentoIsDinheiro()).Select(c => c.ValorTotal).Sum();
+                ViewData["DeliveryCredito"] = caixa.Deliveries.Where(c => c.FormaPagamentoIsCredito()).Select(c => c.ValorTotal).Sum();
+                ViewData["DeliveryDebito"] = caixa.Deliveries.Where(c => c.FormaPagamentoIsDebito()).Select(c => c.ValorTotal).Sum();
+                ViewData["DeliveryPix"] = caixa.Deliveries.Where(c => c.FormaPagamentoIsPix()).Select(c => c.ValorTotal).Sum();
+                ViewData["DeliveryTotal"] = caixa.Deliveries.Select(c => c.ValorTotal).Sum();
+
                 return View(caixa);
             }
             else
@@ -115,10 +132,11 @@ namespace SoftCandy.Controllers
         {
             Caixa caixa = CaixaUtils.CaixaAberto(_context);
             _context.Entry(caixa).Collection(c => c.Comandas).Load();
+            _context.Entry(caixa).Collection(c => c.Deliveries).Load();
 
-            if (caixa.ExistePedidoSemReceber() && !LoginAtual.IsAdministrador(User))
+            if (caixa.ExisteVendaPendente() && !LoginAtual.IsAdministrador(User))
             {
-                    return RedirectToAction(nameof(Error), new { message = "Existe pedido sem receber!" });
+                 return RedirectToAction(nameof(Error), new { message = "Existe pedido sem receber!" });
             }
 
             caixa.EstaAberto = false;
