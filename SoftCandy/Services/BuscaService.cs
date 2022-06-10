@@ -22,7 +22,27 @@ namespace SoftCandy.Services
             _context = context;
 
         }
-      
+
+        public async Task<List<Funcionario>> FindByNomeCaixa(String Nome)
+        {
+            var result = from obj in _context.Funcionario.Where(c => Validacao.IsCaixaAtivo(c)) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
+            }
+            return await result.ToListAsync();
+        }
+
+        public async Task<List<Funcionario>> FindByNomeCaixaApagado(String Nome)
+        {
+            var result = from obj in _context.Funcionario.Where(c => Validacao.IsCaixaInativo(c)) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
+            }
+            return await result.ToListAsync();
+        }
+
         public async Task<List<Funcionario>> FindByNomeVendedor(String Nome)
         {
             var result = from obj in _context.Funcionario.Where(c => Validacao.IsVendedorAtivo(c)) select obj;

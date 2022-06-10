@@ -11,6 +11,8 @@ namespace SoftCandy.Enums
 
         ESTOQUISTA = 2,
 
-        VENDEDOR = 3
+        VENDEDOR = 3,
+        
+        CAIXA = 4
     }
 }

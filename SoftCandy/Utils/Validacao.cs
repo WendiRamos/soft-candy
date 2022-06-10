@@ -31,6 +31,10 @@ namespace SoftCandy.Utils
         {
             return funcionario.Cargo == (int)CargosEnum.VENDEDOR;
         }
+        public static bool IsCaixa(Funcionario funcionario)
+        {
+            return funcionario.Cargo == (int)CargosEnum.CAIXA;
+        }
 
         //Apenas Funcionarios com seus cargos e ativo
 
@@ -48,6 +52,10 @@ namespace SoftCandy.Utils
         {
             return IsVendedor(funcionario) && IsFuncionarioAtivo(funcionario);
         }
+        public static bool IsCaixaAtivo(Funcionario funcionario)
+        {
+            return IsCaixa(funcionario) && IsFuncionarioAtivo(funcionario);
+        }
 
         //Apenas Funcionarios com seus cargos e inativos
         public static bool IsAdministradorInativo(Funcionario funcionario)
@@ -62,6 +70,10 @@ namespace SoftCandy.Utils
         public static bool IsVendedorInativo(Funcionario funcionario)
         {
             return IsVendedor(funcionario) && !IsFuncionarioAtivo(funcionario);
+        }
+        public static bool IsCaixaInativo(Funcionario funcionario)
+        {
+            return IsCaixa(funcionario) && !IsFuncionarioAtivo(funcionario);
         }
 
         //Produtos
