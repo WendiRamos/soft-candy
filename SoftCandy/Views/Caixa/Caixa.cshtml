@@ -23,9 +23,9 @@
     <div class="card border-warning mb-3">
         <div class="card-header"><h4>Pedidos Delivery Recebidos</h4></div>
         <div class="card-body">
-            @if (Model.Comandas.Where(p => !p.Recebido).Count() == 0)
+            @if (Model.Deliveries.Where(p => p.Recebido).Count() == 0)
             {
-                <span>Não há pedidos delivery a receber</span>
+                <span>Não há delivery para mostrar</span>
             }
             else
             {
@@ -39,7 +39,7 @@
                                 Cliente
                             </th>
                             <th>
-                                Data/Hora Pedido
+                                Motoboy
                             </th>
                             <th>
                                 Valor
@@ -53,26 +53,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var pedido in Model.Comandas.Where(p => !p.Recebido).Take(20))
+                        @foreach (var delivery in Model.Deliveries.Where(p => p.Recebido).Take(20))
                         {
                             <tr>
                                 <td>
-                                    Id
+                                    @Html.DisplayFor(modelItem => delivery.Id)
                                 </td>
                                 <td>
-                                    Cliente
+                                    @Html.DisplayFor(modelItem => delivery.NomeCliente)
                                 </td>
                                 <td>
-                                    Data/Hora Pedido
+                                    @Html.DisplayFor(modelItem => delivery.Motoboy.Nome)
                                 </td>
                                 <td>
-                                    Valor
+                                    @Html.DisplayFor(modelItem => delivery.ValorTotal)
                                 </td>
                                 <td>
-                                    Forma Pagamento
+                                    @Html.DisplayFor(modelItem => delivery.FormaPagamento)
                                 </td>
                                 <td class="center">
-                                    <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.Id" class="sem-sub">
+                                    <a asp-controller="Delivery" asp-action="Details" asp-route-id="@delivery.Id" class="sem-sub">
                                         <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
                                     </a>
                                 </td>
