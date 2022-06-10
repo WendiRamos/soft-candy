@@ -258,6 +258,7 @@ namespace SoftCandy.Controllers
                     comanda.FormaPagamento = (FormasPagamentoEnum)FormaPagamento;
                     comanda.Recebido = true;
                     comanda.DataHoraRecebimento = DateTime.Now;
+                    comanda.IdCaixa = CaixaUtils.IdAberto(_context);
                     Caixa caixaAberto = CaixaUtils.CaixaAberto(_context);
                     caixaAberto.SomarEmValorVendas(comanda);
                     _context.Update(caixaAberto);
