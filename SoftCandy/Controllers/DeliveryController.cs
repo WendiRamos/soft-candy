@@ -171,6 +171,7 @@ namespace SoftCandy.Controllers
                     Delivery delivery = await _context.Delivery.Where(p => p.Id == Id).FirstAsync();
                     delivery.Recebido = true;
                     delivery.DataHoraRecebimento = DateTime.Now;
+                    delivery.IdCaixa = CaixaUtils.IdAberto(_context);
                     Caixa caixaAberto = CaixaUtils.CaixaAberto(_context);
                     caixaAberto.SomarEmValorDelivery(delivery);
                     _context.Update(caixaAberto);
@@ -291,7 +292,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
 
                 CarrinhoDelivery.Instancia.LimparItens();
-                return RedirectToAction("CupomCriacao", "Delivery", new { id = delivery.Id });
+                return RedirectToAction("Pendentes", "Delivery", new { id = delivery.Id });
             }
             return View(delivery);
         }
