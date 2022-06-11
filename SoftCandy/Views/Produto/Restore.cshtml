@@ -2,14 +2,14 @@
 @using SoftCandy.Enums
 
 @{
-    ViewData["Title"] = "Restaurar";
+    ViewData["Title"] = "Ativar";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
-        <div class="card-header"><h4>Restaurar Produto</h4></div>
+        <div class="card-header"><h4>Ativar Produto</h4></div>
         <div class="card-body">
-            <h5>Tem certeza que deseja restaurar?</h5>
+            <h5>Tem certeza que deseja Ativar?</h5>
             <div>
                 <table class="table">
                     <tr>
@@ -52,7 +52,7 @@
                 <form asp-action="Restore">
                     <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
                     <input type="hidden" asp-for="Id" />
-                    <input type="submit" value="Restaurar" class="btn btn-danger" />
+                    <input type="submit" value="Ativar" class="btn btn-danger" />
                 </form>
             </div>
         </div>

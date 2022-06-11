@@ -36,13 +36,13 @@
                                 @Html.DisplayNameFor(model => model.Celular)
                             </th>
                             <th class="center">
-                                Visualizar
+                                Exibir
                             </th>
                             <th class="center">
                                 Editar
                             </th>
                             <th class="center">
-                                Apagar
+                                Inativar
                             </th>
                         </tr>
                     </thead>
@@ -61,7 +61,7 @@
                                 </td>
                                 <td class="center">
                                     <a asp-action="Details" asp-route-id="@item.Id" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
                                 <td class="center">
@@ -73,7 +73,7 @@
                                 <td class="center">
 
                                     <a asp-action="Delete" asp-route-id="@item.Id" class="sem-sub">
-                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
+                                        <img src="~/icons/inativar.svg" class="icone-menus" title="Inativar" />
                                     </a>
                                 </td>
                             </tr>

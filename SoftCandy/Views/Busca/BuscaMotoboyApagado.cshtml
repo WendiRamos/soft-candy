@@ -36,7 +36,7 @@
                                 @Html.DisplayNameFor(model => model.Celular)
                             </th>
                             <th class="center">
-                                Restaurar
+                                Ativar
                             </th>
                         </tr>
                     </thead>
@@ -54,7 +54,7 @@
                                     @Html.DisplayFor(modelItem => item.Celular)
                                 </td>
                                 <td class="text-preto center">
-                                    <a asp-controller="Funcionario" asp-action="RestoreAdministrador" asp-route-id="@item.Id">Restaurar</a>
+                                    <a asp-controller="Funcionario" asp-action="RestoreAdministrador" asp-route-id="@item.Id">Ativar</a>
                                 </td>
                             </tr>
                         }

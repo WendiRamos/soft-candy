@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-between">
 
     <form class="d-flex" asp-controller="Comanda" asp-action="Create">
-        <button type="submit" value="Criar Comanda" formtarget="_blank" class="btn btn-success">Criar Comanda</button>
+        <button type="submit" value="Cadastrar Comanda" formtarget="_blank" class="btn btn-success">Cadastrar Comanda</button>
     </form>
     <div class="d-flex">
         <input id="pesquisaComanda" class="form-control mr-1" min="1" type="number" placeholder=" Nº Comanda" autocomplete="off" />
@@ -36,7 +36,7 @@
                                 @Html.DisplayNameFor(model => model.DataHoraCriacao)
                             </th>
                             <th class="center">
-                                Visualizar
+                                Exibir
                             </th>
                             <th class="center">
                                 Receber
@@ -61,7 +61,7 @@
                                 </td>
                                 <td class="center">
                                     <a asp-action="Details" asp-controller="Comanda" asp-route-id="@item.Id" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
                                 <td class="center">

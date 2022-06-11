@@ -1,7 +1,7 @@
 ﻿@model SoftCandy.Models.Caixa
 @using SoftCandy.Enums
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = "Exibir";
 }
 <br />
 <center>
@@ -12,7 +12,7 @@
     </div>
     <br />
     <div class="card border-info mb-3">
-        <div class="card-header"><h4>Detalhes Caixa</h4></div>
+        <div class="card-header"><h4>Exibir Caixa</h4></div>
         <div class="card-body">
             <h4>Informações Gerais</h4>
             <table class="table">
@@ -128,7 +128,7 @@
                             <th>
                                 Valor
                             </th>
-                            <th class="center">Visualizar</th>
+                            <th class="center">Exibir</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -149,7 +149,7 @@
                                 </td>
                                 <td class="center">
                                     <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.Id" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
                             </tr>
@@ -187,7 +187,7 @@
                             <th>
                                 Funcionário
                             </th>
-                            <th>Visualizar</th>
+                            <th>Exibir</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -218,7 +218,7 @@
                                 </td>
                                 <td>
                                     <a asp-controller="OperacaoCaixa" asp-action="Details" asp-route-id="@operacao.Id" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
                             </tr>

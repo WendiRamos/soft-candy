@@ -39,7 +39,7 @@
                                 @Html.DisplayNameFor(model => model.Email)
                             </th>
                             <th class="center">
-                                Restaurar
+                                Ativar
                             </th>
                         </tr>
                     </thead>
@@ -60,7 +60,7 @@
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
                                 <td class="text-preto center">
-                                    <a asp-controller="Funcionario" asp-action="RestoreEstoquista" asp-route-id="@item.Id">Restaurar</a>
+                                    <a asp-controller="Funcionario" asp-action="RestoreEstoquista" asp-route-id="@item.Id">Ativar</a>
                                 </td>
                             </tr>
                         }

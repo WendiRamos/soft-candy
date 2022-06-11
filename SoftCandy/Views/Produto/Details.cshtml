@@ -3,7 +3,7 @@
 @using SoftCandy.Enums
 
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = "Exibir";
 }
 
 <center>
@@ -17,7 +17,7 @@
     </div>
     <br />
     <div class="card border-primary mb-3" style="max-width: 50rem;">
-        <div class="card-header"><h4>Detalhes Produto</h4></div>
+        <div class="card-header"><h4>Exibir Produto</h4></div>
         <div class="card-body">
             <div>
                 <table class="table">
@@ -91,13 +91,13 @@
                                 @Html.DisplayNameFor(model => model.Lotes[0].QuantidadeEstoque)
                             </th>
                             <th class="center">
-                                Visualizar
+                                Exibir
                             </th>
                             <th class="center">
                                 Editar
                             </th>
                             <th class="center">
-                                Apagar
+                                Inativar
                             </th>
                         </tr>
                     </thead>
@@ -125,7 +125,7 @@
                                 </td>
                                 <td class="center">
                                     <a asp-controller="Lote" asp-action="Details" asp-route-id="@lote.Id" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
                                 <td class="center">
@@ -136,7 +136,7 @@
                                 </td>
                                 <td class="center">
                                     <a asp-controller="Lote" asp-action="Delete" asp-route-id="@lote.Id" class="sem-sub">
-                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
+                                        <img src="~/icons/inativar.svg" class="icone-menus" title="Inativar" />
                                     </a>
 
                                 </td>
@@ -150,7 +150,7 @@
                 <p>Não há lotes para mostrar</p>
             }
             <div>
-                <a asp-action="Create" asp-controller="Lote" asp-route-id="@Model.Id" class="btn btn-info">Criar Lote</a>
+                <a asp-action="Create" asp-controller="Lote" asp-route-id="@Model.Id" class="btn btn-info">Cadastrar Lote</a>
             </div>
         </div>
     </div>

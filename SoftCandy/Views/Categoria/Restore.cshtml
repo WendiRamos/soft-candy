@@ -1,14 +1,14 @@
 ﻿@model SoftCandy.Models.Categoria
 
 @{
-    ViewData["Title"] = "Restaurar";
+    ViewData["Title"] = "Ativar";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 50rem;">
-        <div class="card-header"><h4>Restaurar Categoria</h4></div>
+        <div class="card-header"><h4>Ativar Categoria</h4></div>
         <div class="card-body">
-            <h5>Tem certeza que deseja restaurar?</h5>
+            <h5>Tem certeza que deseja Ativar?</h5>
             <div>
                 <h4>Categoria</h4>
                 <table class="table">
@@ -38,7 +38,7 @@
                 <form asp-action="Restore">
                     <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
                     <input type="hidden" asp-for="IdCategoria" />
-                    <input type="submit" value="Restaurar" class="btn btn-danger" />
+                    <input type="submit" value="Ativar" class="btn btn-danger" />
                 </form>
             </div>
         </div>
