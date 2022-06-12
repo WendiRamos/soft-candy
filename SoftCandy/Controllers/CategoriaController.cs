@@ -25,17 +25,42 @@ namespace SoftCandy.Controllers
         public async Task<IActionResult> Index()
         {
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
-            {   
+            {
                 return View(await _context.Categoria.Where(c => c.AtivoCategoria).Take(20).ToListAsync());
             }
             return RedirectToAction("User", "Home");
         }
 
-        public async Task<IActionResult> Relatorio()
+        public async Task<IActionResult> Relatorio(string tipo)
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View(await _context.Categoria.Where(c => c.AtivoCategoria).ToListAsync());
+                List<Categoria> categorias;
+
+                if (tipo == "maisProdutos")
+                {
+                    categorias = await _context.Categoria
+                        .Where(c => c.AtivoCategoria)
+                        .Include(c => c.Produtos)
+                        .OrderByDescending(c => c.Produtos.Count())
+                        .ToListAsync();
+                }
+                else if (tipo == "menosProdutos")
+                {
+                    categorias = await _context.Categoria
+                        .Where(c => c.AtivoCategoria)
+                        .Include(c => c.Produtos)
+                        .OrderBy(c => c.Produtos.Count())
+                        .ToListAsync();
+                }
+                else
+                {
+                    categorias = await _context.Categoria
+                        .Include(c => c.Produtos)
+                        .Where(c => c.AtivoCategoria).ToListAsync();
+                }
+
+                return View(categorias);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -231,12 +256,12 @@ namespace SoftCandy.Controllers
         }
         public IActionResult Error(string message)
         {
-                var viewModel = new ErrorViewModel
-                {
-                    Message = message,
-                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-                };
-                return View(viewModel);
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }

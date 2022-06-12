@@ -78,7 +78,7 @@ a {
     color: black;
 }
 
-.text-preto a {
+.text-preto, text-preto a {
     color: black !important;
 }
 
@@ -130,4 +130,10 @@ footer {
     -webkit-transform: scale(1);
     transform: scale(1);
 }
+}
+
+@media print {
+    .nao-imprimir {
+        display: none !important;
+    }
 }
