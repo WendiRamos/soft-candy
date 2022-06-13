@@ -2,7 +2,7 @@
 @model IEnumerable<SoftCandy.Models.Fornecedor>
 
 @{
-    ViewData["Title"] = "Pesquisar Fornecedor";
+    ViewData["Title"] = "Pesquisar Fornecedor Inativado";
 }
 <center>
     <form class="form-inline" asp-controller="Busca" asp-action="BuscaFornecedorApagado">
@@ -19,7 +19,7 @@
     </form>
     <br />
     <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Fornecedores Apagados</h4></div>
+        <div class="card-header"><h4>Fornecedores Inativados</h4></div>
         <div class="card-body">
             @if (Model.Count() != 0)
             {
@@ -60,7 +60,9 @@
                                     @Html.DisplayFor(modelItem => item.NomeFantasia)
                                 </td>
                                 <td class="text-preto center">
-                                    <a asp-controller="Fornecedor" asp-action="Restore" asp-route-id="@item.IdFornecedor">Ativar</a>
+                                    <a asp-controller="Fornecedor" asp-action="Restore" asp-route-id="@item.IdFornecedor">
+                                        <img src="~/icons/ativar.svg" class="icone-menus" title="Ativar" />
+                                    </a>
                                 </td>
                             </tr>
                         }
@@ -69,7 +71,7 @@
             }
             else
             {
-                <p>Não tem fornecedores apagados para mostrar</p>
+                <p>Não tem fornecedores inativados para mostrar</p>
             }
         </div>
     </div>
