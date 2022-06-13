@@ -78,7 +78,7 @@ a {
     color: black;
 }
 
-.text-preto, text-preto a {
+.text-preto, .text-preto a {
     color: black !important;
 }
 
