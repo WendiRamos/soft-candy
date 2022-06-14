@@ -9,8 +9,8 @@
     <form class="form-inline" asp-controller="Caixa" asp-action="FechamentoCaixa">
         <div class="d-flex justify-content-between">
             <div class="d-flex">
-                <a asp-controller="Comanda" asp-action="Venda" class="btn btn-warning mr-1">Novo Delivery</a>
-                <a asp-controller="Comanda" asp-action="Venda" class="btn btn-info mr-1">Venda por Comanda</a>
+                <a asp-controller="Comanda" asp-action="Venda" class="btn btn-warning mr-1">Efetuar Delivery</a>
+                <a asp-controller="Delivery" asp-action="EscolherItens" class="btn btn-info mr-1">Efetuar Comanda</a>
                 <a asp-controller="OperacaoCaixa" asp-action="Create" class="btn btn-primary mr-1">Nova Operação</a>
             </div>
             <div class="d-flex">
@@ -21,7 +21,7 @@
     <br />
 
     <div class="card border-warning mb-3">
-        <div class="card-header"><h4>Pedidos Delivery Recebidos</h4></div>
+        <div class="card-header"><h4>Deliveries Recebidos</h4></div>
         <div class="card-body">
             @if (Model.Deliveries.Where(p => p.Recebido).Count() == 0)
             {
@@ -31,7 +31,7 @@
             {
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="negrito">
                             <th>
                                 Id
                             </th>
@@ -42,10 +42,10 @@
                                 Motoboy
                             </th>
                             <th>
-                                Valor
+                                Forma Pagamento
                             </th>
                             <th>
-                                Forma Pagamento
+                                Valor
                             </th>
                             <th class="center">
                                 Exibir
@@ -66,10 +66,10 @@
                                     @Html.DisplayFor(modelItem => delivery.Motoboy.Nome)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => delivery.ValorTotal)
+                                    @Html.DisplayFor(modelItem => delivery.FormaPagamento)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => delivery.FormaPagamento)
+                                   R$ @Html.DisplayFor(modelItem => delivery.ValorTotal)
                                 </td>
                                 <td class="center">
                                     <a asp-controller="Delivery" asp-action="Details" asp-route-id="@delivery.Id" class="sem-sub">
@@ -97,7 +97,7 @@
             {
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="negrito">
                             <th>
                                 Id
                             </th>
@@ -161,12 +161,12 @@
             {
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="negrito">
                             <th>
                                 Id
                             </th>
                             <th>
-                                Valor
+                                Funcionário
                             </th>
                             <th>
                                 Tipo
@@ -175,7 +175,7 @@
                                 Nome
                             </th>
                             <th>
-                                Funcionário
+                                Valor
                             </th>
                             <th class="center">Exibir</th>
                         </tr>
@@ -188,7 +188,7 @@
                                     @Html.DisplayFor(modelItem => operacao.Id)
                                 </td>
                                 <td>
-                                    R$ @Html.DisplayFor(modeItem => operacao.Valor)
+                                    @Html.DisplayFor(modelItem => operacao.Funcionario.Nome)
                                 </td>
                                 <td>
                                     @if (operacao.Tipo == OperacoesEnum.ENTRADA)
@@ -204,7 +204,7 @@
                                     @Html.DisplayFor(modelItem => operacao.Nome)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => operacao.Funcionario.Nome)
+                                    R$ @Html.DisplayFor(modeItem => operacao.Valor)
                                 </td>
                                 <td class="center">
                                     <a asp-controller="OperacaoCaixa" asp-action="Details" asp-route-id="@operacao.Id" class="sem-sub">

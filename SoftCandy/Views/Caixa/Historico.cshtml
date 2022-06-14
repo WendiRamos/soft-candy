@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<SoftCandy.Models.Caixa>
 
 @{
-    ViewData["Title"] = "Histórico";
+    ViewData["Title"] = "Histórico de Caixas";
 }
 
-<form class="form-inline" asp-controller="Busca" asp-action="BuscaCaixa">
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaCaixas">
     <div class="d-flex justify-content-end">
         <div class="d-flex">
             <div class="row align-middle">
@@ -32,7 +32,7 @@
             {
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="negrito">
                             <th>
                                 Id
                             </th>

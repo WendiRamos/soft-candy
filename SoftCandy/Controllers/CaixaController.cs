@@ -149,24 +149,34 @@ namespace SoftCandy.Controllers
         }
 
         // GET: Caixa/Details/
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var caixa = await _context.Caixa
                 .Include(c => c.Comandas)
                 .Include(c => c.Operacoes)
                 .Include(c => c.FuncionarioAbertura)
                 .Include(c => c.FuncionarioFechamento)
+                .Include(c => c.Deliveries)
+                .ThenInclude(d => d.Motoboy)
                 .FirstOrDefaultAsync(m => m.IdCaixa == id);
             if (caixa == null)
             {
                 return NotFound();
             }
+            _context.Entry(caixa).Collection(c => c.Comandas).Load();
+            _context.Entry(caixa).Collection(c => c.Deliveries).Load();
 
+            ViewData["ComandaDinheiro"] = caixa.Comandas.Where(c => c.FormaPagamentoIsDinheiro()).Select(c => c.ValorTotal).Sum();
+            ViewData["ComandaCredito"] = caixa.Comandas.Where(c => c.FormaPagamentoIsCredito()).Select(c => c.ValorTotal).Sum();
+            ViewData["ComandaDebito"] = caixa.Comandas.Where(c => c.FormaPagamentoIsDebito()).Select(c => c.ValorTotal).Sum();
+            ViewData["ComandaPix"] = caixa.Comandas.Where(c => c.FormaPagamentoIsPix()).Select(c => c.ValorTotal).Sum();
+            ViewData["ComandaTotal"] = caixa.Comandas.Select(c => c.ValorTotal).Sum();
+
+            ViewData["DeliveryDinheiro"] = caixa.Deliveries.Where(c => c.FormaPagamentoIsDinheiro()).Select(c => c.ValorTotal).Sum();
+            ViewData["DeliveryCredito"] = caixa.Deliveries.Where(c => c.FormaPagamentoIsCredito()).Select(c => c.ValorTotal).Sum();
+            ViewData["DeliveryDebito"] = caixa.Deliveries.Where(c => c.FormaPagamentoIsDebito()).Select(c => c.ValorTotal).Sum();
+            ViewData["DeliveryPix"] = caixa.Deliveries.Where(c => c.FormaPagamentoIsPix()).Select(c => c.ValorTotal).Sum();
+            ViewData["DeliveryTotal"] = caixa.Deliveries.Select(c => c.ValorTotal).Sum();
             return View(caixa);
         }
 
