@@ -1,58 +1,58 @@
 ﻿@model SoftCandy.Models.Fornecedor
 
 @{
-    ViewData["Title"] = "Deletar";
+    ViewData["Title"] = "Inativar Fornecedor";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
-        <div class="card-header"><h4>Deletar Fornecedor</h4></div>
+        <div class="card-header"><h4>Inativar Fornecedor</h4></div>
         <div class="card-body">
-            <h5>Tem certeza que deseja excluir?</h5>
+            <h5>Tem certeza que deseja inativar?</h5>
             <div>
                 <table class="table">
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.IdFornecedor): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.IdFornecedor): </td>
                         <td>@Html.DisplayFor(model => model.IdFornecedor)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.Cnpj): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.Cnpj): </td>
                         <td>@Html.DisplayFor(model => model.Cnpj)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.RazaoSocial): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.RazaoSocial): </td>
                         <td>@Html.DisplayFor(model => model.RazaoSocial)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.NomeFantasia): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.NomeFantasia): </td>
                         <td>@Html.DisplayFor(model => model.NomeFantasia)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.CelularFornecedor): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.CelularFornecedor): </td>
                         <td>@Html.DisplayFor(model => model.CelularFornecedor)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.EmailFornecedor): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.EmailFornecedor): </td>
                         <td>@Html.DisplayFor(model => model.EmailFornecedor)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.LogradouroFornecedor):</td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.LogradouroFornecedor):</td>
                         <td>@Html.DisplayFor(model => model.LogradouroFornecedor)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.NumeroFornecedor): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.NumeroFornecedor): </td>
                         <td>@Html.DisplayFor(model => model.NumeroFornecedor)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.BairroFornecedor): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.BairroFornecedor): </td>
                         <td>@Html.DisplayFor(model => model.BairroFornecedor)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.CidadeFornecedor): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.CidadeFornecedor): </td>
                         <td>@Html.DisplayFor(model => model.CidadeFornecedor)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.EstadoFornecedor): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.EstadoFornecedor): </td>
                         <td>@Html.DisplayFor(model => model.EstadoFornecedor)</td>
                     </tr>
                 </table>
@@ -60,7 +60,7 @@
                 <form asp-action="Delete">
                     <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
                     <input type="hidden" asp-for="IdFornecedor" />
-                    <input type="submit" value="Deletar" class="btn btn-danger" />
+                    <input type="submit" value="Inativar" class="btn btn-danger" />
                 </form>
             </div>
         </div>

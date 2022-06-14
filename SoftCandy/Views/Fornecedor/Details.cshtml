@@ -1,7 +1,7 @@
 ﻿@model SoftCandy.Models.Fornecedor
 
 @{
-    ViewData["Title"] = "Exibir";
+    ViewData["Title"] = "Exibir Fornecedor";
 }
 <br />
 <center>
@@ -10,54 +10,53 @@
         <div class="card-body">
             <table class="table">
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.IdFornecedor): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.IdFornecedor): </td>
                     <td>@Html.DisplayFor(model => model.IdFornecedor)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.Cnpj): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.Cnpj): </td>
                     <td>@Html.DisplayFor(model => model.Cnpj)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.RazaoSocial): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.RazaoSocial): </td>
                     <td>@Html.DisplayFor(model => model.RazaoSocial)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.NomeFantasia): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.NomeFantasia): </td>
                     <td>@Html.DisplayFor(model => model.NomeFantasia)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.CelularFornecedor): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.CelularFornecedor): </td>
                     <td>@Html.DisplayFor(model => model.CelularFornecedor)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.EmailFornecedor): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.EmailFornecedor): </td>
                     <td class="text-preto">@Html.DisplayFor(model => model.EmailFornecedor)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.LogradouroFornecedor):</td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.LogradouroFornecedor):</td>
                     <td>@Html.DisplayFor(model => model.LogradouroFornecedor)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.NumeroFornecedor): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.NumeroFornecedor): </td>
                     <td>@Html.DisplayFor(model => model.NumeroFornecedor)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.BairroFornecedor): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.BairroFornecedor): </td>
                     <td>@Html.DisplayFor(model => model.BairroFornecedor)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.CidadeFornecedor): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.CidadeFornecedor): </td>
                     <td>@Html.DisplayFor(model => model.CidadeFornecedor)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.EstadoFornecedor): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.EstadoFornecedor): </td>
                     <td>@Html.DisplayFor(model => model.EstadoFornecedor)</td>
                 </tr>
             </table>
             <br />
             <div>
                 <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                <a asp-action="Edit" asp-route-id="@Model.IdFornecedor" class="btn btn-info">Editar</a>
             </div>
         </div>
     </div>
