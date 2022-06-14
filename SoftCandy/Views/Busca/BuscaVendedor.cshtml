@@ -66,18 +66,18 @@
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
                                 <td class="center">
-                                    <a asp-action="DetailsVendedor" asp-route-id="@item.Id" class="sem-sub">
+                                    <a asp-action="DetailsVendedor" asp-controller="Funcionario" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
                                 <td class="center">
-                                    <a asp-action="EditVendedor" asp-route-id="@item.Id" class="sem-sub">
+                                    <a asp-action="EditVendedor" asp-controller="Funcionario" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
                                     </a>
 
                                 </td>
                                 <td class="center">
-                                    <a asp-action="DeleteVendedor" asp-route-id="@item.Id" class="sem-sub">
+                                    <a asp-action="DeleteVendedor" asp-controller="Funcionario" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/inativar.svg" class="icone-menus" title="Inativar" />
                                     </a>
 

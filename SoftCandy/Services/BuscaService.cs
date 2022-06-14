@@ -211,7 +211,7 @@ namespace SoftCandy.Services
                 .ToListAsync();
         }
 
-        public async Task<List<Caixa>> FindByCaixa(DateTime? minDate, DateTime? maxDate)
+        public async Task<List<Caixa>> FindByCaixas(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.Caixa.Where(c => !c.EstaAberto) select obj;
             if (minDate.HasValue)
@@ -224,6 +224,8 @@ namespace SoftCandy.Services
             }
             return await result
                 .OrderByDescending(x => x.DataHoraFechamento)
+                .Include( c => c.FuncionarioAbertura)
+                .Include( c => c.FuncionarioFechamento)
                 .ToListAsync();
         }
     }

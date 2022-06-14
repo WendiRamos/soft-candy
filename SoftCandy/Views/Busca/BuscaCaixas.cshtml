@@ -82,7 +82,7 @@
                                         @Html.DisplayFor(modelItem => item.FuncionarioFechamento.Nome)
                                     </td>
                                     <td class="center">
-                                        <a asp-action="Details" asp-route-id="@item.IdCaixa" class="sem-sub">
+                                        <a asp-action="Details" asp-controller="Caixa" asp-route-id="@item.IdCaixa" class="sem-sub">
                                             <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                         </a>
                                     </td>

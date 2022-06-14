@@ -193,7 +193,7 @@ namespace SoftCandy.Controllers
             return View(result);
         }
 
-        public async Task<IActionResult> BuscaCaixa(DateTime? minDate, DateTime? maxDate)
+        public async Task<IActionResult> BuscaCaixas(DateTime? minDate, DateTime? maxDate)
         {
             if (!minDate.HasValue)
             {
@@ -205,7 +205,7 @@ namespace SoftCandy.Controllers
             }
             ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
             ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
-            var result = await _buscaService.FindByCaixa(minDate, maxDate);
+            var result = await _buscaService.FindByCaixas(minDate, maxDate);
             return View(result);
         }
     }
