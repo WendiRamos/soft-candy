@@ -1,14 +1,14 @@
 ﻿@model SoftCandy.Models.Categoria
 
 @{
-    ViewData["Title"] = "Deletar";
+    ViewData["Title"] = "Inativar Categoria";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
-        <div class="card-header"><h4>Deletar Categoria</h4></div>
+        <div class="card-header"><h4>Inativar Categoria</h4></div>
         <div class="card-body">
-            <h5>Tem certeza que deseja excluir?</h5>
+            <h5>Tem certeza que deseja inativar?</h5>
             <div>
                 <table class="table">
                     <tr>
@@ -24,7 +24,7 @@
                 <form asp-action="Delete">
                     <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
                     <input type="hidden" asp-for="IdCategoria" />
-                    <input type="submit" value="Deletar" class="btn btn-danger" />
+                    <input type="submit" value="Inativar" class="btn btn-danger" />
                 </form>
             </div>
         </div>
