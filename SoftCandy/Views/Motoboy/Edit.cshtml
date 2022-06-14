@@ -1,7 +1,7 @@
 ﻿@model SoftCandy.Models.Motoboy
 
 @{
-    ViewData["Title"] = "Editar";
+    ViewData["Title"] = "Editar Motoboy";
 }
 <br />
 <center>
@@ -9,7 +9,7 @@
         <div class="card-header"><h4>Editar Motoboy</h4></div>
         <div class="card-body">
             <div class="row-center">
-                <form asp-action="EditEstoquista">
+                <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-dark"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="row">
