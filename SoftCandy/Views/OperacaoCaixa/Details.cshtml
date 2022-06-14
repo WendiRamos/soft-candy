@@ -1,7 +1,7 @@
 ﻿@model SoftCandy.Models.OperacaoCaixa
 @using SoftCandy.Enums
 @{
-    ViewData["Title"] = "Exibir";
+    ViewData["Title"] = "Exibir Operação Caixa";
 }
 <br />
 <center>
@@ -10,11 +10,11 @@
         <div class="card-body">
             <table class="table">
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.Valor): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.Valor): </td>
                     <td> R$ @Html.DisplayFor(model => model.Valor)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.Tipo): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.Tipo): </td>
                     @if (Model.Tipo == OperacoesEnum.ENTRADA)
                     {
                         <td>Entrada</td>
@@ -25,23 +25,23 @@
                     }
                 </tr>
                 <tr>
-                    <td>Nome da Operação: </td>
+                    <td class="negrito">Nome da Operação: </td>
                     <td>@Html.DisplayFor(model => model.Nome)</td>
                 </tr>
                 @if (Model.Descricao != null && Model.Descricao.Length != 0)
                 {
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.Descricao): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.Descricao): </td>
 
                         <td>@Html.DisplayFor(model => model.Descricao)</td>
                     </tr>
                 }
                 <tr>
-                    <td>Data/Hora: </td>
+                    <td class="negrito">Data/Hora: </td>
                     <td>@Html.DisplayFor(model => model.DataHora)</td>
                 </tr>
                 <tr>
-                    <td>Funcionário: </td>
+                    <td class="negrito">Funcionário: </td>
                     <td>@Html.DisplayFor(model => model.Funcionario.Nome)</td>
                 </tr>
             </table>
