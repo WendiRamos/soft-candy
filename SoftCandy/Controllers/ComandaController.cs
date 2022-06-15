@@ -38,6 +38,20 @@ namespace SoftCandy.Controllers
             return RedirectToAction("User", "Home");
         }
 
+        // GET: Comanda/Histórico
+        public async Task<IActionResult> Historico()
+        {
+            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+            {
+                var softCandyContext = _context.Comanda.Where(c => c.Recebido)
+                    .OrderByDescending(p => p.Id);
+
+                return View(await softCandyContext.Take(20).ToListAsync());
+
+            }
+            return RedirectToAction("User", "Home");
+        }
+
         // GET: Comanda/CupomRecebimento
         public async Task<IActionResult> CupomRecebimento(int id)
         {
