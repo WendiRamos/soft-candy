@@ -1,13 +1,14 @@
 ﻿@model SoftCandy.Models.Delivery
 
 @{
-    ViewData["Title"] = "Exibir Delivery";
+    ViewData["Title"] = "Deletar Delivery";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
-        <div class="card-header"><h4>Exibir Delivery</h4></div>
+        <div class="card-header"><h4>Deletar Delivery</h4></div>
         <div class="card-body">
+            <h5>Tem certeza que deseja deletar?</h5>
             <table class="table">
                 <tr>
                     <td class="negrito">@Html.DisplayNameFor(model => model.Id): </td>
@@ -103,17 +104,11 @@
                     </tr>
                 </tfoot>
             </table>
-            <div class="d-flex justify-content-center">
-                <div class="d-flex">
-                    <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                </div>
-                @if (Model.Recebido)
-                {
-                    <div class="d-flex">
-                        @Html.ActionLink("Gerar Cupom", "CupomRecebimento", new { id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
-                    </div>
-                }
-            </div>
+            <form asp-action="Delete">
+                <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Deletar" class="btn btn-danger" />
+            </form>
         </div>
     </div>
 </center>

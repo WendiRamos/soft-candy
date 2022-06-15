@@ -23,16 +23,16 @@ namespace SoftCandy.Controllers
         }
 
         // GET: Delivery
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Historico()
         {
-            var softCandyContext = _context.Delivery.Where(d => d.Recebido).Include(d => d.Caixa).Include(d => d.Motoboy);
+            var softCandyContext = _context.Delivery.Where(d => d.Recebido && d.Ativo).Include(d => d.Caixa).Include(d => d.Motoboy);
             return View(await softCandyContext.Take(20).ToListAsync());
         }
 
         // GET: Delivery
         public async Task<IActionResult> Pendentes()
         {
-            var softCandyContext = _context.Delivery.Where(d => !d.Recebido).Include(d => d.Caixa).Include(d => d.Motoboy);
+            var softCandyContext = _context.Delivery.Where(d => !d.Recebido && d.Ativo).Include(d => d.Caixa).Include(d => d.Motoboy);
             return View(await softCandyContext.Take(20).ToListAsync());
         }
 
@@ -249,14 +249,23 @@ namespace SoftCandy.Controllers
         // GET: Comanda/CupomCriação
         public async Task<IActionResult> CupomCriacao(int id)
         {
-            var comanda = await _context.Comanda
-                .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (comanda == null)
+            if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                var delivery = await _context.Delivery
+                    .Include(i => i.ItensDelivery)
+                    .ThenInclude(c => c.Lote)
+                    .ThenInclude(c => c.Produto)
+                    .Include(d => d.Motoboy)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+
+                if (delivery == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+                return View(delivery);
             }
-            return View(comanda);
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Delivery/Create
@@ -276,6 +285,7 @@ namespace SoftCandy.Controllers
             {
                 delivery.DataHoraCriacao = DateTime.Now;
                 delivery.Recebido = false;
+                delivery.Ativo = true;
                 delivery.IdCaixa = CaixaUtils.IdAberto(_context);
 
                 delivery.ItensDelivery = CarrinhoDelivery.Instancia.ItensDelivery;
@@ -295,6 +305,48 @@ namespace SoftCandy.Controllers
                 return RedirectToAction("Pendentes", "Delivery", new { id = delivery.Id });
             }
             return View(delivery);
+        }
+
+        // GET: Delivery/Delete
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
+            {
+                if (id == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
+                }
+
+                var delivery = await _context.Delivery
+                    .Include(i => i.ItensDelivery)
+                    .ThenInclude(c => c.Lote)
+                    .ThenInclude(c => c.Produto)
+                    .Include(d => d.Motoboy)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (delivery == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
+                }
+
+                return View(delivery);
+            }
+            return RedirectToAction("User", "Home");
+        }
+
+        // POST: Delivery/Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
+            {
+                var delivery = await _context.Delivery.FindAsync(id);
+                delivery.Ativo = false;
+                _context.Delivery.Update(delivery);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Pendentes));
+            }
+            return RedirectToAction("User", "Home");
         }
 
         public IActionResult Error(string message)

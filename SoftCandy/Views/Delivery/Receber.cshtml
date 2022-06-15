@@ -2,47 +2,47 @@
 @using SoftCandy.Enums
 
 @{
-    ViewData["Title"] = "Receber";
+    ViewData["Title"] = "Receber Delivery";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
-        <div class="card-header"><h4>Receber Pedido</h4></div>
+        <div class="card-header"><h4>Receber Delivery</h4></div>
         <div class="card-body">
             <table class="table">
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.Id): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.Id): </td>
                     <td>@Html.DisplayFor(model => model.Id)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.IdCaixa): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.IdCaixa): </td>
                     <td>@Html.DisplayFor(model => model.IdCaixa)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.Motoboy): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.Motoboy): </td>
                     <td>@Html.DisplayFor(model => model.Motoboy.Nome)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.NomeCliente): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.NomeCliente): </td>
                     <td>@Html.DisplayFor(model => model.NomeCliente)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.DataHoraCriacao): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.DataHoraCriacao): </td>
                     <td>@Html.DisplayFor(model => model.DataHoraCriacao)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.ValorTotal): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.ValorTotal): </td>
                     <td>R$ @Html.DisplayFor(model => model.ValorTotal)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.FormaPagamento): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.FormaPagamento): </td>
                     <td>@Html.DisplayFor(model => model.FormaPagamento)</td>
                 </tr>
             </table>
             <h4>Itens do Pedido</h4>
             <table class="table">
                 <thead>
-                    <tr>
+                    <tr class="negrito">
                         <th>
                             Nome
                         </th>

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SoftCandy.Models.Delivery>
 
 @{
-    ViewData["Title"] = "Histórico";
+    ViewData["Title"] = "Histórico de Deliveries";
 }
 <div class="d-flex justify-content-between">
 
@@ -16,13 +16,13 @@
 <br />
 <center>
     <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Histórico de Deliviries</h4></div>
+        <div class="card-header"><h4>Histórico de Deliveries Recebidos</h4></div>
         <div class="card-body">
             @if (Model.Count() != 0)
             {
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="negrito">
                             <th>
                                 @Html.DisplayNameFor(model => model.Id)
                             </th>
@@ -30,18 +30,19 @@
                                 @Html.DisplayNameFor(model => model.Caixa)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.DataHoraCriacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DataHoraRecebimento)
+                                @Html.DisplayNameFor(model => model.Motoboy)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.ValorTotal)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Motoboy)
+                                @Html.DisplayNameFor(model => model.FormaPagamento)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataHoraCriacao)
                             </th>
                             <th class="center">Exibir</th>
+                            <th class="center">Cupom</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,27 +56,31 @@
                                     @Html.DisplayFor(modelItem => item.Caixa.IdCaixa)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.DataHoraCriacao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataHoraRecebimento)
+                                    @Html.DisplayFor(modelItem => item.Motoboy.Nome)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ValorTotal)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Motoboy.Nome)
+                                    @Html.DisplayFor(modelItem => item.FormaPagamento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataHoraCriacao)
                                 </td>
                                 <td class="center">
                                     <a asp-action="Details" asp-controller="Delivery" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
+                                <td class="center">
+                                    <a asp-action="CupomCriacao" asp-controller="Delivery" asp-route-id="@item.Id" target="_blank" class="sem-sub">
+                                        <img src="~/icons/cupom.svg" class="icone-menus" title="Receber" />
+                                    </a>
+                                </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-
             }
             else
             {
@@ -92,3 +97,4 @@
         window.location.href = url;
     }
 </script>
+

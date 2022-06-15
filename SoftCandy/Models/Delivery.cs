@@ -36,6 +36,7 @@ namespace SoftCandy.Models
         [Display(Name = "Endereço Entrega")]
         public string EnderecoEntrega { get; set; }
         public bool Recebido { get; set; }
+        public bool Ativo { get; set; }
 
         [ForeignKey("Caixa")]
         public int IdCaixa { get; set; }
