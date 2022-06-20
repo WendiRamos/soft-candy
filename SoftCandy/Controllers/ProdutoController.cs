@@ -41,7 +41,7 @@ namespace SoftCandy.Controllers
 
                 return View(produtos);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> EstoqueBaixoVencido()
@@ -62,13 +62,13 @@ namespace SoftCandy.Controllers
                 produtos.ForEach(p => p.SomarQuantidade());
                 return View();
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
 
         public async Task<IActionResult> Relatorio()
         {
-            if (User.Identity.IsAuthenticated)
+            if (LoginAtual.IsAdministrador(User))
             {
                 var softCandyContext = _context.Produto.Where(c => c.Ativo).Include(p => p.Categoria).Include(p => p.Fornecedor);
                 return View(await softCandyContext.ToListAsync());
@@ -98,7 +98,7 @@ namespace SoftCandy.Controllers
                 produto.SomarQuantidade();
                 return View(produto);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Produto/Create
@@ -110,7 +110,7 @@ namespace SoftCandy.Controllers
                 ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View();
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Produto/Create
@@ -131,7 +131,7 @@ namespace SoftCandy.Controllers
                 ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View(produto);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Produto/Edit/5
@@ -154,7 +154,7 @@ namespace SoftCandy.Controllers
                 return View(produto);
 
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Produto/Edit
@@ -193,7 +193,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(produto);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Produto/Delete
@@ -219,7 +219,7 @@ namespace SoftCandy.Controllers
                 return View(produto);
 
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Produto/Delete/5
@@ -235,7 +235,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Produto/Restore
@@ -257,7 +257,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(produto);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Produto/Restore
@@ -273,7 +273,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         private bool ProdutoExists(int id)
