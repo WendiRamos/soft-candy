@@ -35,7 +35,7 @@ namespace SoftCandy.Controllers
             {
                 return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.ADMINISTRADOR)).Take(20).ToListAsync());
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> IndexEstoquista()
@@ -44,7 +44,7 @@ namespace SoftCandy.Controllers
             {
                 return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.ESTOQUISTA)).Take(20).ToListAsync());
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> IndexVendedor()
@@ -53,7 +53,7 @@ namespace SoftCandy.Controllers
             {
                 return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.VENDEDOR)).Take(20).ToListAsync());
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> IndexCaixa()
@@ -62,7 +62,7 @@ namespace SoftCandy.Controllers
             {
                 return View(await _context.Funcionario.Where(c => c.Ativo && c.Cargo == ((int)CargosEnum.CAIXA)).Take(20).ToListAsync());
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Funcionario/Details
@@ -84,7 +84,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
 
@@ -106,7 +106,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> DetailsVendedor(int? id)
@@ -127,7 +127,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> DetailsCaixa(int? id)
@@ -148,7 +148,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Funcionario/Create
@@ -158,7 +158,7 @@ namespace SoftCandy.Controllers
             {
                 return View();
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public IActionResult CreateEstoquista()
@@ -167,7 +167,7 @@ namespace SoftCandy.Controllers
             {
                 return View();
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public IActionResult CreateVendedor()
@@ -176,7 +176,7 @@ namespace SoftCandy.Controllers
             {
                 return View();
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public IActionResult CreateCaixa()
@@ -185,7 +185,7 @@ namespace SoftCandy.Controllers
             {
                 return View();
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Funcionario/Create
@@ -205,7 +205,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpPost]
@@ -224,7 +224,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpPost]
@@ -243,7 +243,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> CreateCaixa([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
@@ -260,7 +260,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Funcionario/Edit
@@ -280,7 +280,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> EditEstoquista(int? id)
@@ -299,7 +299,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> EditVendedor(int? id)
@@ -318,7 +318,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> EditCaixa(int? id)
@@ -337,7 +337,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
         // POST: Funcionario/Edit
         [HttpPost]
@@ -373,7 +373,7 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(IndexAdministrador));
                 }
-                return RedirectToAction("User", "Home");
+                return RedirectToAction("Login", "Funcionario");
             }
             return View(funcionario);
         }
@@ -411,7 +411,7 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(IndexEstoquista));
                 }
-                return RedirectToAction("User", "Home");
+                return RedirectToAction("Login", "Funcionario");
             }
             return View(funcionario);
         }
@@ -449,7 +449,7 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(IndexVendedor));
                 }
-                return RedirectToAction("User", "Home");
+                return RedirectToAction("Login", "Funcionario");
             }
             return View(funcionario);
         }
@@ -487,7 +487,7 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(IndexCaixa));
                 }
-                return RedirectToAction("User", "Home");
+                return RedirectToAction("Login", "Funcionario");
             }
             return View(funcionario);
         }
@@ -510,7 +510,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> DeleteEstoquista(int? id)
@@ -531,7 +531,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> DeleteVendedor(int? id)
@@ -552,7 +552,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> DeleteCaixa(int? id)
@@ -573,7 +573,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
         // POST: Funcionario/Delete
         [HttpPost, ActionName("DeleteAdministrador")]
@@ -589,7 +589,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexAdministrador));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpPost, ActionName("DeleteEstoquista")]
@@ -605,7 +605,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexEstoquista));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpPost, ActionName("DeleteVendedor")]
@@ -621,7 +621,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexVendedor));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpPost, ActionName("DeleteCaixa")]
@@ -637,7 +637,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexCaixa));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
         // GET: Funcionario/Restore
         public async Task<IActionResult> RestoreAdministrador(int? id)
@@ -658,7 +658,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> RestoreEstoquista(int? id)
@@ -679,7 +679,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> RestoreVendedor(int? id)
@@ -700,7 +700,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> RestoreCaixa(int? id)
@@ -721,7 +721,7 @@ namespace SoftCandy.Controllers
 
                 return View(funcionario);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
         // POST: Funcionario/Restore
         [HttpPost, ActionName("RestoreAdministrador")]
@@ -737,7 +737,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexAdministrador));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpPost, ActionName("RestoreEstoquista")]
@@ -753,7 +753,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexEstoquista));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpPost, ActionName("RestoreVendedor")]
@@ -769,7 +769,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexVendedor));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         [HttpPost, ActionName("RestoreCaixa")]
@@ -785,7 +785,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IndexCaixa));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
         //GET: Funcionario/Login
         public IActionResult Login()
