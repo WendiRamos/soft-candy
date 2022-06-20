@@ -28,12 +28,12 @@ namespace SoftCandy.Controllers
             {
                 return View(await _context.Categoria.Where(c => c.AtivoCategoria).Take(20).ToListAsync());
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> Relatorio(string tipo)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LoginAtual.IsAdministrador(User))
             {
                 List<Categoria> categorias;
 
@@ -62,7 +62,7 @@ namespace SoftCandy.Controllers
 
                 return View(categorias);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
         // GET: Categoria/Details
         public async Task<IActionResult> Details(int? id)
@@ -83,7 +83,7 @@ namespace SoftCandy.Controllers
 
                 return View(categoria);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Categoria/Create
@@ -93,7 +93,7 @@ namespace SoftCandy.Controllers
             {
                 return View();
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Categoria/Create
@@ -112,7 +112,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(categoria);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Categoria/Edit
@@ -132,7 +132,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(categoria);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Categoria/Edit
@@ -170,7 +170,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(categoria);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Categoria/Delete
@@ -192,7 +192,7 @@ namespace SoftCandy.Controllers
 
                 return View(categoria);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Categoria/Delete
@@ -208,7 +208,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Categoria/Restore
@@ -230,7 +230,7 @@ namespace SoftCandy.Controllers
 
                 return View(categoria);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Categoria/Restore
@@ -246,7 +246,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         private bool CategoriaExists(int id)
