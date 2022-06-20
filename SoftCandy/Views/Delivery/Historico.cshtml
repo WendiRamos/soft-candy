@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<SoftCandy.Models.Delivery>
-
+@using SoftCandy.Utils
 @{
     ViewData["Title"] = "Histórico de Deliveries";
 }
@@ -42,7 +42,6 @@
                                 @Html.DisplayNameFor(model => model.DataHoraCriacao)
                             </th>
                             <th class="center">Exibir</th>
-                            <th class="center">Cupom</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,11 +69,6 @@
                                 <td class="center">
                                     <a asp-action="Details" asp-controller="Delivery" asp-route-id="@item.Id" class="sem-sub">
                                         <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
-                                    </a>
-                                </td>
-                                <td class="center">
-                                    <a asp-action="CupomCriacao" asp-controller="Delivery" asp-route-id="@item.Id" target="_blank" class="sem-sub">
-                                        <img src="~/icons/cupom.svg" class="icone-menus" title="Receber" />
                                     </a>
                                 </td>
                             </tr>

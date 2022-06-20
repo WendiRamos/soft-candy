@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<SoftCandy.Models.Comanda>
+@using SoftCandy.Utils
 
 @{
     ViewData["Title"] = "Comandas Pendentes";
@@ -38,9 +39,12 @@
                             <th class="center">
                                 Exibir
                             </th>
-                            <th class="center">
-                                Receber
-                            </th>
+                            @if (LoginAtual.IsCaixa(User) || LoginAtual.IsAdministrador(User))
+                            {
+                                <th class="center">
+                                    Receber
+                                </th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -64,11 +68,15 @@
                                         <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
-                                <td class="center">
-                                    <a asp-action="Receber" asp-controller="Comanda" asp-route-id="@item.Id" class="sem-sub">
-                                        <img src="~/icons/receber.svg" class="icone-menus" title="Receber" />
-                                    </a>
-                                </td>
+                                @if (LoginAtual.IsCaixa(User) || LoginAtual.IsAdministrador(User))
+                                {
+                                    <td class="center">
+                                        <a asp-action="Receber" asp-controller="Comanda" asp-route-id="@item.Id" class="sem-sub">
+                                            <img src="~/icons/receber.svg" class="icone-menus" title="Receber" />
+                                        </a>
+                                    </td>
+                                }
+
                             </tr>
                         }
                     </tbody>
@@ -83,7 +91,7 @@
 </center>
 
 <script defer>
-   function procurar() {
+    function procurar() {
         const comanda = $("#pesquisaComanda").val() || "";
         const url = "/Comanda/Details/" + comanda;
         window.location.href = url;

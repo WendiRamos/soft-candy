@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<SoftCandy.Models.Delivery>
-
+@using SoftCandy.Utils
 @{
     ViewData["Title"] = "Delivery Pendentes";
 }
 <div class="d-flex justify-content-between">
 
-    <div class="d-flex" >
+    <div class="d-flex">
         <a asp-controller="Delivery" asp-action="EscolherItens" class="btn btn-success">Efetuar Delivery</a>
     </div>
     <div class="d-flex">
@@ -20,90 +20,108 @@
         <div class="card-body">
             @if (Model.Count() != 0)
             {
-            <table class="table">
-                <thead>
-                    <tr class="negrito">
-                        <th>
-                            @Html.DisplayNameFor(model => model.Id)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Caixa)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Motoboy)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ValorTotal)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FormaPagamento)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DataHoraCriacao)
-                        </th>
-                        <th class="center">Exibir</th>
-                        <th class="center">Cupom</th>
-                        <th class="center">Receber</th>
-                        <th class="center">Deletar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Caixa.IdCaixa)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Motoboy.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ValorTotal)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FormaPagamento)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DataHoraCriacao)
-                        </td>
-                        <td class="center">
-                            <a asp-action="Details" asp-controller="Delivery" asp-route-id="@item.Id" class="sem-sub">
-                                <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
-                            </a>
-                        </td>
-                        <td class="center">
-                            <a asp-action="CupomCriacao" asp-controller="Delivery" target="_blank" asp-route-id="@item.Id" class="sem-sub">
-                                <img src="~/icons/cupom.svg" class="icone-menus" title="Cupom" />
-                            </a>
-                        </td>
-                        <td class="center">
-                            <a asp-action="Receber" asp-controller="Delivery" asp-route-id="@item.Id" class="sem-sub">
-                                <img src="~/icons/receber.svg" class="icone-menus" title="Receber" />
-                            </a>
-                        </td>
-                        <td class="center">
-                            <a asp-action="Delete" asp-controller="Delivery" asp-route-id="@item.Id" class="sem-sub">
-                                <img src="~/icons/inativar.svg" class="icone-menus" title="Apagar" />
-                            </a>
-                        </td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
+                <table class="table">
+                    <thead>
+                        <tr class="negrito">
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Caixa)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Motoboy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ValorTotal)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FormaPagamento)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataHoraCriacao)
+                            </th>
+                            <th class="center">Exibir</th>
+                            @if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+                            {
+                                <th class="center">Cupom</th>
+                            }
+                            @if (LoginAtual.IsCaixa(User) || LoginAtual.IsAdministrador(User))
+                            {
+                                <th class="center">Receber</th>
+                            }
+                            @if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+                            {
+                                <th class="center">Deletar</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Caixa.IdCaixa)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Motoboy.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ValorTotal)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FormaPagamento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataHoraCriacao)
+                                </td>
+                                <td class="center">
+                                    <a asp-action="Details" asp-controller="Delivery" asp-route-id="@item.Id" class="sem-sub">
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
+                                    </a>
+                                </td>
+                                @if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+                                {
+                                    <td class="center">
+                                        <a asp-action="CupomCriacao" asp-controller="Delivery" target="_blank" asp-route-id="@item.Id" class="sem-sub">
+                                            <img src="~/icons/cupom.svg" class="icone-menus" title="Cupom" />
+                                        </a>
+                                    </td>
+                                }
+                                @if (LoginAtual.IsCaixa(User) || LoginAtual.IsAdministrador(User))
+                                {
+                                    <td class="center">
+                                        <a asp-action="Receber" asp-controller="Delivery" asp-route-id="@item.Id" class="sem-sub">
+                                            <img src="~/icons/receber.svg" class="icone-menus" title="Receber" />
+                                        </a>
+                                    </td>
+                                }
+                                @if (LoginAtual.IsVendedor(User) || LoginAtual.IsAdministrador(User))
+                                {
+                                    <td class="center">
+                                        <a asp-action="Delete" asp-controller="Delivery" asp-route-id="@item.Id" class="sem-sub">
+                                            <img src="~/icons/inativar.svg" class="icone-menus" title="Apagar" />
+                                        </a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
             else
             {
-            <p>Não há deliveries para mostrar</p>
+                <p>Não há deliveries para mostrar</p>
             }
         </div>
     </div>
 </center>
 
 <script defer>
-   function procurar() {
+    function procurar() {
         const comanda = $("#pesquisaDelivery").val() || "";
         const url = "/Delivery/Details/" + comanda;
         window.location.href = url;
