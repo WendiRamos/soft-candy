@@ -216,6 +216,40 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Login", "Funcionario");
         }
 
+        public async Task<IActionResult> Relatorio(string tipo)
+        {
+            if (LoginAtual.IsAdministrador(User))
+            {
+                List<Fornecedor> fornecedores;
+
+                if (tipo == "maisProdutos")
+                {
+                    fornecedores = await _context.Fornecedor
+                        .Where(c => c.AtivoFornecedor)
+                        .Include(c => c.Produtos)
+                        .OrderByDescending(c => c.Produtos.Count())
+                        .ToListAsync();
+                }
+                else if (tipo == "menosProdutos")
+                {
+                    fornecedores = await _context.Fornecedor
+                        .Where(c => c.AtivoFornecedor)
+                        .Include(c => c.Produtos)
+                        .OrderBy(c => c.Produtos.Count())
+                        .ToListAsync();
+                }
+                else
+                {
+                    fornecedores = await _context.Fornecedor
+                        .Include(c => c.Produtos)
+                        .Where(c => c.AtivoFornecedor).ToListAsync();
+                }
+
+                return View(fornecedores);
+            }
+            return RedirectToAction("Login", "Funcionario");
+        }
+
         private bool FornecedorExists(int id)
         {
             return _context.Fornecedor.Any(e => e.IdFornecedor == id);
