@@ -64,6 +64,7 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("Login", "Funcionario");
         }
+
         // GET: Categoria/Details
         public async Task<IActionResult> Details(int? id)
         {
