@@ -85,29 +85,29 @@
                                 Quantidade
                             </th>
                             <th class="center">
-                                Inativar
+                                Descartar
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in ViewBag.LotesVencidos)
+                        @foreach (var lote in ViewBag.LotesVencidos)
                         {
                             <tr>
                                 <td>
-                                    @item.Id
+                                    @lote.Id
                                 </td>
                                 <td>
-                                    @item.Produto.Nome
+                                    @lote.Produto.Nome
                                 </td>
                                 <td>
-                                    @item.DataHoraValidade
+                                    @lote.DataHoraValidade
                                 </td>
                                 <td>
-                                    @item.QuantidadeEstoque
+                                    @lote.QuantidadeEstoque
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Delete" asp-controller="Lote" asp-route-id="@item.Id" class="sem-sub">
-                                        <img src="~/icons/inativar.svg" class="icone-menus" title="Inativar" />
+                                    <a loteId="@lote.Id" class="sem-sub btn-Descarte">
+                                        <img src="~/icons/inativar.svg" class="icone-menus" title="Descartar" />
                                     </a>
                                 </td>
                             </tr>
@@ -122,3 +122,4 @@
         </div>
     </div>
 </center>
+<script src="~/js/Lote.js" defer></script>

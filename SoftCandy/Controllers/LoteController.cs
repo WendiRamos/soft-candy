@@ -189,6 +189,28 @@ namespace SoftCandy.Controllers
             }
             return RedirectToAction("Login", "Funcionario");
         }
+        
+        // POST: Lote/Descartar
+        [HttpPost]
+        public async Task<IActionResult> Descartar(int id)
+        {
+            if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
+            {
+                var lote = await _context.Lote
+                    .Include(lt => lt.Produto)
+                    .FirstAsync(lt => lt.Id == id);
+
+                lote.Descartar();
+                lote.Ativo = false;
+
+                _context.Lote.Update(lote);
+                _context.Produto.Update(lote.Produto);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index", "Produto");
+            }
+            return RedirectToAction("Login", "Funcionario");
+        }
 
         private bool LoteExists(int id)
         {

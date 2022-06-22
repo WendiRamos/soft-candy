@@ -81,5 +81,11 @@ namespace SoftCandy.Models
         {
             return DataHoraValidade < DateTime.Now;
         }
+
+        public void Descartar()
+        {
+            Produto.QuantidadeDescartada += QuantidadeEstoque;
+            QuantidadeEstoque = 0;
+        }
     }
 }
