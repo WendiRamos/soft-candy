@@ -66,14 +66,61 @@ namespace SoftCandy.Controllers
         }
 
 
-        public async Task<IActionResult> Relatorio()
+        public async Task<IActionResult> Relatorio(string tipo)
         {
             if (LoginAtual.IsAdministrador(User))
             {
-                var softCandyContext = _context.Produto.Where(c => c.Ativo).Include(p => p.Categoria).Include(p => p.Fornecedor);
-                return View(await softCandyContext.ToListAsync());
+                List<Produto> produtos;
+
+                if (tipo == "maisDescartados")
+                {
+                    produtos = await _context.Produto
+                        .Where(c => c.Ativo)
+                        .Include(c => c.Lotes)
+                        .Include(c => c.Categoria)
+                        .OrderByDescending(c => c.QuantidadeDescartada)
+                        .ToListAsync();
+                }
+                else if (tipo == "menosDescartados")
+                {
+                    produtos = await _context.Produto
+                        .Where(c => c.Ativo)
+                        .Include(c => c.Lotes)
+                        .Include(c => c.Categoria)
+                        .OrderBy(c => c.QuantidadeDescartada)
+                        .ToListAsync();
+                }
+                else if (tipo == "maisEstoque")
+                {
+                    produtos = await _context.Produto
+                        .Where(c => c.Ativo)
+                        .Include(c => c.Lotes)
+                        .Include(c => c.Categoria)
+                        .OrderByDescending(c => c.Lotes.Select(l => l.QuantidadeEstoque).Sum())
+                        .ToListAsync();
+                }
+                else if (tipo == "menosEstoque")
+                {
+                    produtos = await _context.Produto
+                        .Where(c => c.Ativo)
+                        .Include(c => c.Lotes)
+                        .Include(c => c.Categoria)
+                        .OrderBy(c => c.Lotes.Select(l => l.QuantidadeEstoque).Sum())
+                        .ToListAsync();
+                }
+                else
+                {
+                    produtos = await _context.Produto
+                        .Include(c => c.Lotes)
+                        .Include(c => c.Categoria)
+                        .Where(c => c.Ativo).ToListAsync();
+                }
+
+                produtos.ForEach(p => p.QuantidadeEstoque = p.Lotes.Select(l=> l.QuantidadeEstoque).Sum());
+                ViewData["Selecionado"] = tipo;
+                return View(produtos);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Produto/Details/5
