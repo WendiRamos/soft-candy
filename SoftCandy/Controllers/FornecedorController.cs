@@ -244,7 +244,7 @@ namespace SoftCandy.Controllers
                         .Include(c => c.Produtos)
                         .Where(c => c.AtivoFornecedor).ToListAsync();
                 }
-
+                ViewData["Selecionado"] = tipo;
                 return View(fornecedores);
             }
             return RedirectToAction("Login", "Funcionario");
