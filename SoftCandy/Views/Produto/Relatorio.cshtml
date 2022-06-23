@@ -24,6 +24,22 @@
 <br />
 
 <h2 class="text-preto">Relatório de Produtos</h2>
+@if (ViewBag.Selecionado == "maisEstoque")
+{
+    <h5 class="text-preto">Produtos com mais estoque</h5>
+}
+@if (ViewBag.Selecionado == "menosEstoque")
+{
+    <h5 class="text-preto">Produtos com menos estoque</h5>
+}
+@if (ViewBag.Selecionado == "maisDescartados")
+{
+    <h5 class="text-preto">Produtos mais descartados</h5>
+}
+@if (ViewBag.Selecionado == "menosDescartados")
+{
+    <h5 class="text-preto">Produto menos descartados</h5>
+}
 <table class="table" style="border-radius: 10px; background-color: #e6cbe6;">
     <thead>
         <tr class="negrito">
@@ -73,6 +89,18 @@
 @if (ViewBag.Selecionado == "maisEstoque")
 {
     <h5 class="text-preto">Produtos com mais estoque</h5>
+}
+@if (ViewBag.Selecionado == "menosEstoque")
+{
+    <h5 class="text-preto">Produtos com menos estoque</h5>
+}
+@if (ViewBag.Selecionado == "maisDescartados")
+{
+    <h5 class="text-preto">Produtos mais descartados</h5>
+}
+@if (ViewBag.Selecionado == "menosDescartados")
+{
+    <h5 class="text-preto">Produto menos descartados</h5>
 }
 <canvas id="myChart" style="max-height: 400px; border-radius: 10px; background-color: #e6cbe6;"></canvas>
 <br />
