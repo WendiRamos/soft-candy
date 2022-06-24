@@ -207,7 +207,7 @@ namespace SoftCandy.Controllers
         // POST: Produto/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Nome,QuantidadeMinima,IdCategoria,IdFornecedor, Medida")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,QuantidadeMinima,IdCategoria,IdFornecedor, Medida")] Produto produto)
         {
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
