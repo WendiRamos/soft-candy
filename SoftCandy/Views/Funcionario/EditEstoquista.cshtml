@@ -1,5 +1,5 @@
 ﻿@model SoftCandy.Models.Funcionario
-
+@using SoftCandy.Enums
 @{
     ViewData["Title"] = "Editar Estoquista";
 }
@@ -75,6 +75,15 @@
                             <label class="control-label">Confirmar senha:</label>
                             <input autocomplete="off" type="password" class="form-control" id="senhaConfirma" />
                             <span class="invisivel" id="erroSenhaConfirma"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="Cargo" class="control-label">Cargo:</label>
+                        </div>
+                        <div class="col">
+                            <select id="Cargo" asp-for="Cargo" class="form-control" asp-items="Html.GetEnumSelectList<CargosEnum>()"></select>
                         </div>
                     </div>
                     <br />

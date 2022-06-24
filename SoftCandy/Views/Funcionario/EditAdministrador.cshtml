@@ -1,5 +1,5 @@
 ﻿@model SoftCandy.Models.Funcionario
-
+@using SoftCandy.Enums
 @{
     ViewData["Title"] = "Editar Administrador";
 }
@@ -77,6 +77,16 @@
                             <span class="invisivel" id="erroSenhaConfirma"></span>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="Cargo" class="control-label">Cargo:</label>
+                        </div>
+                        <div class="col">
+                            <select id="Cargo" asp-for="Cargo" class="form-control" asp-items="Html.GetEnumSelectList<CargosEnum>()" ></select>
+                        </div>
+                    </div>
+
                     <br />
                     <div class="form-group">
                         <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
