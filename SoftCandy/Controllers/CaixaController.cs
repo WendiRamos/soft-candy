@@ -155,11 +155,6 @@ namespace SoftCandy.Controllers
                 _context.Entry(caixa).Collection(c => c.Comandas).Load();
                 _context.Entry(caixa).Collection(c => c.Deliveries).Load();
 
-                if (caixa.ExisteVendaPendente() && !LoginAtual.IsAdministrador(User))
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Existe pedido sem receber!" });
-                }
-
                 caixa.EstaAberto = false;
                 caixa.FuncionarioFechamentoId = LoginAtual.Id(User);
                 caixa.DataHoraFechamento = DateTime.Now;
