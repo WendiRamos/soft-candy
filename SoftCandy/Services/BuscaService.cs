@@ -195,22 +195,6 @@ namespace SoftCandy.Services
             return await result.ToListAsync();
         }
 
-        public async Task<List<Comanda>> FindByPedido(DateTime? minDate, DateTime? maxDate)
-        {
-            var result = from obj in _context.Comanda  select obj;
-            if (minDate.HasValue)
-            {
-                result = result.Where(x => x.DataHoraRecebimento >= minDate.Value);
-            }
-            if (maxDate.HasValue)
-            {
-                result = result.Where(x => x.DataHoraRecebimento <= maxDate.Value);
-            }
-            return await result
-                .OrderByDescending(x => x.DataHoraRecebimento)
-                .ToListAsync();
-        }
-
         public async Task<List<Caixa>> FindByCaixas(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.Caixa.Where(c => !c.EstaAberto) select obj;
