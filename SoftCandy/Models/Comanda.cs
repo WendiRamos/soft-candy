@@ -31,7 +31,7 @@ namespace SoftCandy.Models
         public int IdCaixa { get; set; }
 
         public virtual Caixa Caixa { get; set; }
-
+        [Display(Name = "Forma de Pagamento")]
         public FormasPagamentoEnum FormaPagamento {get; set;}
 
         public virtual ICollection<ItemComanda> ItemComanda { get; set; }

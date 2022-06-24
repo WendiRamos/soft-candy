@@ -29,6 +29,7 @@ namespace SoftCandy.Models
         public MedidaEnum Medida {get; set;}
 
         [NotMapped]
+        [Display(Name = "Quantidade Estoque")]
         public int QuantidadeEstoque { get; set; }
 
         [ForeignKey("Categoria")]

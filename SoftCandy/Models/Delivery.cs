@@ -47,7 +47,7 @@ namespace SoftCandy.Models
         public int IdMotoboy { get; set; }
 
         public virtual Motoboy Motoboy { get; set; }
-
+        [Display(Name = "Forma de Pagamento")]
         public FormasPagamentoEnum FormaPagamento {get; set;}
 
         public virtual ICollection<ItemDelivery> ItensDelivery { get; set; }
