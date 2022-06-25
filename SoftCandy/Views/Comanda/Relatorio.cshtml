@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "Relatório de Comandas";
+}
+<form class="form-inline nao-imprimir" asp-controller="Comanda" asp-action="Relatorio">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex d-flex align-items-end">
+            <button class="btn btn-info" onclick="window.print()" formtarget="_blank">Versão para Impressão</button>
+        </div>
+        <div class="d-flex">
+            <div class="mr-1">
+                <label for="tipo" class="control-label text-preto ">Tipo:</label>
+                <select name="tipo" class="form-control">
+                    <option value="qntFormaPagto">Quantidades de Formas de Pagamentos</option>
+                    <option value="valoresFormaPagto">Valores de Formas de Pagamentos</option>
+                </select>
+            </div>
+            <div class="mr-1">
+                <label for="minDate" class="control-label text-preto">Data inicial:</label>
+                <input type="date" name="minDate" class="form-control" />
+            </div>
+            <div class="mr-1">
+                <label for="maxDate" class="control-label text-preto">Data final:</label>
+                <input type="date" name="maxDate" class="form-control" />
+            </div>
+            <div class="mr-1 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary">Gerar</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<h2 class="text-preto">Relatório de Comandas</h2>
+<h5 class="text-preto">De @ViewBag.MinData a @ViewBag.MaxData</h5>
+<table class="table" style="border-radius: 10px; background-color: #e6cbe6;">
+    <thead>
+        <tr class="negrito">
+            <th>
+                Forma de Pagamento
+            </th>
+            <th>
+                Quantidade
+            </th>
+            <th>
+                Valor Total
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                Dinheiro
+            </td>
+            <td>
+                @ViewBag.Quantidades[0]
+            </td>
+            <td>
+                R$ @ViewBag.Valores[0]
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Débito
+            </td>
+            <td>
+                @ViewBag.Quantidades[1]
+            </td>
+            <td>
+                R$ @ViewBag.Valores[1]
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Crédito
+            </td>
+            <td>
+                @ViewBag.Quantidades[2]
+            </td>
+            <td>
+                R$ @ViewBag.Valores[2]
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pix
+            </td>
+            <td>
+                @ViewBag.Quantidades[3]
+            </td>
+            <td>
+                R$ @ViewBag.Valores[3]
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br />
+
+@if (ViewBag.Selecionado == "qntFormaPagto")
+{
+    <h2 class="text-preto">Gráfico de quantidade de forma de pagamento</h2>
+}
+else
+{
+    <h2 class="text-preto">Gráfico de valor por forma de pagamento</h2>
+
+}
+<h5 class="text-preto">De @ViewBag.MinData a @ViewBag.MaxData</h5>
+<canvas id="myChart" style="max-height: 400px; border-radius: 10px; background-color: #e6cbe6;"></canvas>
+<br />
+<br />
+<script src="~/js/Chart.min.js"></script>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const labels = ["Dinheiro", "Débito", "Crédito", "Pix"];
+
+    var dados;
+
+    if (@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Selecionado)) === "qntFormaPagto") {
+        dados = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Quantidades));
+    }
+    else {
+        dados = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Valores));
+    }
+
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                data: dados,
+                backgroundColor: [...Array(dados.length)].map(() => "#" + [...Array(6)].map(() => Math.floor(Math.random() * 16).toString(16)).join(""))
+            }]
+        },
+        options: {
+            indexAxis: "y",
+            plugins: { legend: { display: false } },
+            x: { ticks: { precision: 0 } },
+            scales: {
+                x: { ticks: { color: "black" } },
+                y: {
+                    ticks: { color: "black" },
+                    grid: { color: "transparent" }
+                }
+            }
+        },
+    });
+</script>

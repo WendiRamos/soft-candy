@@ -302,6 +302,50 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Login", "Funcionario");
         }
 
+        public async Task<IActionResult> Relatorio(string tipo, DateTime? minDate, DateTime? maxDate)
+        {
+            if (LoginAtual.IsAdministrador(User))
+            {
+                if (minDate == null)
+                {
+                    minDate = DateTime.Today;
+                }
+
+                if (maxDate == null)
+                {
+                    maxDate = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59);
+                }
+
+                List<Comanda> comandas = await _context.Comanda
+                        .Where(lt => lt.RecebidaDentroDoPeriodo(minDate, maxDate))
+                        .ToListAsync();
+
+                List<int> quantidades = new List<int>
+                    {
+                        comandas.Where(c => c.FormaPagamentoIsDinheiro()).Count(),
+                        comandas.Where(c => c.FormaPagamentoIsDebito()).Count(),
+                        comandas.Where(c => c.FormaPagamentoIsCredito()).Count(),
+                        comandas.Where(c => c.FormaPagamentoIsPix()).Count(),
+                    };
+
+                List<decimal> valores = new List<decimal>
+                    {
+                        comandas.Where(c => c.FormaPagamentoIsDinheiro()).Select(c => c.ValorTotal).Sum(),
+                        comandas.Where(c => c.FormaPagamentoIsDebito()).Select(c => c.ValorTotal).Sum(),
+                        comandas.Where(c => c.FormaPagamentoIsCredito()).Select(c => c.ValorTotal).Sum(),
+                        comandas.Where(c => c.FormaPagamentoIsPix()).Select(c => c.ValorTotal).Sum(),
+                    };
+
+                ViewData["Quantidades"] = quantidades;
+                ViewData["Valores"] = valores;
+                ViewData["Selecionado"] = tipo;
+                ViewData["MinData"] = minDate;
+                ViewData["MaxData"] = maxDate;
+                return View();
+            }
+            return RedirectToAction("Login", "Funcionario");
+        }
+
         private bool ComandaExists(int id)
         {
             return _context.Comanda.Any(e => e.Id == id);
