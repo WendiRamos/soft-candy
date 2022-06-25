@@ -87,5 +87,15 @@ namespace SoftCandy.Models
             Produto.QuantidadeDescartada += QuantidadeEstoque;
             QuantidadeEstoque = 0;
         }
+
+        public bool PossuiEstoque()
+        {
+            return QuantidadeEstoque > 0;
+        }
+
+        public bool MostrarNoCardVencido()
+        {
+            return Ativo && PossuiEstoque() && EstaVencido();
+        }
     }
 }

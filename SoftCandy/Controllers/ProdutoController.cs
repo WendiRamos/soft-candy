@@ -34,10 +34,8 @@ namespace SoftCandy.Controllers
                     .Take(20).ToListAsync();
                 produtos.ForEach(p => p.SomarQuantidade());
 
-                var foraEstoque = produtos
-                    .Any(p => p.Lotes.Where(lt => lt.Ativo).Select(lote => lote.QuantidadeEstoque).Sum() <= p.QuantidadeMinima || p.Lotes.Where(lt => lt.Ativo).Any(lote => lote.EstaVencido() && lote.QuantidadeEstoque > 0));
-
-                ViewData["ForaEstoque"] = foraEstoque;
+                ViewData["MostrarAlerta"] = produtos
+                   .Any(p => p.EstaEscasso() || p.MostrarNoCardVencido());
 
                 return View(produtos);
             }
@@ -53,11 +51,12 @@ namespace SoftCandy.Controllers
                     .Where(p => p.Ativo)
                     .ToListAsync();
 
-                var a = produtos.SelectMany(p => p.Lotes.Where(lote => lote.EstaVencido() && lote.Ativo && lote.QuantidadeEstoque > 0));
-                ViewData["LotesVencidos"] = a;
+                ViewData["ProdEscassos"] = produtos
+                    .Where(p => p.EstaEscasso());
 
-                var b = produtos.Where(p => p.Lotes.Count == 0 || p.Lotes.Select(lt => lt.QuantidadeEstoque).Sum() <= p.QuantidadeMinima);
-                ViewData["ProdEscassos"] = b;
+                ViewData["LotesVencidos"] = produtos
+                    .SelectMany(p => p.Lotes)
+                    .Where(lt => lt.MostrarNoCardVencido());
 
                 produtos.ForEach(p => p.SomarQuantidade());
                 return View();
