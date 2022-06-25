@@ -82,6 +82,10 @@ a {
     color: black !important;
 }
 
+.text-red{
+    color:red;
+    font-style:italic
+}
 footer {
     display: flex;
     justify-content: center;
