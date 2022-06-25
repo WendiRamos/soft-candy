@@ -100,5 +100,12 @@ namespace SoftCandy.Models
             ItensDelivery.Remove(item);
             CalcularValor();
         }
+
+        public bool RecebidaDentroDoPeriodo(DateTime? minDate, DateTime? maxDate)
+        {
+            return Recebido
+                && minDate <= DataHoraRecebimento
+                && DataHoraRecebimento <= maxDate;
+        }
     }
 }
