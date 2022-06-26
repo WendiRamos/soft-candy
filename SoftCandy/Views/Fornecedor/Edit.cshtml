@@ -15,61 +15,65 @@
                     <div class="row">
                         <div class="col">
                             <label asp-for="Cnpj" class="control-label">CNPJ:</label>
-                            <input asp-for="Cnpj" id="cnpj" class="form-control" />
+                            <input asp-for="Cnpj" id="cnpj" class="form-control" autocomplete="off" />
                             <span class="invisivel" id="erroCnpj">Insira um CNPJ válido!</span>
                         </div>
                         <div class="col">
                             <label asp-for="RazaoSocial" class="control-label">Razão Social:</label>
-                            <input asp-for="RazaoSocial" id="razaoSocial" class="form-control" />
-                            <span class="invisivel" id="erroRazaoSocial">Insira uma razão social válida!</span>
+                            <input asp-for="RazaoSocial" id="razaoSocial" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="RazaoSocial" class="text-red"></span>
                         </div>
                     </div>
+                    <br />
                     <div class="row">
                         <div class="col">
                             <label asp-for="NomeFantasia" class="control-label">Nome Fantasia:</label>
-                            <input asp-for="NomeFantasia" id="nomeFantasia" class="form-control" />
-                            <span class="invisivel" id="erroNomeFantasia">Insira um nome fantasia válido!</span>
+                            <input asp-for="NomeFantasia" id="nomeFantasia" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="NomeFantasia" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="CelularFornecedor" class="control-label">Celular:</label>
-                            <input asp-for="CelularFornecedor" id="celularFornecedor" class="form-control" />
-                            <span class="invisivel" id="erroCelularFornecedor">Insira um celular válido!</span>
+                            <input asp-for="CelularFornecedor" id="celularFornecedor" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="CelularFornecedor" class="text-red"></span>
                         </div>
                     </div>
+                    <br />
                     <div class="row">
                         <div class="col">
                             <label asp-for="EmailFornecedor" class="control-label">E-mail:</label>
-                            <input asp-for="EmailFornecedor" id="emailFornecedor" class="form-control" />
-                            <span class="invisivel" id="erroEmailFornecedor">Insira um e-mail válido!</span>
+                            <input asp-for="EmailFornecedor" id="emailFornecedor" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="EmailFornecedor" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="LogradouroFornecedor" class="control-label">Logradouro:</label>
-                            <input asp-for="LogradouroFornecedor" id="logradouroFornecedor" class="form-control" />
-                            <span class="invisivel" id="erroLogradouroFornecedor">Insira um logradouro válido!</span>
+                            <input asp-for="LogradouroFornecedor" id="logradouroFornecedor" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="LogradouroFornecedor" class="text-red"></span>
                         </div>
                     </div>
+                    <br />
                     <div class="row">
                         <div class="col">
                             <label asp-for="NumeroFornecedor" class="control-label">Número:</label>
-                            <input asp-for="NumeroFornecedor" id="numeroFornecedor" class="form-control" />
-                            <span class="invisivel" id="erroNumeroFornecedor">Insira um número válido!</span>
+                            <input asp-for="NumeroFornecedor" id="numeroFornecedor" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="NumeroFornecedor" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="BairroFornecedor" class="control-label">Bairro:</label>
-                            <input asp-for="BairroFornecedor" id="bairroFornecedor" class="form-control" />
-                            <span class="invisivel" id="erroBairroFornecedor">Insira um bairro válido!</span>
+                            <input asp-for="BairroFornecedor" id="bairroFornecedor" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="BairroFornecedor" class="text-red"></span>
                         </div>
                     </div>
+                    <br />
                     <div class="row">
                         <div class="col">
                             <label asp-for="CidadeFornecedor" class="control-label">Cidade:</label>
-                            <input asp-for="CidadeFornecedor" id="cidadeFornecedor" class="form-control" />
-                            <span class="invisivel" id="erroCidadeFornecedor">Insira uma cidade válida!</span>
+                            <input asp-for="CidadeFornecedor" id="cidadeFornecedor" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="CidadeFornecedor" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="EstadoFornecedor" class="control-label">Estado:</label>
-                            <input asp-for="EstadoFornecedor" id="estadoFornecedor" class="form-control" />
-                            <span class="invisivel" id="erroEstadoFornecedor">Insira um estado válido!</span>
+                            <input asp-for="EstadoFornecedor" id="estadoFornecedor" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="EstadoFornecedor" class="text-red"></span>
                         </div>
                     </div>
                     <br />
@@ -82,4 +86,7 @@
         </div>
     </div>
 </center>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 <script src="~/js/Fornecedor.js"></script>
