@@ -20,7 +20,7 @@
                         <br />
                         <div class="form-group">
                             <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                            <input type="submit" onclick="return validarCategoria()" value="Salvar" class="btn btn-success" />
+                            <input type="submit" value="Salvar" class="btn btn-success" />
                         </div>
                     </form>
                 </div>
@@ -28,4 +28,6 @@
         </div>
     </div>
 </center>
-<script src="~/js/Categoria.js"></script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
