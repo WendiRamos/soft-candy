@@ -107,6 +107,7 @@ namespace SoftCandy.Controllers
                 {
                     try
                     {
+                        motoboy.Ativo = true;
                         _context.Update(motoboy);
                         await _context.SaveChangesAsync();
                     }
@@ -172,7 +173,7 @@ namespace SoftCandy.Controllers
                         return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
                     }
 
-                    var motoboy = await _context.Funcionario
+                    var motoboy = await _context.Motoboy
                         .FirstOrDefaultAsync(m => m.Id == id);
                     if (motoboy == null)
                     {
@@ -195,9 +196,9 @@ namespace SoftCandy.Controllers
             {
                 if (LoginAtual.IsAdministrador(User))
                 {
-                    var motoboy = await _context.Funcionario.FindAsync(id);
+                    var motoboy = await _context.Motoboy.FindAsync(id);
                     motoboy.Ativo = true;
-                    _context.Funcionario.Update(motoboy);
+                    _context.Motoboy.Update(motoboy);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }

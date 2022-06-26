@@ -35,6 +35,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Celular)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cidade)
+                            </th>
                             <th class="center">
                                 Ativar
                             </th>
@@ -43,22 +46,25 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Id)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Celular)
-                                </td>
-                                <td class="text-preto center">
-                                    <a asp-controller="Motoboy" asp-action="Restore" asp-route-id="@item.Id">
-                                        <img src="~/icons/ativar.svg" class="icone-menus" title="Ativar" />
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Celular)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cidade)
+                            </td>
+                            <td class="text-preto center">
+                                <a asp-controller="Motoboy" asp-action="Restore" asp-route-id="@item.Id">
+                                    <img src="~/icons/ativar.svg" class="icone-menus" title="Ativar" />
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

@@ -75,7 +75,7 @@ namespace SoftCandy.Services
 
         public async Task<List<Motoboy>> FindByNomeMotoboyApagado(String Nome)
         {
-            var result = from obj in _context.Motoboy.Where(m => m.Ativo) select obj;
+            var result = from obj in _context.Motoboy.Where(m => !m.Ativo) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
