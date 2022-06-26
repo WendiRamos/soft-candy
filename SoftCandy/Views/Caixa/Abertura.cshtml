@@ -12,13 +12,13 @@
         <div class="card-body">
             <div class="row-center">
                 <div class="col-md-4">
-                    <form asp-action="Abrir Caixa">
+                    <form asp-action="Abertura">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div><span>Funcionário Responsável: </span>@(User.Identity.Name)</div>
                         <div class="form-group">
                             <label asp-for="ValorDinheiroAbertura" class="control-label"></label>
-                            <input asp-for="ValorDinheiroAbertura" class="form-control" autocomplete="off"/>
-                            <span asp-validation-for="ValorDinheiroAbertura" class="text-danger"></span>
+                            <input asp-for="ValorDinheiroAbertura" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="ValorDinheiroAbertura" class="text-red"></span>
                         </div>
                         <br />
                         <div class="form-group">
@@ -30,3 +30,6 @@
         </div>
     </div>
 </center>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

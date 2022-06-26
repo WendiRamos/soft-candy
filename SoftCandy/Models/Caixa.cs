@@ -37,6 +37,7 @@ namespace SoftCandy.Models
 
         [Display(Name = "Valor de Abertura")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Required(ErrorMessage = "{0} obrigatório")]
         [Column(TypeName = "decimal(8, 2)")]
         public decimal ValorDinheiroAbertura { get; set; }
 
