@@ -18,6 +18,7 @@ namespace SoftCandy.Models
         [Column(TypeName = "decimal(8, 2)")]
         public decimal ValorTotal { get; set; }
 
+        [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Valor Frete")]
         [Column(TypeName = "decimal(8, 2)")]
         public decimal ValorFrete { get; set; }
@@ -29,10 +30,13 @@ namespace SoftCandy.Models
         [Display(Name = "Data/Hora Recebimento")]
         public DateTime DataHoraRecebimento { get; set; }
 
-
+        [Required(ErrorMessage = "{0} obrigatório")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Nome do Cliente")]
         public string NomeCliente { get; set; }
 
+        [Required(ErrorMessage = "{0} obrigatório")]
+        [StringLength(200, MinimumLength = 10, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Endereço Entrega")]
         public string EnderecoEntrega { get; set; }
         public bool Recebido { get; set; }
