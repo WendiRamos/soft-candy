@@ -191,14 +191,19 @@ namespace SoftCandy.Controllers
         // POST: Funcionario/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAdministrador([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
+        public async Task<IActionResult> CreateAdministrador([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,ConfirmarSenha,Cargo")] Funcionario funcionario)
         {
             if (LoginAtual.IsAdministrador(User))
             {
                 if (ModelState.IsValid)
                 {
+                    if ((await _context.Funcionario.FirstOrDefaultAsync(f => f.Email == funcionario.Email)) != null)
+                    {
+                        return RedirectToAction(nameof(Error), new { message = "E-mail já cadastrado!" });
+                    }
                     funcionario.Ativo = true;
                     funcionario.Cargo = (int)CargosEnum.ADMINISTRADOR;
+                    funcionario.Senha = Cripto.GerarHash(funcionario.Senha);
                     _context.Add(funcionario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(IndexAdministrador));
@@ -210,14 +215,19 @@ namespace SoftCandy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateEstoquista([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
+        public async Task<IActionResult> CreateEstoquista([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,ConfirmarSenha,Cargo")] Funcionario funcionario)
         {
             if (LoginAtual.IsAdministrador(User))
             {
                 if (ModelState.IsValid)
                 {
+                    if ((await _context.Funcionario.FirstOrDefaultAsync(f => f.Email == funcionario.Email)) != null)
+                    {
+                        return RedirectToAction(nameof(Error), new { message = "E-mail já cadastrado!" });
+                    }
                     funcionario.Ativo = true;
                     funcionario.Cargo = (int)CargosEnum.ESTOQUISTA;
+                    funcionario.Senha = Cripto.GerarHash(funcionario.Senha);
                     _context.Add(funcionario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(IndexEstoquista));
@@ -229,14 +239,19 @@ namespace SoftCandy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateVendedor([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
+        public async Task<IActionResult> CreateVendedor([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,ConfirmarSenha,Cargo")] Funcionario funcionario)
         {
             if (LoginAtual.IsAdministrador(User))
             {
                 if (ModelState.IsValid)
                 {
+                    if ((await _context.Funcionario.FirstOrDefaultAsync(f => f.Email == funcionario.Email)) != null)
+                    {
+                        return RedirectToAction(nameof(Error), new { message = "E-mail já cadastrado!" });
+                    }
                     funcionario.Ativo = true;
                     funcionario.Cargo = (int)CargosEnum.VENDEDOR;
+                    funcionario.Senha = Cripto.GerarHash(funcionario.Senha);
                     _context.Add(funcionario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(IndexVendedor));
@@ -246,14 +261,21 @@ namespace SoftCandy.Controllers
             return RedirectToAction("Login", "Funcionario");
         }
 
-        public async Task<IActionResult> CreateCaixa([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateCaixa([Bind("Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,ConfirmarSenha,Cargo")] Funcionario funcionario)
         {
             if (LoginAtual.IsAdministrador(User))
             {
                 if (ModelState.IsValid)
                 {
+                    if ((await _context.Funcionario.FirstOrDefaultAsync(f => f.Email == funcionario.Email)) != null)
+                    {
+                        return RedirectToAction(nameof(Error), new { message = "E-mail já cadastrado!" });
+                    }
                     funcionario.Ativo = true;
                     funcionario.Cargo = (int)CargosEnum.CAIXA;
+                    funcionario.Senha = Cripto.GerarHash(funcionario.Senha);
                     _context.Add(funcionario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(IndexCaixa));
@@ -342,10 +364,11 @@ namespace SoftCandy.Controllers
         // POST: Funcionario/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAdministrador(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
+        public async Task<IActionResult> EditAdministrador(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,ConfirmarSenha,Cargo")] Funcionario funcionario)
         {
             if (LoginAtual.IsAdministrador(User))
             {
+
                 if (id != funcionario.Id)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
@@ -353,10 +376,15 @@ namespace SoftCandy.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    var pesquisa = await _context.Funcionario.AsNoTracking().FirstOrDefaultAsync(f => f.Email == funcionario.Email);
+                    if (pesquisa != null && pesquisa.Id != id)
+                    {
+                        return RedirectToAction(nameof(Error), new { message = "E-mail já cadastrado!" });
+                    }
                     try
                     {
                         funcionario.Ativo = true;
-                        funcionario.Cargo = (int)CargosEnum.ADMINISTRADOR;
+                        funcionario.Senha = Cripto.GerarHash(funcionario.Senha);
                         _context.Update(funcionario);
                         await _context.SaveChangesAsync();
                     }
@@ -380,10 +408,11 @@ namespace SoftCandy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditEstoquista(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
+        public async Task<IActionResult> EditEstoquista(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,ConfirmarSenha,Cargo")] Funcionario funcionario)
         {
             if (LoginAtual.IsAdministrador(User))
             {
+
                 if (id != funcionario.Id)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
@@ -391,10 +420,15 @@ namespace SoftCandy.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    var pesquisa = await _context.Funcionario.AsNoTracking().FirstOrDefaultAsync(f => f.Email == funcionario.Email);
+                    if (pesquisa != null && pesquisa.Id != id)
+                    {
+                        return RedirectToAction(nameof(Error), new { message = "E-mail já cadastrado!" });
+                    }
                     try
                     {
                         funcionario.Ativo = true;
-                        funcionario.Cargo = (int)CargosEnum.ESTOQUISTA;
+                        funcionario.Senha = Cripto.GerarHash(funcionario.Senha);
                         _context.Update(funcionario);
                         await _context.SaveChangesAsync();
                     }
@@ -418,10 +452,11 @@ namespace SoftCandy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditVendedor(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
+        public async Task<IActionResult> EditVendedor(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,ConfirmarSenha,Cargo")] Funcionario funcionario)
         {
             if (LoginAtual.IsAdministrador(User))
             {
+
                 if (id != funcionario.Id)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
@@ -429,10 +464,15 @@ namespace SoftCandy.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    var pesquisa = await _context.Funcionario.AsNoTracking().FirstOrDefaultAsync(f => f.Email == funcionario.Email);
+                    if (pesquisa != null && pesquisa.Id != id)
+                    {
+                        return RedirectToAction(nameof(Error), new { message = "E-mail já cadastrado!" });
+                    }
                     try
                     {
                         funcionario.Ativo = true;
-                        funcionario.Cargo = (int)CargosEnum.VENDEDOR;
+                        funcionario.Senha = Cripto.GerarHash(funcionario.Senha);
                         _context.Update(funcionario);
                         await _context.SaveChangesAsync();
                     }
@@ -456,10 +496,11 @@ namespace SoftCandy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditCaixa(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,Cargo")] Funcionario funcionario)
+        public async Task<IActionResult> EditCaixa(int id, [Bind("Id,Nome,Celular,Logradouro,Numero,Bairro,Cidade,Estado,Email,Senha,ConfirmarSenha,Cargo")] Funcionario funcionario)
         {
             if (LoginAtual.IsAdministrador(User))
             {
+
                 if (id != funcionario.Id)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
@@ -467,10 +508,15 @@ namespace SoftCandy.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    var pesquisa = await _context.Funcionario.AsNoTracking().FirstOrDefaultAsync(f => f.Email == funcionario.Email);
+                    if (pesquisa != null && pesquisa.Id != id)
+                    {
+                        return RedirectToAction(nameof(Error), new { message = "E-mail já cadastrado!" });
+                    }
                     try
                     {
                         funcionario.Ativo = true;
-                        funcionario.Cargo = (int)CargosEnum.CAIXA;
+                        funcionario.Senha = Cripto.GerarHash(funcionario.Senha);
                         _context.Update(funcionario);
                         await _context.SaveChangesAsync();
                     }
@@ -801,6 +847,7 @@ namespace SoftCandy.Controllers
             MySqlConnection SoftCandyContext = new MySqlConnection(strConexao);
             await SoftCandyContext.OpenAsync();
             MySqlCommand mySqlCommand = SoftCandyContext.CreateCommand();
+            Senha = Cripto.GerarHash(Senha);
             mySqlCommand.CommandText = $"SELECT * FROM Funcionario WHERE Email = '{Email}' AND Senha='{Senha}'";
 
             MySqlDataReader reader = mySqlCommand.ExecuteReader();
@@ -846,7 +893,7 @@ namespace SoftCandy.Controllers
 
         private bool FuncionarioExists(int id)
         {
-            return _context.Funcionario .Any(e => e.Id == id);
+            return _context.Funcionario.Any(e => e.Id == id);
         }
 
         public IActionResult Error(string message)
