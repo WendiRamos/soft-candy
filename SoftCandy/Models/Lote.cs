@@ -40,6 +40,7 @@ namespace SoftCandy.Models
         public bool Ativo { get; set; }
 
         [NotMapped]
+        [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Dias de Validade")]
         public int DiasVencimento { get; set; }
 

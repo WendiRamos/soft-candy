@@ -15,12 +15,12 @@
                         <div class="col">
                             <label asp-for="QuantidadeEstoque" class="control-label">Quantidade Entrada:</label>
                             <input asp-for="QuantidadeEstoque" class="form-control" autocomplete="off" />
-                            <span asp-validation-for="QuantidadeEstoque" class="text-danger"></span>
+                            <span asp-validation-for="QuantidadeEstoque" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="DataHoraFabricacao" class="control-label">Data de Fabricação:</label>
                             <input asp-for="DataHoraFabricacao" class="form-control" autocomplete="off" max="@DateTime.Now.ToString("yyyy-MM-ddT23:59")" />
-                            <span asp-validation-for="DataHoraFabricacao" class="text-danger"></span>
+                            <span asp-validation-for="DataHoraFabricacao" class="text-red"></span>
                         </div>
                     </div>
                     <br />
@@ -28,12 +28,12 @@
                         <div class="col">
                             <label asp-for="DiasVencimento" class="control-label">Dias para Vencimento:</label>
                             <input asp-for="DiasVencimento" class="form-control" autocomplete="off" />
-                            <span asp-validation-for="DiasVencimento" class="text-danger"></span>
+                            <span asp-validation-for="DiasVencimento" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="PrecoCompra" class="control-label">Preço de Compra:</label>
                             <input asp-for="PrecoCompra" class="form-control" type="number" autocomplete="off" />
-                            <span asp-validation-for="PrecoCompra" class="text-danger"></span>
+                            <span asp-validation-for="PrecoCompra" class="text-red"></span>
                         </div>
                     </div>
                     <br />
@@ -41,7 +41,7 @@
                         <div class="col">
                             <label asp-for="PrecoVenda" class="control-label">Preço de Venda:</label>
                             <input asp-for="PrecoVenda" class="form-control" type="number"  autocomplete="off" />
-                            <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+                            <span asp-validation-for="PrecoVenda" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="IdProduto" class="control-label">Produto:</label>
