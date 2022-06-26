@@ -28,7 +28,7 @@ namespace SoftCandy.Controllers
             {
                 return View(await _context.Fornecedor.Where(c => c.AtivoFornecedor).Take(20).ToListAsync());
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Fornecedor/Details
@@ -50,7 +50,7 @@ namespace SoftCandy.Controllers
 
                 return View(fornecedor);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Fornecedore/Create
@@ -60,7 +60,7 @@ namespace SoftCandy.Controllers
             {
                 return View();
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Fornecedor/Create
@@ -79,7 +79,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(fornecedor);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Fornecedor/Edit
@@ -99,7 +99,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(fornecedor);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Fornecedor/Edit
@@ -137,7 +137,7 @@ namespace SoftCandy.Controllers
                 }
                 return View(fornecedor);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Fornecedor/Delete
@@ -159,7 +159,7 @@ namespace SoftCandy.Controllers
 
                 return View(fornecedor);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST:Fornecedor/Delete
@@ -175,7 +175,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Fornecedor/Restore
@@ -197,7 +197,7 @@ namespace SoftCandy.Controllers
 
                 return View(fornecedor);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Fornecedor/Restore
@@ -213,7 +213,41 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
+        }
+
+        public async Task<IActionResult> Relatorio(string tipo)
+        {
+            if (LoginAtual.IsAdministrador(User))
+            {
+                List<Fornecedor> fornecedores;
+
+                if (tipo == "maisProdutos")
+                {
+                    fornecedores = await _context.Fornecedor
+                        .Where(c => c.AtivoFornecedor)
+                        .Include(c => c.Produtos)
+                        .OrderByDescending(c => c.Produtos.Count())
+                        .ToListAsync();
+                }
+                else if (tipo == "menosProdutos")
+                {
+                    fornecedores = await _context.Fornecedor
+                        .Where(c => c.AtivoFornecedor)
+                        .Include(c => c.Produtos)
+                        .OrderBy(c => c.Produtos.Count())
+                        .ToListAsync();
+                }
+                else
+                {
+                    fornecedores = await _context.Fornecedor
+                        .Include(c => c.Produtos)
+                        .Where(c => c.AtivoFornecedor).ToListAsync();
+                }
+                ViewData["Selecionado"] = tipo;
+                return View(fornecedores);
+            }
+            return RedirectToAction("Login", "Funcionario");
         }
 
         private bool FornecedorExists(int id)

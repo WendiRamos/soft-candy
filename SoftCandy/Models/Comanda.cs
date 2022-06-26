@@ -31,10 +31,10 @@ namespace SoftCandy.Models
         public int IdCaixa { get; set; }
 
         public virtual Caixa Caixa { get; set; }
-
+        [Display(Name = "Forma de Pagamento")]
         public FormasPagamentoEnum FormaPagamento {get; set;}
 
-        public virtual ICollection<ItemComanda> ItensPedidos { get; set; }
+        public virtual ICollection<ItemComanda> ItemComanda { get; set; }
 
         public Comanda()
         {
@@ -43,9 +43,9 @@ namespace SoftCandy.Models
         public void CalcularValorComanda()
         {
             decimal soma = 0;
-            if (ItensPedidos != null)
+            if (ItemComanda != null)
             {
-                foreach (ItemComanda item in ItensPedidos)
+                foreach (ItemComanda item in ItemComanda)
                 {
                     soma += item.Lote.PrecoVenda * item.Quantidade;
                 }
@@ -75,14 +75,21 @@ namespace SoftCandy.Models
 
         public void AdicionarItem(ItemComanda item)
         {
-            ItensPedidos.Add(item);
+            ItemComanda.Add(item);
             CalcularValorComanda();
         }
 
         public void RemoverItem(ItemComanda item)
         {
-            ItensPedidos.Remove(item);
+            ItemComanda.Remove(item);
             CalcularValorComanda();
+        }
+
+        public bool RecebidaDentroDoPeriodo(DateTime? minDate, DateTime? maxDate)
+        {
+            return Recebido
+                && minDate <= DataHoraRecebimento
+                && DataHoraRecebimento <= maxDate;
         }
     }
 }

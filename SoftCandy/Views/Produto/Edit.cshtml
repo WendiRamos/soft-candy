@@ -1,7 +1,7 @@
 ﻿@model SoftCandy.Models.Produto
-
+@using SoftCandy.Enums
 @{
-    ViewData["Title"] = "Editar";
+    ViewData["Title"] = "Editar Produto";
 }
 <br />
 <center>
@@ -15,13 +15,13 @@
                     <div class="row">
                         <div class="col">
                             <label asp-for="Nome" class="control-label">Nome:</label>
-                            <input asp-for="Nome" id="nomeProduto" class="form-control" />
-                            <span class="invisivel" id="erroNome">Insira um nome válido!</span>
+                            <input asp-for="Nome" id="nomeProduto" class="form-control" autocomplete="off"/>
+                            <span asp-validation-for="Nome" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="QuantidadeMinima" class="control-label">Quantidade Mínima:</label>
-                            <input asp-for="QuantidadeMinima" id="quantidadeProduto" class="form-control" />
-                            <span class="invisivel" id="erroQuantidadeDescartada">Insira uma quantidade válida!</span>
+                            <input asp-for="QuantidadeMinima" type="number" class="form-control" autocomplete="off"/>
+                            <span asp-validation-for="QuantidadeMinima" class="text-red"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -34,26 +34,26 @@
                             <select asp-for="IdFornecedor" class="form-control" asp-items="ViewBag.FOR"></select>
                         </div>
                     </div>
+                    <br />
                     <div class="row">
                         <div class="col">
-                           <span>Medida:</span>
+                            <span>Medida:</span>
                         </div>
                         <div class="col">
-                            <input type="radio" id="unidade" name="tipo" value="1" checked="checked">
-                            <label for="unidade" asp-for="Medida">Unidade</label>
-                            <input type="radio" id="ml" name="tipo" value="2">
-                            <label for="ml" asp-for="Medida">Ml</label>
+                            <select id="Medida" asp-for="Medida" class="form-control" asp-items="Html.GetEnumSelectList<MedidaEnum>()"></select>
                         </div>
                     </div>
 
                     <br />
                     <div class="form-group">
                         <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                        <input type="submit" onclick="return validarProduto()" value="Salvar" class="btn btn-success" />
+                        <input type="submit" value="Salvar" class="btn btn-success" />
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </center>
-<script src="~/js/Produto.js"></script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

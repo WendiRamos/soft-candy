@@ -1,0 +1,119 @@
+﻿@model SoftCandy.Models.Delivery
+
+@{
+    ViewData["Title"] = "Exibir Delivery";
+}
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Exibir Delivery</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.Id): </td>
+                    <td id="idComanda">@Html.DisplayFor(model => model.Id)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.IdCaixa): </td>
+                    <td>@Html.DisplayFor(model => model.IdCaixa)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.NomeCliente): </td>
+                    <td>@Html.DisplayFor(model => model.NomeCliente)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.Motoboy): </td>
+                    <td>@Html.DisplayFor(model => model.Motoboy.Nome)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.EnderecoEntrega): </td>
+                    <td>@Html.DisplayFor(model => model.EnderecoEntrega)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.DataHoraCriacao): </td>
+                    <td>@Html.DisplayFor(model => model.DataHoraCriacao)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.DataHoraRecebimento): </td>
+                    @if (Model.Recebido)
+                    {
+                        <td>@Html.DisplayFor(model => model.DataHoraRecebimento)</td>
+                    }
+                    else
+                    {
+                        <td>Não recebida</td>
+                    }
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.ValorTotal): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorTotal)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.FormaPagamento): </td>
+                    <td>@Html.DisplayFor(model => model.FormaPagamento)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="card border-info mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Itens do Delivery</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr class="negrito">
+                        <th>
+                            Nome
+                        </th>
+                        <th>
+                            Quantidade
+                        </th>
+                        <th>
+                            Preço
+                        </th>
+                        <th>
+                            Subtotal
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ItensDelivery)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Lote.Produto.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantidade)
+                            </td>
+                            <td>
+                                R$ @Html.DisplayFor(modelItem => item.Lote.PrecoVenda)
+                            </td>
+                            <td>
+                                R$ @string.Format("{0:#,0.00}", item.Lote.PrecoVenda * item.Quantidade)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="negrito">Taxa de Entrega:</td>
+                        <td class="negrito">R$ @Html.DisplayFor(model => model.ValorFrete)</td>
+                        <td><b>Total: </b></td>
+                        <td><b>R$ <span id="totalPedido">@Html.DisplayFor(model => model.ValorTotal)</span></b></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="d-flex justify-content-center">
+                <div class="d-flex">
+                    <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+                </div>
+                @if (Model.Recebido)
+                {
+                    <div class="d-flex">
+                        @Html.ActionLink("Gerar Cupom", "CupomRecebimento", new { id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</center>

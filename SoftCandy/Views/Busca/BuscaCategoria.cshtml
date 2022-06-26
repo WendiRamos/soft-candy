@@ -25,7 +25,7 @@
             {
                 <table class="table">
                     <thead>
-                        <tr class="text-center">
+                        <tr class="negrito">
                             <th>
                                 @Html.DisplayNameFor(model => model.IdCategoria)
                             </th>
@@ -33,20 +33,20 @@
                                 @Html.DisplayNameFor(model => model.NomeCategoria)
                             </th>
                             <th class="center">
-                                Visualizar
+                                Exibir
                             </th>
                             <th class="center">
                                 Editar
                             </th>
                             <th class="center">
-                                Apagar
+                                Inativar
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr class="text-center">
+                            <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IdCategoria)
                                 </td>
@@ -54,19 +54,19 @@
                                     @Html.DisplayFor(modelItem => item.NomeCategoria)
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Details" asp-route-id="@item.IdCategoria" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                    <a asp-action="Details" asp-controller="Categoria" asp-route-id="@item.IdCategoria" class="sem-sub">
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Edit" asp-route-id="@item.IdCategoria" class="sem-sub">
+                                    <a asp-action="Edit" asp-controller="Categoria" asp-route-id="@item.IdCategoria" class="sem-sub">
                                         <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
                                     </a>
 
                                 </td>
                                 <td class="center">
-                                    <a asp-action="Delete" asp-route-id="@item.IdCategoria" class="sem-sub">
-                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
+                                    <a asp-action="Delete" asp-controller="Categoria" asp-route-id="@item.IdCategoria" class="sem-sub">
+                                        <img src="~/icons/inativar.svg" class="icone-menus" title="Inativar" />
                                     </a>
 
                                 </td>

@@ -1,12 +1,12 @@
 ﻿@model SoftCandy.Models.Categoria
 
 @{
-    ViewData["Title"] = "Criar";
+    ViewData["Title"] = "Cadastrar Categoria";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 50rem;">
-        <div class="card-header"><h4>Criar Categoria</h4></div>
+        <div class="card-header"><h4>Cadastrar Categoria</h4></div>
         <div class="card-body">
             <div class="row-center">
                 <div class="col-md-4">
@@ -15,12 +15,12 @@
                         <div class="form-group">
                             <label asp-for="NomeCategoria" class="control-label">Nome:</label>
                             <input asp-for="NomeCategoria" id="NomeCategoria" class="form-control" />
-                            <span class="invisivel" id="erroNomeCategoria">Insira um nome válido!</span>
+                            <span asp-validation-for="NomeCategoria" class="text-red"></span>
                         </div>
                         <br />
                         <div class="form-group">
                             <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                            <input type="submit" onclick="return validarCategoria()" value="Salvar" class="btn btn-success" />
+                            <input type="submit" value="Salvar" class="btn btn-success" />
                         </div>
                     </form>
                 </div>
@@ -28,4 +28,6 @@
         </div>
     </div>
 </center>
-<script src="~/js/Categoria.js"></script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Pagina inicial";
 }
+@using SoftCandy.Utils
 
 <!DOCTYPE html>
 <html>
@@ -11,12 +12,14 @@
     <center style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%)">
         <img src="~/images/nova_logo.png" width="800">
     </center>
-
-    @if (ViewBag.ForaEstoque)
+    @if (LoginAtual.IsAdministrador(User) || LoginAtual.IsEstoquista(User))
     {
-        <a asp-controller="Produto" asp-action="EstoqueBaixoVencido" id="linkForaEstoque">
-            <img id="imagemForaEstoque" src="~/images/estoque.png" title="Existem produtos escassos ou vencidos!"/>
-        </a>
+        @if (ViewBag.MostrarAlerta)
+        {
+            <a asp-controller="Produto" asp-action="EstoqueBaixoVencido" id="linkForaEstoque">
+                <img id="imagemForaEstoque" src="~/images/estoque.webp" title="Existem produtos escassos ou vencidos!" />
+            </a>
+        }
     }
 </body>
 </html>

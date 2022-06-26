@@ -9,27 +9,51 @@
         <div class="card border-primary mb-3" style="max-width: 40rem;">
             <div class="card-header"><h4>Fechar Caixa</h4></div>
             <div class="card-body">
-                <h4>Pedidos</h4>
+                <h4>Comandas</h4>
                 <table class="table">
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.ValorVendasDinheiro): </td>
-                        <td>R$ @Html.DisplayFor(model => model.ValorVendasDinheiro)</td>
+                        <td>R$ @ViewBag.ComandaDinheiro</td>
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoDebito): </td>
-                        <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoDebito)</td>
+                        <td>R$ @ViewBag.ComandaCredito</td>
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoCredito): </td>
-                        <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoCredito)</td>
+                        <td>R$ @ViewBag.ComandaDebito</td>
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.ValorVendasPix): </td>
-                        <td>R$ @Html.DisplayFor(model => model.ValorVendasPix)</td>
+                        <td>R$ @ViewBag.ComandaPix</td>
                     </tr>
                     <tr>
-                        <td><b>@Html.DisplayNameFor(model => model.ValorTotalVendas): </b></td>
-                        <td><b>R$ @Html.DisplayFor(model => model.ValorTotalVendas)</b></td>
+                        <td><b>Valor Total das Comandas: </b></td>
+                        <td><b>R$ @ViewBag.ComandaTotal</b></td>
+                    </tr>
+                </table>
+                <br />
+                <h4>Deliveries</h4>
+                <table class="table">
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorVendasDinheiro): </td>
+                        <td>R$ @ViewBag.DeliveryDinheiro</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoDebito): </td>
+                        <td>R$ @ViewBag.DeliveryCredito</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoCredito): </td>
+                        <td>R$ @ViewBag.DeliveryDebito</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(model => model.ValorVendasPix): </td>
+                        <td>R$ @ViewBag.DeliveryPix</td>
+                    </tr>
+                    <tr>
+                        <td><b>Valor Total dos Deliveries: </b></td>
+                        <td><b>R$ @ViewBag.DeliveryTotal</b></td>
                     </tr>
                 </table>
                 <br />
@@ -55,12 +79,20 @@
                         <td>R$ @Html.DisplayFor(model => model.ValorDinheiroAbertura)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.ValorVendasDinheiro): </td>
-                        <td>R$ @Html.DisplayFor(model => model.ValorVendasDinheiro)</td>
-                    </tr>
-                    <tr>
                         <td>@Html.DisplayNameFor(model => model.ValorTotalOperacoes): </td>
                         <td>R$ @Html.DisplayFor(model => model.ValorTotalOperacoes)</td>
+                    </tr>
+                    <tr>
+                        <td>Valor Total em Cartão de Crédito: </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoCredito)</td>
+                    </tr>
+                    <tr>
+                        <td>Valor Total em Cartão de Débito: </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoDebito)</td>
+                    </tr>
+                    <tr>
+                        <td>Valor Total em Pix: </td>
+                        <td>R$ @Html.DisplayFor(model => model.ValorVendasPix)</td>
                     </tr>
                     <tr>
                         <td><b>@Html.DisplayNameFor(model => model.ValorTotalFechamentoDinheiro): </b></td>

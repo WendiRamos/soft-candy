@@ -1,0 +1,97 @@
+﻿@model SoftCandy.Models.Delivery
+@using SoftCandy.Enums
+
+@{
+    ViewData["Title"] = "Receber Delivery";
+}
+<br />
+<center>
+    <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card-header"><h4>Receber Delivery</h4></div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.Id): </td>
+                    <td>@Html.DisplayFor(model => model.Id)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.IdCaixa): </td>
+                    <td>@Html.DisplayFor(model => model.IdCaixa)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.Motoboy): </td>
+                    <td>@Html.DisplayFor(model => model.Motoboy.Nome)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.NomeCliente): </td>
+                    <td>@Html.DisplayFor(model => model.NomeCliente)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.DataHoraCriacao): </td>
+                    <td>@Html.DisplayFor(model => model.DataHoraCriacao)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.ValorTotal): </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorTotal)</td>
+                </tr>
+                <tr>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.FormaPagamento): </td>
+                    <td>@Html.DisplayFor(model => model.FormaPagamento)</td>
+                </tr>
+            </table>
+            <h4>Itens do Pedido</h4>
+            <table class="table">
+                <thead>
+                    <tr class="negrito">
+                        <th>
+                            Nome
+                        </th>
+                        <th>
+                            Quantidade
+                        </th>
+                        <th>
+                            Preço
+                        </th>
+                        <th>
+                            Subtotal
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ItensDelivery)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Lote.Produto.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantidade)
+                            </td>
+                            <td>
+                                R$ @Html.DisplayFor(modelItem => item.Lote.PrecoVenda)
+                            </td>
+                            <td>
+                                R$ @string.Format("{0:#,0.00}", item.Lote.PrecoVenda * item.Quantidade)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="negrito">Taxa de Entrega:</td>
+                        <td class="negrito">R$ @Html.DisplayFor(model => model.ValorFrete)</td>
+                        <td><b>Total: </b></td>
+                        <td><b>R$ <span id="totalPedido">@Html.DisplayFor(model => model.ValorTotal)</span></b></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <form asp-action="ReceberDelivery" asp-controller="Delivery">
+                <input type="hidden" asp-for="Id" />
+                <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
+                <input type="submit" class="btn btn-success mr-1" value="Confirmar e Receber" />
+            </form>
+            <br />
+        </div>
+    </div>
+</center>
+<script src="~/js/Formatador.js" defer></script>

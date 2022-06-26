@@ -27,10 +27,9 @@ namespace SoftCandy.Controllers
                     .Where(p => p.Ativo)
                     .ToListAsync();
 
-                var foraEstoque = produtos
-                    .Any(p => p.Lotes.Where(lt => lt.Ativo).Select(lote => lote.QuantidadeEstoque).Sum() <= p.QuantidadeMinima || p.Lotes.Where(lt => lt.Ativo).Any(lote => lote.EstaVencido()));
+                ViewData["MostrarAlerta"] = produtos
+                    .Any(p => p.EstaEscasso() || p.MostrarNoCardVencido());
 
-                ViewData["ForaEstoque"] = foraEstoque;
                 return View();
             }
             return RedirectToAction("Login", "Funcionario");

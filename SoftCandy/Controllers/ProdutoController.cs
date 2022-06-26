@@ -34,14 +34,12 @@ namespace SoftCandy.Controllers
                     .Take(20).ToListAsync();
                 produtos.ForEach(p => p.SomarQuantidade());
 
-                var foraEstoque = produtos
-                    .Any(p => p.Lotes.Where(lt => lt.Ativo).Select(lote => lote.QuantidadeEstoque).Sum() <= p.QuantidadeMinima || p.Lotes.Where(lt => lt.Ativo).Any(lote => lote.EstaVencido()));
-
-                ViewData["ForaEstoque"] = foraEstoque;
+                ViewData["MostrarAlerta"] = produtos
+                   .Any(p => p.EstaEscasso() || p.MostrarNoCardVencido());
 
                 return View(produtos);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public async Task<IActionResult> EstoqueBaixoVencido()
@@ -53,27 +51,75 @@ namespace SoftCandy.Controllers
                     .Where(p => p.Ativo)
                     .ToListAsync();
 
-                var a = produtos.SelectMany(p => p.Lotes.Where(lote => lote.EstaVencido()));
-                ViewData["LotesVencidos"] = a;
+                ViewData["ProdEscassos"] = produtos
+                    .Where(p => p.EstaEscasso());
 
-                var b = produtos.Where(p => p.Lotes.Count == 0 || p.Lotes.Select(lt => lt.QuantidadeEstoque).Sum() <= p.QuantidadeMinima);
-                ViewData["ProdEscassos"] = b;
+                ViewData["LotesVencidos"] = produtos
+                    .SelectMany(p => p.Lotes)
+                    .Where(lt => lt.MostrarNoCardVencido());
 
                 produtos.ForEach(p => p.SomarQuantidade());
                 return View();
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
 
-        public async Task<IActionResult> Relatorio()
+        public async Task<IActionResult> Relatorio(string tipo)
         {
-            if (User.Identity.IsAuthenticated)
+            if (LoginAtual.IsAdministrador(User))
             {
-                var softCandyContext = _context.Produto.Where(c => c.Ativo).Include(p => p.Categoria).Include(p => p.Fornecedor);
-                return View(await softCandyContext.ToListAsync());
+                List<Produto> produtos;
+
+                if (tipo == "maisDescartados")
+                {
+                    produtos = await _context.Produto
+                        .Where(c => c.Ativo)
+                        .Include(c => c.Lotes)
+                        .Include(c => c.Categoria)
+                        .OrderByDescending(c => c.QuantidadeDescartada)
+                        .ToListAsync();
+                }
+                else if (tipo == "menosDescartados")
+                {
+                    produtos = await _context.Produto
+                        .Where(c => c.Ativo)
+                        .Include(c => c.Lotes)
+                        .Include(c => c.Categoria)
+                        .OrderBy(c => c.QuantidadeDescartada)
+                        .ToListAsync();
+                }
+                else if (tipo == "maisEstoque")
+                {
+                    produtos = await _context.Produto
+                        .Where(c => c.Ativo)
+                        .Include(c => c.Lotes)
+                        .Include(c => c.Categoria)
+                        .OrderByDescending(c => c.Lotes.Select(l => l.QuantidadeEstoque).Sum())
+                        .ToListAsync();
+                }
+                else if (tipo == "menosEstoque")
+                {
+                    produtos = await _context.Produto
+                        .Where(c => c.Ativo)
+                        .Include(c => c.Lotes)
+                        .Include(c => c.Categoria)
+                        .OrderBy(c => c.Lotes.Select(l => l.QuantidadeEstoque).Sum())
+                        .ToListAsync();
+                }
+                else
+                {
+                    produtos = await _context.Produto
+                        .Include(c => c.Lotes)
+                        .Include(c => c.Categoria)
+                        .Where(c => c.Ativo).ToListAsync();
+                }
+
+                produtos.ForEach(p => p.QuantidadeEstoque = p.Lotes.Select(l=> l.QuantidadeEstoque).Sum());
+                ViewData["Selecionado"] = tipo;
+                return View(produtos);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Produto/Details/5
@@ -98,7 +144,7 @@ namespace SoftCandy.Controllers
                 produto.SomarQuantidade();
                 return View(produto);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Produto/Create
@@ -110,7 +156,7 @@ namespace SoftCandy.Controllers
                 ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View();
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Produto/Create
@@ -131,7 +177,7 @@ namespace SoftCandy.Controllers
                 ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View(produto);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Produto/Edit/5
@@ -154,13 +200,13 @@ namespace SoftCandy.Controllers
                 return View(produto);
 
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Produto/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Nome,QuantidadeMinima,IdCategoria,IdFornecedor, Medida")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,QuantidadeMinima,IdCategoria,IdFornecedor, Medida")] Produto produto)
         {
             if (LoginAtual.IsEstoquista(User) || LoginAtual.IsAdministrador(User))
             {
@@ -191,11 +237,9 @@ namespace SoftCandy.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-                ViewData["CAT"] = new SelectList(_context.Categoria, "IdCategoria", "NomeCategoria");
-                ViewData["FOR"] = new SelectList(_context.Fornecedor, "IdFornecedor", "RazaoSocial");
                 return View(produto);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Produto/Delete
@@ -221,7 +265,7 @@ namespace SoftCandy.Controllers
                 return View(produto);
 
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Produto/Delete/5
@@ -233,12 +277,11 @@ namespace SoftCandy.Controllers
             {
                 var produto = await _context.Produto.FindAsync(id);
                 produto.Ativo = false;
-                produto.SomarQuantidade();
                 _context.Produto.Update(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // GET: Produto/Restore
@@ -258,10 +301,9 @@ namespace SoftCandy.Controllers
                 {
                     return RedirectToAction(nameof(Error), new { message = "Id não existe!" });
                 }
-                produto.SomarQuantidade();
                 return View(produto);
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         // POST: Produto/Restore
@@ -277,7 +319,7 @@ namespace SoftCandy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("User", "Home");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         private bool ProdutoExists(int id)

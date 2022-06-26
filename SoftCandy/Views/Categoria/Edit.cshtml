@@ -16,12 +16,12 @@
                         <div class="form-group">
                             <label asp-for="NomeCategoria" class="control-label">Nome:</label>
                             <input asp-for="NomeCategoria" id="NomeCategoria" class="form-control" />
-                            <span class="invisivel" id="erroNomeCategoria">Insira um nome válido!</span>
+                            <span asp-validation-for="NomeCategoria" class="text-red"></span>
                         </div>
                         <br />
                         <div class="form-group">
                             <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                            <input type="submit" onclick="return validarCategoria()" value="Salvar" class="btn btn-success" />
+                            <input type="submit" value="Salvar" class="btn btn-success" />
                         </div>
                     </form>
                 </div>
@@ -29,3 +29,6 @@
         </div>
     </div>
 </center>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

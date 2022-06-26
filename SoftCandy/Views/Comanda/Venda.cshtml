@@ -1,14 +1,14 @@
 ﻿    @model IEnumerable<SoftCandy.Models.Lote>
 @{
-    ViewData["Title"] = "Realizar Venda";
+    ViewData["Title"] = "Efetuar Comanda";
 }
 <br />
 <div class="card border-primary mb-3">
-    <div class="card-header center"><h4>Realizar Venda</h4></div>
+    <div class="card-header center"><h4>Efetuar Comanda</h4></div>
     <div class="card-body">
         <div class="d-flex justify-content-between">
             <div class="d-flex">
-                <label for="idComanda" class="text-nowrap mr-1">Nº Comanda: </label>
+                <label for="idComanda" class="text-nowrap mr-1 negrito">Nº Comanda: </label>
                 <input type="number" min="1" class="form-control mr-1" id="idComanda" />
             </div>
             <div class="d-flex">
@@ -20,7 +20,7 @@
         <div>
             <table class="table">
                 <thead>
-                    <tr>
+                    <tr class="negrito">
                         <th>
                             Produto
                         </th>
@@ -60,7 +60,7 @@
                                 @Html.DisplayFor(modelLote => lote.QuantidadeEstoque)
                             </td>
                             <td class="qnt">
-                                <input type="number" class="form-control" min="1" max="@lote.QuantidadeEstoque" />
+                                <input type="number" class="form-control" min="1" value="1" max="@lote.QuantidadeEstoque" />
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-success btn-Add">Adicionar</button>

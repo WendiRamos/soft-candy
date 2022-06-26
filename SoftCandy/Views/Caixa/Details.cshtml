@@ -1,7 +1,7 @@
 ﻿@model SoftCandy.Models.Caixa
 @using SoftCandy.Enums
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = "Exibir";
 }
 <br />
 <center>
@@ -12,58 +12,83 @@
     </div>
     <br />
     <div class="card border-info mb-3">
-        <div class="card-header"><h4>Detalhes Caixa</h4></div>
+        <div class="card-header"><h4>Exibir Caixa</h4></div>
         <div class="card-body">
             <h4>Informações Gerais</h4>
             <table class="table">
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.IdCaixa): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.IdCaixa): </td>
                     <td>@Html.DisplayFor(model => model.IdCaixa)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.ValorDinheiroAbertura): </td>
-                    <td>@Html.DisplayFor(model => model.ValorDinheiroAbertura)</td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.ValorDinheiroAbertura): </td>
+                    <td> R$ @Html.DisplayFor(model => model.ValorDinheiroAbertura)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.DataHoraAbertura): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.DataHoraAbertura): </td>
                     <td>@Html.DisplayFor(model => model.DataHoraAbertura)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.DataHoraFechamento): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.DataHoraFechamento): </td>
                     <td>@Html.DisplayFor(model => model.DataHoraFechamento)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.FuncionarioAbertura): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.FuncionarioAbertura): </td>
                     <td>@Html.DisplayFor(model => model.FuncionarioAbertura.Nome)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.FuncionarioFechamento): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.FuncionarioFechamento): </td>
                     <td>@Html.DisplayFor(model => model.FuncionarioFechamento.Nome)</td>
                 </tr>
             </table>
-            <h4>Pedidos</h4>
+            <h4>Comandas</h4>
             <table class="table">
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.ValorVendasDinheiro): </td>
-                    <td>R$ @Html.DisplayFor(model => model.ValorVendasDinheiro)</td>
+                    <td>R$ @ViewBag.ComandaDinheiro</td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoDebito): </td>
-                    <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoDebito)</td>
+                    <td>R$ @ViewBag.ComandaCredito</td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoCredito): </td>
-                    <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoCredito)</td>
+                    <td>R$ @ViewBag.ComandaDebito</td>
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => model.ValorVendasPix): </td>
-                    <td>R$ @Html.DisplayFor(model => model.ValorVendasPix)</td>
+                    <td>R$ @ViewBag.ComandaPix</td>
                 </tr>
                 <tr>
-                    <td><b>@Html.DisplayNameFor(model => model.ValorTotalVendas): </b></td>
-                    <td><b>R$ @Html.DisplayFor(model => model.ValorTotalVendas)</b></td>
+                    <td><b>Valor Total das Comandas: </b></td>
+                    <td><b>R$ @ViewBag.ComandaTotal</b></td>
                 </tr>
             </table>
+            <br />
+            <h4>Deliveries</h4>
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorVendasDinheiro): </td>
+                    <td>R$ @ViewBag.DeliveryDinheiro</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoDebito): </td>
+                    <td>R$ @ViewBag.DeliveryCredito</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorVendasCartaoCredito): </td>
+                    <td>R$ @ViewBag.DeliveryDebito</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ValorVendasPix): </td>
+                    <td>R$ @ViewBag.DeliveryPix</td>
+                </tr>
+                <tr>
+                    <td><b>Valor Total dos Deliveries: </b></td>
+                    <td><b>R$ @ViewBag.DeliveryTotal</b></td>
+                </tr>
+            </table>
+            <br />
             <h4>Operações</h4>
             <table class="table">
                 <tr>
@@ -86,12 +111,20 @@
                     <td>R$ @Html.DisplayFor(model => model.ValorDinheiroAbertura)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.ValorVendasDinheiro): </td>
-                    <td>R$ @Html.DisplayFor(model => model.ValorVendasDinheiro)</td>
-                </tr>
-                <tr>
                     <td>@Html.DisplayNameFor(model => model.ValorTotalOperacoes): </td>
                     <td>R$ @Html.DisplayFor(model => model.ValorTotalOperacoes)</td>
+                </tr>
+                <tr>
+                    <td>Valor Total em Cartão de Crédito: </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoCredito)</td>
+                </tr>
+                <tr>
+                    <td>Valor Total em Cartão de Débito: </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorVendasCartaoDebito)</td>
+                </tr>
+                <tr>
+                    <td>Valor Total em Pix: </td>
+                    <td>R$ @Html.DisplayFor(model => model.ValorVendasPix)</td>
                 </tr>
                 <tr>
                     <td><b>@Html.DisplayNameFor(model => model.ValorTotalFechamentoDinheiro): </b></td>
@@ -101,18 +134,17 @@
         </div>
     </div>
     <br />
-    <div class="card border-success mb-3">
-        <div class="card-header"><h4>Pedidos Recebidos</h4></div>
+    <div class="card border-warning mb-3">
+        <div class="card-header"><h4>Deliveries Recebidos</h4></div>
         <div class="card-body">
-            @if (Model.Pedidos.Where(p => p.Recebido).Count() == 0)
+            @if (Model.Deliveries.Where(p => p.Recebido).Count() == 0)
             {
                 <span>Não há pedidos para mostrar</span>
             }
             else
-            {
-                <table class="table">
+            { <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="negrito">
                             <th>
                                 Id
                             </th>
@@ -120,7 +152,71 @@
                                 Cliente
                             </th>
                             <th>
-                                Data/Hora
+                                Motoboy
+                            </th>
+                            <th>
+                                Forma Pagamento
+                            </th>
+                            <th>
+                                Valor
+                            </th>
+                            <th class="center">
+                                Exibir
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var delivery in Model.Deliveries.Where(p => p.Recebido).Take(20))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => delivery.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => delivery.NomeCliente)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => delivery.Motoboy.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => delivery.FormaPagamento)
+                                </td>
+                                <td>
+                                    R$ @Html.DisplayFor(modelItem => delivery.ValorTotal)
+                                </td>
+                                <td class="center">
+                                    <a asp-controller="Delivery" asp-action="Details" asp-route-id="@delivery.Id" class="sem-sub">
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <br />
+    <div class="card border-success mb-3">
+        <div class="card-header"><h4>Comandas Recebidas</h4></div>
+        <div class="card-body">
+            @if (Model.Comandas.Where(p => p.Recebido).Count() == 0)
+            {
+                <span>Não há pedidos para mostrar</span>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr class="negrito">
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Data/Hora Criação
+                            </th>
+                            <th>
+                                Data/Hora Recebimento
                             </th>
                             <th>
                                 Forma de pagamento
@@ -128,15 +224,18 @@
                             <th>
                                 Valor
                             </th>
-                            <th class="center">Visualizar</th>
+                            <th class="center">Exibir</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var pedido in Model.Pedidos)
+                        @foreach (var pedido in Model.Comandas.Where(p => p.Recebido).Take(20))
                         {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => pedido.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modeItem => pedido.DataHoraCriacao)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modeItem => pedido.DataHoraRecebimento)
@@ -148,8 +247,8 @@
                                     R$ @Html.DisplayFor(modelItem => pedido.ValorTotal)
                                 </td>
                                 <td class="center">
-                                    <a asp-controller="Pedido" asp-action="Details" asp-route-id="@pedido.Id" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                    <a asp-controller="Comanda" asp-action="Details" asp-route-id="@pedido.Id" class="sem-sub">
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
                             </tr>
@@ -187,7 +286,7 @@
                             <th>
                                 Funcionário
                             </th>
-                            <th>Visualizar</th>
+                            <th>Exibir</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -218,7 +317,7 @@
                                 </td>
                                 <td>
                                     <a asp-controller="OperacaoCaixa" asp-action="Details" asp-route-id="@operacao.Id" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Detalhes" />
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
                             </tr>

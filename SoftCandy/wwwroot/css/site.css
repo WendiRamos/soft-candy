@@ -1,5 +1,6 @@
 ﻿.visivel {
-    color: black;
+    color: red;
+    font-style: italic;
     visibility: visible;
 }
 
@@ -78,10 +79,14 @@ a {
     color: black;
 }
 
-.text-preto a {
+.text-preto, .text-preto a {
     color: black !important;
 }
 
+.text-red{
+    color:red;
+    font-style:italic
+}
 footer {
     display: flex;
     justify-content: center;
@@ -130,4 +135,10 @@ footer {
     -webkit-transform: scale(1);
     transform: scale(1);
 }
+}
+
+@media print {
+    .nao-imprimir {
+        display: none !important;
+    }
 }

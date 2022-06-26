@@ -21,8 +21,8 @@
                         </div>
                         <div class="col">
                             <label asp-for="Valor" class="control-label">Valor:</label>
-                            <input asp-for="Valor" class="form-control" autocomplete="off" />
-                            <span asp-validation-for="Valor" class="text-danger"></span>
+                            <input asp-for="Valor" class="form-control" type="number" autocomplete="off" />
+                            <span asp-validation-for="Valor" class="text-red"></span>
                         </div>
                     </div>
                     <br />
@@ -30,12 +30,12 @@
                         <div class="col">
                             <label asp-for="Nome" class="control-label">Nome da Operação:</label>
                             <input asp-for="Nome" class="form-control"  autocomplete="off"/>
-                            <span asp-validation-for="Nome" class="text-danger"></span>
+                            <span asp-validation-for="Nome" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="Descricao" class="control-label">Descrição:</label>
                             <input asp-for="Descricao" class="form-control" placeholder="Opcional" autocomplete="off" />
-                            <span asp-validation-for="Descricao" class="text-danger"></span>
+                            <span asp-validation-for="Descricao" class="text-red"></span>
                         </div>
                     </div>
                     <br />

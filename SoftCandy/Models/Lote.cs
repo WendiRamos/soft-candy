@@ -40,6 +40,7 @@ namespace SoftCandy.Models
         public bool Ativo { get; set; }
 
         [NotMapped]
+        [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Dias de Validade")]
         public int DiasVencimento { get; set; }
 
@@ -80,6 +81,22 @@ namespace SoftCandy.Models
         public bool EstaVencido()
         {
             return DataHoraValidade < DateTime.Now;
+        }
+
+        public void Descartar()
+        {
+            Produto.QuantidadeDescartada += QuantidadeEstoque;
+            QuantidadeEstoque = 0;
+        }
+
+        public bool PossuiEstoque()
+        {
+            return QuantidadeEstoque > 0;
+        }
+
+        public bool MostrarNoCardVencido()
+        {
+            return Ativo && PossuiEstoque() && EstaVencido();
         }
     }
 }

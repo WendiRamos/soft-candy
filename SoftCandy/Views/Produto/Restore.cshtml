@@ -2,34 +2,34 @@
 @using SoftCandy.Enums
 
 @{
-    ViewData["Title"] = "Restaurar";
+    ViewData["Title"] = "Ativar Produto";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
-        <div class="card-header"><h4>Restaurar Produto</h4></div>
+        <div class="card-header"><h4>Ativar Produto</h4></div>
         <div class="card-body">
-            <h5>Tem certeza que deseja restaurar?</h5>
+            <h5>Tem certeza que deseja ativar?</h5>
             <div>
                 <table class="table">
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.Id): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.Id): </td>
                         <td>@Html.DisplayFor(model => model.Id)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.Nome): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.Nome): </td>
                         <td>@Html.DisplayFor(model => model.Nome)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.QuantidadeMinima): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.QuantidadeMinima): </td>
                         <td>@Html.DisplayFor(model => model.QuantidadeMinima)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.QuantidadeEstoque): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.QuantidadeEstoque): </td>
                         <td>@Html.DisplayFor(model => model.QuantidadeEstoque)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.Medida): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.Medida): </td>
                         @if (Model.Medida == MedidaEnum.UNIDADE)
                         {
                             <td>Unidade</td>
@@ -40,11 +40,11 @@
                         }
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.Categoria): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.Categoria): </td>
                         <td>@Html.DisplayFor(model => model.Categoria.NomeCategoria)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.Fornecedor):</td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.Fornecedor):</td>
                         <td>@Html.DisplayFor(model => model.Fornecedor.RazaoSocial)</td>
                     </tr>
                 </table>
@@ -52,7 +52,7 @@
                 <form asp-action="Restore">
                     <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
                     <input type="hidden" asp-for="Id" />
-                    <input type="submit" value="Restaurar" class="btn btn-danger" />
+                    <input type="submit" value="Ativar" class="btn btn-danger" />
                 </form>
             </div>
         </div>

@@ -21,7 +21,7 @@ namespace SoftCandy.Models
 
         [ForeignKey("Comanda")]
         [Required(ErrorMessage = "{0} obrigatório")]
-        [Display(Name = "Id Pedido")]
+        [Display(Name = "Id Comanda")]
         public int IdComanda { get; set; }
         public virtual Comanda Comanda { get; set; }
 

@@ -1,12 +1,12 @@
 ﻿@model SoftCandy.Models.Funcionario
 
 @{
-    ViewData["Title"] = "Criar";
+    ViewData["Title"] = "Cadastrar Vendedor";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
-        <div class="card-header"><h4>Criar Vendedor</h4></div>
+        <div class="card-header"><h4>Cadastrar Vendedor</h4></div>
         <div class="card-body">
             <div class="row-center">
                 <form asp-action="CreateVendedor">
@@ -15,75 +15,77 @@
                     <div class="row">
                         <div class="col">
                             <label asp-for="Nome" class="control-label">Nome:</label>
-                            <input asp-for="Nome" id="nome" class="form-control" />
-                            <span class="invisivel" id="erroNome">Insira um nome válido!</span>
+                            <input asp-for="Nome" id="nome" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Nome" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="Celular" class="control-label">Celular:</label>
-                            <input asp-for="Celular" id="celular" class="form-control" />
-                            <span class="invisivel" id="erroCelular">Insira um celular válido!</span>
+                            <input asp-for="Celular" id="celular" class="form-control" autocomplete="off" placeholder="Apenas números" />
+                            <span asp-validation-for="Cidade" class="text-red"></span>
                         </div>
                     </div>
-
+                    <br />
                     <div class="row">
                         <div class="col">
                             <label asp-for="Logradouro" class="control-label">Logradouro:</label>
-                            <input asp-for="Logradouro" id="logradouro" class="form-control" />
-                            <span class="invisivel" id="erroLogradouro">Insira um logradouro válido!</span>
+                            <input asp-for="Logradouro" id="logradouro" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Logradouro" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="Numero" class="control-label">Número:</label>
-                            <input asp-for="Numero" id="numero" class="form-control" />
-                            <span class="invisivel" id="erroNumero">Insira um número válido!</span>
+                            <input asp-for="Numero" id="numero" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Numero" class="text-red"></span>
                         </div>
                     </div>
-
+                    <br />
                     <div class="row">
                         <div class="col">
                             <label asp-for="Bairro" class="control-label">Bairro:</label>
-                            <input asp-for="Bairro" id="bairro" class="form-control" />
-                            <span class="invisivel" id="erroBairro">Insira um bairro válido!</span>
+                            <input asp-for="Bairro" id="bairro" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Bairro" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="Cidade" class="control-label">Cidade:</label>
-                            <input asp-for="Cidade" id="cidade" class="form-control" />
-                            <span class="invisivel" id="erroCidade">Insira uma cidade válida!</span>
+                            <input asp-for="Cidade" id="cidade" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Cidade" class="text-red"></span>
                         </div>
                     </div>
-
+                    <br />
                     <div class="row">
                         <div class="col">
                             <label asp-for="Estado" class="control-label">Estado:</label>
-                            <input asp-for="Estado" id="estado" class="form-control" />
-                            <span class="invisivel" id="erroEstado">Insira um estado válido!</span>
+                            <input asp-for="Estado" id="estado" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Estado" class="text-red"></span>
                         </div>
                         <div class="col">
                             <label asp-for="Email" class="control-label">E-mail:</label>
-                            <input asp-for="Email" id="email" class="form-control" />
-                            <span class="invisivel" id="erroEmail">Insira um e-mail válido!</span>
+                            <input asp-for="Email" id="email" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Email" class="text-red"></span>
                         </div>
                     </div>
-
+                    <br />
                     <div class="row">
                         <div class="col">
                             <label asp-for="Senha" class="control-label">Senha:</label>
                             <input autocomplete="off" type="password" asp-for="Senha" id="senha" class="form-control" />
-                            <span class="invisivel" id="erroSenha">Insira uma senha válida!</span>
+                            <span asp-validation-for="Senha" class="text-red"></span>
                         </div>
                         <div class="col">
-                            <label class="control-label">Confirmar senha:</label>
-                            <input autocomplete="off" type="password" class="form-control" id="senhaConfirma" />
-                            <span class="invisivel" id="erroSenhaConfirma"></span>
+                            <label class="control-label" asp-for="ConfirmarSenha">Confirmar senha:</label>
+                            <input autocomplete="off" asp-for="ConfirmarSenha" type="password" class="form-control" id="senhaConfirma" />
+                            <span asp-validation-for="ConfirmarSenha" class="text-red"></span>
                         </div>
                     </div>
                     <br />
                     <div class="form-group">
                         <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                        <input type="submit" onclick="return validarFuncionario()" value="Salvar" class="btn btn-success" />
+                        <input type="submit" value="Salvar" class="btn btn-success" />
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </center>
-<script src="~/js/Funcionario.js"></script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

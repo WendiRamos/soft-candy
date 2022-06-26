@@ -25,6 +25,10 @@ namespace SoftCandy.Utils
             return user.Identity.IsAuthenticated && user.HasClaim(ClaimTypes.Actor, ((int)CargosEnum.VENDEDOR).ToString());
         }
 
+        public static bool IsCaixa(ClaimsPrincipal user)
+        {
+            return user.Identity.IsAuthenticated && user.HasClaim(ClaimTypes.Actor, ((int)CargosEnum.CAIXA).ToString());
+        }
         public static int Id(ClaimsPrincipal user)
         {
             return int.Parse(user.FindFirst(ClaimTypes.NameIdentifier).Value);

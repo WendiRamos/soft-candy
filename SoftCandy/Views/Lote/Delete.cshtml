@@ -1,38 +1,38 @@
 ﻿@model SoftCandy.Models.Lote
 
 @{
-    ViewData["Title"] = "Deletar";
+    ViewData["Title"] = "Deletar Lote";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
         <div class="card-header"><h4>Deletar Lote</h4></div>
         <div class="card-body">
-            <h5>Tem certeza que deseja excluir?</h5>
+            <h5>Tem certeza que deseja deletar?</h5>
             <div>
                 <table class="table">
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.QuantidadeEstoque): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.QuantidadeEstoque): </td>
                         <td>@Html.DisplayFor(model => model.QuantidadeEstoque)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.DataHoraFabricacao): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.DataHoraFabricacao): </td>
                         <td>@Html.DisplayFor(model => model.DataHoraFabricacao)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.DataHoraValidade): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.DataHoraValidade): </td>
                         <td>@Html.DisplayFor(model => model.DataHoraValidade)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.PrecoCompra): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.PrecoCompra): </td>
                         <td>@Html.DisplayFor(model => model.PrecoCompra)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.PrecoVenda):</td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.PrecoVenda):</td>
                         <td>@Html.DisplayFor(model => model.PrecoVenda)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.Produto): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.Produto): </td>
                         <td>@Html.DisplayFor(model => model.Produto.Nome)</td>
                     </tr>
                 </table>

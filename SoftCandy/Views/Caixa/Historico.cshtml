@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<SoftCandy.Models.Caixa>
 
 @{
-    ViewData["Title"] = "Histórico";
+    ViewData["Title"] = "Histórico de Caixas";
 }
 
-<form class="form-inline" asp-controller="Busca" asp-action="BuscaCaixa">
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaCaixas">
     <div class="d-flex justify-content-end">
         <div class="d-flex">
             <div class="row align-middle">
                 <div class="col">
-                    <label for="minDate" class="control-label text-preto">Data inicial</label>
+                    <label for="minDate" class="control-label text-preto">Data inicial:</label>
                     <input type="date" name="minDate" class="form-control" />
                 </div>
                 <div class="col">
-                    <label for="maxDate" class="control-label text-preto">Data final</label>
+                    <label for="maxDate" class="control-label text-preto">Data final:</label>
                     <input type="date" name="maxDate" class="form-control" />
                 </div>
                 <div class="col d-flex align-items-end">
@@ -32,7 +32,7 @@
             {
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="negrito">
                             <th>
                                 Id
                             </th>
@@ -55,7 +55,7 @@
                                 Funcionário<br />Fechamento
                             </th>
                             <th class="center">
-                                Visualizar
+                                Exibir
                             </th>
                         </tr>
                     </thead>
@@ -86,7 +86,7 @@
                             </td>
                             <td class="center">
                                 <a asp-action="Details" asp-route-id="@item.IdCaixa" class="sem-sub">
-                                    <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                    <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                 </a>
                             </td>
                         </tr>

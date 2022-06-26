@@ -1,43 +1,145 @@
 ﻿@model IEnumerable<SoftCandy.Models.Produto>
-@using SoftCandy.Models;
 
 @{
-    ViewData["Title"] = "Relatório Produtos";
-    Layout = "_LayoutRelatorio";
+    ViewData["Title"] = "Relatório de Produtos";
 }
 
-<h2>Relatório Produtos</h2>
+<form class="form-inline nao-imprimir" asp-controller="Produto" asp-action="Relatorio">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <button class="btn btn-info" onclick="window.print()">Imprimir</button>
+        </div>
+        <div class="d-flex">
+            <select name="tipo" class="form-control mr-1">
+                <option value=""><< Selecione >></option>
+                <option value="maisDescartados">Produtos Mais Descartados</option>
+                <option value="menosDescartados">Produtos Menos Descartados</option>
+                <option value="maisEstoque">Produtos Com Mais Estoque</option>
+                <option value="menosEstoque">Produtos Com Menos Estoque</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Gerar</button>
+        </div>
+    </div>
+</form>
+<br />
 
-<table class="table">
+<h2 class="text-preto">Relatório de Produtos</h2>
+@if (ViewBag.Selecionado == "maisEstoque")
+{
+    <h5 class="text-preto">Produtos com mais estoque</h5>
+}
+@if (ViewBag.Selecionado == "menosEstoque")
+{
+    <h5 class="text-preto">Produtos com menos estoque</h5>
+}
+@if (ViewBag.Selecionado == "maisDescartados")
+{
+    <h5 class="text-preto">Produtos mais descartados</h5>
+}
+@if (ViewBag.Selecionado == "menosDescartados")
+{
+    <h5 class="text-preto">Produto menos descartados</h5>
+}
+<table class="table" style="border-radius: 10px; background-color: #e6cbe6;">
     <thead>
-        <tr>
+        <tr class="negrito">
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuantidadeDescartada)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Categoria)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantidadeEstoque)
+            </th>
+            <td>
+                Quantidade Descartada
+            </td>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var produto in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
+                    @Html.DisplayFor(modelItem => produto.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.QuantidadeDescartada)
+                    @Html.DisplayFor(modelItem => produto.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Categoria.NomeCategoria)
+                    @Html.DisplayFor(modelItem => produto.Categoria.NomeCategoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => produto.QuantidadeEstoque)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => produto.QuantidadeDescartada)
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<script src="~/js/Formatador.js"></script>
-<script>window.print()</script>
+<br />
+
+<h2 class="text-preto">Gráfico</h2>
+@if (ViewBag.Selecionado == "maisEstoque")
+{
+    <h5 class="text-preto">Produtos com mais estoque</h5>
+}
+@if (ViewBag.Selecionado == "menosEstoque")
+{
+    <h5 class="text-preto">Produtos com menos estoque</h5>
+}
+@if (ViewBag.Selecionado == "maisDescartados")
+{
+    <h5 class="text-preto">Produtos mais descartados</h5>
+}
+@if (ViewBag.Selecionado == "menosDescartados")
+{
+    <h5 class="text-preto">Produto menos descartados</h5>
+}
+<canvas id="myChart" style="max-height: 400px; border-radius: 10px; background-color: #e6cbe6;"></canvas>
+<br />
+<br />
+<script src="~/js/Chart.min.js"></script>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const labels = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(c => c.Nome)));
+    var dados;
+
+    var selecao = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Selecionado));
+
+    if (["maisDescartados", "menosDescartados"].includes(selecao)) {
+        dados = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(c => c.QuantidadeDescartada)));
+    }
+    else {
+        dados = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(c => c.QuantidadeEstoque)));
+    }
+
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                data: dados,
+                backgroundColor: [...Array(dados.length)].map(() => "#" + [...Array(6)].map(() => Math.floor(Math.random() * 16).toString(16)).join(""))
+            }]
+        },
+        options: {
+            indexAxis: "y",
+            plugins: { legend: { display: false } },
+            x: { ticks: { precision: 0 } },
+            scales: {
+                x: { ticks: { color: "black" } },
+                y: {
+                    ticks: { color: "black" },
+                    grid: { color: "transparent" }
+                }
+            }
+        },
+    });
+</script>

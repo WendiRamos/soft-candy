@@ -1,0 +1,96 @@
+﻿@model IEnumerable<SoftCandy.Models.Motoboy>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<form class="form-inline" asp-controller="Busca" asp-action="BuscaMotoboy">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <a asp-action="Create" class="btn btn-success mr-1">Novo Motoboy</a>
+            <a asp-controller="Busca" asp-action="BuscaMotoboyApagado" class="btn btn-info">Listar Inativados</a>
+        </div>
+        <div class="d-flex">
+            <label for="Nome"></label>
+            <input type="text" class="form-control mr-1" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
+            <button type="submit" class=" btn btn-primary">Pesquisar</button>
+        </div>
+    </div>
+</form>
+<br />
+<center>
+    <div class="card border-primary mb-3">
+        <div class="card-header"><h4>Motoboys</h4></div>
+        <div class="card-body">
+            @if (Model.Count() != 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr class="negrito">
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Celular)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cidade)
+                            </th>
+                            <th class="center">
+                                Exibir
+                            </th>
+                            <th class="center">
+                                Editar
+                            </th>
+                            <th class="center">
+                                Inativar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Celular)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cidade)
+                            </td>
+                            <td class="center">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="sem-sub">
+                                    <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
+                                </a>
+                            </td>
+                            <td class="center">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="sem-sub">
+                                    <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
+                                </a>
+
+                            </td>
+                            <td class="center">
+
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="sem-sub">
+                                    <img src="~/icons/inativar.svg" class="icone-menus" title="Inativar" />
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Não tem motoboys para mostrar</p>
+            }
+        </div>
+    </div>
+</center>

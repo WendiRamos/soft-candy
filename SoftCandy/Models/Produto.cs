@@ -12,9 +12,12 @@ namespace SoftCandy.Models
         [Display(Name = "Id")]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "{0} obrigatório")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Nome")]
         public string Nome { get; set; }
 
+        [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Quantidade Mínima")]
         public int QuantidadeMinima { get; set; }
 
@@ -29,6 +32,7 @@ namespace SoftCandy.Models
         public MedidaEnum Medida {get; set;}
 
         [NotMapped]
+        [Display(Name = "Quantidade Estoque")]
         public int QuantidadeEstoque { get; set; }
 
         [ForeignKey("Categoria")]
@@ -59,6 +63,20 @@ namespace SoftCandy.Models
         {
             QuantidadeEstoque = Lotes.Where(p => p.Ativo).Select(lt => lt.QuantidadeEstoque).Sum();
         }
-    }
 
+        public bool PossuiLoteVencido()
+        {
+            return Lotes.Any(lt => lt.EstaVencido() && lt.Ativo);
+        }
+
+        public bool EstaEscasso()
+        {
+            return Ativo && Lotes.Select(lt => lt.QuantidadeEstoque).Sum() <= QuantidadeMinima;
+        }
+
+        public bool MostrarNoCardVencido()
+        {
+            return Lotes.Any(lt => lt.MostrarNoCardVencido());
+        }
+    }
 }

@@ -1,97 +1,91 @@
-﻿@model IEnumerable<SoftCandy.Models.Caixa>
+﻿<!DOCTYPE html>
+@model IEnumerable<SoftCandy.Models.Funcionario>
 
 @{
-    ViewData["Title"] = "Pesquisa Caixa";
+    ViewData["Title"] = "Pesquisar Caixa";
 }
 <center>
-    <form class="form-inline">
-        <div class="form-check-inline">
-            <div class="container">
-                <div class="row align-middle">
-                    <div class="col">
-                        <label for="minDate" class="control-label">Data inicial</label>
-                        <input type="date" name="minDate" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <label for="maxDate" class="control-label">Data final</label>
-                        <input type="date" name="maxDate" class="form-control" />
-                    </div>
-                    <div class="col d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary mr-1">Pesquisar</button>
-                        <a href="javascript:history.go(-1)" class="btn btn-info mr-1">Voltar</a>
-                    </div>
-                </div>
+    <form class="form-inline" asp-controller="Busca" asp-action="BuscaCaixa">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <a asp-controller="Funcionario" asp-action="IndexCaixa" class="btn btn-info mr-1">Voltar</a>
+            </div>
+            <div class="d-flex">
+                <label for="Nome"></label>
+                <input type="text" class="form-control mr-1" name="Nome" placeholder="Insira um nome" value=@ViewData["Nome"] />
+                <button type="submit" class=" btn btn-primary">Pesquisar</button>
             </div>
         </div>
     </form>
     <br />
     <div class="card border-primary mb-3">
-        <div class="card-header"><h4>Histórico de Caixas</h4></div>
+        <div class="card-header"><h4>Caixas</h4></div>
         <div class="card-body">
             @if (Model.Count() != 0)
             {
-                <div class="panel panel-primary">
+                <table class="table ">
+                    <thead>
+                        <tr class="negrito">
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Celular)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th class="center">
+                                Exibir
+                            </th>
+                            <th class="center">
+                                Editar
+                            </th>
+                            <th class="center">
+                                Inativar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Celular)
+                                </td>
+                                <td class="text-preto">
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td class="center">
+                                    <a asp-action="DetailsCaixa" asp-controller="Funcionario" asp-route-id="@item.Id" class="sem-sub">
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
+                                    </a>
+                                </td>
+                                <td class="center">
+                                    <a asp-action="EditCaixa" asp-controller="Funcionario" asp-route-id="@item.Id" class="sem-sub">
+                                        <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
+                                    </a>
 
-                    <div class="panel-body">
-                        <table class="table">
-                            <thead>
-                                <tr class="success">
-                                    <th>
-                                        Data e Hora(Abertura)
-                                    </th>
-                                    <th>
-                                        Data e Hora(Fechamento)
-                                    </th>
-                                    <th>
-                                        Valor Abertura
-                                    </th>
-                                    <th>
-                                        Valor Fechamento
-                                    </th>
-                                    <th>
-                                        Funcionário Abertura
-                                    </th>
-                                    <th>
-                                        Funcionário Fechamento
-                                    </th>
-                                    <th class="center">
-                                        Visualizar
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataHoraAbertura)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataHoraFechamento)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ValorDinheiroAbertura)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ValorTotalFechamentoDinheiro)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FuncionarioAbertura.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FuncionarioFechamento.Nome)
-                                    </td>
-                                    <td class="center">
-                                        <a asp-action="Details" asp-route-id="@item.IdCaixa" class="sem-sub">
-                                            <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
-                                        </a>
-                                    </td>
-                                </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                </td>
+                                <td class="center">
+                                    <a asp-action="DeleteCaixa" asp-controller="Funcionario" asp-route-id="@item.Id" class="sem-sub">
+                                        <img src="~/icons/inativar.svg" class="icone-menus" title="Inativar" />
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
             else
             {

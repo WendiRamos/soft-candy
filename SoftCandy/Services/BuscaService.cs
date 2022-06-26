@@ -22,7 +22,27 @@ namespace SoftCandy.Services
             _context = context;
 
         }
-      
+
+        public async Task<List<Funcionario>> FindByNomeCaixa(String Nome)
+        {
+            var result = from obj in _context.Funcionario.Where(c => Validacao.IsCaixaAtivo(c)) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
+            }
+            return await result.ToListAsync();
+        }
+
+        public async Task<List<Funcionario>> FindByNomeCaixaApagado(String Nome)
+        {
+            var result = from obj in _context.Funcionario.Where(c => Validacao.IsCaixaInativo(c)) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
+            }
+            return await result.ToListAsync();
+        }
+
         public async Task<List<Funcionario>> FindByNomeVendedor(String Nome)
         {
             var result = from obj in _context.Funcionario.Where(c => Validacao.IsVendedorAtivo(c)) select obj;
@@ -36,6 +56,26 @@ namespace SoftCandy.Services
         public async Task<List<Funcionario>> FindByNomeVendedorApagado(String Nome)
         {
             var result = from obj in _context.Funcionario.Where(c => Validacao.IsVendedorInativo(c)) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
+            }
+            return await result.ToListAsync();
+        }
+
+        public async Task<List<Motoboy>> FindByNomeMotoboy(String Nome)
+        {
+            var result = from obj in _context.Motoboy.Where(m => m.Ativo) select obj;
+            if (!string.IsNullOrEmpty(Nome))
+            {
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
+            }
+            return await result.ToListAsync();
+        }
+
+        public async Task<List<Motoboy>> FindByNomeMotoboyApagado(String Nome)
+        {
+            var result = from obj in _context.Motoboy.Where(m => !m.Ativo) select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
                 result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
@@ -155,23 +195,7 @@ namespace SoftCandy.Services
             return await result.ToListAsync();
         }
 
-        public async Task<List<Comanda>> FindByPedido(DateTime? minDate, DateTime? maxDate)
-        {
-            var result = from obj in _context.Comanda  select obj;
-            if (minDate.HasValue)
-            {
-                result = result.Where(x => x.DataHoraRecebimento >= minDate.Value);
-            }
-            if (maxDate.HasValue)
-            {
-                result = result.Where(x => x.DataHoraRecebimento <= maxDate.Value);
-            }
-            return await result
-                .OrderByDescending(x => x.DataHoraRecebimento)
-                .ToListAsync();
-        }
-
-        public async Task<List<Caixa>> FindByCaixa(DateTime? minDate, DateTime? maxDate)
+        public async Task<List<Caixa>> FindByCaixas(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.Caixa.Where(c => !c.EstaAberto) select obj;
             if (minDate.HasValue)
@@ -184,6 +208,8 @@ namespace SoftCandy.Services
             }
             return await result
                 .OrderByDescending(x => x.DataHoraFechamento)
+                .Include( c => c.FuncionarioAbertura)
+                .Include( c => c.FuncionarioFechamento)
                 .ToListAsync();
         }
     }

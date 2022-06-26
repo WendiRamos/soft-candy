@@ -1,0 +1,139 @@
+﻿@model SoftCandy.Models.Delivery
+@using SoftCandy.Utils
+@using SoftCandy.Enums
+
+@{
+    ViewData["Title"] = "Delivery";
+    var carrinho = (CarrinhoDelivery)ViewBag.Carrinho;
+}
+<br />
+<center>
+    <div class="card border-info mb-3">
+        <div class="card-header center"><h4>Itens do Delivery</h4></div>
+        <div class="card-body">
+            @if (carrinho != null && carrinho.ItensDelivery != null && carrinho.ItensDelivery.Count != 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr class="negrito">
+                            <th>
+                                Produto
+                            </th>
+                            <th>
+                                Quantidade
+                            </th>
+                            <th>
+                                Preço
+                            </th>
+                            <th>
+                                Subtotal
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in carrinho.ItensDelivery)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Lote.Produto.Nome
+                                </td>
+                                <td>
+                                    @item.Quantidade
+                                </td>
+                                <td>
+                                    R$ @item.Lote.PrecoVenda
+                                </td>
+                                <td>
+                                    R$ @string.Format("{0:#,0.00}", item.Lote.PrecoVenda * item.Quantidade)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><b>Total: </b></td>
+                            <td><b>R$ <span id="totalPedido">@carrinho.ValorTotal</span></b></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            }
+            else
+            {
+                <p>Não há itens lançados.</p>
+            }
+
+        </div>
+    </div>
+    <div class="card border-primary mb-3">
+        <div class="card-header center"><h4>Dados para Entrega</h4></div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label asp-for="NomeCliente" class="control-label">Cliente:</label>
+                            <input asp-for="NomeCliente" class="form-control" placeholder="Nome" autocomplete="off" />
+                            <span asp-validation-for="NomeCliente" class="text-red"></span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label asp-for="IdMotoboy" class="control-label">Motoboy:</label>
+                            <select asp-for="IdMotoboy" class="form-control" asp-items="ViewBag.IdMotoboy"></select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label asp-for="EnderecoEntrega" class="control-label">Endereço de Entrega:</label>
+                            <input asp-for="EnderecoEntrega" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="EnderecoEntrega" class="text-red"></span>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label asp-for="ValorFrete" class="control-label">Taxa de Entrega:</label>
+                            <input id="totalFrete" asp-for="ValorFrete" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="ValorFrete" class="text-red"></span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label class="control-label">Total Delivery:</label>
+                        <input readonly id="totalDelivery" class="form-control" />
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label asp-for="FormaPagamento" class="control-label">Forma de Pagamento:</label>
+                            <select id="formaPagamento" asp-for="FormaPagamento" class="form-control" asp-items="Html.GetEnumSelectList<FormasPagamentoEnum>()"></select>
+                        </div>
+                    </div>
+                    <div class="col-2 troco">
+                        <label class="control-label">Valor Entrada:</label>
+                        <input type="number" class="form-control number-sem-setas" id="dinheiro" autocomplete="off" />
+                    </div>
+                    <div class="col-2 troco">
+                        <label class="control-label">Troco:</label>
+                        <input readonly id="troco" value="R$ 0,00" class="form-control" />
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Finalizar" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+</center>
+<script src="~/js/Formatador.js" defer></script>
+<script src="~/js/EscolherItemDelivery.js" defer></script>
+<script src="~/js/RemoverItemCarrinho.js" defer></script>
+<script src="~/js/DeliveryEndereco.js" defer></script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -37,6 +37,7 @@ namespace SoftCandy.Models
 
         [Display(Name = "Valor de Abertura")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Required(ErrorMessage = "{0} obrigatório")]
         [Column(TypeName = "decimal(8, 2)")]
         public decimal ValorDinheiroAbertura { get; set; }
 
@@ -85,8 +86,9 @@ namespace SoftCandy.Models
         [Column(TypeName = "decimal(8, 2)")]
         public decimal ValorTotalOperacoes { get; set; }
 
-        public ICollection<OperacaoCaixa> Operacoes { get; set; }
-        public ICollection<Comanda> Pedidos { get; set; }
+        public virtual ICollection<OperacaoCaixa> Operacoes { get; set; }
+        public virtual ICollection<Comanda> Comandas { get; set; }
+        public virtual ICollection<Delivery> Deliveries { get; set; }
 
 
         public Caixa(decimal valorAbertura)
@@ -164,6 +166,28 @@ namespace SoftCandy.Models
             AtualizarValorTotalVendas();
         }
 
+        public void SomarEmValorDelivery(Delivery delivery)
+        {
+            if (delivery.FormaPagamentoIsDinheiro())
+            {
+                SomarEmValorVendasDinheiro(delivery.ValorTotal);
+                AtualizarValorTotalFechamentoDinheiro();
+            }
+            else if (delivery.FormaPagamentoIsCredito())
+            {
+                SomarEmValorVendasCartaoCredito(delivery.ValorTotal);
+            }
+            else if (delivery.FormaPagamentoIsDebito())
+            {
+                SomarEmValorVendasCartaoDebido(delivery.ValorTotal);
+            }
+            else if (delivery.FormaPagamentoIsPix())
+            {
+                SomarEmValorVendasPix(delivery.ValorTotal);
+            }
+            AtualizarValorTotalVendas();
+        }
+
         public void SomarEmValorOperacoes(OperacaoCaixa operacao)
         {
             if (operacao.TipoIsEntrada())
@@ -178,9 +202,10 @@ namespace SoftCandy.Models
             AtualizarValorTotalFechamentoDinheiro();
         }
 
-        public bool ExistePedidoSemReceber()
+        public bool ExisteVendaPendente()
         {
-            return Pedidos.Any(p => p.Recebido == false);
+            return Comandas.Any(c => c.Recebido == false)
+                || Deliveries.Any(d => d.Recebido == false);
         }
     }
 }

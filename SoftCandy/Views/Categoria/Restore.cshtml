@@ -1,44 +1,30 @@
 ﻿@model SoftCandy.Models.Categoria
 
 @{
-    ViewData["Title"] = "Restaurar";
+    ViewData["Title"] = "Ativar";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 50rem;">
-        <div class="card-header"><h4>Restaurar Categoria</h4></div>
+        <div class="card-header"><h4>Ativar Categoria</h4></div>
         <div class="card-body">
-            <h5>Tem certeza que deseja restaurar?</h5>
+            <h5>Tem certeza que deseja ativar?</h5>
             <div>
-                <h4>Categoria</h4>
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.IdCategoria)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NomeCategoria)
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(model => model.IdCategoria)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(model => model.NomeCategoria)
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.IdCategoria): </td>
+                        <td>@Html.DisplayFor(model => model.IdCategoria)</td>
+                    </tr>
+                    <tr>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.NomeCategoria): </td>
+                        <td>@Html.DisplayFor(model => model.NomeCategoria)</td>
+                    </tr>
                 </table>
                 <br />
                 <form asp-action="Restore">
                     <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
                     <input type="hidden" asp-for="IdCategoria" />
-                    <input type="submit" value="Restaurar" class="btn btn-danger" />
+                    <input type="submit" value="Ativar" class="btn btn-danger" />
                 </form>
             </div>
         </div>

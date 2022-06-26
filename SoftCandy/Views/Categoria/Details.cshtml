@@ -1,28 +1,27 @@
 ﻿@model SoftCandy.Models.Categoria
 
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = "Exibir Categoria";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
-        <div class="card-header"><h4>Detalhes Categoria</h4></div>
+        <div class="card-header"><h4>Exibir Categoria</h4></div>
         <div class="card-body">
             <div>
                 <table class="table">
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.IdCategoria): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.IdCategoria): </td>
                         <td>@Html.DisplayFor(model => model.IdCategoria)</td>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayNameFor(model => model.NomeCategoria): </td>
+                        <td class="negrito">@Html.DisplayNameFor(model => model.NomeCategoria): </td>
                         <td>@Html.DisplayFor(model => model.NomeCategoria)</td>
                     </tr>
                 </table>
                 <br />
                 <div>
                     <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                    <a asp-action="Edit" asp-route-id="@Model.IdCategoria" class="btn btn-info">Editar</a>
                 </div>
             </div>
         </div>

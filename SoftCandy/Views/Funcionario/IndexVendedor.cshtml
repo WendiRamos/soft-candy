@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-between">
         <div class="d-flex">
             <a asp-action="CreateVendedor" class="btn btn-success mr-1">Novo Vendedor</a>
-            <a asp-controller="Busca" asp-action="BuscaVendedorApagado" class="btn btn-info">Vendedores Apagados</a>
+            <a asp-controller="Busca" asp-action="BuscaVendedorApagado" class="btn btn-info">Listar Inativados</a>
         </div>
         <div class="d-flex">
             <label for="Nome"></label>
@@ -25,7 +25,7 @@
             {
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="negrito">
                             <th>
                                 @Html.DisplayNameFor(model => model.Id)
                             </th>
@@ -39,13 +39,13 @@
                                 @Html.DisplayNameFor(model => model.Email)
                             </th>
                             <th class="center">
-                                Visualizar
+                                Exibir
                             </th>
                             <th class="center">
                                 Editar
                             </th>
                             <th class="center">
-                                Apagar
+                                Inativar
                             </th>
                         </tr>
                     </thead>
@@ -67,7 +67,7 @@
                                 </td>
                                 <td class="center">
                                     <a asp-action="DetailsVendedor" asp-route-id="@item.Id" class="sem-sub">
-                                        <img src="~/icons/detalhes.svg" class="icone-menus" title="Visualizar" />
+                                        <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                     </a>
                                 </td>
                                 <td class="center">
@@ -78,7 +78,7 @@
                                 </td>
                                 <td class="center">
                                     <a asp-action="DeleteVendedor" asp-route-id="@item.Id" class="sem-sub">
-                                        <img src="~/icons/deletar.svg" class="icone-menus" title="Apagar" />
+                                        <img src="~/icons/inativar.svg" class="icone-menus" title="Inativar" />
                                     </a>
 
                                 </td>

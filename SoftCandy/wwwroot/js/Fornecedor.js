@@ -165,15 +165,7 @@ function validarEstadoFornecedor() {
 
 function validarFornecedor() {
     var cnpjValido = validarCNPJ();
-    var razaoValida = validarRazaoSocial();
-    var nomeValido = validarNomeFantasia();
-    var celularValido = validarCelularFornecedor();
-    var emailValido = validarEmailFornecedor();
-    var logradouroValido = validarLogradouroFornecedor();
-    var numeroValido = validarNumeroFornecedor();
-    var bairroValido = validarBairroFornecedor();
-    var cidadeValida = validarCidadeFornecedor();
-    var estadoValido = validarEstadoFornecedor();
+    
 
-    return cnpjValido && razaoValida && nomeValido && celularValido && emailValido && logradouroValido && numeroValido && bairroValido && cidadeValida && estadoValido;
+    return cnpjValido;
 }

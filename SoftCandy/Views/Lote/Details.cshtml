@@ -1,43 +1,42 @@
 ﻿@model SoftCandy.Models.Lote
 
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = "Exibir Lote";
 }
 <br />
 <center>
     <div class="card border-primary mb-3" style="max-width: 40rem;">
-        <div class="card-header"><h4>Detalhes Lote</h4></div>
+        <div class="card-header"><h4>Exibir Lote</h4></div>
         <div class="card-body">
             <table class="table">
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.QuantidadeEstoque): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.QuantidadeEstoque): </td>
                     <td>@Html.DisplayFor(model => model.QuantidadeEstoque)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.DataHoraFabricacao): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.DataHoraFabricacao): </td>
                     <td>@Html.DisplayFor(model => model.DataHoraFabricacao)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.DataHoraValidade): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.DataHoraValidade): </td>
                     <td>@Html.DisplayFor(model => model.DataHoraValidade)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.PrecoCompra): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.PrecoCompra): </td>
                     <td> @Html.DisplayFor(model => model.PrecoCompra)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.PrecoVenda):</td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.PrecoVenda):</td>
                     <td>@Html.DisplayFor(model => model.PrecoVenda)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => model.Produto): </td>
+                    <td class="negrito">@Html.DisplayNameFor(model => model.Produto): </td>
                     <td>@Html.DisplayFor(model => model.Produto.Nome)</td>
                 </tr>
             </table>
             <br />
             <div>
                 <a href="javascript:history.go(-1)" class="btn btn-primary mr-1">Voltar</a>
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Editar</a>
             </div>
         </div>
     </div>
