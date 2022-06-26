@@ -19,30 +19,31 @@ namespace SoftCandy.Models
 
         [Required(ErrorMessage = "{0} obrigatório")]
         [Display(Name = "Celular")]
+        [StringLength(11, MinimumLength = 11, ErrorMessage = "O tamanho do {0} deve ser 11 caracteres.")]
         public string Celular { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(60, MinimumLength = 10, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
+        [StringLength(60, MinimumLength = 4, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Logradouro")]
         public string Logradouro { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(4, MinimumLength = 2, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
+        [StringLength(6, MinimumLength = 1, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Número")]
         public string Numero { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(60, MinimumLength = 10, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
+        [StringLength(60, MinimumLength = 4, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Bairro")]
         public string Bairro { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(60, MinimumLength = 5, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
+        [StringLength(60, MinimumLength = 4, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Cidade")]
         public string Cidade { get; set; }
 
         [Required(ErrorMessage = "{0} obrigatório")]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
+        [StringLength(29, MinimumLength = 2, ErrorMessage = "O tamanho do {0} deve estar entre {2} e {1}.")]
         [Display(Name = "Estado")]
         public string Estado { get; set; }
 
