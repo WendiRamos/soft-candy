@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label asp-for="NomeCategoria" class="control-label">Nome:</label>
                             <input asp-for="NomeCategoria" id="NomeCategoria" class="form-control" />
-                            <span class="invisivel" id="erroNomeCategoria">Insira um nome válido!</span>
+                            <span asp-validation-for="NomeCategoria" class="text-red"></span>
                         </div>
                         <br />
                         <div class="form-group">
