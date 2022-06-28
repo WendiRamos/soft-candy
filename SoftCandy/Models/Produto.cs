@@ -71,7 +71,8 @@ namespace SoftCandy.Models
 
         public bool EstaEscasso()
         {
-            return Ativo && Lotes.Select(lt => lt.QuantidadeEstoque).Sum() <= QuantidadeMinima;
+            return Ativo && Lotes.Where(lt => lt.Ativo)
+                .Select(lt => lt.QuantidadeEstoque).Sum() <= QuantidadeMinima;
         }
 
         public bool MostrarNoCardVencido()

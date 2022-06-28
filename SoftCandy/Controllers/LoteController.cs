@@ -106,7 +106,7 @@ namespace SoftCandy.Controllers
 
                 lote.DiasVencimento = (lote.DataHoraValidade - lote.DataHoraFabricacao).Days;
 
-                ViewData["IdProduto"] = id;
+                ViewData["IdProduto"] = lote.Produto.Id;
                 ViewData["NomeProduto"] = lote.Produto.Nome;
                 return View(lote);
             }
