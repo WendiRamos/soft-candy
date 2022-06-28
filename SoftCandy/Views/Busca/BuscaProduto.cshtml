@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<SoftCandy.Models.Produto>
-
+@using SoftCandy.Enums
 @{
     ViewData["Title"] = "Pesquisar Produto";
 }
@@ -22,32 +22,38 @@
         <div class="card-body">
             @if (Model.Count() != 0)
             {
-                <table class="table ">
-                    <thead>
-                        <tr class="negrito">
-                            <th>
-                                @Html.DisplayNameFor(model => model.Id)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Nome)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Categoria)
-                            </th>
-                            <th class="center">
-                                Exibir
-                            </th>
-                            <th class="center">
-                                Editar
-                            </th>
-                            <th class="center">
-                                Inativar
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+            <table class="table">
+                <thead>
+                    <tr class="negrito">
+                        <th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.QuantidadeEstoque)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Medida)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Categoria)
+                        </th>
+                        <th class="center">
+                            Exibir
+                        </th>
+                        <th class="center">
+                            Editar
+                        </th>
+                        <th class="center">
+                            Inativar
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Id)
@@ -56,29 +62,40 @@
                                 @Html.DisplayFor(modelItem => item.Nome)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.QuantidadeEstoque)
+                            </td>
+                            @if (item.Medida == MedidaEnum.UNIDADE)
+                            {
+                                <td>Unidade</td>
+                            }
+                            else
+                            {
+                                <td>Ml</td>
+                            }
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Categoria.NomeCategoria)
                             </td>
                             <td class="center">
-                                <a asp-action="Details" asp-controller="Produto" asp-route-id="@item.Id" class="sem-sub">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="sem-sub">
                                     <img src="~/icons/exibir.svg" class="icone-menus" title="Exibir" />
                                 </a>
                             </td>
                             <td class="center">
-                                <a asp-action="Edit" asp-controller="Produto" asp-route-id="@item.Id" class="sem-sub">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="sem-sub">
                                     <img src="~/icons/editar.svg" class="icone-menus" title="Editar" />
                                 </a>
 
                             </td>
                             <td class="center">
-                                <a asp-action="Delete" asp-controller="Produto" asp-route-id="@item.Id" class="sem-sub">
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="sem-sub">
                                     <img src="~/icons/inativar.svg" class="icone-menus" title="Inativar" />
                                 </a>
 
                             </td>
                         </tr>
-                        }
-                    </tbody>
-                </table>
+                    }
+                </tbody>
+            </table>
             }
             else
             {

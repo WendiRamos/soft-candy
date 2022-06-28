@@ -125,34 +125,34 @@ namespace SoftCandy.Services
 
         public async Task<List<Produto>> FindByNome(String Nome)
         {
-            var result = from obj in _context.Produto.Where(c => Validacao.IsProdutoAtivo(c)) select obj;
-            if (!string.IsNullOrEmpty(Nome))
-            {
-                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
-            }
-            return await result.ToListAsync();
-        }
+            var result = await _context.Produto
+                .Where(c => Validacao.IsProdutoAtivo(c))
+                .Include(p => p.Lotes)
+                .Include(p => p.Categoria)
+                .ToListAsync();
 
-        public List<Produto> FindByNomeTop5(String Nome)
-        {
-            var result = from obj in _context.Produto
-                         .Where(c => Validacao.IsProdutoAtivo(c) && c.QuantidadeDescartada > 0)
-                         select obj;
             if (!string.IsNullOrEmpty(Nome))
             {
-                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome)).ToList();
             }
-            return result.Take(5).ToList();
+
+            result.ForEach(p => p.SomarQuantidade());
+
+            return result;
         }
 
         public async Task<List<Produto>> FindByNomeApagado(String Nome)
         {
-            var result = from obj in _context.Produto.Where(c => Validacao.IsProdutoInativo(c)) select obj;
+            var result = await _context.Produto
+                    .Where(p => Validacao.IsProdutoInativo(p))
+                    .Include(p => p.Categoria)
+                    .ToListAsync();
+
             if (!string.IsNullOrEmpty(Nome))
             {
-                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome));
+                result = result.Where(x => Texto.CaseInsensitiveContains(x.Nome, Nome)).ToList();
             }
-            return await result.ToListAsync();
+            return result;
         }
 
         public async Task<List<Categoria>> FindByNomeCategoria(String Nome)
