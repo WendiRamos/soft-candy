@@ -26,10 +26,9 @@
             }
             else {
                 Swal.fire("Sucesso!", "Item lançado na comanda #" + $idComanda + ".", "success").then(() => {
-                    location.reload();
+                    location.href = "Venda?idComanda=" + $idComanda;
                 });
             }
-            console.log(data);
         }
     });
 });
