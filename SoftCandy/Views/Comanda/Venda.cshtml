@@ -1,6 +1,7 @@
 ﻿    @model IEnumerable<SoftCandy.Models.Lote>
 @{
     ViewData["Title"] = "Efetuar Comanda";
+    var idComanda = Context.Request.Query["idComanda"];
 }
 <br />
 <div class="card border-primary mb-3">
@@ -9,7 +10,7 @@
         <div class="d-flex justify-content-between">
             <div class="d-flex">
                 <label for="idComanda" class="text-nowrap mr-1 negrito">Nº Comanda: </label>
-                <input type="number" min="1" class="form-control mr-1" id="idComanda" />
+                <input type="number" min="1" class="form-control mr-1" id="idComanda" value=@idComanda />
             </div>
             <div class="d-flex">
                 <input type="text" class="form-control mr-1" id="pesquisar" placeholder="Nome do produto" />
